@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>K.-Michael Aye</title><link>https://michaelaye.github.io/</link><description>This is the homepage  of K.-Michael Aye.</description><atom:link href="https://michaelaye.github.io/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2019 &lt;a href="mailto:kmichael.aye@gmail.com"&gt;K.-Michael Aye&lt;/a&gt; 
+&lt;a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/"&gt;
+&lt;img alt="Creative Commons License BY-NC-SA"
+style="border-width:0; margin-bottom:12px;"
+src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png"&gt;&lt;/a&gt;</copyright><lastBuildDate>Thu, 29 Aug 2019 05:08:49 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Source code formatting in IPython notebooks</title><link>https://michaelaye.github.io/blog/source-code-formatting-in-ipython-notebooks/</link><dc:creator>K.-Michael Aye</dc:creator><description>&lt;div&gt;&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;h2 id="Source-code-formatting-in-IPython-notebooks"&gt;Source code formatting in IPython notebooks&lt;a class="anchor-link" href="https://michaelaye.github.io/blog/source-code-formatting-in-ipython-notebooks/#Source-code-formatting-in-IPython-notebooks"&gt;¶&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;First, let me mention that when Jupyter notebooks are running only IPython kernels, they still are IPython notebooks. ;)&lt;/p&gt;
+&lt;p&gt;If you would like automatic source code formatting in Jupyter notebooks, follow these instructions.&lt;/p&gt;
+&lt;p&gt;I'm using the &lt;a href="https://black.readthedocs.io/en/stable/"&gt;black&lt;/a&gt; Python formatter for this and the pip package &lt;a href="https://black.readthedocs.io/en/stable/"&gt;nb_black&lt;/a&gt; from Khoa Duong to achieve this.&lt;/p&gt;
+&lt;p&gt;First, install &lt;code&gt;nb_black&lt;/code&gt; which will automatically pull in the &lt;code&gt;black&lt;/code&gt; formatting package:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;pip install nb_black&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Now your first cell in a Jupyter notebook should be:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;%load_ext nb_black&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;or, in a &lt;code&gt;jupyterlab&lt;/code&gt; notebook:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;%load_ext lab_black&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;If there's ever a problem with the source code formatting, simply don't execute the first cell while running the notebook.&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In [ ]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt; 
+&lt;/pre&gt;&lt;/div&gt;
+
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+ 
+
+&lt;script type="application/vnd.jupyter.widget-state+json"&gt;
+{"state": {}, "version_major": 2, "version_minor": 0}
+&lt;/script&gt;&lt;/div&gt;</description><guid>https://michaelaye.github.io/blog/source-code-formatting-in-ipython-notebooks/</guid><pubDate>Thu, 29 Aug 2019 04:42:32 GMT</pubDate></item></channel></rss>

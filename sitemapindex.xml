@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sitemapindex
+    xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+    xmlns:xhtml="http://www.w3.org/1999/xhtml"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+                        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+ <sitemap>
+  <loc>https://michaelaye.github.io/categories/cat_blogging.xml</loc>
+  <lastmod>2019-08-29T05:07:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://michaelaye.github.io/galleries/rss.xml</loc>
+  <lastmod>2019-08-29T05:09:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://michaelaye.github.io/rss.xml</loc>
+  <lastmod>2019-08-29T05:08:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://michaelaye.github.io/sitemap.xml</loc>
+  <lastmod>2019-08-29T05:09:00Z</lastmod>
+ </sitemap>
+</sitemapindex>

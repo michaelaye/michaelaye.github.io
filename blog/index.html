@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article#
+" lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="description" content="This is the homepage  of K.-Michael Aye.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>K.-Michael Aye</title>
+<link href="../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
+<link href="../assets/css/ipython.min.css" rel="stylesheet" type="text/css">
+<link href="../assets/css/nikola_ipython.css" rel="stylesheet" type="text/css">
+<meta name="theme-color" content="#5670d4">
+<meta name="generator" content="Nikola (getnikola.com)">
+<link rel="alternate" type="application/rss+xml" title="RSS" href="../rss.xml">
+<link rel="canonical" href="https://michaelaye.github.io/blog/">
+<!--[if lt IE 9]><script src="../assets/js/html5.js"></script><![endif]--><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+</head>
+<body>
+<a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+
+<!-- Menubar -->
+
+<nav class="navbar navbar-expand-md static-top mb-4
+navbar-dark bg-dark
+"><div class="container">
+<!-- This keeps the margins nice -->
+        <a class="navbar-brand" href="https://michaelaye.github.io/">
+
+            <span id="blog-title">K.-Michael Aye</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="bs-navbar">
+            <ul class="navbar-nav mr-auto">
+<li class="nav-item">
+<a href="../index.html" class="nav-link">Home</a>
+                </li>
+<li class="nav-item">
+<a href="../bio/index.html" class="nav-link">Bio</a>
+                </li>
+<li class="nav-item">
+<a href="#" class="nav-link">Blog</a>
+                </li>
+<li class="nav-item">
+<a href="../archive.html" class="nav-link">Archives</a>
+                </li>
+<li class="nav-item">
+<a href="../categories/index.html" class="nav-link">Tags</a>
+                </li>
+<li class="nav-item">
+<a href="../rss.xml" class="nav-link">RSS feed</a>
+
+                
+            </li>
+</ul>
+<ul class="navbar-nav navbar-right"></ul>
+</div>
+<!-- /.navbar-collapse -->
+    </div>
+<!-- /.container -->
+</nav><!-- End of Menubar --><div class="container" id="content" role="main">
+    <div class="body-content">
+        <!--Body content-->
+        
+        
+
+    
+
+
+    
+<div class="postindex">
+    <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="source-code-formatting-in-ipython-notebooks/" class="u-url">Source code formatting in IPython notebooks</a></h1>
+        <div class="metadata">
+            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                K.-Michael Aye
+            </span></p>
+            <p class="dateline">
+            <a href="source-code-formatting-in-ipython-notebooks/" rel="bookmark">
+            <time class="published dt-published" datetime="2019-08-29T04:42:32Z" itemprop="datePublished" title="2019-08-29">2019-08-29</time></a>
+            </p>
+                <p class="commentline">
+        
+    <a href="source-code-formatting-in-ipython-notebooks/#disqus_thread" data-disqus-identifier="cache/posts/source-code-formatting-in-ipython-notebooks.html">Comments</a>
+
+
+        </p>
+</div>
+    </header><div class="e-content entry-content">
+    <div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Source-code-formatting-in-IPython-notebooks">Source code formatting in IPython notebooks<a class="anchor-link" href="source-code-formatting-in-ipython-notebooks/#Source-code-formatting-in-IPython-notebooks">¶</a>
+</h2>
+<p>First, let me mention that when Jupyter notebooks are running only IPython kernels, they still are IPython notebooks. ;)</p>
+<p>If you would like automatic source code formatting in Jupyter notebooks, follow these instructions.</p>
+<p>I'm using the <a href="https://black.readthedocs.io/en/stable/">black</a> Python formatter for this and the pip package <a href="https://black.readthedocs.io/en/stable/">nb_black</a> from Khoa Duong to achieve this.</p>
+<p>First, install <code>nb_black</code> which will automatically pull in the <code>black</code> formatting package:</p>
+<p><code>pip install nb_black</code></p>
+<p>Now your first cell in a Jupyter notebook should be:</p>
+<p><code>%load_ext nb_black</code></p>
+<p>or, in a <code>jupyterlab</code> notebook:</p>
+<p><code>%load_ext lab_black</code>.</p>
+<p>If there's ever a problem with the source code formatting, simply don't execute the first cell while running the notebook.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+ 
+
+<script type="application/vnd.jupyter.widget-state+json">
+{"state": {}, "version_major": 2, "version_minor": 0}
+</script>
+</div>
+    </div>
+    </article>
+</div>
+
+
+
+        
+       <script>var disqus_shortname="michaelaye";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML" integrity="sha256-SDRP1VVYu+tgAGKhddBSl5+ezofHKZeI+OzxakbIe/Y=" crossorigin="anonymous"></script><script type="text/x-mathjax-config">
+        MathJax.Hub.Config({tex2jax: {inlineMath: [['$latex ','$'], ['\\(','\\)']]}});
+        </script><!--End of body content--><footer id="footer"><div class="text-center">
+<p>
+<span class="fa-stack fa-2x">
+<a href="https://github.com/michaelaye">
+    <i class="fa fa-circle fa-stack-2x"></i>
+    <i class="fa fa-github fa-inverse fa-stack-1x"></i>
+</a>
+</span>
+</p>
+</div>
+
+            
+        </footer>
+</div>
+</div>
+
+
+        <script src="../assets/js/all-nocdn.js"></script><script>
+    baguetteBox.run('div#content', {
+        ignoreClass: 'islink',
+        captions: function(element) {
+            return element.getElementsByTagName('img')[0].alt;
+    }});
+    </script>
+</body>
+</html>
