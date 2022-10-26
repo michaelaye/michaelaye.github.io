@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.1.251">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Michael Aye">
+<meta name="dcterms.date" content="2021-10-15">
+
+<title>Home - Minimal Conda Setup Instructions</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+<meta property="og:title" content="Home - Minimal Conda Setup Instructions">
+<meta property="og:description" content="">
+<meta property="og:site-name" content="Home">
+<meta name="twitter:title" content="Home - Minimal Conda Setup Instructions">
+<meta name="twitter:description" content="">
+<meta name="twitter:creator" content="@michaelaye">
+<meta name="twitter:card" content="summary">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Home</span>
+    </a>
+  </div>
+          <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../posts.html">Blog</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../talks.html">Talks</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../projects.html">Projects</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../bibliography.html">Bibliography</a>
+  </li>  
+</ul>
+          <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/michaelaye"><i class="bi bi-github" role="img">
+</i> 
+ </a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/michaelaye"><i class="bi bi-twitter" role="img">
+</i> 
+ </a>
+  </li>  
+</ul>
+            <div id="quarto-search" class="" title="Search"></div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Minimal Conda Setup Instructions</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">python</div>
+                <div class="quarto-category">conda</div>
+                <div class="quarto-category">mamba</div>
+                <div class="quarto-category">software management</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Michael Aye </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">October 15, 2021</p>
+      </div>
+    </div>
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#some-basic-facts-to-understand" id="toc-some-basic-facts-to-understand" class="nav-link active" data-scroll-target="#some-basic-facts-to-understand">Some basic facts to understand</a></li>
+  <li><a href="#installation-instructions" id="toc-installation-instructions" class="nav-link" data-scroll-target="#installation-instructions">Installation instructions</a>
+  <ul class="collapse">
+  <li><a href="#installing-base" id="toc-installing-base" class="nav-link" data-scroll-target="#installing-base">Installing <code>base</code></a></li>
+  <li><a href="#installing-your-main-work-environment" id="toc-installing-your-main-work-environment" class="nav-link" data-scroll-target="#installing-your-main-work-environment">Installing your main work environment</a></li>
+  <li><a href="#pip-installs" id="toc-pip-installs" class="nav-link" data-scroll-target="#pip-installs">PIP installs</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<p>There’s an increasing amount of folks complaining that they need to watch a video for all their setting up tools etc.</p>
+<p>In this vein, let me summarize what I consider a minimal list of facts and terminal commands to get up and running with a conda-based scientific Python environment.</p>
+<section id="some-basic-facts-to-understand" class="level2">
+<h2 class="anchored" data-anchor-id="some-basic-facts-to-understand">Some basic facts to understand</h2>
+<p>A few facts that help to understand what’s going on below:</p>
+<ul>
+<li>Overall and very approximately (but sufficiently), <code>conda</code> is exactly 2 things:
+<ul>
+<li>A package/library getter</li>
+<li>A path manager enabling easy switching between different Python environments.</li>
+</ul></li>
+<li>The command <code>conda activate</code> used below simply creates a temporary PATH variable pointing the system’s search for executables into your currently <code>activated</code> conda environment.</li>
+<li>The <code>conda</code> command line tool is increasingly being replaced by the faster <code>mamba</code> tool.
+<ul>
+<li><code>mamba</code> is a <code>drop-in</code> replacement for <code>conda</code>, so for all commands you just replace <code>conda</code> with <code>mamba</code>.</li>
+<li>However, <code>mamba</code> is still using <code>conda</code> underneath, so don’t uninstall it, you need both!</li>
+<li>Only install <code>mamba</code> into your <code>base</code> environment.
+<ul>
+<li>That’s for people who read this and want to add <code>mamba</code> to their system.</li>
+<li>New starters should use below’s installer that exactly does that.</li>
+</ul></li>
+<li>Also, there’s a few remaining commands that still run smoother using <code>conda</code>, so if <code>mamba</code> is giving you a hard time, just try the same command parameters using <code>conda</code> instead of <code>mamba</code></li>
+</ul></li>
+<li>conda/mamba environments are <em>ALWAYS</em> going into user space, never ever should you require root/superuser access.
+<ul>
+<li>Unless you are an admin that installs a systemwide environment for many users.</li>
+</ul></li>
+<li>conda gets its packages from so called <code>channels</code>, and there’s a community channel called <code>conda-forge</code> that most of us are using successfully for years.
+<ul>
+<li>The installer linked below will configure to use the <code>conda-forge</code> channel all the time (hence the name <code>mambaforge</code>), but you can always change that later, and, winningly, configure this to be different per environment!</li>
+<li>It is recommended to not install packages from different channels into the same environment</li>
+</ul></li>
+<li>Creating new environments is fast and cheap (hard-links between downloaded packages when used in more than one environment.)
+<ul>
+<li>So, when in doubt if you should install a potentially dodgy Python package into your main work environment, maybe better and simply just create a new one (see commands below).</li>
+</ul></li>
+</ul>
+</section>
+<section id="installation-instructions" class="level2">
+<h2 class="anchored" data-anchor-id="installation-instructions">Installation instructions</h2>
+<section id="installing-base" class="level3">
+<h3 class="anchored" data-anchor-id="installing-base">Installing <code>base</code></h3>
+<p>So, here we go:</p>
+<ol type="1">
+<li>Download the script-based installer for your operating system here:</li>
+</ol>
+<p>For a Unix-like platform like macOS and Linux, execute these commands, they will first downlad the right installer and then run in:</p>
+<pre><code>wget https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-$(uname)-$(uname -m).sh
+bash Mambaforge-$(uname)-$(uname -m).sh</code></pre>
+<ol start="2" type="1">
+<li><p>Restart the shell (exit -&gt; open new one)</p></li>
+<li><p>Check that you have the <code>conda</code> and <code>mamba</code> command available:</p></li>
+</ol>
+<pre><code>which conda
+which mamba</code></pre>
+<p>They should both point to your chosen install folder + <code>/condabin</code>.</p>
+</section>
+<section id="installing-your-main-work-environment" class="level3">
+<h3 class="anchored" data-anchor-id="installing-your-main-work-environment">Installing your main work environment</h3>
+<p>Now you are good to go to:</p>
+<ol start="4" type="1">
+<li>Create your main work environment.</li>
+</ol>
+<blockquote class="blockquote">
+<p>I DO NOT recommend to work in the <code>base</code> environment, because that’s used for managing all envs, so if you mess up in there, you loose all other envs as well (potentially). This is actually very similar to the old advice on the Mac to not work with the system Python, because the OS was using it for management tasks.</p>
+</blockquote>
+<p>So, let’s say you want to create a Python 3.8 environment as your standard &gt; 3.9 is also fully supported for science analysis I’d say, just some dev tools don’t like it yet.</p>
+<p>I usually call my main envs by the python version that’s installed in there, so in this case:</p>
+<pre><code>conda create -n py38 python=3.8</code></pre>
+<p>After that’s executed successfully you need to activate it:</p>
+<pre><code>conda activate py38</code></pre>
+<p>and <em>NOW</em> we change to use <code>mamba</code> because the packages we like to install need to be checked for each other’s dependency requirements which is the time consuming task at which <code>mamba</code> excels so much.</p>
+<p>Let’s say we want to install some important basic science packages:</p>
+<pre><code>mamba install pandas scipy astropy jupyterlab nb_conda_kernels</code></pre>
+<blockquote class="blockquote">
+<p><code>nb_conda_kernels</code> is an extremely useful package that helps you to easily switch between conda envs inside jupyter notebooks</p>
+</blockquote>
+<p>This install command will now churn and come back with a <em>HUGE</em> list of packages to install because those packages are what your wanted ones are based of.</p>
+<p>You should confirm the choices by typing return (or <code>y</code>) and then <code>mamba</code> will download quite fast in parallel the required packages and make them available to your current env.</p>
+</section>
+<section id="pip-installs" class="level3">
+<h3 class="anchored" data-anchor-id="pip-installs">PIP installs</h3>
+<p>What if the package of your choice isn’t available on <code>conda-forge</code>? (<code>mamba search &lt;pkg_name&gt;</code>)</p>
+<p>Then you could install it from pypi.org using <code>pip</code>.</p>
+<blockquote class="blockquote">
+<p>Unfortunately, pip installs still in 2021 can mess up your conda envs. :(</p>
+</blockquote>
+<p>Having said that, with a bit of care I manage to mix a lot of PIP installs into my conda envs without any issues. Here is my strategy:</p>
+<blockquote class="blockquote">
+<p>NOTE: Activate the conda env where you need the pip things BEFORE you start installing with <code>pip</code>! It’s one of the most frequent problems for Python beginners to have not done that and then have <code>pip</code> installed new packages somewhere where you didn’t expect it to be.</p>
+</blockquote>
+<ul>
+<li>Find out what other packages the pip package depends on and install as many of them as possible via <code>mamba/conda</code>.</li>
+<li>As the last step, if possible, only install your required package via pip, like <code>pip install nbverbose</code> for example.</li>
+<li>Don’t worry if there’s other packages coming in, that part works just like in conda.</li>
+</ul>
+<p>Let me repeat above advice again in other words as it’s really that important:</p>
+<ul>
+<li><code>pip</code> is “current path dependent”.
+<ul>
+<li>That means, you have to activate the conda env where you want things to end up in, because then the PATH points to the right <code>pip</code>.</li>
+<li>Yes, every conda env has its own <code>pip</code> command.</li>
+<li>Alternatively, you can use the full path to the pip command you should be using, but I find that to be quite more scary and less user-friendly for new terminal users, which is why I prefer my above advice to simply always activate the env where you want things to install.</li>
+</ul></li>
+</ul>
+<p>Hope this helps someone!</p>
+<p>Let me know if you have any questions or suggestions in the linked Twitter thread!</p>
+<p><a href="https://twitter.com/michaelaye/status/1450561395515396100">Comment</a></p>
+<p></p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var filterRegex = new RegExp(/https:\/\/michaelaye\.github\.io/);
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+    var links = window.document.querySelectorAll('a:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+          // target, if specified
+          link.setAttribute("target", "_blank");
+      }
+    }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

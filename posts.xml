@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss  xmlns:atom="http://www.w3.org/2005/Atom" 
+      xmlns:media="http://search.yahoo.com/mrss/" 
+      xmlns:content="http://purl.org/rss/1.0/modules/content/" 
+      xmlns:dc="http://purl.org/dc/elements/1.1/" 
+      version="2.0">
+<channel>
+<title>Home</title>
+<link>https://michaelaye.github.io/posts.html</link>
+<atom:link href="https://michaelaye.github.io/posts.xml" rel="self" type="application/rss+xml"/>
+<description></description>
+<generator>quarto-1.1.251</generator>
+<lastBuildDate>Fri, 15 Oct 2021 18:36:10 GMT</lastBuildDate>
+<item>
+  <title>Minimal Conda Setup Instructions</title>
+  <dc:creator>Michael Aye</dc:creator>
+  <link>https://michaelaye.github.io/posts/minimal-conda-setup-instructions/index.html</link>
+  <description><![CDATA[ 
+
+
+
+
+<p>There’s an increasing amount of folks complaining that they need to watch a video for all their setting up tools etc.</p>
+<p>In this vein, let me summarize what I consider a minimal list of facts and terminal commands to get up and running with a conda-based scientific Python environment.</p>
+<section id="some-basic-facts-to-understand" class="level2">
+<h2 class="anchored" data-anchor-id="some-basic-facts-to-understand">Some basic facts to understand</h2>
+<p>A few facts that help to understand what’s going on below:</p>
+<ul>
+<li>Overall and very approximately (but sufficiently), <code>conda</code> is exactly 2 things:
+<ul>
+<li>A package/library getter</li>
+<li>A path manager enabling easy switching between different Python environments.</li>
+</ul></li>
+<li>The command <code>conda activate</code> used below simply creates a temporary PATH variable pointing the system’s search for executables into your currently <code>activated</code> conda environment.</li>
+<li>The <code>conda</code> command line tool is increasingly being replaced by the faster <code>mamba</code> tool.
+<ul>
+<li><code>mamba</code> is a <code>drop-in</code> replacement for <code>conda</code>, so for all commands you just replace <code>conda</code> with <code>mamba</code>.</li>
+<li>However, <code>mamba</code> is still using <code>conda</code> underneath, so don’t uninstall it, you need both!</li>
+<li>Only install <code>mamba</code> into your <code>base</code> environment.
+<ul>
+<li>That’s for people who read this and want to add <code>mamba</code> to their system.</li>
+<li>New starters should use below’s installer that exactly does that.</li>
+</ul></li>
+<li>Also, there’s a few remaining commands that still run smoother using <code>conda</code>, so if <code>mamba</code> is giving you a hard time, just try the same command parameters using <code>conda</code> instead of <code>mamba</code></li>
+</ul></li>
+<li>conda/mamba environments are <em>ALWAYS</em> going into user space, never ever should you require root/superuser access.
+<ul>
+<li>Unless you are an admin that installs a systemwide environment for many users.</li>
+</ul></li>
+<li>conda gets its packages from so called <code>channels</code>, and there’s a community channel called <code>conda-forge</code> that most of us are using successfully for years.
+<ul>
+<li>The installer linked below will configure to use the <code>conda-forge</code> channel all the time (hence the name <code>mambaforge</code>), but you can always change that later, and, winningly, configure this to be different per environment!</li>
+<li>It is recommended to not install packages from different channels into the same environment</li>
+</ul></li>
+<li>Creating new environments is fast and cheap (hard-links between downloaded packages when used in more than one environment.)
+<ul>
+<li>So, when in doubt if you should install a potentially dodgy Python package into your main work environment, maybe better and simply just create a new one (see commands below).</li>
+</ul></li>
+</ul>
+</section>
+<section id="installation-instructions" class="level2">
+<h2 class="anchored" data-anchor-id="installation-instructions">Installation instructions</h2>
+<section id="installing-base" class="level3">
+<h3 class="anchored" data-anchor-id="installing-base">Installing <code>base</code></h3>
+<p>So, here we go:</p>
+<ol type="1">
+<li>Download the script-based installer for your operating system here:</li>
+</ol>
+<p>For a Unix-like platform like macOS and Linux, execute these commands, they will first downlad the right installer and then run in:</p>
+<pre><code>wget https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-$(uname)-$(uname -m).sh
+bash Mambaforge-$(uname)-$(uname -m).sh</code></pre>
+<ol start="2" type="1">
+<li><p>Restart the shell (exit -&gt; open new one)</p></li>
+<li><p>Check that you have the <code>conda</code> and <code>mamba</code> command available:</p></li>
+</ol>
+<pre><code>which conda
+which mamba</code></pre>
+<p>They should both point to your chosen install folder + <code>/condabin</code>.</p>
+</section>
+<section id="installing-your-main-work-environment" class="level3">
+<h3 class="anchored" data-anchor-id="installing-your-main-work-environment">Installing your main work environment</h3>
+<p>Now you are good to go to:</p>
+<ol start="4" type="1">
+<li>Create your main work environment.</li>
+</ol>
+<blockquote class="blockquote">
+<p>I DO NOT recommend to work in the <code>base</code> environment, because that’s used for managing all envs, so if you mess up in there, you loose all other envs as well (potentially). This is actually very similar to the old advice on the Mac to not work with the system Python, because the OS was using it for management tasks.</p>
+</blockquote>
+<p>So, let’s say you want to create a Python 3.8 environment as your standard &gt; 3.9 is also fully supported for science analysis I’d say, just some dev tools don’t like it yet.</p>
+<p>I usually call my main envs by the python version that’s installed in there, so in this case:</p>
+<pre><code>conda create -n py38 python=3.8</code></pre>
+<p>After that’s executed successfully you need to activate it:</p>
+<pre><code>conda activate py38</code></pre>
+<p>and <em>NOW</em> we change to use <code>mamba</code> because the packages we like to install need to be checked for each other’s dependency requirements which is the time consuming task at which <code>mamba</code> excels so much.</p>
+<p>Let’s say we want to install some important basic science packages:</p>
+<pre><code>mamba install pandas scipy astropy jupyterlab nb_conda_kernels</code></pre>
+<blockquote class="blockquote">
+<p><code>nb_conda_kernels</code> is an extremely useful package that helps you to easily switch between conda envs inside jupyter notebooks</p>
+</blockquote>
+<p>This install command will now churn and come back with a <em>HUGE</em> list of packages to install because those packages are what your wanted ones are based of.</p>
+<p>You should confirm the choices by typing return (or <code>y</code>) and then <code>mamba</code> will download quite fast in parallel the required packages and make them available to your current env.</p>
+</section>
+<section id="pip-installs" class="level3">
+<h3 class="anchored" data-anchor-id="pip-installs">PIP installs</h3>
+<p>What if the package of your choice isn’t available on <code>conda-forge</code>? (<code>mamba search &lt;pkg_name&gt;</code>)</p>
+<p>Then you could install it from pypi.org using <code>pip</code>.</p>
+<blockquote class="blockquote">
+<p>Unfortunately, pip installs still in 2021 can mess up your conda envs. :(</p>
+</blockquote>
+<p>Having said that, with a bit of care I manage to mix a lot of PIP installs into my conda envs without any issues. Here is my strategy:</p>
+<blockquote class="blockquote">
+<p>NOTE: Activate the conda env where you need the pip things BEFORE you start installing with <code>pip</code>! It’s one of the most frequent problems for Python beginners to have not done that and then have <code>pip</code> installed new packages somewhere where you didn’t expect it to be.</p>
+</blockquote>
+<ul>
+<li>Find out what other packages the pip package depends on and install as many of them as possible via <code>mamba/conda</code>.</li>
+<li>As the last step, if possible, only install your required package via pip, like <code>pip install nbverbose</code> for example.</li>
+<li>Don’t worry if there’s other packages coming in, that part works just like in conda.</li>
+</ul>
+<p>Let me repeat above advice again in other words as it’s really that important:</p>
+<ul>
+<li><code>pip</code> is “current path dependent”.
+<ul>
+<li>That means, you have to activate the conda env where you want things to end up in, because then the PATH points to the right <code>pip</code>.</li>
+<li>Yes, every conda env has its own <code>pip</code> command.</li>
+<li>Alternatively, you can use the full path to the pip command you should be using, but I find that to be quite more scary and less user-friendly for new terminal users, which is why I prefer my above advice to simply always activate the env where you want things to install.</li>
+</ul></li>
+</ul>
+<p>Hope this helps someone!</p>
+<p>Let me know if you have any questions or suggestions in the linked Twitter thread!</p>
+<p><a href="https://twitter.com/michaelaye/status/1450561395515396100">Comment</a></p>
+<p></p>
+
+
+</section>
+</section>
+
+ ]]></description>
+  <category>python</category>
+  <category>conda</category>
+  <category>mamba</category>
+  <category>software management</category>
+  <guid>https://michaelaye.github.io/posts/minimal-conda-setup-instructions/index.html</guid>
+  <pubDate>Fri, 15 Oct 2021 18:36:10 GMT</pubDate>
+</item>
+<item>
+  <title>Testing your internet speed regularly</title>
+  <dc:creator>Michael Aye</dc:creator>
+  <link>https://michaelaye.github.io/posts/execute-speedtest-regularly/index.html</link>
+  <description><![CDATA[ 
+
+
+
+
+<p>This post is making use of the <code>speedtest</code> command line version of Ookla’s speedtest tools, which you can get here for various OSes: https://www.speedtest.net/apps/cli</p>
+<p>Specifically, I was looking for a linux solution, and while it’s straight forward on the Mac, where the <code>--csv</code> flag produces a CSV string that includes a proper timestamp of the measurement, the interface or API for the <code>homebrew</code> CLI versions of Mac and Linux are quite different.</p>
+<p>On macOS, one can do</p>
+<div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><span class="ex" style="color: null;">speedtest</span> <span class="at" style="color: #657422;">--csv</span></span></code></pre></div>
+<p>and the output will contain a column with a timestamp which is important for keeping track of the measurements.</p>
+<p>On Linux, however, for getting a CSV output, one needs to do</p>
+<div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><span class="ex" style="color: null;">speedtest</span> <span class="at" style="color: #657422;">--format</span><span class="op" style="color: #5E5E5E;">=</span>csv</span></code></pre></div>
+<p>and unfortunately here we do <strong>NOT</strong> get a timestamp in the output. There is the option to use <code>--format=json</code> which actually does provide a timestamp, but I don’t want to deal with JSON parsing for this simple thing.</p>
+<p>So I added some bits of Python to catch the output of <code>speedtest</code> and add a timestamp to its CSV line before appending it to a record of measurements.</p>
+<p>The <code>sh</code> package is a very useful one-file package that enables you to call system programs in a function-like manner, with proper redirection utilities of any incoming output etc. BTW, I tried to simply work with the returned object, but it wasn’t simply the text, it was some kind of <code>CommandObject</code> and the docs are not clear on how to get the text out of the command object, probably easy but I didn’t inspect it. So maybe below script can be made even easier, without a callback function but directly working with the returned object.</p>
+<p>The header line by the way one can get by adding the <code>--output-header</code> flag to the above command. I then just went ahead and added <code>, time</code> to the header line, so that the header is complete for a quick pandas import down the road.</p>
+<p>Note that the numbers of <code>speedtest</code> are bytes/s, so one does need to do some math to convert to the usual Mbps.</p>
+<p>Here’s my script:</p>
+<p></p>
+<section id="update" class="level3">
+<h3 class="anchored" data-anchor-id="update">Update:</h3>
+<p>I forgot to add how to run it regularly using <code>crontab</code>:</p>
+<p>Execute</p>
+<div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><span class="fu" style="color: #4758AB;">crontab</span> <span class="at" style="color: #657422;">-e</span></span></code></pre></div>
+<p>and an editor should pop up.</p>
+<p>The first cryptical looking syntax of crontab, the service that enables you to regularly execute any program or script on your machine is actually pretty simple, HelpUbuntu has a good intro here: https://help.ubuntu.com/community/CronHowto</p>
+<p>In short, to run a script every hour on the minute 22 you put this into your crontab file:</p>
+<div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><span class="ex" style="color: null;">22</span> <span class="pp" style="color: #AD0000;">*</span> <span class="pp" style="color: #AD0000;">*</span> <span class="pp" style="color: #AD0000;">*</span> <span class="pp" style="color: #AD0000;">*</span> /path/to/script/to/run.py</span></code></pre></div>
+<p>Hope it helps someone. If anybody wants to see how to quickly analyze and plot the file using <code>pandas</code> let me know, but I figure most of my readers will know that?</p>
+<p>Let me know, put any questions or comments you may have on my Twitter feed! <a href="https://twitter.com/michaelaye/status/1440729099291402250">Comment</a></p>
+<p></p>
+
+
+</section>
+
+ ]]></description>
+  <category>hacking</category>
+  <category>python</category>
+  <guid>https://michaelaye.github.io/posts/execute-speedtest-regularly/index.html</guid>
+  <pubDate>Wed, 22 Sep 2021 03:04:05 GMT</pubDate>
+</item>
+<item>
+  <title>Mamba is the new Conda</title>
+  <dc:creator>Michael Aye</dc:creator>
+  <link>https://michaelaye.github.io/posts/mamba-is-the-new-conda/index.html</link>
+  <description><![CDATA[ 
+
+
+
+
+<p><a href="https://mamba.readthedocs.io/en/latest/user_guide/mamba.html">Mamba</a> is a CLI tool to manage conda environments and a drop-in replacement for the <code>conda</code> CLI tool. It is built in C/C++ and hence resolves package dependencies much faster than the Python-coded <code>conda</code>.</p>
+<p>It also offers parallel downloads for new or updated packages, so that updating your environment or adding a new package isn’t a chore anymore, it’s blazing fast! :)</p>
+<p>You install it (only!) into your <code>conda</code> <code>base</code> environment like so:</p>
+<div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><span class="ex" style="color: null;">conda</span> activate base</span>
+<span id="cb1-2"><span class="ex" style="color: null;">conda</span> install <span class="at" style="color: #657422;">-c</span> conda-forge mamba</span></code></pre></div>
+<p>When creating a new Python system, I can recommend to go immediately for the new <a href="https://github.com/conda-forge/miniforge"><code>mambaforge</code></a> installer, that will:</p>
+<ul>
+<li>install mamba into your base so that it is immediately available</li>
+<li>point all your package requests to the awesome <code>conda-forge</code> channel where a huge community provides all the scientific Python packages and dependencies (like <code>gdal</code> and <code>OpenCV</code>) in a much faster update cadence then the <code>defaults</code> channel of anaconda does.</li>
+</ul>
+<p>I am working exclusively with the the <code>conda-forge</code> channel for several years and never, or very rarely, had an issue with that.</p>
+<blockquote class="blockquote">
+<p>Just remember: Don’t mix channels much, the less the better. (It’s okay for a one-time mamba install into your <code>base</code> though.)</p>
+</blockquote>
+<p><a href="https://twitter.com/michaelaye/status/1436414613004988418?ref_src=twsrc%5Etfw%7Ctwcamp%5Etweetembed%7Ctwterm%5E1436414613004988418%7Ctwgr%5E%7Ctwcon%5Es1_c10&amp;ref_url=https%3A%2F%2Fpublish.twitter.com%2F%3Fquery%3Dhttps3A2F2Ftwitter.com2Fmichaelaye2Fstatus2F1436414613004988418widget%3DTweet">Comment</a></p>
+<p></p>
+
+
+
+ ]]></description>
+  <category>conda</category>
+  <category>mamba</category>
+  <category>software management</category>
+  <guid>https://michaelaye.github.io/posts/mamba-is-the-new-conda/index.html</guid>
+  <pubDate>Fri, 10 Sep 2021 19:15:10 GMT</pubDate>
+</item>
+<item>
+  <title>Fan Creation</title>
+  <dc:creator>Michael Aye</dc:creator>
+  <link>https://michaelaye.github.io/posts/fan-creation/index.html</link>
+  <description><![CDATA[ 
+
+
+
+
+<section id="the-sun-is-back" class="level1">
+<h1>The sun is back!</h1>
+<section id="disclaimer" class="level3">
+<h3 class="anchored" data-anchor-id="disclaimer">Disclaimer</h3>
+<p>I wrote this blog post 2 weeks ago, but I wanted to show the IPython notebook in its full glory, so I got delayed posting this until I finally had finished my Blogger blog transition to a static website blogging system that supports the display of IPython notebooks. So, the excitement that hopefully still transpires, is not as fresh, but nonetheless: <em>Mars is right now producing fans every day somewhere!</em> I updated all times below to have more relevant data to show.</p>
+</section>
+<section id="intro" class="level2">
+<h2 class="anchored" data-anchor-id="intro">Intro</h2>
+<p>I realised today that we are so close to the official beginning of Martian southern spring, I wondered if the sun already is up over Inca City. Here is how I go about finding out what’s currently going on there, using tools that I have written over the years.</p>
+<p>First I make my main library for this, <code>kmaspice</code>, available to me.</p>
+<pre><code>from pymars import kmaspice</code></pre>
+<p>Now I will create an object that knows how to deal with Martian times and illuminations.</p>
+<pre><code>inca = kmaspice.MarsSpicer()</code></pre>
+<p>I saved some predefined places and their locations into the code, so that I don’t need to remember the coordinates all the time. So let’s justify the variable name by actually setting it on top of Inca City: <!-- TEASER_END --></p>
+<pre><code>inca.goto('inca')</code></pre>
+<p>By default, when I don’t provide a time, the time is set to the current time. In the UTC timezone, that is:</p>
+<pre><code>inca.time.isoformat()</code></pre>
+<pre><code>'2014-08-05T13:47:44.441759'</code></pre>
+<p>To double-check how close we are to spring time in the southern hemisphere on Mars, I need to look at a value called <img src="https://latex.codecogs.com/png.latex?L_s"> (L sub s), which is the solar longitude.</p>
+<p>This value measures the time of the seasons on Mars as its angular position during its trip around the sun. And southern spring was defined to be at <img src="https://latex.codecogs.com/png.latex?L_s%20=%20180%5E%5Ccirc">.</p>
+<pre><code>round(inca.l_s, 1)</code></pre>
+<pre><code>173.2</code></pre>
+<p>So, we are pretty close to spring then. But do we already have sunlight in Inca? We should remember that we are in polar areas, where we have darkness for half a year, just like on Earth. Let’s have a look what is the local time in Inca:</p>
+<pre><code>inca.local_soltime</code></pre>
+<pre><code>(22, 27, 23, '22:27:23', '10:27:23 P.M.')</code></pre>
+<p>(The output provides me with 3 different formats for the same, just in case I need that)</p>
+<p>Right, that’s in the night, so that most likely means that the sun is below the horizon, right?</p>
+<p>Solar angles are measured from the local normal direction, with the sun directly over head being defined as 0. Which means the horizon is at 90 degrees.</p>
+<p>I am calling up on a value with the name <code>dsolar</code> which is my shortcut for solar angle in degrees.</p>
+<pre><code>round(inca.illum_angles.dsolar, 1)</code></pre>
+<pre><code>100.5</code></pre>
+<p>So, this value of 100 means the sun is below the horizon. But it is local night, so we would expect that!</p>
+<p>Now comes the magic, let’s just advance the time by a couple of hours, usually the sun is highest around local noon, so let’s aim for that. I don’t need to be precise now, so I go just 14 hours forward in time. Then I will have another look at the sun’s angle.</p>
+<pre><code>inca.advance_time_by(14*3600)
+round(inca.illum_angles.dsolar)</code></pre>
+<pre><code>84.0</code></pre>
+<p>Oh yes! This is just 6 degrees above the horizon, the sun is lurking over it just a tiny bit. But all you people that work so hard in helping us out know what this means, right? <strong>Where there is sun, there is energy.</strong> And this energy can be used to sublime CO2 gas and create the wonderful fans we are studying. Let’s make this a bit prettier with a bit more insight. First, let’s go back the 14 hours again.</p>
+<pre><code>inca.advance_time_by(-14*3600)</code></pre>
+<p>Now, I will create a loop with 100 elements, and check and write down the time each 10 minutes (= 600 seconds). I save the resulting numbers in 2 new arrays to have it easier to plot things over time later.</p>
+<pre><code>times = []
+angles = []
+
+for i in range(100):
+    inca.advance_time_by(600)
+    times.append(inca.local_soltime[3])
+    angles.append(inca.illum_angles.dsolar)</code></pre>
+<p>I’m now importing the pandas library, an amazing toolbox to deal with time-series data. Especially, the plots automatically get nicely formatted time-axes, which is always a pain with plotting.</p>
+<pre><code>import pandas as pd</code></pre>
+<pre><code>data = pd.Series(angles, index=times)</code></pre>
+<p>I need to switch this notebook to show plots inside this notebook and not outside as an extra window, which is my default:</p>
+<pre><code>%pylab inline</code></pre>
+<pre><code>Populating the interactive namespace from numpy and matplotlib</code></pre>
+<pre><code>data.plot()</code></pre>
+<pre><code>&lt;matplotlib.axes.AxesSubplot at 0x115ac1e90&gt;</code></pre>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://michaelaye.github.io/posts/fan-creation/20140805_fan_creation_25_1.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">png</figcaption><p></p>
+</figure>
+</div>
+<p>Here we see how the sun’s angle is developing over time. As expected we see a minimum (i.e.&nbsp;highest sun over horizon) right around noon. ###Do you hear the CO2 ice crackling?? ;) I find it amazing to know that in approx. 8 hours some of our beloved fans are being created!</p>
+<p>Next I wondered how long we already have the sun lurking over the horizon. For this I now will go backwards in 10 minute steps, but this time I take 4000 steps to cover more time. I then immediately plot the results:</p>
+<pre><code>times = []
+angles = []
+
+for i in range(4000):
+    inca.advance_time_by(-600)
+    times.append(inca.time)
+    angles.append(inca.illum_angles.dsolar)
+pd.Series(angles,index=times).plot()</code></pre>
+<pre><code>&lt;matplotlib.axes.AxesSubplot at 0x1162d1590&gt;</code></pre>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://michaelaye.github.io/posts/fan-creation/20140805_fan_creation_27_1.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">png</figcaption><p></p>
+</figure>
+</div>
+<p>Interesting! Now we can see that around July 14th, the sun for the first time was below an inclination angle of 90, meaning that’s the first day of this season when it lurked over the horizon.</p>
+<p>So for 3 weeks now, the available energy is slowly building up CO2 gas underneath the CO2 ice cover that is everywhere. I could bet that at some place with weak thin ice, already the first fans are popping up. Unfortunately, the light conditions at local times of 2-4 PM, when our favorite camera HiRISE is flying over these places, were still so bad then, that we did not plan any images at that time.</p>
+<p>But from now on it’s possible and we have indeed new observations planned. And YOU can choose which one the HiRISE team will focus on get ready for public release, just vote here: http://www.planetfour.org/vote/</p>
+
+
+</section>
+</section>
+
+ ]]></description>
+  <category>planet four</category>
+  <guid>https://michaelaye.github.io/posts/fan-creation/index.html</guid>
+  <pubDate>Mon, 04 Aug 2014 22:00:00 GMT</pubDate>
+  <media:content url="https://michaelaye.github.io/posts/fan-creation/20140805_fan_creation_25_1.png" medium="image" type="image/png" height="116" width="144"/>
+</item>
+<item>
+  <title>Matplotlib Ticklabel Formats</title>
+  <link>https://michaelaye.github.io/posts/matplotlib-ticklabel-formats/index.html</link>
+  <description><![CDATA[ 
+
+
+
+
+<p>If you are a heavy matplotlib user, you are bound to have seen the funny offset numbers in the top left of the plot window:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="http://2.bp.blogspot.com/-JWVf7z8w_Yc/UiZhRFt-7qI/AAAAAAAAIQk/uGIXoX-LtKM/s1600/Screen+Shot+2013-09-03+at+15.22.05+.png"><img src="https://michaelaye.github.io/posts/matplotlib-ticklabel-formats/http:/2.bp.blogspot.com/-JWVf7z8w_Yc/UiZhRFt-7qI/AAAAAAAAIQk/uGIXoX-LtKM/s320/Screen+Shot+2013-09-03+at+15.22.05+.png" class="img-fluid figure-img"></a></p>
+</figure>
+</div>
+<p>They are obviously there to help the viewer focus on the level where the numbers are really changing, removing the area where there’s no change happening.</p>
+<p>But I am claiming that due to pattern recognition, there are quite a few cases where this confuses more than it helps. In this example I (and the people in my team) are used to see 5-digit numbers and it takes quite some time to figure out here, that these are indeed 5-digit numbers.</p>
+<p>Therefore I researched how to switch this behavior off.</p>
+<p>First, one imports the ScalarFormatter class from the matplotlib.ticker module:</p>
+<blockquote class="blockquote">
+<p>from matplotlib.ticker import ScalarFormatter</p>
+</blockquote>
+<p>Then, one creates a formatter object with the use of offset numbers switched off:</p>
+<blockquote class="blockquote">
+<p>y_formatter = ScalarFormatter(useOffset=False)</p>
+</blockquote>
+<p>Finally, you apply it to an axis object that you either receive via the fig.subplot() command, via plt.gca() (acronym for Get Current Axis) or you catch it when it is being returned after a plot command:</p>
+<blockquote class="blockquote">
+<p>ax.yaxis.set_major_formatter(y_formatter)</p>
+</blockquote>
+<p>There you go, hope this helps someone.</p>
+<p><a href="http://stackoverflow.com/questions/3677368/matplotlib-format-axis-offset-values-to-whole-numbers-or-specific-number">Here</a> is the stackoverflow issue that helped me to find the solution.</p>
+<p>Update (2013-10-20) :</p>
+<p>An easier way is to catch the axis object from the plot command and apply the following command:</p>
+<blockquote class="blockquote">
+<p>ax.ticklabel_format(useOffset=False)</p>
+</blockquote>
+<p>I <a href="http://stackoverflow.com/questions/18704308/useoffset-false-in-config-file">initiated</a> a <a href="https://github.com/matplotlib/matplotlib/issues/2400">github issue</a> to have this included in matplotlib, which has been responded already with a solution, so this will be configurable in the future, yay!</p>
+<p>Update 2, same day:<br>
+Weird, I thought I had the above shortcut working at some time, now it doesn’t. If anyone knows the circumstance under this can work and can not, please comment.</p>
+
+
+
+ ]]></description>
+  <category>plotting</category>
+  <category>matplotlib</category>
+  <guid>https://michaelaye.github.io/posts/matplotlib-ticklabel-formats/index.html</guid>
+  <pubDate>Mon, 02 Sep 2013 22:00:00 GMT</pubDate>
+  <media:content url="http://2.bp.blogspot.com/-JWVf7z8w_Yc/UiZhRFt-7qI/AAAAAAAAIQk/uGIXoX-LtKM/s320/Screen+Shot+2013-09-03+at+15.22.05+.png" medium="image" type="image/png"/>
+</item>
+</channel>
+</rss>
