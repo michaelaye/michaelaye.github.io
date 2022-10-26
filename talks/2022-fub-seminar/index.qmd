@@ -1,13 +1,17 @@
 ---
 title: "Planetary Research with Citizen Science"
+title-slide-attributes: 
+  data-background-image: ./section1_APF0000hmm.png
+  data-background-size: cover
 author: "Michael Aye"
 format: 
   revealjs:
-    theme: blood
+    theme: league
     logo: p4_logo.jpeg
     footer: "Planetary Seminar at Freie Uni Berlin, 2022-10-27"
-    incremental: true
+    incremental: false
     chalkboard: true
+bibliography: references.bib
 date: 2022-10-27
 categories: [online-presentation]
 abstract: A short overview of the Planetary Research done via Citizen Science, followed by an in-depth review of the Planet Four Citizen Science projects.
@@ -17,16 +21,37 @@ abstract: A short overview of the Planetary Research done via Citizen Science, f
 :::: {.columns}
 
 ::: {.column width=50%}
-### For the scientist:
+### Good for science:
 * amount of data grows exponentially
+  * ideal for simple but arduous questions
 * ML: labeled data always better
   * CS is an efficient way to create many labels
 * good outreach opportunity
 :::
 
 ::: {.column width=50%}
-### For society:
+### Good for the public:
 * good outreach opportunity
+  * participate in real science
+    * independent of prior education!
+  * wide variety of research fields open up to CS
 :::
 
 ::::
+
+## Recognition of the field
+
+* EU Horizon had a monthly focus and is semi-regularly publishing on their website news about CS.
+  * <https://ec.europa.eu/research-and-innovation/en/horizon-magazine/citizen-science-science-and-people>
+
+### Quotes:
+> Through citizen science, ordinary people can take part in extraordinary research.
+
+## Planet Four project
+
+::: aside
+
+@ayePlanetFourProbing2019 contains a full description of the data reduction pipeline and quality assurances performed.
+:::
+
+## References
