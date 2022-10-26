@@ -84,18 +84,32 @@
     "text": "Talk slides"
   },
   {
-    "objectID": "talks/2022-fub-seminar/index.html#why-citizen-science-cs",
-    "href": "talks/2022-fub-seminar/index.html#why-citizen-science-cs",
+    "objectID": "talks/2022-fub-seminar/index.html#what-is-citizen-science-cs",
+    "href": "talks/2022-fub-seminar/index.html#what-is-citizen-science-cs",
     "title": "Planetary Research with Citizen Science",
-    "section": "Why Citizen Science (CS)?",
-    "text": "Why Citizen Science (CS)?\n\n\nGood for science:\n\namount of data grows exponentially\n\nideal for simple but arduous questions\n\nML: labeled data always better\n\nCS is an efficient way to create many labels\n\ngood outreach opportunity\n\n\nGood for the public:\n\ngood outreach opportunity\n\nparticipate in real science\n\nindependent of prior education!\n\nwide variety of research fields open up to CS"
+    "section": "What is Citizen Science (CS)?",
+    "text": "What is Citizen Science (CS)?\n(quotes from EU Horizon monthly focus:)\n\n“Through citizen science, ordinary people can take part in extraordinary research.”\n“Through their contributions, the citizen scientist can actively pursue personal values, and be part of a research community seeking the same goals.”\n“The professional scientist can get more data than they would otherwise. This leads to better precision in their measurements and more lines of enquiry in their research.”\n“Environmental monitoring is a particularly active field of citizen science.”\n“Scientists naturally want to measure the effects of citizen science and its impact on society […]” (Meta-CS)"
   },
   {
-    "objectID": "talks/2022-fub-seminar/index.html#recognition-of-the-field",
-    "href": "talks/2022-fub-seminar/index.html#recognition-of-the-field",
+    "objectID": "talks/2022-fub-seminar/index.html#why-citizen-science",
+    "href": "talks/2022-fub-seminar/index.html#why-citizen-science",
     "title": "Planetary Research with Citizen Science",
-    "section": "Recognition of the field",
-    "text": "Recognition of the field\n\nEU Horizon had a monthly focus and is semi-regularly publishing on their website news about CS.\n\nhttps://ec.europa.eu/research-and-innovation/en/horizon-magazine/citizen-science-science-and-people\n\n\nQuotes:\n\nThrough citizen science, ordinary people can take part in extraordinary research."
+    "section": "Why Citizen Science?",
+    "text": "Why Citizen Science?\n\n\nGood for science:\n\namount of data grows exponentially\n\nideal for simple but arduous questions\n\nML: labeled data always better\n\nCS is an efficient way to create many labels\n\ngood outreach opportunity\n\n\nGood for the public:\n\ngood outreach opportunity\n\nparticipate in real science\n\nindependent of prior education!\n\nwide variety of research fields open up to CS"
+  },
+  {
+    "objectID": "talks/2022-fub-seminar/index.html#recognition-of-the-field-us",
+    "href": "talks/2022-fub-seminar/index.html#recognition-of-the-field-us",
+    "title": "Planetary Research with Citizen Science",
+    "section": "Recognition of the field (US)",
+    "text": "Recognition of the field (US)"
+  },
+  {
+    "objectID": "talks/2022-fub-seminar/index.html#recognition-of-the-field-eu",
+    "href": "talks/2022-fub-seminar/index.html#recognition-of-the-field-eu",
+    "title": "Planetary Research with Citizen Science",
+    "section": "Recognition of the field (EU)",
+    "text": "Recognition of the field (EU)\n\nEU Horizon monthly focus and semi-regularly CS news:\n\nhttps://ec.europa.eu/research-and-innovation/en/horizon-magazine/citizen-science-science-and-people\nQuotes:\n\nThrough citizen science, ordinary people can take part in extraordinary research."
   },
   {
     "objectID": "talks/2022-fub-seminar/index.html#planet-four-project",
