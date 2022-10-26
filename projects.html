@@ -70,9 +70,9 @@ ul.task-list li input[type="checkbox"] {
     }
 
     const options = {
-      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      valueNames: ['listing-title','listing-author','listing-date','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
       
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
+      searchColumns: ["listing-title","listing-author","listing-date","listing-image","listing-description","listing-categories"],
     };
 
     window['quarto-listings'] = window['quarto-listings'] || {};
@@ -168,7 +168,7 @@ ul.task-list li input[type="checkbox"] {
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(5)</span></div><div class="category" data-category="cassini iss">cassini iss <span class="quarto-category-count">(1)</span></div><div class="category" data-category="cassini uvis">cassini uvis <span class="quarto-category-count">(2)</span></div><div class="category" data-category="citizen science">citizen science <span class="quarto-category-count">(1)</span></div><div class="category" data-category="co-i">co-i <span class="quarto-category-count">(2)</span></div><div class="category" data-category="mars">mars <span class="quarto-category-count">(1)</span></div><div class="category" data-category="python">python <span class="quarto-category-count">(1)</span></div><div class="category" data-category="saturn rings">saturn rings <span class="quarto-category-count">(1)</span></div></div></div>
+    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(5)</span></div><div class="category" data-category="cassini iss">cassini iss <span class="quarto-category-count">(1)</span></div><div class="category" data-category="cassini uvis">cassini uvis <span class="quarto-category-count">(2)</span></div><div class="category" data-category="citizen science">citizen science <span class="quarto-category-count">(1)</span></div><div class="category" data-category="co-i">co-i <span class="quarto-category-count">(2)</span></div><div class="category" data-category="mars">mars <span class="quarto-category-count">(1)</span></div><div class="category" data-category="pds">pds <span class="quarto-category-count">(1)</span></div><div class="category" data-category="pi">pi <span class="quarto-category-count">(1)</span></div><div class="category" data-category="python">python <span class="quarto-category-count">(2)</span></div><div class="category" data-category="saturn rings">saturn rings <span class="quarto-category-count">(1)</span></div></div></div>
 <!-- main -->
 <main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
 
@@ -179,60 +179,54 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="co-i" data-listing-date-sort="1631077698000" data-listing-file-modified-sort="1666713935000" data-listing-reading-time-sort="2.945">
-<div class="thumbnail">
-<a href="./projects/planetary-data-reader/index.html">
-<div class="thumbnail-image">
-
+<div class="quarto-listing quarto-listing-container-grid" id="listing-listing">
+<div class="list grid quarto-listing-cols-3">
+<div class="g-col-1" data-index="0" data-categories="co-i,pds,python" data-listing-date-sort="1631077698000" data-listing-file-modified-sort="1666791400676" data-listing-reading-time-sort="2.99">
+<a href="./projects/planetary-data-reader/index.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<div class="card-img-bg" style="height: 150px;">
+&nbsp;
 </div>
-</a><p><a href="./projects/planetary-data-reader/index.html"></a></p>
-</div>
-<div class="body">
-<a href="./projects/planetary-data-reader/index.html">
-<h3 class="no-anchor listing-title">
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
 Planetary Data Reader
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
+</h5>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('co-i'); return false;">
 co-i
 </div>
+<div class="listing-category" onclick="window.quartoListingCategory('pds'); return false;">
+pds
 </div>
-<a href="./projects/planetary-data-reader/index.html">
-<div class="listing-description">
-url_code: “https://github.com/MillionConcepts/pdr”
+<div class="listing-category" onclick="window.quartoListingCategory('python'); return false;">
+python
 </div>
-</a>
 </div>
-<div class="metadata">
-<a href="./projects/planetary-data-reader/index.html">
-<div class="listing-date">
-Sep 8, 2021
+<div class="card-text listing-description">
+I am a Collaborator (Co-I until I left the US) in this exciting project, led by Chase Million of Million Concepts.
 </div>
+<div class="card-attribution card-text-small justify">
 <div class="listing-author">
 Chase Million, Michael St.&nbsp;Clair, Michael Aye
 </div>
+<div class="listing-date">
+2021-09-08
+</div>
+</div>
+</div>
+</div>
 </a>
 </div>
-</div>
-<div class="quarto-post image-right" data-index="1" data-categories="co-i,saturn rings,cassini uvis,cassini iss" data-listing-date-sort="1631077679000" data-listing-file-modified-sort="1666728608000" data-listing-reading-time-sort="3.075">
-<div class="thumbnail">
-<p><a href="./projects/saturn-rings/index.html"> <img src="./projects/saturn-rings/featured.png" class="thumnail-image"> </a></p>
-</div>
-<div class="body">
-<a href="./projects/saturn-rings/index.html">
-<h3 class="no-anchor listing-title">
+<div class="g-col-1" data-index="1" data-categories="co-i,saturn rings,cassini uvis,cassini iss" data-listing-date-sort="1631077679000" data-listing-file-modified-sort="1666791447900" data-listing-reading-time-sort="3.11">
+<a href="./projects/saturn-rings/index.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img src="./projects/saturn-rings/featured.png" class="thumbnail-image card-img" style="height: 150px;">
+</p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
 Mesoscale Structures in Saturn’s Rings: Clues to Origin and Evolution
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
+</h5>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('co-i'); return false;">
 co-i
@@ -247,114 +241,94 @@ cassini uvis
 cassini iss
 </div>
 </div>
-<a href="./projects/saturn-rings/index.html">
-<div class="listing-description">
-I am a funded Co-I on this project led by Joshua Colwell (UCF). My task is to analyze Cassini ISS images of the Saturn rings like shown above, project them into the ring-cylindrical coordinate system so that one can do statistics along the ring azimuth. After subtracting the dominant background density wave signal one can produce statistical statements about potential clumping changes over the Saturn ring radius, using robust median absolute deviation statistics.
+<div class="card-text listing-description">
+I was a funded Co-I on this project led by Joshua Colwell (UCF) until I left the US in 2022.
 </div>
-</a>
-</div>
-<div class="metadata">
-<a href="./projects/saturn-rings/index.html">
-<div class="listing-date">
-Sep 8, 2021
-</div>
+<div class="card-attribution card-text-small justify">
 <div class="listing-author">
 Joshua Colwell, Michael Aye
 </div>
+<div class="listing-date">
+2021-09-08
+</div>
+</div>
+</div>
+</div>
 </a>
 </div>
+<div class="g-col-1" data-index="2" data-categories="python" data-listing-date-sort="1631077600000" data-listing-file-modified-sort="1666791152034" data-listing-reading-time-sort="0.53">
+<a href="./projects/planetarypy/index.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<div class="card-img-bg" style="height: 150px;">
+&nbsp;
 </div>
-<div class="quarto-post image-right" data-index="2" data-categories="python" data-listing-date-sort="1631077600000" data-listing-file-modified-sort="1666713229000" data-listing-reading-time-sort="0.515">
-<div class="thumbnail">
-<a href="./projects/planetarypy/index.html">
-<div class="thumbnail-image">
-
-</div>
-</a><p><a href="./projects/planetarypy/index.html"></a></p>
-</div>
-<div class="body">
-<a href="./projects/planetarypy/index.html">
-<h3 class="no-anchor listing-title">
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
 PlanetaryPy
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
+</h5>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('python'); return false;">
 python
 </div>
 </div>
-<a href="./projects/planetarypy/index.html">
-<div class="listing-description">
-external_link: “https://planetarypy.org/”
+<div class="card-text listing-description">
+The PlanetaryPy Project is a community effort to develop a core package for planetary science in Python and foster interoperability between Python planetary science packages. The PlanetaryPy Technical Committee (TC) is the governing body for the PlanetaryPy Project. All of their work is done in the open via the TC GitHub repo.
 </div>
-</a>
-</div>
-<div class="metadata">
-<a href="./projects/planetarypy/index.html">
-<div class="listing-date">
-Sep 8, 2021
-</div>
+<div class="card-attribution card-text-small justify">
 <div class="listing-author">
 Michael Aye, Ross Beyer, Andrew Annex, Chase Million
 </div>
+<div class="listing-date">
+2021-09-08
+</div>
+</div>
+</div>
+</div>
 </a>
 </div>
+<div class="g-col-1" data-index="3" data-categories="cassini uvis,pi" data-listing-date-sort="1631077581000" data-listing-file-modified-sort="1666790990522" data-listing-reading-time-sort="1.825">
+<a href="./projects/uvis-pdart/index.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<div class="card-img-bg" style="height: 150px;">
+&nbsp;
 </div>
-<div class="quarto-post image-right" data-index="3" data-categories="cassini uvis" data-listing-date-sort="1631077581000" data-listing-file-modified-sort="1666713438000" data-listing-reading-time-sort="1.695">
-<div class="thumbnail">
-<a href="./projects/uvis-pdart/index.html">
-<div class="thumbnail-image">
-
-</div>
-</a><p><a href="./projects/uvis-pdart/index.html"></a></p>
-</div>
-<div class="body">
-<a href="./projects/uvis-pdart/index.html">
-<h3 class="no-anchor listing-title">
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
 Cassini UVIS Data Product Enhancement
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
+</h5>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('cassini uvis'); return false;">
 cassini uvis
 </div>
+<div class="listing-category" onclick="window.quartoListingCategory('pi'); return false;">
+pi
 </div>
-<a href="./projects/uvis-pdart/index.html">
-<div class="listing-description">
-url_code: “https://github.com/Cassini-UVIS/pyuvis”
 </div>
-</a>
+<div class="card-text listing-description">
+I am the PI of this NASA PDART project. Update: I was the PI of this project until I had to give it up when moving back to Germany. The new PI will be at the SETI institute.
 </div>
-<div class="metadata">
-<a href="./projects/uvis-pdart/index.html">
-<div class="listing-date">
-Sep 8, 2021
-</div>
+<div class="card-attribution card-text-small justify">
 <div class="listing-author">
 Michael Aye
 </div>
+<div class="listing-date">
+2021-09-08
+</div>
+</div>
+</div>
+</div>
 </a>
 </div>
-</div>
-<div class="quarto-post image-right" data-index="4" data-categories="mars,citizen science" data-listing-date-sort="1631042301000" data-listing-file-modified-sort="1666712846000" data-listing-reading-time-sort="0.67">
-<div class="thumbnail">
-<p><a href="./projects/planet-four/index.html"> <img src="./projects/planet-four/featured.png" class="thumnail-image"> </a></p>
-</div>
-<div class="body">
-<a href="./projects/planet-four/index.html">
-<h3 class="no-anchor listing-title">
+<div class="g-col-1" data-index="4" data-categories="mars,citizen science" data-listing-date-sort="1631042301000" data-listing-file-modified-sort="1666789488681" data-listing-reading-time-sort="0.675">
+<a href="./projects/planet-four/index.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img src="./projects/planet-four/featured.png" class="thumbnail-image card-img" style="height: 150px;">
+</p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
 Planet Four
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
+</h5>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('mars'); return false;">
 mars
@@ -363,22 +337,20 @@ mars
 citizen science
 </div>
 </div>
-<a href="./projects/planet-four/index.html">
-<div class="listing-description">
-url_code: “https://planetfour.space” url_pdf: “https://paperpile.com/shared/q73Uo6” url_video: “https://www.youtube.com/watch?v=skrk-6UXuV0”
+<div class="card-text listing-description">
+The Red Planet is a unique and dynamic world. Through the power of the Internet and its volunteers, we can explore the surface, climate, and history of Mars with our suite of the Planet Four projects.
 </div>
-</a>
-</div>
-<div class="metadata">
-<a href="./projects/planet-four/index.html">
-<div class="listing-date">
-Sep 7, 2021
-</div>
+<div class="card-attribution card-text-small justify">
 <div class="listing-author">
-Michael Aye, Ganna Portyankina
+Michael Aye, Ganna Portyankina, Candice Hansen, Meg Schwamb, Tim Michaels, Chris Lintott, et al.
+</div>
+<div class="listing-date">
+2021-09-07
+</div>
+</div>
+</div>
 </div>
 </a>
-</div>
 </div>
 </div>
 <div class="listing-no-matching d-none">

@@ -1,5 +1,15 @@
 [
   {
+    "listing": "/posts.html",
+    "items": [
+      "/posts/minimal-conda-setup-instructions/index.html",
+      "/posts/execute-speedtest-regularly/index.html",
+      "/posts/mamba-is-the-new-conda/index.html",
+      "/posts/fan-creation/index.html",
+      "/posts/matplotlib-ticklabel-formats/index.html"
+    ]
+  },
+  {
     "listing": "/talks.html",
     "items": [
       "/talks/2022-fub-seminar/index.html",
@@ -18,16 +28,6 @@
       "/projects/planetarypy/index.html",
       "/projects/uvis-pdart/index.html",
       "/projects/planet-four/index.html"
-    ]
-  },
-  {
-    "listing": "/posts.html",
-    "items": [
-      "/posts/minimal-conda-setup-instructions/index.html",
-      "/posts/execute-speedtest-regularly/index.html",
-      "/posts/mamba-is-the-new-conda/index.html",
-      "/posts/fan-creation/index.html",
-      "/posts/matplotlib-ticklabel-formats/index.html"
     ]
   }
 ]
