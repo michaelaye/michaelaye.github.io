@@ -2,13 +2,12 @@
 title: "Cassini UVIS Data Product Enhancement"
 summary: "A NASA PDART project to upgrade the existing PDS product for the Cassini UVIS instrument. "
 author: ["Michael Aye"]
-categories: [cassini uvis]
+categories: [cassini uvis, pi]
 date: 2021-09-07T23:06:21-06:00
 ---
-
-url_code: "https://github.com/Cassini-UVIS/pyuvis"
-
 I am the PI of this NASA PDART project.
+Update: I was the PI of this project until I had to give it up when moving back to Germany.
+The new PI will be at the [SETI institute](https://www.seti.org/).
 
 ## Objectives 
 The limited content and inconvenient format of published Cassini Ultraviolet Imaging Spectrograph (UVIS) data products puts a high burden of remaining work tasks on the end user before a scientific investigation can begin. 

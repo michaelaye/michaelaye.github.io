@@ -10,6 +10,7 @@ date: 2021-07-01T11:00:00-06:00
 ## Summary
 
 The PlanetaryPy Project is a community effort to develop a core package for planetary science in Python and foster interoperability between Python planetary science packages.
+
 The PlanetaryPy Technical Committee (TC) is the governing body for the PlanetaryPy Project. 
 All of their work is done in the open via the TC GitHub repo. 
 To learn more about what the TC is, how it operates, or to get involved, you can read its Charter (see paragraph below).

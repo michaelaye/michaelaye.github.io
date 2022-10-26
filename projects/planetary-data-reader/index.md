@@ -2,17 +2,13 @@
 title: "Planetary Data Reader"
 summary: "NASA PDART project to create a unified reader for all PDS data"
 author: ["Chase Million", "Michael St. Clair", "Michael Aye"]
-categories: [co-i]
+categories: [co-i, pds, python]
 date: 2021-09-07T23:08:18-06:00
 ---
 
-url_code: "https://github.com/MillionConcepts/pdr"
+I am a Collaborator (Co-I until I left the US) in this exciting project, led by Chase Million of [Million Concepts](https://www.millionconcepts.com/).
 
-url_pdf: "https://www.hou.usra.edu/meetings/planetdata2021/pdf/7096.pdf"
-
-I am a Co-I on this exciting project, led by Chase Million of [Million Concepts](https://www.millionconcepts.com/).
-
-Proposal summary:
+# Step 1 proposal text:
 
 ## Goals and objectives
 This project will create an open source, Python-based tool capable of reading the vast majority of data 
@@ -60,3 +56,7 @@ Science Division” and is therefore a Software Tool Development and Validation 
 of the solicitation. The proposed work does not include a “science investigation” or application of t
 hese tools except as necessary to validate their performance. It is therefore within scope of and 
 appropriate for PDART.
+
+[Link to project](https://github.com/MillionConcepts/pdr)
+
+[PDF link](https://www.hou.usra.edu/meetings/planetdata2021/pdf/7096.pdf)

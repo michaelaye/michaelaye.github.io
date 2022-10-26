@@ -7,8 +7,9 @@ categories: [co-i, saturn rings, cassini uvis, cassini iss]
 date: 2021-09-07T23:07:59-06:00
 ---
 
-I am a funded Co-I on this project led by Joshua Colwell (UCF).
-My task is to analyze Cassini ISS images of the Saturn rings like shown above, project them into the ring-cylindrical coordinate system so that one can do statistics along the ring azimuth. After subtracting the dominant background density wave signal one can produce statistical 
+I was a funded Co-I on this project led by Joshua Colwell (UCF) until I left the US in 2022.
+
+My task was to analyze Cassini ISS images of the Saturn rings like shown above, project them into the ring-cylindrical coordinate system so that one can do statistics along the ring azimuth. After subtracting the dominant background density wave signal one can produce statistical 
 statements about potential clumping changes over the Saturn ring radius,
 using robust median absolute deviation statistics.
 
