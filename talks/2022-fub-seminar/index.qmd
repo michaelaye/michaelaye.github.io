@@ -3,6 +3,9 @@ title: "Planetary Research with Citizen Science"
 author: "Michael Aye"
 format: 
   revealjs:
+    theme: blood
+    logo: p4_logo.jpeg
+    footer: "Planetary Seminar at Freie Uni Berlin, 2022-10-27"
     incremental: true
     chalkboard: true
 date: 2022-10-27
