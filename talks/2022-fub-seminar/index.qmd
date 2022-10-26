@@ -1,0 +1,29 @@
+---
+title: "Planetary Research with Citizen Science"
+author: "Michael Aye"
+format: 
+  revealjs:
+    incremental: true
+    chalkboard: true
+date: 2022-10-27
+categories: [online-presentation]
+abstract: A short overview of the Planetary Research done via Citizen Science, followed by an in-depth review of the Planet Four Citizen Science projects.
+---
+## Why Citizen Science (CS)?
+
+:::: {.columns}
+
+::: {.column width=50%}
+### For the scientist:
+* amount of data grows exponentially
+* ML: labeled data always better
+  * CS is an efficient way to create many labels
+* good outreach opportunity
+:::
+
+::: {.column width=50%}
+### For society:
+* good outreach opportunity
+:::
+
+::::

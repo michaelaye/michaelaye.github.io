@@ -1,0 +1,39 @@
+project:
+  type: website
+
+website:
+  title: "Home"
+  site-url: https://michaelaye.github.io
+  twitter-card:
+    creator: "@michaelaye"
+  open-graph: true
+  navbar:
+    collapse: false
+    left: 
+#      - text: "Home"
+#        file: index.qmd
+      - text: "Blog"
+        file: posts.qmd
+      - talks.qmd
+      - projects.qmd
+      - bibliography.qmd
+    right:
+      - icon: github
+        href: https://github.com/michaelaye
+      - icon: twitter
+        href: https://twitter.com/michaelaye
+format:
+  html:
+    theme:
+      light: cosmo
+      # light: simplex
+      # dark: darkly
+    css: styles.css
+    toc: true
+    highlight-style: atom-one
+    link-external-icon: false
+    link-external-newwindow: true
+
+
+
+

@@ -1,0 +1,50 @@
+---
+title: ""
+image: headshot.png
+about:
+  template: trestles
+  image-shape: rounded
+  links:
+    - icon: twitter
+      text: Twitter
+      href: https://twitter.com/michaelaye
+    - icon: linkedin
+      text: LinkedIn
+      href: https://www.linkedin.com/in/kmichaelaye/
+    - icon: github
+      text: Github
+      href: https://github.com/michaelaye
+    - icon: orcid.logo.icon.svg
+      text: ORCiD
+      href: https://orcid.org/0000-0002-4088-1928
+    - text: Google Scholar
+      icon: google
+      href: https://scholar.google.com/citations?hl=en&tzom=-120&user=kDjSsIAAAAAJ&view_op=list_works&sortby=pubdate
+
+---
+
+I am a planetary scientist at Freie Universität Berlin, with a focus on Mars polar science and Saturn rings, using Citizen Science and complex data analytics, sprinkled with AI.  
+In my spare time I like to spend time with my son, letting him slowly take over all the building of furniture from a well-known blue-yellow-branded furniture company. ;)
+
+## Education
+
+**University of Durham** | Durham, UK  
+PhD High Energy Astrophysics | Sept 2000 -- Dec 2004  
+
+**Universität Heidelberg** | Heidelberg, Germany  
+Diploma in Physics (Astronomy, Particle Physics) | April 1995 -- June 1999
+
+## Experience
+
+**Freie Universität Berlin** | Research Scientist | Juli 2022 -- present
+
+**University of Colorado, Boulder** | Laboratory for Atmospheric and Space Science (LASP) | Research Associate | December 2014 -- June 2022
+
+**University of California, Los Angeles** | Postdoctoral Researcher | August 2012 -- Nov 2014
+
+**Physikalisches Institut Bern** | Assistant Project Manager BepiColombo Laser Altimeter | Feb 2008 -- July 2012
+
+**Max-Planck-Institute for Solar System Research** | Dawn Framing Camera Team | Feb 2005 -- Feb 2008
+
+
+
