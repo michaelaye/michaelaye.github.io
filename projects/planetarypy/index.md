@@ -4,6 +4,7 @@ summary: A community effort to develop a core Python package for planetary scien
 author: ["Michael Aye", "Ross Beyer", "Andrew Annex", "Chase Million"]
 categories: [python]
 date: 2021-09-07T23:06:40-06:00
+image: website_header.png
 ---
 
 The PlanetaryPy Project is a community effort to develop a core package for planetary science in Python and foster interoperability between Python planetary science packages.

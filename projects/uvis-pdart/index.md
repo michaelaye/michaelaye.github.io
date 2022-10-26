@@ -4,6 +4,7 @@ summary: "A NASA PDART project to upgrade the existing PDS product for the Cassi
 author: ["Michael Aye"]
 categories: [cassini uvis, pi]
 date: 2021-09-07T23:06:21-06:00
+image: uvis-aurora.jpg
 ---
 I am the PI of this NASA PDART project.
 Update: I was the PI of this project until I had to give it up when moving back to Germany.

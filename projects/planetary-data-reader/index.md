@@ -4,8 +4,8 @@ summary: "NASA PDART project to create a unified reader for all PDS data"
 author: ["Chase Million", "Michael St. Clair", "Michael Aye"]
 categories: [co-i, pds, python]
 date: 2021-09-07T23:08:18-06:00
+image: https://upload.wikimedia.org/wikipedia/commons/1/19/Solar_System_true_color.jpg
 ---
-
 I am a Collaborator (Co-I until I left the US) in this exciting project, led by Chase Million of [Million Concepts](https://www.millionconcepts.com/).
 
 # Step 1 proposal text:
@@ -60,3 +60,5 @@ appropriate for PDART.
 [Link to project](https://github.com/MillionConcepts/pdr)
 
 [PDF link](https://www.hou.usra.edu/meetings/planetdata2021/pdf/7096.pdf)
+
+[Listing picture source](https://commons.wikimedia.org/wiki/File:Solar_System_true_color.jpg)
