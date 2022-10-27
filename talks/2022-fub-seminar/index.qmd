@@ -77,8 +77,8 @@ EU Horizon monthly focus and semi-regularly CS news
 
 ## Science case {background-image="image6.jpeg" background-size="contain"}
 
-## Science case: Regions
-![](rois_map.png)
+## Science case temporal {background-image="image17.jpeg" background-size="contain"}
+
 
 ## Science case: Kieffer model
 ![](image14.jpeg)
@@ -86,15 +86,31 @@ EU Horizon monthly focus and semi-regularly CS news
 * Jet deposits are aligned by prevalent winds at the time!
 * Mapping these features would be more wind data than we ever had on Mars!
 
+## Active areas around south pole
+![](rois_map.png)
+
+* Seasonal campaigs at most of these areas!
+  * -> Lots of huge HiRISE image data
+
+## Input data
+* 221 HiRISE images from MY 29/30
+* split up into over 40,000 image screen-sized tiles
+* Tiles are being "anonymized", to prevent bias
+* The data input and reduction pipelines need to track everything
+
 ## Interface {background-image="section3_marking_tools.png" background-size="contain"}
 
 ## Interface return
-![](fan_markings.png)
+![Difficulty: What (contrast) defines the "end" of a surface feature?
+](fan_markings.png)
 
-Difficulty: What (contrast) defines the "end" of a surface feature?
+Minimum of 30 different volunteers per image tile!
+
+=> quite slow progress
 
 ## Reduction pipeline {background-color="white"}
-![](parameter_scan.png)
+![Comprehensive description in @ayePlanetFourProbing2019 : "Planet Four: Probing springtime winds on Mars by mapping the southern polar CO2 jet deposits"](parameter_scan.png)
+
 
 ## Reduction pipeline 2 {background-color="white"}
 ![Clockwise from upper left: 1) Raw, 2) Fan markings, 3) Blotch markings, 4) Blotch reduction, 5) Fan reduction, 6) catalog entry with 50% majority vote](image23.png)
@@ -110,5 +126,31 @@ Difficulty: What (contrast) defines the "end" of a surface feature?
 
 ## Compare experts with citizens
 ![](gold_blotch_areas_common.png)
+
+## Results
+
+* Over 40,000 citizens have contributed
+  * Most only once
+  * Core team of approx 10-20 volunteers did most of the work
+* ca. 400,000 geo-located objects in catalog
+* available at <https://www.zooniverse.org/projects/mschwamb/planet-four/about/results>
+
+## What can be done with it?
+
+![@portyankinaPlanetFourDerived2022 "Planet Four: Derived South Polar Martian Winds Interpreted Using Mesoscale Modeling"](image13.gif)
+
+## Compare with climate models 
+* Team member Tim Michaels nest GCM into high-res meso-scale models using CTX and HiRISE DTM topography
+* Run for several days to avoid "spin-up" effects
+* Run at different $L_s$ over the season
+* Compare wind predictions with Planet Four data
+* Just published in @portyankinaPlanetFourDerived2022
+
+## {auto-animate=true}
+![](image10.png){.absolute top=0 left=0 width=1000}
+
+## {auto-animate=true}
+![](image10.png){.absolute top=-250 left=0 width=1000}
+
 
 # References
