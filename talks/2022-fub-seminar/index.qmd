@@ -118,7 +118,7 @@ Minimum of 30 different volunteers per image tile!
 ![](image7.png){.absolute left=0}
 ![](image8.png){.absolute left=500}
 
-## {background-image="gold_data114.png" background-size="contain" background-opacity="0.85"}
+## {background-color="white" background-image="gold_data114.png" background-size="contain" background-opacity="0.85"}
 ### Science Team (Gold) markings
 * Significant differences between science team members
 * Years of experience does **not** overcome the original contrast problem!
