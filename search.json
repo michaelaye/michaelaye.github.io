@@ -133,6 +133,20 @@
     "text": "Science case"
   },
   {
+    "objectID": "talks/2022-fub-seminar/index.html#science-case-kieffer-model",
+    "href": "talks/2022-fub-seminar/index.html#science-case-kieffer-model",
+    "title": "Planetary Research with Citizen Science",
+    "section": "Science case: Kieffer model",
+    "text": "Science case: Kieffer model"
+  },
+  {
+    "objectID": "talks/2022-fub-seminar/index.html#interface",
+    "href": "talks/2022-fub-seminar/index.html#interface",
+    "title": "Planetary Research with Citizen Science",
+    "section": "Interface",
+    "text": "Interface"
+  },
+  {
     "objectID": "talks/2021-pdw-planetarypy/index.html",
     "href": "talks/2021-pdw-planetarypy/index.html",
     "title": "The PlanetaryPy Project",
@@ -158,7 +172,7 @@
     "href": "talks.html",
     "title": "Talks",
     "section": "",
-    "text": "online-presentation\n\n\n\n\nA short overview of the Planetary Research done via Citizen Science, followed by an in-depth review of the Planet Four Citizen Science projects.\n\n\n\n\n\n\n2022-10-27\n\n\nMichael Aye\n\n\n\n\n\n\n\n\n\n5th Planetary Data Workshop\n\n\n\n\nplanetarypy\n\n\npython\n\n\n\n\n\n\n\n\n\n\n\n2021-07-01\n\n\nMichael Aye\n\n\n\n\n\n\n\n\n\nInternational Conference for Young Professionals in Physics and Technology (ICYPPT)\n\n\n\n\ninvited talk\n\n\nconda\n\n\nsoftware management\n\n\n\n\n\n\n\n\n\n\n\n2021-04-28\n\n\nMichael Aye\n\n\n\n\n\n\n\n\n\nInternational Conference for Young Professionals in Physics and Technology\n\n\n\n\ninvited talk\n\n\nLRO\n\n\nDiviner\n\n\ncalibration\n\n\n\n\n\n\n\n\n\n\n\n2021-04-27\n\n\nMichael Aye\n\n\n\n\n\n\n\n\n\nOpenPlanetary Virtual Conference\n\n\n\n\nconda\n\n\npython\n\n\n\n\nI will explain the basic principles of the conda-based toolset, recommend best practices for using conda environments and channels, and demonstrate techniques on how to efficiently delete and reinstall everything in under 5 minutes. I also will discuss Python software package discovery and installation strategies in relation to these conda environments and how to efficiently develop your own libraries while being part of a conda environment.\n\n\n\n\n\n\n2020-06-23\n\n\nMichael Aye\n\n\n\n\n\n\n\n\n\nOpenPlanetary Lunch Talk\n\n\n\n\nconda\n\n\npython\n\n\n\n\n\n\n\n\n\n\n\n2020-03-31\n\n\nMichael Aye\n\n\n\n\n\n\nNo matching items"
+    "text": "online-presentation\n\n\n\n\nA short overview of the Planetary Research done via Citizen Science, followed by an in-depth review of the Planet Four Citizen Science projects.\n\n\n\n\n\n\n2022-10-27\n\n\nMichael Aye\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n5th Planetary Data Workshop\n\n\n\n\nplanetarypy\n\n\npython\n\n\n\n\n\n\n\n\n\n\n\n2021-07-01\n\n\nMichael Aye\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nInternational Conference for Young Professionals in Physics and Technology (ICYPPT)\n\n\n\n\ninvited talk\n\n\nconda\n\n\nsoftware management\n\n\n\n\n\n\n\n\n\n\n\n2021-04-28\n\n\nMichael Aye\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nInternational Conference for Young Professionals in Physics and Technology\n\n\n\n\ninvited talk\n\n\nLRO\n\n\nDiviner\n\n\ncalibration\n\n\n\n\n\n\n\n\n\n\n\n2021-04-27\n\n\nMichael Aye\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nOpenPlanetary Virtual Conference\n\n\n\n\nconda\n\n\npython\n\n\n\n\nI will explain the basic principles of the conda-based toolset, recommend best practices for using conda environments and channels, and demonstrate techniques on how to efficiently delete and reinstall everything in under 5 minutes. I also will discuss Python software package discovery and installation strategies in relation to these conda environments and how to efficiently develop your own libraries while being part of a conda environment.\n\n\n\n\n\n\n2020-06-23\n\n\nMichael Aye\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nOpenPlanetary Lunch Talk\n\n\n\n\nconda\n\n\npython\n\n\n\n\n\n\n\n\n\n\n\n2020-03-31\n\n\nMichael Aye\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "projects/saturn-rings/index.html",
