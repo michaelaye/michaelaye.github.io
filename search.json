@@ -88,14 +88,21 @@
     "href": "talks/2022-fub-seminar/index.html#what-is-citizen-science-cs",
     "title": "Planetary Research with Citizen Science",
     "section": "What is Citizen Science (CS)?",
-    "text": "What is Citizen Science (CS)?\n(quotes from EU Horizon monthly focus:)\n\n“Through citizen science, ordinary people can take part in extraordinary research.”\n“Through their contributions, the citizen scientist can actively pursue personal values, and be part of a research community seeking the same goals.”\n“The professional scientist can get more data than they would otherwise. This leads to better precision in their measurements and more lines of enquiry in their research.”\n“Environmental monitoring is a particularly active field of citizen science.”\n“Scientists naturally want to measure the effects of citizen science and its impact on society […]” (Meta-CS)"
+    "text": "What is Citizen Science (CS)?\nPolitical answers, quotes from EU Horizon monthly focus:)\n\n“Through citizen science, ordinary people can take part in extraordinary research.”\n“Through their contributions, the citizen scientist can actively pursue personal values, and be part of a research community seeking the same goals.”\n“The professional scientist can get more data than they would otherwise. This leads to better precision in their measurements and more lines of enquiry in their research.”\n“Environmental monitoring is a particularly active field of citizen science.”\n“Scientists naturally want to measure the effects of citizen science and its impact on society […]” (Meta-CS)"
+  },
+  {
+    "objectID": "talks/2022-fub-seminar/index.html#what-is-cs-practically",
+    "href": "talks/2022-fub-seminar/index.html#what-is-cs-practically",
+    "title": "Planetary Research with Citizen Science",
+    "section": "What is CS, practically?",
+    "text": "What is CS, practically?\n\nProblem: Simple, but arduous or repetitive task\n\ntoo much data to go through yourself\n\nSplit up the task into screen-sized subtasks\nPresent the data with a simple workflow to thousands of untrained volunteers"
   },
   {
     "objectID": "talks/2022-fub-seminar/index.html#why-citizen-science",
     "href": "talks/2022-fub-seminar/index.html#why-citizen-science",
     "title": "Planetary Research with Citizen Science",
     "section": "Why Citizen Science?",
-    "text": "Why Citizen Science?\n\n\nGood for science:\n\namount of data grows exponentially\n\nideal for simple but arduous questions\n\nML: labeled data always better\n\nCS is an efficient way to create many labels\n\ngood outreach opportunity\n\n\nGood for the public:\n\ngood outreach opportunity\n\nparticipate in real science\n\nindependent of prior education!\n\nwide variety of research fields open up to CS"
+    "text": "Why Citizen Science?\n\namount of data grows exponentially\nideal for simple but arduous questions\nML: labeled data always better\nCS is an efficient way to create many labels\ngood outreach opportunity\nFor volunteers:\n\nparticipate in real science\nindependent of prior education!\nwide variety of research fields offered as CS now"
   },
   {
     "objectID": "talks/2022-fub-seminar/index.html#recognition-of-the-field-us",
