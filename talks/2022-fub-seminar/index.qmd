@@ -10,6 +10,9 @@ author: "Michael Aye"
 format: 
   revealjs:
     theme: dark
+    navigation-mode: vertical
+    controls-layout: bottom-right
+    controls-tutorial: true
     slide-number: true
     logo: p4_logo.jpeg
     footer: "Planetary Seminar at Freie Uni Berlin, 2022-10-27"
@@ -20,9 +23,9 @@ date: 2022-10-27
 categories: [online-presentation]
 abstract: A short overview of the Planetary Research done via Citizen Science, followed by an in-depth review of the Planet Four Citizen Science projects.
 ---
-## What is Citizen Science (CS)?
+# What is Citizen Science (CS)?
 
-Political answers, quotes from EU Horizon monthly focus:)
+## Political answer (Quotes EU Horizon monthly focus)
 
 * "Through citizen science, ordinary people can take part in extraordinary research."
 * "Through their contributions, the citizen scientist can actively pursue personal values, and be part of a research community seeking the same goals."
@@ -37,14 +40,15 @@ Political answers, quotes from EU Horizon monthly focus:)
 * Split up the task into screen-sized subtasks
 * Present the data with a simple workflow to thousands of untrained volunteers
 
-## Why Citizen Science?
+## What is in it for scientists?
 
 * amount of data grows exponentially
 * ideal for simple but arduous questions
 * ML: labeled data always better
 * CS is an efficient way to create many labels
 * good outreach opportunity
-* For volunteers:
+
+## What is in it for citizens?
   * participate in real science
   * independent of prior education!
   * wide variety of research fields offered as CS now
@@ -55,17 +59,12 @@ Political answers, quotes from EU Horizon monthly focus:)
 
 ## Recognition of the field (EU) {background-image="Screenshot_20221026_173301.png" background-opacity="0.2" background-size="contain"}
 
-* EU Horizon monthly focus and semi-regularly CS news:
-  * <https://ec.europa.eu/research-and-innovation/en/horizon-magazine/citizen-science-science-and-people>
-  * Quotes:
-    
-    > Through citizen science, ordinary people can take part in extraordinary research.
+EU Horizon monthly focus and semi-regularly CS news
 
-## Planet Four project
+<https://ec.europa.eu/research-and-innovation/en/horizon-magazine/citizen-science-science-and-people>
 
-::: aside
+# Planet Four project {background-image="section1_APF0000hmm.png" background-opacity="0.85"}
 
-@ayePlanetFourProbing2019 contains a full description of the data reduction pipeline and quality assurances performed.
-:::
+## Science case
 
-## References
+# References
