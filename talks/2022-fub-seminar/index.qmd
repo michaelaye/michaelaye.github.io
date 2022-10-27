@@ -89,7 +89,7 @@ EU Horizon monthly focus and semi-regularly CS news
 ## Active areas around south pole
 ![](rois_map.png)
 
-* Seasonal campaigs at most of these areas!
+* Seasonal campaigns at most of these areas!
   * -> Lots of huge HiRISE image data
 
 ## Input data
@@ -174,5 +174,5 @@ Wind directions and estimated strengths
   * It's a full time analytical job
 * Overall good match with models but discrepancies exist
 * Hope to derive jet eruption times
-  
+
 # References
