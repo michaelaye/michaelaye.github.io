@@ -1,12 +1,16 @@
 ---
 title: "Planetary Research with Citizen Science"
 title-slide-attributes: 
-  data-background-image: ./section1_APF0000hmm.png
+  # data-background-image: ./section1_APF0000hmm.png
+  data-background-image: ./image15.jpeg
+  # data-background-image: ./image13.gif
   data-background-size: cover
+  data-background-opacity: "0.5"
 author: "Michael Aye"
 format: 
   revealjs:
-    theme: league
+    theme: dark
+    slide-number: true
     logo: p4_logo.jpeg
     footer: "Planetary Seminar at Freie Uni Berlin, 2022-10-27"
     incremental: false
@@ -17,7 +21,8 @@ categories: [online-presentation]
 abstract: A short overview of the Planetary Research done via Citizen Science, followed by an in-depth review of the Planet Four Citizen Science projects.
 ---
 ## What is Citizen Science (CS)?
-(quotes from EU Horizon monthly focus:)
+
+Political answers, quotes from EU Horizon monthly focus:)
 
 * "Through citizen science, ordinary people can take part in extraordinary research."
 * "Through their contributions, the citizen scientist can actively pursue personal values, and be part of a research community seeking the same goals."
@@ -25,28 +30,24 @@ abstract: A short overview of the Planetary Research done via Citizen Science, f
 * "Environmental monitoring is a particularly active field of citizen science."
 * "Scientists naturally want to measure the effects of citizen science and its impact on society [...]" (Meta-CS)
 
+## What is CS, practically?
+
+* Problem: Simple, but arduous or repetitive task
+  * too much data to go through yourself
+* Split up the task into screen-sized subtasks
+* Present the data with a simple workflow to thousands of untrained volunteers
+
 ## Why Citizen Science?
 
-:::: {.columns}
-
-::: {.column width=50%}
-### Good for science:
 * amount of data grows exponentially
-  * ideal for simple but arduous questions
+* ideal for simple but arduous questions
 * ML: labeled data always better
-  * CS is an efficient way to create many labels
+* CS is an efficient way to create many labels
 * good outreach opportunity
-:::
-
-::: {.column width=50%}
-### Good for the public:
-* good outreach opportunity
+* For volunteers:
   * participate in real science
-    * independent of prior education!
-  * wide variety of research fields open up to CS
-:::
-
-::::
+  * independent of prior education!
+  * wide variety of research fields offered as CS now
 
 ## Recognition of the field (US)
 
