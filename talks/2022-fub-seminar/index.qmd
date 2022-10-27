@@ -163,7 +163,7 @@ Only wind directions
 
 ## {background-image="image12.png" background-size="contain"}
 
-Wind directions and estimated strenghts
+Wind directions and estimated strengths
 
 ## Conclusions
 
