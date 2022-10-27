@@ -12,7 +12,7 @@ format:
     theme: dark
     navigation-mode: vertical
     controls-layout: bottom-right
-    controls-tutorial: true
+    controls-tutorial: false
     slide-number: true
     logo: p4_logo.jpeg
     footer: "Planetary Seminar at Freie Uni Berlin, 2022-10-27"
@@ -77,9 +77,33 @@ EU Horizon monthly focus and semi-regularly CS news
 
 ## Science case {background-image="image6.jpeg" background-size="contain"}
 
+## Science case: Regions
+![](rois_map.png)
+
 ## Science case: Kieffer model
 ![](image14.jpeg)
 
+* Jet deposits are aligned by prevalent winds at the time!
+* Mapping these features would be more wind data than we ever had on Mars!
+
 ## Interface {background-image="section3_marking_tools.png" background-size="contain"}
+
+## Interface return
+![](fan_markings.png)
+
+Difficulty: What (contrast) defines the "end" of a surface feature?
+
+## Reduction pipeline 1 {background-color="white"}
+![](parameter_scan.png)
+
+## Reduction pipeline 2 {background-color="white"}
+![Clockwise from upper left: 1) Raw, 2) Fan markings, 3) Blotch markings, 4) Blotch reduction, 5) Fan reduction, 6) catalog entry with 50% majority vote](image23.png)
+
+## Catalog entries
+![](image7.png){.absolute left=0}
+![](image8.png){.absolute left=500}
+
+## Science Team (Gold) markings
+![](gold_data114.png)
 
 # References
