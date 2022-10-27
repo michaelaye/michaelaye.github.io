@@ -101,8 +101,7 @@ EU Horizon monthly focus and semi-regularly CS news
 ## Interface {background-image="section3_marking_tools.png" background-size="contain"}
 
 ## Interface return
-![Difficulty: What (contrast) defines the "end" of a surface feature?
-](fan_markings.png)
+![Difficulty: What (contrast) defines the "end" of a surface feature?](fan_markings.png)
 
 Minimum of 30 different volunteers per image tile!
 
