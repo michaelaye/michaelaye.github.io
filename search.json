@@ -133,11 +133,11 @@
     "text": "Science case"
   },
   {
-    "objectID": "talks/2022-fub-seminar/index.html#science-case-regions",
-    "href": "talks/2022-fub-seminar/index.html#science-case-regions",
+    "objectID": "talks/2022-fub-seminar/index.html#science-case-temporal",
+    "href": "talks/2022-fub-seminar/index.html#science-case-temporal",
     "title": "Planetary Research with Citizen Science",
-    "section": "Science case: Regions",
-    "text": "Science case: Regions"
+    "section": "Science case temporal",
+    "text": "Science case temporal"
   },
   {
     "objectID": "talks/2022-fub-seminar/index.html#science-case-kieffer-model",
@@ -145,6 +145,20 @@
     "title": "Planetary Research with Citizen Science",
     "section": "Science case: Kieffer model",
     "text": "Science case: Kieffer model\n\n\nJet deposits are aligned by prevalent winds at the time!\nMapping these features would be more wind data than we ever had on Mars!"
+  },
+  {
+    "objectID": "talks/2022-fub-seminar/index.html#active-areas-around-south-pole",
+    "href": "talks/2022-fub-seminar/index.html#active-areas-around-south-pole",
+    "title": "Planetary Research with Citizen Science",
+    "section": "Active areas around south pole",
+    "text": "Active areas around south pole\n\n\nSeasonal campaigs at most of these areas!\n\n-> Lots of huge HiRISE image data"
+  },
+  {
+    "objectID": "talks/2022-fub-seminar/index.html#input-data",
+    "href": "talks/2022-fub-seminar/index.html#input-data",
+    "title": "Planetary Research with Citizen Science",
+    "section": "Input data",
+    "text": "Input data\n\n221 HiRISE images from MY 29/30\nsplit up into over 40,000 image screen-sized tiles\nTiles are being “anonymized”, to prevent bias\nThe data input and reduction pipelines need to track everything"
   },
   {
     "objectID": "talks/2022-fub-seminar/index.html#interface",
@@ -158,14 +172,14 @@
     "href": "talks/2022-fub-seminar/index.html#interface-return",
     "title": "Planetary Research with Citizen Science",
     "section": "Interface return",
-    "text": "Interface return\n\nDifficulty: What (contrast) defines the “end” of a surface feature?"
+    "text": "Interface return\n\nDifficulty: What (contrast) defines the “end” of a surface feature?Minimum of 30 different volunteers per image tile!\n=> quite slow progress"
   },
   {
     "objectID": "talks/2022-fub-seminar/index.html#reduction-pipeline",
     "href": "talks/2022-fub-seminar/index.html#reduction-pipeline",
     "title": "Planetary Research with Citizen Science",
     "section": "Reduction pipeline",
-    "text": "Reduction pipeline"
+    "text": "Reduction pipeline\n\nComprehensive description in Aye et al. (2019) : “Planet Four: Probing springtime winds on Mars by mapping the southern polar CO2 jet deposits”"
   },
   {
     "objectID": "talks/2022-fub-seminar/index.html#reduction-pipeline-2",
@@ -194,6 +208,27 @@
     "title": "Planetary Research with Citizen Science",
     "section": "Compare experts with citizens",
     "text": "Compare experts with citizens"
+  },
+  {
+    "objectID": "talks/2022-fub-seminar/index.html#results",
+    "href": "talks/2022-fub-seminar/index.html#results",
+    "title": "Planetary Research with Citizen Science",
+    "section": "Results",
+    "text": "Results\n\nOver 40,000 citizens have contributed\n\nMost only once\nCore team of approx 10-20 volunteers did most of the work\n\nca. 400,000 geo-located objects in catalog\navailable at https://www.zooniverse.org/projects/mschwamb/planet-four/about/results"
+  },
+  {
+    "objectID": "talks/2022-fub-seminar/index.html#what-can-be-done-with-it",
+    "href": "talks/2022-fub-seminar/index.html#what-can-be-done-with-it",
+    "title": "Planetary Research with Citizen Science",
+    "section": "What can be done with it?",
+    "text": "What can be done with it?\n\nPortyankina et al. (2022) “Planet Four: Derived South Polar Martian Winds Interpreted Using Mesoscale Modeling”"
+  },
+  {
+    "objectID": "talks/2022-fub-seminar/index.html#compare-with-climate-models",
+    "href": "talks/2022-fub-seminar/index.html#compare-with-climate-models",
+    "title": "Planetary Research with Citizen Science",
+    "section": "Compare with climate models",
+    "text": "Compare with climate models\n\nTeam member Tim Michaels nest GCM into high-res meso-scale models using CTX and HiRISE DTM topography\nRun for several days to avoid “spin-up” effects\nRun at different \\(L_s\\) over the season\nCompare wind predictions with Planet Four data\nJust published in Portyankina et al. (2022)"
   },
   {
     "objectID": "talks/2021-pdw-planetarypy/index.html",

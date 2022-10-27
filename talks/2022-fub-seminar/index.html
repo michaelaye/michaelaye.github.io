@@ -29,6 +29,25 @@
       margin: 0 0.8em 0.2em -1.6em;
       vertical-align: middle;
     }
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+    }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
   </style>
   <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto.css" id="theme">
   <link href="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
@@ -419,10 +438,9 @@ redefinition!</li>
 <section id="science-case" class="slide level2" data-background-image="image6.jpeg" data-background-size="contain">
 <h2>Science case</h2>
 </section>
-<section id="science-case-regions" class="slide level2">
-<h2>Science case: Regions</h2>
-
-<img data-src="rois_map.png" class="r-stretch"></section>
+<section id="science-case-temporal" class="slide level2" data-background-image="image17.jpeg" data-background-size="contain">
+<h2>Science case temporal</h2>
+</section>
 <section id="science-case-kieffer-model" class="slide level2">
 <h2>Science case: Kieffer model</h2>
 
@@ -431,18 +449,38 @@ redefinition!</li>
 <li>Mapping these features would be more wind data than we ever had on Mars!</li>
 </ul>
 </section>
+<section id="active-areas-around-south-pole" class="slide level2">
+<h2>Active areas around south pole</h2>
+
+<img data-src="rois_map.png" class="r-stretch"><ul>
+<li>Seasonal campaigs at most of these areas!
+<ul>
+<li>-&gt; Lots of huge HiRISE image data</li>
+</ul></li>
+</ul>
+</section>
+<section id="input-data" class="slide level2">
+<h2>Input data</h2>
+<ul>
+<li>221 HiRISE images from MY 29/30</li>
+<li>split up into over 40,000 image screen-sized tiles</li>
+<li>Tiles are being “anonymized”, to prevent bias</li>
+<li>The data input and reduction pipelines need to track everything</li>
+</ul>
+</section>
 <section id="interface" class="slide level2" data-background-image="section3_marking_tools.png" data-background-size="contain">
 <h2>Interface</h2>
 </section>
 <section id="interface-return" class="slide level2">
 <h2>Interface return</h2>
 
-<img data-src="fan_markings.png" class="r-stretch"><p>Difficulty: What (contrast) defines the “end” of a surface feature?</p>
+<img data-src="fan_markings.png" class="r-stretch quarto-figure-center"><p class="caption">Difficulty: What (contrast) defines the “end” of a surface feature?</p><p>Minimum of 30 different volunteers per image tile!</p>
+<p>=&gt; quite slow progress</p>
 </section>
 <section id="reduction-pipeline" class="slide level2" data-background-color="white">
 <h2>Reduction pipeline</h2>
 
-<img data-src="parameter_scan.png" class="r-stretch"></section>
+<img data-src="parameter_scan.png" class="r-stretch quarto-figure-center"><p class="caption">Comprehensive description in <span class="citation" data-cites="ayePlanetFourProbing2019">Aye et al. (<a href="#/references" role="doc-biblioref" onclick="">2019</a>)</span> : “Planet Four: Probing springtime winds on Mars by mapping the southern polar CO2 jet deposits”</p></section>
 <section id="reduction-pipeline-2" class="slide level2" data-background-color="white">
 <h2>Reduction pipeline 2</h2>
 
@@ -462,13 +500,55 @@ redefinition!</li>
 <section id="compare-experts-with-citizens" class="slide level2">
 <h2>Compare experts with citizens</h2>
 
-<img data-src="gold_blotch_areas_common.png" class="r-stretch"></section></section>
-<section id="references" class="title-slide slide level1 center">
+<img data-src="gold_blotch_areas_common.png" class="r-stretch"></section>
+<section id="results" class="slide level2">
+<h2>Results</h2>
+<ul>
+<li>Over 40,000 citizens have contributed
+<ul>
+<li>Most only once</li>
+<li>Core team of approx 10-20 volunteers did most of the work</li>
+</ul></li>
+<li>ca. 400,000 geo-located objects in catalog</li>
+<li>available at <a href="https://www.zooniverse.org/projects/mschwamb/planet-four/about/results" class="uri">https://www.zooniverse.org/projects/mschwamb/planet-four/about/results</a></li>
+</ul>
+</section>
+<section id="what-can-be-done-with-it" class="slide level2">
+<h2>What can be done with it?</h2>
+
+<img data-src="image13.gif" class="r-stretch quarto-figure-center"><p class="caption"><span class="citation" data-cites="portyankinaPlanetFourDerived2022">Portyankina et al. (<a href="#/references" role="doc-biblioref" onclick="">2022</a>)</span> “Planet Four: Derived South Polar Martian Winds Interpreted Using Mesoscale Modeling”</p></section>
+<section id="compare-with-climate-models" class="slide level2">
+<h2>Compare with climate models</h2>
+<ul>
+<li>Team member Tim Michaels nest GCM into high-res meso-scale models using CTX and HiRISE DTM topography</li>
+<li>Run for several days to avoid “spin-up” effects</li>
+<li>Run at different <span class="math inline">\(L_s\)</span> over the season</li>
+<li>Compare wind predictions with Planet Four data</li>
+<li>Just published in <span class="citation" data-cites="portyankinaPlanetFourDerived2022">Portyankina et al. (<a href="#/references" role="doc-biblioref" onclick="">2022</a>)</span></li>
+</ul>
+</section>
+<section id="section-1" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title"></h2>
+<p><img data-src="image10.png" class="absolute" style="top: 0px; left: 0px; width: 1000px; "></p>
+</section>
+<section id="section-2" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title"></h2>
+<p><img data-src="image10.png" class="absolute" style="top: -250px; left: 0px; width: 1000px; "></p>
+</section></section>
+<section id="references" class="title-slide slide level1 smaller scrollable">
 <h1>References</h1>
 
 
 <img src="p4_logo.jpeg" class="slide-logo r-stretch"><div class="footer footer-default">
 <p>Planetary Seminar at Freie Uni Berlin, 2022-10-27</p>
+</div>
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-ayePlanetFourProbing2019" class="csl-entry" role="doc-biblioentry">
+Aye, K-Michael, Megan E Schwamb, Ganna Portyankina, Candice J Hansen, Adam McMaster, Grant R M Miller, Brian Carstensen, et al. 2019. <span>“Planet <span>Four</span>: <span>Probing</span> Springtime Winds on <span>Mars</span> by Mapping the Southern Polar <span>CO2</span> Jet Deposits.”</span> <em>Icarus</em> 319 (February): 558–98. <a href="https://doi.org/10.1016/j.icarus.2018.08.018">https://doi.org/10.1016/j.icarus.2018.08.018</a>.
+</div>
+<div id="ref-portyankinaPlanetFourDerived2022" class="csl-entry" role="doc-biblioentry">
+Portyankina, Ganna, Timothy I Michaels, Klaus-Michael Aye, Megan E Schwamb, Candice J Hansen, and Chris J Lintott. 2022. <span>“Planet <span>Four</span>: <span>Derived South Polar Martian Winds Interpreted Using Mesoscale Modeling</span>.”</span> <em>Planet. Sci. J.</em> 3 (2): 31. <a href="https://doi.org/10.3847/PSJ/ac3087">https://doi.org/10.3847/PSJ/ac3087</a>.
+</div>
 </div>
 </section>
     </div>
