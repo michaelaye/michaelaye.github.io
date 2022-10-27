@@ -133,11 +133,18 @@
     "text": "Science case"
   },
   {
+    "objectID": "talks/2022-fub-seminar/index.html#science-case-regions",
+    "href": "talks/2022-fub-seminar/index.html#science-case-regions",
+    "title": "Planetary Research with Citizen Science",
+    "section": "Science case: Regions",
+    "text": "Science case: Regions"
+  },
+  {
     "objectID": "talks/2022-fub-seminar/index.html#science-case-kieffer-model",
     "href": "talks/2022-fub-seminar/index.html#science-case-kieffer-model",
     "title": "Planetary Research with Citizen Science",
     "section": "Science case: Kieffer model",
-    "text": "Science case: Kieffer model"
+    "text": "Science case: Kieffer model\n\n\nJet deposits are aligned by prevalent winds at the time!\nMapping these features would be more wind data than we ever had on Mars!"
   },
   {
     "objectID": "talks/2022-fub-seminar/index.html#interface",
@@ -145,6 +152,41 @@
     "title": "Planetary Research with Citizen Science",
     "section": "Interface",
     "text": "Interface"
+  },
+  {
+    "objectID": "talks/2022-fub-seminar/index.html#interface-return",
+    "href": "talks/2022-fub-seminar/index.html#interface-return",
+    "title": "Planetary Research with Citizen Science",
+    "section": "Interface return",
+    "text": "Interface return\n\nDifficulty: What (contrast) defines the “end” of a surface feature?"
+  },
+  {
+    "objectID": "talks/2022-fub-seminar/index.html#reduction-pipeline-1",
+    "href": "talks/2022-fub-seminar/index.html#reduction-pipeline-1",
+    "title": "Planetary Research with Citizen Science",
+    "section": "Reduction pipeline 1",
+    "text": "Reduction pipeline 1"
+  },
+  {
+    "objectID": "talks/2022-fub-seminar/index.html#reduction-pipeline-2",
+    "href": "talks/2022-fub-seminar/index.html#reduction-pipeline-2",
+    "title": "Planetary Research with Citizen Science",
+    "section": "Reduction pipeline 2",
+    "text": "Reduction pipeline 2\n\nClockwise from upper left: 1) Raw, 2) Fan markings, 3) Blotch markings, 4) Blotch reduction, 5) Fan reduction, 6) catalog entry with 50% majority vote"
+  },
+  {
+    "objectID": "talks/2022-fub-seminar/index.html#catalog-entries",
+    "href": "talks/2022-fub-seminar/index.html#catalog-entries",
+    "title": "Planetary Research with Citizen Science",
+    "section": "Catalog entries",
+    "text": "Catalog entries"
+  },
+  {
+    "objectID": "talks/2022-fub-seminar/index.html#science-team-gold-markings",
+    "href": "talks/2022-fub-seminar/index.html#science-team-gold-markings",
+    "title": "Planetary Research with Citizen Science",
+    "section": "Science Team (Gold) markings",
+    "text": "Science Team (Gold) markings"
   },
   {
     "objectID": "talks/2021-pdw-planetarypy/index.html",
