@@ -152,5 +152,21 @@ Minimum of 30 different volunteers per image tile!
 ## {auto-animate=true}
 ![](image10.png){.absolute top=-250 left=0 width=1000}
 
+## Measure of success
+* Define status of good / average / bad fit with data
+* Using only direction very good match with climate models
+* Taking into account wind strength as well less good
+* Our assumptions for jet deposit <-> wind strength are too simple
+
+## {background-image="image11.png" background-size="contain"}
+
+Only wind directions
+
+## {background-image="image12.png" background-size="contain"}
+
+Wind directions and estimated strenghts
+
+## Conclusions
+
 
 # References
