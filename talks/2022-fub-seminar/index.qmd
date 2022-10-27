@@ -15,7 +15,7 @@ format:
     controls-tutorial: false
     slide-number: true
     logo: p4_logo.jpeg
-    footer: "Planetary Seminar at Freie Uni Berlin, 2022-10-27"
+    footer: "Michael Aye, Planetary Seminar at Freie Uni Berlin, 2022-10-27"
     incremental: false
     chalkboard: true
 bibliography: references.bib
