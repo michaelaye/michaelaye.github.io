@@ -231,6 +231,34 @@
     "text": "Compare with climate models\n\nTeam member Tim Michaels nest GCM into high-res meso-scale models using CTX and HiRISE DTM topography\nRun for several days to avoid “spin-up” effects\nRun at different \\(L_s\\) over the season\nCompare wind predictions with Planet Four data\nJust published in Portyankina et al. (2022)"
   },
   {
+    "objectID": "talks/2022-fub-seminar/index.html#measure-of-success",
+    "href": "talks/2022-fub-seminar/index.html#measure-of-success",
+    "title": "Planetary Research with Citizen Science",
+    "section": "Measure of success",
+    "text": "Measure of success\n\nDefine status of good / average / bad fit with data\nUsing only direction very good match with climate models\nTaking into account wind strength as well less good\nOur assumptions for jet deposit <-> wind strength are too simple"
+  },
+  {
+    "objectID": "talks/2022-fub-seminar/index.html#section-3",
+    "href": "talks/2022-fub-seminar/index.html#section-3",
+    "title": "Planetary Research with Citizen Science",
+    "section": "",
+    "text": "Only wind directions"
+  },
+  {
+    "objectID": "talks/2022-fub-seminar/index.html#section-4",
+    "href": "talks/2022-fub-seminar/index.html#section-4",
+    "title": "Planetary Research with Citizen Science",
+    "section": "",
+    "text": "Wind directions and estimated strenghts"
+  },
+  {
+    "objectID": "talks/2022-fub-seminar/index.html#conclusions",
+    "href": "talks/2022-fub-seminar/index.html#conclusions",
+    "title": "Planetary Research with Citizen Science",
+    "section": "Conclusions",
+    "text": "Conclusions"
+  },
+  {
     "objectID": "talks/2021-pdw-planetarypy/index.html",
     "href": "talks/2021-pdw-planetarypy/index.html",
     "title": "The PlanetaryPy Project",
