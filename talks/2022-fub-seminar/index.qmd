@@ -129,7 +129,6 @@ Minimum of 30 different volunteers per image tile!
 ![](gold_blotch_areas_common.png)
 
 ## Results
-
 * Over 40,000 citizens have contributed
   * Most only once
   * Core team of approx 10-20 volunteers did most of the work
@@ -174,6 +173,7 @@ Wind directions and estimated strengths
 * If data reduction is done carefully, the results are very reliable
 * Don't try to do this "on the side"
   * It's a full time analytical job
+---
 * Overall good match with models but discrepancies exist
 * Hope to derive jet eruption times
 
