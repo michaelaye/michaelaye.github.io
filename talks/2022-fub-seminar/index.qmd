@@ -167,7 +167,6 @@ Only wind directions
 Wind directions and estimated strengths
 
 ## Conclusions
-
 * Citizen Science is not only outreach
 * Scientific paradigms are being changed thanks to the work power of hundred thousands of citizen scientists all over the world
 * If data reduction is done carefully, the results are very reliable
