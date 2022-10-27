@@ -161,11 +161,11 @@
     "text": "Interface return\n\nDifficulty: What (contrast) defines the “end” of a surface feature?"
   },
   {
-    "objectID": "talks/2022-fub-seminar/index.html#reduction-pipeline-1",
-    "href": "talks/2022-fub-seminar/index.html#reduction-pipeline-1",
+    "objectID": "talks/2022-fub-seminar/index.html#reduction-pipeline",
+    "href": "talks/2022-fub-seminar/index.html#reduction-pipeline",
     "title": "Planetary Research with Citizen Science",
-    "section": "Reduction pipeline 1",
-    "text": "Reduction pipeline 1"
+    "section": "Reduction pipeline",
+    "text": "Reduction pipeline"
   },
   {
     "objectID": "talks/2022-fub-seminar/index.html#reduction-pipeline-2",
@@ -182,11 +182,18 @@
     "text": "Catalog entries"
   },
   {
-    "objectID": "talks/2022-fub-seminar/index.html#science-team-gold-markings",
-    "href": "talks/2022-fub-seminar/index.html#science-team-gold-markings",
+    "objectID": "talks/2022-fub-seminar/index.html#section",
+    "href": "talks/2022-fub-seminar/index.html#section",
     "title": "Planetary Research with Citizen Science",
-    "section": "Science Team (Gold) markings",
-    "text": "Science Team (Gold) markings"
+    "section": "",
+    "text": "Science Team (Gold) markings\n\nSignificant differences between science team members\nYears of experience does not overcome the original contrast problem!"
+  },
+  {
+    "objectID": "talks/2022-fub-seminar/index.html#compare-experts-with-citizens",
+    "href": "talks/2022-fub-seminar/index.html#compare-experts-with-citizens",
+    "title": "Planetary Research with Citizen Science",
+    "section": "Compare experts with citizens",
+    "text": "Compare experts with citizens"
   },
   {
     "objectID": "talks/2021-pdw-planetarypy/index.html",
