@@ -118,13 +118,12 @@ Minimum of 30 different volunteers per image tile!
 ![](image7.png){.absolute left=0}
 ![](image8.png){.absolute left=500}
 
-<!-- ## {background-color="white" background-image="gold_data114.png" background-size="contain" background-opacity="0.85"} -->
 ## Science Team (Gold) markings
 * Each team member marked several hundred tiles
 * Significant differences between science team members
 * Years of experience do **not** overcome the original contrast problem!
----
-![](gold_data114.png)
+
+## {background-image="gold_data114.png" background-size="contain"}
 
 ## Compare experts with citizens
 ![](gold_blotch_areas_common.png)
