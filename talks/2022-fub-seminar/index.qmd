@@ -93,7 +93,7 @@ EU Horizon monthly focus and semi-regularly CS news
 
 Difficulty: What (contrast) defines the "end" of a surface feature?
 
-## Reduction pipeline 1 {background-color="white"}
+## Reduction pipeline {background-color="white"}
 ![](parameter_scan.png)
 
 ## Reduction pipeline 2 {background-color="white"}
@@ -103,7 +103,12 @@ Difficulty: What (contrast) defines the "end" of a surface feature?
 ![](image7.png){.absolute left=0}
 ![](image8.png){.absolute left=500}
 
-## Science Team (Gold) markings
-![](gold_data114.png)
+## {background-image="gold_data114.png" background-size="contain" background-opacity="0.85"}
+### Science Team (Gold) markings
+* Significant differences between science team members
+* Years of experience does **not** overcome the original contrast problem!
+
+## Compare experts with citizens
+![](gold_blotch_areas_common.png)
 
 # References
