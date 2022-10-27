@@ -75,6 +75,11 @@ EU Horizon monthly focus and semi-regularly CS news
 
 # Planet Four project {background-image="section1_APF0000hmm.png" background-opacity="0.85"}
 
-## Science case
+## Science case {background-image="image6.jpeg" background-size="contain"}
+
+## Science case: Kieffer model
+![](image14.jpeg)
+
+## Interface {background-image="section3_marking_tools.png" background-size="contain"}
 
 # References
