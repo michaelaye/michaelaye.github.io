@@ -29,25 +29,6 @@
       margin: 0 0.8em 0.2em -1.6em;
       vertical-align: middle;
     }
-    div.csl-bib-body { }
-    div.csl-entry {
-      clear: both;
-    }
-    .hanging div.csl-entry {
-      margin-left:2em;
-      text-indent:-2em;
-    }
-    div.csl-left-margin {
-      min-width:2em;
-      float:left;
-    }
-    div.csl-right-inline {
-      margin-left:2em;
-      padding-left:1em;
-    }
-    div.csl-indent {
-      margin-left: 2em;
-    }
   </style>
   <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto.css" id="theme">
   <link href="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
@@ -358,9 +339,13 @@
   <p class="date">2022-10-27</p>
 </section>
 
-<section id="what-is-citizen-science-cs" class="slide level2">
-<h2>What is Citizen Science (CS)?</h2>
-<p>Political answers, quotes from EU Horizon monthly focus:)</p>
+<section>
+<section id="what-is-citizen-science-cs" class="title-slide slide level1 center">
+<h1>What is Citizen Science (CS)?</h1>
+
+</section>
+<section id="political-answer-quotes-eu-horizon-monthly-focus" class="slide level2">
+<h2>Political answer (Quotes EU Horizon monthly focus)</h2>
 <ul>
 <li>“Through citizen science, ordinary people can take part in extraordinary research.”</li>
 <li>“Through their contributions, the citizen scientist can actively pursue personal values, and be part of a research community seeking the same goals.”</li>
@@ -380,20 +365,22 @@
 <li>Present the data with a simple workflow to thousands of untrained volunteers</li>
 </ul>
 </section>
-<section id="why-citizen-science" class="slide level2">
-<h2>Why Citizen Science?</h2>
+<section id="what-is-in-it-for-scientists" class="slide level2">
+<h2>What is in it for scientists?</h2>
 <ul>
 <li>amount of data grows exponentially</li>
 <li>ideal for simple but arduous questions</li>
 <li>ML: labeled data always better</li>
 <li>CS is an efficient way to create many labels</li>
 <li>good outreach opportunity</li>
-<li>For volunteers:
+</ul>
+</section>
+<section id="what-is-in-it-for-citizens" class="slide level2">
+<h2>What is in it for citizens?</h2>
 <ul>
 <li>participate in real science</li>
 <li>independent of prior education!</li>
 <li>wide variety of research fields offered as CS now</li>
-</ul></li>
 </ul>
 </section>
 <section id="recognition-of-the-field-us" class="slide level2">
@@ -404,34 +391,23 @@
 </section>
 <section id="recognition-of-the-field-eu" class="slide level2" data-background-image="Screenshot_20221026_173301.png" data-background-opacity="0.2" data-background-size="contain">
 <h2>Recognition of the field (EU)</h2>
-<ul>
-<li>EU Horizon monthly focus and semi-regularly CS news:
-<ul>
-<li><p><a href="https://ec.europa.eu/research-and-innovation/en/horizon-magazine/citizen-science-science-and-people" class="uri">https://ec.europa.eu/research-and-innovation/en/horizon-magazine/citizen-science-science-and-people</a></p></li>
-<li><p>Quotes:</p>
-<blockquote>
-<p>Through citizen science, ordinary people can take part in extraordinary research.</p>
-</blockquote></li>
-</ul></li>
-</ul>
-</section>
-<section id="planet-four-project" class="slide level2">
-<h2>Planet Four project</h2>
+<p>EU Horizon monthly focus and semi-regularly CS news</p>
+<p><a href="https://ec.europa.eu/research-and-innovation/en/horizon-magazine/citizen-science-science-and-people" class="uri">https://ec.europa.eu/research-and-innovation/en/horizon-magazine/citizen-science-science-and-people</a></p>
+</section></section>
+<section>
+<section id="planet-four-project" class="title-slide slide level1 center" data-background-image="section1_APF0000hmm.png" data-background-opacity="0.85">
+<h1>Planet Four project</h1>
 
-<aside><div>
-<p><span class="citation" data-cites="ayePlanetFourProbing2019">Aye et al. (<a href="#/references" role="doc-biblioref" onclick="">2019</a>)</span> contains a full description of the data reduction pipeline and quality assurances performed.</p>
-</div></aside></section>
-<section id="references" class="slide level2 smaller scrollable">
-<h2>References</h2>
+</section>
+<section id="science-case" class="slide level2">
+<h2>Science case</h2>
+</section></section>
+<section id="references" class="title-slide slide level1 center">
+<h1>References</h1>
 
 
 <img src="p4_logo.jpeg" class="slide-logo r-stretch"><div class="footer footer-default">
 <p>Planetary Seminar at Freie Uni Berlin, 2022-10-27</p>
-</div>
-<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
-<div id="ref-ayePlanetFourProbing2019" class="csl-entry" role="doc-biblioentry">
-Aye, K-Michael, Megan E Schwamb, Ganna Portyankina, Candice J Hansen, Adam McMaster, Grant R M Miller, Brian Carstensen, et al. 2019. <span>“Planet <span>Four</span>: <span>Probing</span> Springtime Winds on <span>Mars</span> by Mapping the Southern Polar <span>CO2</span> Jet Deposits.”</span> <em>Icarus</em> 319 (February): 558–98. <a href="https://doi.org/10.1016/j.icarus.2018.08.018">https://doi.org/10.1016/j.icarus.2018.08.018</a>.
-</div>
 </div>
 </section>
     </div>
@@ -475,10 +451,10 @@ Aye, K-Michael, Megan E Schwamb, Ganna Portyankina, Candice J Hansen, Adam McMas
 
         // Help the user learn the controls by providing hints, for example by
         // bouncing the down arrow when they first encounter a vertical slide
-        controlsTutorial: false,
+        controlsTutorial: true,
 
         // Determines where controls appear, "edges" or "bottom-right"
-        controlsLayout: 'edges',
+        controlsLayout: 'bottom-right',
 
         // Visibility rule for backwards navigation arrows; "faded", "hidden"
         // or "visible"
@@ -488,7 +464,7 @@ Aye, K-Michael, Megan E Schwamb, Ganna Portyankina, Candice J Hansen, Adam McMas
         progress: true,
 
         // Display the page number of the current slide
-        slideNumber: 'c/t',
+        slideNumber: 'h.v',
 
         // 'all', 'print', or 'speaker'
         showSlideNumber: 'all',
@@ -529,7 +505,7 @@ Aye, K-Michael, Megan E Schwamb, Ganna Portyankina, Candice J Hansen, Adam McMas
         rtl: false,
 
         // see https://revealjs.com/vertical-slides/#navigation-mode
-        navigationMode: 'linear',
+        navigationMode: 'default',
 
         // Randomizes the order of slides each time the presentation loads
         shuffle: false,

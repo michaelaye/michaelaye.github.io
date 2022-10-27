@@ -84,11 +84,11 @@
     "text": "Talk slides"
   },
   {
-    "objectID": "talks/2022-fub-seminar/index.html#what-is-citizen-science-cs",
-    "href": "talks/2022-fub-seminar/index.html#what-is-citizen-science-cs",
+    "objectID": "talks/2022-fub-seminar/index.html#political-answer-quotes-eu-horizon-monthly-focus",
+    "href": "talks/2022-fub-seminar/index.html#political-answer-quotes-eu-horizon-monthly-focus",
     "title": "Planetary Research with Citizen Science",
-    "section": "What is Citizen Science (CS)?",
-    "text": "What is Citizen Science (CS)?\nPolitical answers, quotes from EU Horizon monthly focus:)\n\n“Through citizen science, ordinary people can take part in extraordinary research.”\n“Through their contributions, the citizen scientist can actively pursue personal values, and be part of a research community seeking the same goals.”\n“The professional scientist can get more data than they would otherwise. This leads to better precision in their measurements and more lines of enquiry in their research.”\n“Environmental monitoring is a particularly active field of citizen science.”\n“Scientists naturally want to measure the effects of citizen science and its impact on society […]” (Meta-CS)"
+    "section": "Political answer (Quotes EU Horizon monthly focus)",
+    "text": "Political answer (Quotes EU Horizon monthly focus)\n\n“Through citizen science, ordinary people can take part in extraordinary research.”\n“Through their contributions, the citizen scientist can actively pursue personal values, and be part of a research community seeking the same goals.”\n“The professional scientist can get more data than they would otherwise. This leads to better precision in their measurements and more lines of enquiry in their research.”\n“Environmental monitoring is a particularly active field of citizen science.”\n“Scientists naturally want to measure the effects of citizen science and its impact on society […]” (Meta-CS)"
   },
   {
     "objectID": "talks/2022-fub-seminar/index.html#what-is-cs-practically",
@@ -98,11 +98,18 @@
     "text": "What is CS, practically?\n\nProblem: Simple, but arduous or repetitive task\n\ntoo much data to go through yourself\n\nSplit up the task into screen-sized subtasks\nPresent the data with a simple workflow to thousands of untrained volunteers"
   },
   {
-    "objectID": "talks/2022-fub-seminar/index.html#why-citizen-science",
-    "href": "talks/2022-fub-seminar/index.html#why-citizen-science",
+    "objectID": "talks/2022-fub-seminar/index.html#what-is-in-it-for-scientists",
+    "href": "talks/2022-fub-seminar/index.html#what-is-in-it-for-scientists",
     "title": "Planetary Research with Citizen Science",
-    "section": "Why Citizen Science?",
-    "text": "Why Citizen Science?\n\namount of data grows exponentially\nideal for simple but arduous questions\nML: labeled data always better\nCS is an efficient way to create many labels\ngood outreach opportunity\nFor volunteers:\n\nparticipate in real science\nindependent of prior education!\nwide variety of research fields offered as CS now"
+    "section": "What is in it for scientists?",
+    "text": "What is in it for scientists?\n\namount of data grows exponentially\nideal for simple but arduous questions\nML: labeled data always better\nCS is an efficient way to create many labels\ngood outreach opportunity"
+  },
+  {
+    "objectID": "talks/2022-fub-seminar/index.html#what-is-in-it-for-citizens",
+    "href": "talks/2022-fub-seminar/index.html#what-is-in-it-for-citizens",
+    "title": "Planetary Research with Citizen Science",
+    "section": "What is in it for citizens?",
+    "text": "What is in it for citizens?\n\nparticipate in real science\nindependent of prior education!\nwide variety of research fields offered as CS now"
   },
   {
     "objectID": "talks/2022-fub-seminar/index.html#recognition-of-the-field-us",
@@ -116,21 +123,14 @@
     "href": "talks/2022-fub-seminar/index.html#recognition-of-the-field-eu",
     "title": "Planetary Research with Citizen Science",
     "section": "Recognition of the field (EU)",
-    "text": "Recognition of the field (EU)\n\nEU Horizon monthly focus and semi-regularly CS news:\n\nhttps://ec.europa.eu/research-and-innovation/en/horizon-magazine/citizen-science-science-and-people\nQuotes:\n\nThrough citizen science, ordinary people can take part in extraordinary research."
+    "text": "Recognition of the field (EU)\nEU Horizon monthly focus and semi-regularly CS news\nhttps://ec.europa.eu/research-and-innovation/en/horizon-magazine/citizen-science-science-and-people"
   },
   {
-    "objectID": "talks/2022-fub-seminar/index.html#planet-four-project",
-    "href": "talks/2022-fub-seminar/index.html#planet-four-project",
+    "objectID": "talks/2022-fub-seminar/index.html#science-case",
+    "href": "talks/2022-fub-seminar/index.html#science-case",
     "title": "Planetary Research with Citizen Science",
-    "section": "Planet Four project",
-    "text": "Planet Four project\n\n\nAye et al. (2019) contains a full description of the data reduction pipeline and quality assurances performed."
-  },
-  {
-    "objectID": "talks/2022-fub-seminar/index.html#references",
-    "href": "talks/2022-fub-seminar/index.html#references",
-    "title": "Planetary Research with Citizen Science",
-    "section": "References",
-    "text": "References\n\n\n\nPlanetary Seminar at Freie Uni Berlin, 2022-10-27\n\n\n\nAye, K-Michael, Megan E Schwamb, Ganna Portyankina, Candice J Hansen, Adam McMaster, Grant R M Miller, Brian Carstensen, et al. 2019. “Planet Four: Probing Springtime Winds on Mars by Mapping the Southern Polar CO2 Jet Deposits.” Icarus 319 (February): 558–98. https://doi.org/10.1016/j.icarus.2018.08.018."
+    "section": "Science case",
+    "text": "Science case"
   },
   {
     "objectID": "talks/2021-pdw-planetarypy/index.html",
