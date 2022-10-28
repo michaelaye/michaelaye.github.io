@@ -5,7 +5,6 @@ date: 2021-07-01T11:00:00-06:00
 summary:
 author: "Michael Aye"
 categories: [planetarypy, python]
-date: 2021-07-01T11:00:00-06:00
 ---
 ## Summary
 
