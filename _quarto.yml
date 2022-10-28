@@ -8,7 +8,7 @@ website:
     creator: "@michaelaye"
   open-graph: true
   navbar:
-    collapse: false
+    collapse: true
     left: 
 #      - text: "Home"
 #        file: index.qmd
