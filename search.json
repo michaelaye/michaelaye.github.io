@@ -60,28 +60,21 @@
     "href": "talks/conda-workshop/index.html",
     "title": "How to live peacefully with Ana/Mini/Conda",
     "section": "",
-    "text": "url_slides\nurl_video"
+    "text": "url_slides\nurl_video\n\n\n\nCitationBibTeX citation:@online{aye2020,\n  author = {Michael Aye},\n  editor = {},\n  title = {How to Live Peacefully with {Ana/Mini/Conda}},\n  date = {2020-06-23},\n  url = {https://michaelaye.github.io/talks/conda-workshop},\n  langid = {en},\n  abstract = {I will explain the basic principles of the conda-based\n    toolset, recommend best practices for using conda environments and\n    channels, and demonstrate techniques on how to efficiently delete\n    and reinstall everything in under 5 minutes. I also will discuss\n    Python software package discovery and installation strategies in\n    relation to these conda environments and how to efficiently develop\n    your own libraries while being part of a conda environment.}\n}\nFor attribution, please cite this work as:\nMichael Aye. 2020. “How to Live Peacefully with\nAna/Mini/Conda.” June 23, 2020. https://michaelaye.github.io/talks/conda-workshop."
   },
   {
     "objectID": "talks/conda-lunchtalk/index.html",
     "href": "talks/conda-lunchtalk/index.html",
     "title": "Best practices for conda-based Python science analysis environments",
     "section": "",
-    "text": "url_slides\nurl_video"
+    "text": "url_slides\nurl_video\n\n\n\nCitationBibTeX citation:@online{aye2020,\n  author = {Michael Aye},\n  editor = {},\n  title = {Best Practices for Conda-Based {Python} Science Analysis\n    Environments},\n  date = {2020-03-31},\n  url = {https://michaelaye.github.io/talks/conda-lunchtalk},\n  langid = {en}\n}\nFor attribution, please cite this work as:\nMichael Aye. 2020. “Best Practices for Conda-Based Python Science\nAnalysis Environments.” March 31, 2020. https://michaelaye.github.io/talks/conda-lunchtalk."
   },
   {
     "objectID": "talks/2021-conda-workshop-kharkiv/index.html",
     "href": "talks/2021-conda-workshop-kharkiv/index.html",
     "title": "How to create and maintain a scientific Python environment using conda",
     "section": "",
-    "text": "Location: Kharkiv, Ukraine (virtual)"
-  },
-  {
-    "objectID": "talks/2021-conda-workshop-kharkiv/index.html#talk-slides",
-    "href": "talks/2021-conda-workshop-kharkiv/index.html#talk-slides",
-    "title": "How to create and maintain a scientific Python environment using conda",
-    "section": "Talk slides",
-    "text": "Talk slides"
+    "text": "Location: Kharkiv, Ukraine (virtual)\nTalk slides\n\n\n\nCitationBibTeX citation:@online{2021,\n  author = {},\n  editor = {},\n  title = {How to Create and Maintain a Scientific {Python} Environment\n    Using Conda},\n  date = {2021-04-28},\n  url = {https://michaelaye.github.io/talks/2021-conda-workshop-kharkiv},\n  langid = {en}\n}\nFor attribution, please cite this work as:\n“How to Create and Maintain a Scientific Python Environment Using\nConda.” 2021. April 28, 2021. https://michaelaye.github.io/talks/2021-conda-workshop-kharkiv."
   },
   {
     "objectID": "talks/2022-fub-seminar/index.html",
@@ -277,28 +270,21 @@
     "href": "talks/2021-pdw-planetarypy/index.html",
     "title": "The PlanetaryPy Project",
     "section": "",
-    "text": "The PlanetaryPy Project is a community effort to develop a core package for planetary science in Python and foster interoperability between Python planetary science packages.\nThe PlanetaryPy Technical Committee (TC) is the governing body for the PlanetaryPy Project. All of their work is done in the open via the TC GitHub repo. To learn more about what the TC is, how it operates, or to get involved, you can read its Charter (see paragraph below). The PlanetaryPy TC has regular meetings to which all are welcome to attend. The meeting agendas for upcoming meetings, and notes from previous meetings can be found in the TC’s GitHub repo.\nevent_url\nurl_slides\nurl_code\nurl_pdf\nurl_video"
+    "text": "CitationBibTeX citation:@unpublished{2021,\n  author = {},\n  editor = {},\n  title = {The {PlanetaryPy} {Project}},\n  date = {2021-07-01},\n  url = {https://michaelaye.github.io/talks/2021-pdw-planetarypy},\n  langid = {en}\n}\nFor attribution, please cite this work as:\n“The PlanetaryPy Project.” 2021. 5th Planetary Data\nWorkshop. July 1. https://michaelaye.github.io/talks/2021-pdw-planetarypy."
   },
   {
     "objectID": "talks/2021-diviner-kharkiv-talk/index.html",
     "href": "talks/2021-diviner-kharkiv-talk/index.html",
     "title": "Calibration of the LRO Diviner Lunar Radiometer Experiment",
     "section": "",
-    "text": "Location: Kharkiv, Ukraine (virtual)"
-  },
-  {
-    "objectID": "talks/2021-diviner-kharkiv-talk/index.html#talk-slides",
-    "href": "talks/2021-diviner-kharkiv-talk/index.html#talk-slides",
-    "title": "Calibration of the LRO Diviner Lunar Radiometer Experiment",
-    "section": "Talk slides",
-    "text": "Talk slides"
+    "text": "Location: Kharkiv, Ukraine (virtual)\nTalk slides\n\n\n\nCitationBibTeX citation:@online{2021,\n  author = {},\n  editor = {},\n  title = {Calibration of the {LRO} {Diviner} {Lunar} {Radiometer}\n    {Experiment}},\n  date = {2021-04-27},\n  url = {https://michaelaye.github.io/talks/2021-diviner-kharkiv-talk},\n  langid = {en}\n}\nFor attribution, please cite this work as:\n“Calibration of the LRO Diviner Lunar Radiometer\nExperiment.” 2021. April 27, 2021. https://michaelaye.github.io/talks/2021-diviner-kharkiv-talk."
   },
   {
     "objectID": "talks.html",
     "href": "talks.html",
     "title": "Talks",
     "section": "",
-    "text": "Introduction to Citizen Science and the Planet Four project\n\n\n\n\nmars\n\n\npolar science\n\n\ncitizen science\n\n\n\n\nPresentation given at Planetary Seminar of Freie Uni Berlin\n\n\n\n\n\n\n2022-10-27\n\n\nMichael Aye\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\nonline-presentation\n\n\n\n\nA short overview of the Planetary Research done via Citizen Science, followed by an in-depth review of the Planet Four Citizen Science projects.\n\n\n\n\n\n\n2022-10-27\n\n\nMichael Aye\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n5th Planetary Data Workshop\n\n\n\n\nplanetarypy\n\n\npython\n\n\n\n\n\n\n\n\n\n\n\n2021-07-01\n\n\nMichael Aye\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nInternational Conference for Young Professionals in Physics and Technology (ICYPPT)\n\n\n\n\ninvited talk\n\n\nconda\n\n\nsoftware management\n\n\n\n\n\n\n\n\n\n\n\n2021-04-28\n\n\nMichael Aye\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nInternational Conference for Young Professionals in Physics and Technology\n\n\n\n\ninvited talk\n\n\nLRO\n\n\nDiviner\n\n\ncalibration\n\n\n\n\n\n\n\n\n\n\n\n2021-04-27\n\n\nMichael Aye\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nOpenPlanetary Virtual Conference\n\n\n\n\nconda\n\n\npython\n\n\n\n\nI will explain the basic principles of the conda-based toolset, recommend best practices for using conda environments and channels, and demonstrate techniques on how to efficiently delete and reinstall everything in under 5 minutes. I also will discuss Python software package discovery and installation strategies in relation to these conda environments and how to efficiently develop your own libraries while being part of a conda environment.\n\n\n\n\n\n\n2020-06-23\n\n\nMichael Aye\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nOpenPlanetary Lunch Talk\n\n\n\n\nconda\n\n\npython\n\n\n\n\n\n\n\n\n\n\n\n2020-03-31\n\n\nMichael Aye\n\n\n\n\n\n\nNo matching items"
+    "text": "Introduction to Citizen Science and the Planet Four project\n\n\n\n\nmars\n\n\npolar science\n\n\ncitizen science\n\n\n\n\nPresentation given at Planetary Seminar of Freie Uni Berlin\n\n\n\n\n\n\n2022-10-27\n\n\nMichael Aye\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\nonline-presentation\n\n\n\n\nA short overview of the Planetary Research done via Citizen Science, followed by an in-depth review of the Planet Four Citizen Science projects.\n\n\n\n\n\n\n2022-10-27\n\n\nMichael Aye\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n5th Planetary Data Workshop\n\n\n\n\nplanetarypy\n\n\npython\n\n\n\n\n\n\n\n\n\n\n\n2021-07-01\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nInternational Conference for Young Professionals in Physics and Technology (ICYPPT)\n\n\n\n\ninvited talk\n\n\nconda\n\n\nsoftware management\n\n\n\n\n\n\n\n\n\n\n\n2021-04-28\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nInternational Conference for Young Professionals in Physics and Technology\n\n\n\n\ninvited talk\n\n\nLRO\n\n\nDiviner\n\n\ncalibration\n\n\n\n\n\n\n\n\n\n\n\n2021-04-27\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nOpenPlanetary Virtual Conference\n\n\n\n\nconda\n\n\npython\n\n\n\n\nI will explain the basic principles of the conda-based toolset, recommend best practices for using conda environments and channels, and demonstrate techniques on how to efficiently delete and reinstall everything in under 5 minutes. I also will discuss Python software package discovery and installation strategies in relation to these conda environments and how to efficiently develop your own libraries while being part of a conda environment.\n\n\n\n\n\n\n2020-06-23\n\n\nMichael Aye\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nOpenPlanetary Lunch Talk\n\n\n\n\nconda\n\n\npython\n\n\n\n\n\n\n\n\n\n\n\n2020-03-31\n\n\nMichael Aye\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "projects/saturn-rings/index.html",

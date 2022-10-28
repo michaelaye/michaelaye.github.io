@@ -78,14 +78,18 @@ ul.task-list li input[type="checkbox"] {
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand navbar-dark ">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container">
     <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Home</span>
     </a>
   </div>
-          <ul class="navbar-nav navbar-nav-scroll me-auto">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
     <a class="nav-link" href="../../posts.html">Blog</a>
   </li>  
@@ -99,7 +103,7 @@ ul.task-list li input[type="checkbox"] {
     <a class="nav-link" href="../../bibliography.html">Bibliography</a>
   </li>  
 </ul>
-          <ul class="navbar-nav navbar-nav-scroll ms-auto">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item compact">
     <a class="nav-link" href="https://github.com/michaelaye"><i class="bi bi-github" role="img">
 </i> 
@@ -111,10 +115,11 @@ ul.task-list li input[type="checkbox"] {
  </a>
   </li>  
 </ul>
-            <div class="quarto-toggle-container">
-                <a href="" class="quarto-color-scheme-toggle nav-link" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
-            </div>
-            <div id="quarto-search" class="" title="Search"></div>
+              <div class="quarto-toggle-container">
+                  <a href="" class="quarto-color-scheme-toggle nav-link" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+              </div>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
     </nav>
 </header>
@@ -131,16 +136,25 @@ ul.task-list li input[type="checkbox"] {
                   </div>
   </div>
     
-  
+  <div class="quarto-title-meta-author">
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-heading">Affiliation</div>
+    
+      <div class="quarto-title-meta-contents">
+      Michael Aye 
+    </div>
+      <div class="quarto-title-meta-contents">
+          <p class="affiliation">
+              <a href="https://lasp.colorado.edu">
+              Laboratory for Atmospheric and Space Science
+              </a>
+            </p>
+        </div>
+      </div>
+
   <div class="quarto-title-meta">
 
-      <div>
-      <div class="quarto-title-meta-heading">Author</div>
-      <div class="quarto-title-meta-contents">
-               <p>Michael Aye </p>
-            </div>
-    </div>
-      
+        
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
@@ -175,7 +189,25 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-</main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{aye2020,
+  author = {Michael Aye},
+  editor = {},
+  title = {How to Live Peacefully with {Ana/Mini/Conda}},
+  date = {2020-06-23},
+  url = {https://michaelaye.github.io/talks/conda-workshop},
+  langid = {en},
+  abstract = {I will explain the basic principles of the conda-based
+    toolset, recommend best practices for using conda environments and
+    channels, and demonstrate techniques on how to efficiently delete
+    and reinstall everything in under 5 minutes. I also will discuss
+    Python software package discovery and installation strategies in
+    relation to these conda environments and how to efficiently develop
+    your own libraries while being part of a conda environment.}
+}
+</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-aye2020" class="csl-entry quarto-appendix-citeas" role="doc-biblioentry">
+Michael Aye. 2020. <span>“How to Live Peacefully with
+Ana/Mini/Conda.”</span> June 23, 2020. <a href="https://michaelaye.github.io/talks/conda-workshop">https://michaelaye.github.io/talks/conda-workshop</a>.
+</div></div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
