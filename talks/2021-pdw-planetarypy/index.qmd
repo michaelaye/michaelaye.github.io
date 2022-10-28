@@ -1,0 +1,45 @@
+---
+title: "The PlanetaryPy Project"
+subtitle: 5th Planetary Data Workshop
+date: 2021-07-01T11:00:00-06:00
+summary:
+authors:
+  - name: "Michael Aye"
+    url: https://michaelaye.github.io
+    orcid: 0000-0002-4088-1928
+    affiliations: 
+      - name: Laboratory for Atmospheric and Space Science
+        url: https://lasp.colorado.edu
+  - name: "Ross Beyer"
+    affiliation: "SETI Institute"
+  - name: "Andrew M. Annex"
+    affiliation: "Johns Hopkins University"
+  - name: "Chase Million"
+    affiliation: "Million Concepts"
+citation:
+  type: speech
+  pdf-url: https://www.hou.usra.edu/meetings/planetdata2021/pdf/7026.pdf
+  container-title: "5th Planetary Data Workshop"
+categories: [planetarypy, python]
+---
+## Summary
+
+The PlanetaryPy Project is a community effort to develop a core package for planetary science in Python and foster interoperability between Python planetary science packages.
+
+The PlanetaryPy Technical Committee (TC) is the governing body for the PlanetaryPy Project. 
+All of their work is done in the open via the TC GitHub repo. 
+To learn more about what the TC is, how it operates, or to get involved, you can read its Charter (see paragraph below).
+The PlanetaryPy TC has regular meetings to which all are welcome to attend. 
+The meeting agendas for upcoming meetings, and notes from previous meetings can be found in the TC’s GitHub repo.
+
+
+[Conference Program](https://www.hou.usra.edu/meetings/planetdata2021/program/)
+
+[Slides](https://docs.google.com/presentation/d/1H-tGxfkSHF8vS-_rt5DQHVFmBYkJNaJW6yElUe9s2Ok/edit?usp=sharing)
+
+[Project URL](https://github.com/planetarypy)  
+
+[Abstract PDF](https://www.hou.usra.edu/meetings/planetdata2021/pdf/7026.pdf)  
+
+[Presentation Video](https://www.youtube.com/watch?v=GwvRkXpmCXc)
+

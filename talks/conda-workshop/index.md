@@ -3,7 +3,12 @@ title: "How to live peacefully with Ana/Mini/Conda"
 subtitle: OpenPlanetary Virtual Conference
 summary:
 date: 2020-06-23T11:00:00-06:00
-author: "Michael Aye"
+author: 
+  name: "Michael Aye"
+  affiliation:
+    - name: Laboratory for Atmospheric and Space Science
+      url: https://lasp.colorado.edu
+citation: true
 categories: [conda, python]
 abstract: I will explain the basic principles of the conda-based toolset, 
   recommend best practices for using conda environments and channels, and demonstrate techniques 
