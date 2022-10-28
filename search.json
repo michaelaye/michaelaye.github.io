@@ -1,5 +1,26 @@
 [
   {
+    "objectID": "posts/mamba-is-the-new-conda/index.html",
+    "href": "posts/mamba-is-the-new-conda/index.html",
+    "title": "Mamba is the new Conda",
+    "section": "",
+    "text": "It also offers parallel downloads for new or updated packages, so that updating your environment or adding a new package isn’t a chore anymore, it’s blazing fast! :)\nYou install it (only!) into your conda base environment like so:\nconda activate base\nconda install -c conda-forge mamba\nWhen creating a new Python system, I can recommend to go immediately for the new mambaforge installer, that will:\n\ninstall mamba into your base so that it is immediately available\npoint all your package requests to the awesome conda-forge channel where a huge community provides all the scientific Python packages and dependencies (like gdal and OpenCV) in a much faster update cadence then the defaults channel of anaconda does.\n\nI am working exclusively with the the conda-forge channel for several years and never, or very rarely, had an issue with that.\n\nJust remember: Don’t mix channels much, the less the better. (It’s okay for a one-time mamba install into your base though.)\n\nComment"
+  },
+  {
+    "objectID": "posts/fan-creation/index.html",
+    "href": "posts/fan-creation/index.html",
+    "title": "Fan Creation",
+    "section": "",
+    "text": "I wrote this blog post 2 weeks ago, but I wanted to show the IPython notebook in its full glory, so I got delayed posting this until I finally had finished my Blogger blog transition to a static website blogging system that supports the display of IPython notebooks. So, the excitement that hopefully still transpires, is not as fresh, but nonetheless: Mars is right now producing fans every day somewhere! I updated all times below to have more relevant data to show.\n\n\n\nI realised today that we are so close to the official beginning of Martian southern spring, I wondered if the sun already is up over Inca City. Here is how I go about finding out what’s currently going on there, using tools that I have written over the years.\nFirst I make my main library for this, kmaspice, available to me.\nfrom pymars import kmaspice\nNow I will create an object that knows how to deal with Martian times and illuminations.\ninca = kmaspice.MarsSpicer()\nI saved some predefined places and their locations into the code, so that I don’t need to remember the coordinates all the time. So let’s justify the variable name by actually setting it on top of Inca City: \ninca.goto('inca')\nBy default, when I don’t provide a time, the time is set to the current time. In the UTC timezone, that is:\ninca.time.isoformat()\n'2014-08-05T13:47:44.441759'\nTo double-check how close we are to spring time in the southern hemisphere on Mars, I need to look at a value called \\(L_s\\) (L sub s), which is the solar longitude.\nThis value measures the time of the seasons on Mars as its angular position during its trip around the sun. And southern spring was defined to be at \\(L_s = 180^\\circ\\).\nround(inca.l_s, 1)\n173.2\nSo, we are pretty close to spring then. But do we already have sunlight in Inca? We should remember that we are in polar areas, where we have darkness for half a year, just like on Earth. Let’s have a look what is the local time in Inca:\ninca.local_soltime\n(22, 27, 23, '22:27:23', '10:27:23 P.M.')\n(The output provides me with 3 different formats for the same, just in case I need that)\nRight, that’s in the night, so that most likely means that the sun is below the horizon, right?\nSolar angles are measured from the local normal direction, with the sun directly over head being defined as 0. Which means the horizon is at 90 degrees.\nI am calling up on a value with the name dsolar which is my shortcut for solar angle in degrees.\nround(inca.illum_angles.dsolar, 1)\n100.5\nSo, this value of 100 means the sun is below the horizon. But it is local night, so we would expect that!\nNow comes the magic, let’s just advance the time by a couple of hours, usually the sun is highest around local noon, so let’s aim for that. I don’t need to be precise now, so I go just 14 hours forward in time. Then I will have another look at the sun’s angle.\ninca.advance_time_by(14*3600)\nround(inca.illum_angles.dsolar)\n84.0\nOh yes! This is just 6 degrees above the horizon, the sun is lurking over it just a tiny bit. But all you people that work so hard in helping us out know what this means, right? Where there is sun, there is energy. And this energy can be used to sublime CO2 gas and create the wonderful fans we are studying. Let’s make this a bit prettier with a bit more insight. First, let’s go back the 14 hours again.\ninca.advance_time_by(-14*3600)\nNow, I will create a loop with 100 elements, and check and write down the time each 10 minutes (= 600 seconds). I save the resulting numbers in 2 new arrays to have it easier to plot things over time later.\ntimes = []\nangles = []\n\nfor i in range(100):\n    inca.advance_time_by(600)\n    times.append(inca.local_soltime[3])\n    angles.append(inca.illum_angles.dsolar)\nI’m now importing the pandas library, an amazing toolbox to deal with time-series data. Especially, the plots automatically get nicely formatted time-axes, which is always a pain with plotting.\nimport pandas as pd\ndata = pd.Series(angles, index=times)\nI need to switch this notebook to show plots inside this notebook and not outside as an extra window, which is my default:\n%pylab inline\nPopulating the interactive namespace from numpy and matplotlib\ndata.plot()\n<matplotlib.axes.AxesSubplot at 0x115ac1e90>\n\n\n\npng\n\n\nHere we see how the sun’s angle is developing over time. As expected we see a minimum (i.e. highest sun over horizon) right around noon. ###Do you hear the CO2 ice crackling?? ;) I find it amazing to know that in approx. 8 hours some of our beloved fans are being created!\nNext I wondered how long we already have the sun lurking over the horizon. For this I now will go backwards in 10 minute steps, but this time I take 4000 steps to cover more time. I then immediately plot the results:\ntimes = []\nangles = []\n\nfor i in range(4000):\n    inca.advance_time_by(-600)\n    times.append(inca.time)\n    angles.append(inca.illum_angles.dsolar)\npd.Series(angles,index=times).plot()\n<matplotlib.axes.AxesSubplot at 0x1162d1590>\n\n\n\npng\n\n\nInteresting! Now we can see that around July 14th, the sun for the first time was below an inclination angle of 90, meaning that’s the first day of this season when it lurked over the horizon.\nSo for 3 weeks now, the available energy is slowly building up CO2 gas underneath the CO2 ice cover that is everywhere. I could bet that at some place with weak thin ice, already the first fans are popping up. Unfortunately, the light conditions at local times of 2-4 PM, when our favorite camera HiRISE is flying over these places, were still so bad then, that we did not plan any images at that time.\nBut from now on it’s possible and we have indeed new observations planned. And YOU can choose which one the HiRISE team will focus on get ready for public release, just vote here: http://www.planetfour.org/vote/"
+  },
+  {
+    "objectID": "posts/matplotlib-ticklabel-formats/index.html",
+    "href": "posts/matplotlib-ticklabel-formats/index.html",
+    "title": "Matplotlib Ticklabel Formats",
+    "section": "",
+    "text": "They are obviously there to help the viewer focus on the level where the numbers are really changing, removing the area where there’s no change happening.\nBut I am claiming that due to pattern recognition, there are quite a few cases where this confuses more than it helps. In this example I (and the people in my team) are used to see 5-digit numbers and it takes quite some time to figure out here, that these are indeed 5-digit numbers.\nTherefore I researched how to switch this behavior off.\nFirst, one imports the ScalarFormatter class from the matplotlib.ticker module:\n\nfrom matplotlib.ticker import ScalarFormatter\n\nThen, one creates a formatter object with the use of offset numbers switched off:\n\ny_formatter = ScalarFormatter(useOffset=False)\n\nFinally, you apply it to an axis object that you either receive via the fig.subplot() command, via plt.gca() (acronym for Get Current Axis) or you catch it when it is being returned after a plot command:\n\nax.yaxis.set_major_formatter(y_formatter)\n\nThere you go, hope this helps someone.\nHere is the stackoverflow issue that helped me to find the solution.\nUpdate (2013-10-20) :\nAn easier way is to catch the axis object from the plot command and apply the following command:\n\nax.ticklabel_format(useOffset=False)\n\nI initiated a github issue to have this included in matplotlib, which has been responded already with a solution, so this will be configurable in the future, yay!\nUpdate 2, same day:\nWeird, I thought I had the above shortcut working at some time, now it doesn’t. If anyone knows the circumstance under this can work and can not, please comment."
+  },
+  {
     "objectID": "posts/minimal-conda-setup-instructions/index.html",
     "href": "posts/minimal-conda-setup-instructions/index.html",
     "title": "Minimal Conda Setup Instructions",
@@ -28,39 +49,270 @@
     "text": "Specifically, I was looking for a linux solution, and while it’s straight forward on the Mac, where the --csv flag produces a CSV string that includes a proper timestamp of the measurement, the interface or API for the homebrew CLI versions of Mac and Linux are quite different.\nOn macOS, one can do\nspeedtest --csv\nand the output will contain a column with a timestamp which is important for keeping track of the measurements.\nOn Linux, however, for getting a CSV output, one needs to do\nspeedtest --format=csv\nand unfortunately here we do NOT get a timestamp in the output. There is the option to use --format=json which actually does provide a timestamp, but I don’t want to deal with JSON parsing for this simple thing.\nSo I added some bits of Python to catch the output of speedtest and add a timestamp to its CSV line before appending it to a record of measurements.\nThe sh package is a very useful one-file package that enables you to call system programs in a function-like manner, with proper redirection utilities of any incoming output etc. BTW, I tried to simply work with the returned object, but it wasn’t simply the text, it was some kind of CommandObject and the docs are not clear on how to get the text out of the command object, probably easy but I didn’t inspect it. So maybe below script can be made even easier, without a callback function but directly working with the returned object.\nThe header line by the way one can get by adding the --output-header flag to the above command. I then just went ahead and added , time to the header line, so that the header is complete for a quick pandas import down the road.\nNote that the numbers of speedtest are bytes/s, so one does need to do some math to convert to the usual Mbps.\nHere’s my script:\n\n\nUpdate:\nI forgot to add how to run it regularly using crontab:\nExecute\ncrontab -e\nand an editor should pop up.\nThe first cryptical looking syntax of crontab, the service that enables you to regularly execute any program or script on your machine is actually pretty simple, HelpUbuntu has a good intro here: https://help.ubuntu.com/community/CronHowto\nIn short, to run a script every hour on the minute 22 you put this into your crontab file:\n22 * * * * /path/to/script/to/run.py\nHope it helps someone. If anybody wants to see how to quickly analyze and plot the file using pandas let me know, but I figure most of my readers will know that?\nLet me know, put any questions or comments you may have on my Twitter feed! Comment"
   },
   {
-    "objectID": "posts/fan-creation/index.html",
-    "href": "posts/fan-creation/index.html",
-    "title": "Fan Creation",
+    "objectID": "posts.html",
+    "href": "posts.html",
+    "title": "Blog posts",
     "section": "",
-    "text": "I wrote this blog post 2 weeks ago, but I wanted to show the IPython notebook in its full glory, so I got delayed posting this until I finally had finished my Blogger blog transition to a static website blogging system that supports the display of IPython notebooks. So, the excitement that hopefully still transpires, is not as fresh, but nonetheless: Mars is right now producing fans every day somewhere! I updated all times below to have more relevant data to show.\n\n\n\nI realised today that we are so close to the official beginning of Martian southern spring, I wondered if the sun already is up over Inca City. Here is how I go about finding out what’s currently going on there, using tools that I have written over the years.\nFirst I make my main library for this, kmaspice, available to me.\nfrom pymars import kmaspice\nNow I will create an object that knows how to deal with Martian times and illuminations.\ninca = kmaspice.MarsSpicer()\nI saved some predefined places and their locations into the code, so that I don’t need to remember the coordinates all the time. So let’s justify the variable name by actually setting it on top of Inca City: \ninca.goto('inca')\nBy default, when I don’t provide a time, the time is set to the current time. In the UTC timezone, that is:\ninca.time.isoformat()\n'2014-08-05T13:47:44.441759'\nTo double-check how close we are to spring time in the southern hemisphere on Mars, I need to look at a value called \\(L_s\\) (L sub s), which is the solar longitude.\nThis value measures the time of the seasons on Mars as its angular position during its trip around the sun. And southern spring was defined to be at \\(L_s = 180^\\circ\\).\nround(inca.l_s, 1)\n173.2\nSo, we are pretty close to spring then. But do we already have sunlight in Inca? We should remember that we are in polar areas, where we have darkness for half a year, just like on Earth. Let’s have a look what is the local time in Inca:\ninca.local_soltime\n(22, 27, 23, '22:27:23', '10:27:23 P.M.')\n(The output provides me with 3 different formats for the same, just in case I need that)\nRight, that’s in the night, so that most likely means that the sun is below the horizon, right?\nSolar angles are measured from the local normal direction, with the sun directly over head being defined as 0. Which means the horizon is at 90 degrees.\nI am calling up on a value with the name dsolar which is my shortcut for solar angle in degrees.\nround(inca.illum_angles.dsolar, 1)\n100.5\nSo, this value of 100 means the sun is below the horizon. But it is local night, so we would expect that!\nNow comes the magic, let’s just advance the time by a couple of hours, usually the sun is highest around local noon, so let’s aim for that. I don’t need to be precise now, so I go just 14 hours forward in time. Then I will have another look at the sun’s angle.\ninca.advance_time_by(14*3600)\nround(inca.illum_angles.dsolar)\n84.0\nOh yes! This is just 6 degrees above the horizon, the sun is lurking over it just a tiny bit. But all you people that work so hard in helping us out know what this means, right? Where there is sun, there is energy. And this energy can be used to sublime CO2 gas and create the wonderful fans we are studying. Let’s make this a bit prettier with a bit more insight. First, let’s go back the 14 hours again.\ninca.advance_time_by(-14*3600)\nNow, I will create a loop with 100 elements, and check and write down the time each 10 minutes (= 600 seconds). I save the resulting numbers in 2 new arrays to have it easier to plot things over time later.\ntimes = []\nangles = []\n\nfor i in range(100):\n    inca.advance_time_by(600)\n    times.append(inca.local_soltime[3])\n    angles.append(inca.illum_angles.dsolar)\nI’m now importing the pandas library, an amazing toolbox to deal with time-series data. Especially, the plots automatically get nicely formatted time-axes, which is always a pain with plotting.\nimport pandas as pd\ndata = pd.Series(angles, index=times)\nI need to switch this notebook to show plots inside this notebook and not outside as an extra window, which is my default:\n%pylab inline\nPopulating the interactive namespace from numpy and matplotlib\ndata.plot()\n<matplotlib.axes.AxesSubplot at 0x115ac1e90>\n\n\n\npng\n\n\nHere we see how the sun’s angle is developing over time. As expected we see a minimum (i.e. highest sun over horizon) right around noon. ###Do you hear the CO2 ice crackling?? ;) I find it amazing to know that in approx. 8 hours some of our beloved fans are being created!\nNext I wondered how long we already have the sun lurking over the horizon. For this I now will go backwards in 10 minute steps, but this time I take 4000 steps to cover more time. I then immediately plot the results:\ntimes = []\nangles = []\n\nfor i in range(4000):\n    inca.advance_time_by(-600)\n    times.append(inca.time)\n    angles.append(inca.illum_angles.dsolar)\npd.Series(angles,index=times).plot()\n<matplotlib.axes.AxesSubplot at 0x1162d1590>\n\n\n\npng\n\n\nInteresting! Now we can see that around July 14th, the sun for the first time was below an inclination angle of 90, meaning that’s the first day of this season when it lurked over the horizon.\nSo for 3 weeks now, the available energy is slowly building up CO2 gas underneath the CO2 ice cover that is everywhere. I could bet that at some place with weak thin ice, already the first fans are popping up. Unfortunately, the light conditions at local times of 2-4 PM, when our favorite camera HiRISE is flying over these places, were still so bad then, that we did not plan any images at that time.\nBut from now on it’s possible and we have indeed new observations planned. And YOU can choose which one the HiRISE team will focus on get ready for public release, just vote here: http://www.planetfour.org/vote/"
+    "text": "python\n\n\nconda\n\n\nmamba\n\n\nsoftware management\n\n\n\n\n\n\n\n\n\n\n\n2021-10-15\n\n\nMichael Aye\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nUse crontab and a bit of Python to store speedtest results in a CSV.\n\n\n\n\nhacking\n\n\npython\n\n\n\n\n\n\n\n\n\n\n\n2021-09-22\n\n\nMichael Aye\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nconda\n\n\nmamba\n\n\nsoftware management\n\n\n\n\n\n\n\n\n\n\n\n2021-09-10\n\n\nMichael Aye\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\nplanet four\n\n\n\n\n\n\n\n\n\n\n\n2014-08-05\n\n\nMichael Aye\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\nplotting\n\n\nmatplotlib\n\n\n\n\n\n\n\n\n\n\n\n2013-09-03\n\n\n\n\n\n\nNo matching items"
   },
   {
-    "objectID": "posts/mamba-is-the-new-conda/index.html",
-    "href": "posts/mamba-is-the-new-conda/index.html",
-    "title": "Mamba is the new Conda",
+    "objectID": "talks/conda-workshop/index.html",
+    "href": "talks/conda-workshop/index.html",
+    "title": "How to live peacefully with Ana/Mini/Conda",
     "section": "",
-    "text": "It also offers parallel downloads for new or updated packages, so that updating your environment or adding a new package isn’t a chore anymore, it’s blazing fast! :)\nYou install it (only!) into your conda base environment like so:\nconda activate base\nconda install -c conda-forge mamba\nWhen creating a new Python system, I can recommend to go immediately for the new mambaforge installer, that will:\n\ninstall mamba into your base so that it is immediately available\npoint all your package requests to the awesome conda-forge channel where a huge community provides all the scientific Python packages and dependencies (like gdal and OpenCV) in a much faster update cadence then the defaults channel of anaconda does.\n\nI am working exclusively with the the conda-forge channel for several years and never, or very rarely, had an issue with that.\n\nJust remember: Don’t mix channels much, the less the better. (It’s okay for a one-time mamba install into your base though.)\n\nComment"
+    "text": "url_slides\nurl_video"
   },
   {
-    "objectID": "posts/matplotlib-ticklabel-formats/index.html",
-    "href": "posts/matplotlib-ticklabel-formats/index.html",
-    "title": "Matplotlib Ticklabel Formats",
+    "objectID": "talks/conda-lunchtalk/index.html",
+    "href": "talks/conda-lunchtalk/index.html",
+    "title": "Best practices for conda-based Python science analysis environments",
     "section": "",
-    "text": "They are obviously there to help the viewer focus on the level where the numbers are really changing, removing the area where there’s no change happening.\nBut I am claiming that due to pattern recognition, there are quite a few cases where this confuses more than it helps. In this example I (and the people in my team) are used to see 5-digit numbers and it takes quite some time to figure out here, that these are indeed 5-digit numbers.\nTherefore I researched how to switch this behavior off.\nFirst, one imports the ScalarFormatter class from the matplotlib.ticker module:\n\nfrom matplotlib.ticker import ScalarFormatter\n\nThen, one creates a formatter object with the use of offset numbers switched off:\n\ny_formatter = ScalarFormatter(useOffset=False)\n\nFinally, you apply it to an axis object that you either receive via the fig.subplot() command, via plt.gca() (acronym for Get Current Axis) or you catch it when it is being returned after a plot command:\n\nax.yaxis.set_major_formatter(y_formatter)\n\nThere you go, hope this helps someone.\nHere is the stackoverflow issue that helped me to find the solution.\nUpdate (2013-10-20) :\nAn easier way is to catch the axis object from the plot command and apply the following command:\n\nax.ticklabel_format(useOffset=False)\n\nI initiated a github issue to have this included in matplotlib, which has been responded already with a solution, so this will be configurable in the future, yay!\nUpdate 2, same day:\nWeird, I thought I had the above shortcut working at some time, now it doesn’t. If anyone knows the circumstance under this can work and can not, please comment."
+    "text": "url_slides\nurl_video"
+  },
+  {
+    "objectID": "talks/2021-conda-workshop-kharkiv/index.html",
+    "href": "talks/2021-conda-workshop-kharkiv/index.html",
+    "title": "How to create and maintain a scientific Python environment using conda",
+    "section": "",
+    "text": "Location: Kharkiv, Ukraine (virtual)"
+  },
+  {
+    "objectID": "talks/2021-conda-workshop-kharkiv/index.html#talk-slides",
+    "href": "talks/2021-conda-workshop-kharkiv/index.html#talk-slides",
+    "title": "How to create and maintain a scientific Python environment using conda",
+    "section": "Talk slides",
+    "text": "Talk slides"
+  },
+  {
+    "objectID": "talks/2022-fub-seminar/index.html",
+    "href": "talks/2022-fub-seminar/index.html",
+    "title": "Planetary Research with Citizen Science",
+    "section": "",
+    "text": "Link to presentation\n\n\n\nCitationBibTeX citation:@online{aye2022,\n  author = {Michael Aye},\n  editor = {},\n  title = {Planetary {Research} with {Citizen} {Science}},\n  date = {2022-10-27},\n  url = {https://michaelaye.github.io/talks/2022-fub-seminar},\n  langid = {en}\n}\nFor attribution, please cite this work as:\nMichael Aye. 2022. “Planetary Research with Citizen\nScience.” October 27, 2022. https://michaelaye.github.io/talks/2022-fub-seminar."
+  },
+  {
+    "objectID": "talks/2022-fub-seminar/presentation/index.html#political-answer-quotes-eu-horizon-monthly-focus",
+    "href": "talks/2022-fub-seminar/presentation/index.html#political-answer-quotes-eu-horizon-monthly-focus",
+    "title": "Planetary Research with Citizen Science",
+    "section": "Political answer (Quotes EU Horizon monthly focus)",
+    "text": "Political answer (Quotes EU Horizon monthly focus)\n\n“Through citizen science, ordinary people can take part in extraordinary research.”\n“Through their contributions, the citizen scientist can actively pursue personal values, and be part of a research community seeking the same goals.”\n“The professional scientist can get more data than they would otherwise. This leads to better precision in their measurements and more lines of enquiry in their research.”"
+  },
+  {
+    "objectID": "talks/2022-fub-seminar/presentation/index.html#what-is-cs-practically",
+    "href": "talks/2022-fub-seminar/presentation/index.html#what-is-cs-practically",
+    "title": "Planetary Research with Citizen Science",
+    "section": "What is CS, practically?",
+    "text": "What is CS, practically?\n\nProblem: Simple, but arduous or repetitive task\n\ntoo much data to go through yourself\n\nSplit up the task into screen-sized subtasks\nPresent the data with a simple workflow to thousands of untrained volunteers"
+  },
+  {
+    "objectID": "talks/2022-fub-seminar/presentation/index.html#what-is-in-it-for-scientists",
+    "href": "talks/2022-fub-seminar/presentation/index.html#what-is-in-it-for-scientists",
+    "title": "Planetary Research with Citizen Science",
+    "section": "What is in it for scientists?",
+    "text": "What is in it for scientists?\n\namount of data grows exponentially\nideal for simple but arduous questions\nML: labeled data always better\nCS is an efficient way to create many labels\ngood outreach opportunity"
+  },
+  {
+    "objectID": "talks/2022-fub-seminar/presentation/index.html#what-is-in-it-for-citizens",
+    "href": "talks/2022-fub-seminar/presentation/index.html#what-is-in-it-for-citizens",
+    "title": "Planetary Research with Citizen Science",
+    "section": "What is in it for citizens?",
+    "text": "What is in it for citizens?\n\nparticipate in real science\nindependent of prior education!\nwide variety of research fields offered as CS now"
+  },
+  {
+    "objectID": "talks/2022-fub-seminar/presentation/index.html#recognition-of-the-field-us",
+    "href": "talks/2022-fub-seminar/presentation/index.html#recognition-of-the-field-us",
+    "title": "Planetary Research with Citizen Science",
+    "section": "Recognition of the field (US)",
+    "text": "Recognition of the field (US)\n\nhttps://science.nasa.gov/citizenscience\nSeed funding available through standard NASA funding programs\nCan be attached to larger project applications"
+  },
+  {
+    "objectID": "talks/2022-fub-seminar/presentation/index.html#recognition-of-the-field-eu",
+    "href": "talks/2022-fub-seminar/presentation/index.html#recognition-of-the-field-eu",
+    "title": "Planetary Research with Citizen Science",
+    "section": "Recognition of the field (EU)",
+    "text": "Recognition of the field (EU)\nEU Horizon monthly focus and semi-regularly CS news\nhttps://ec.europa.eu/research-and-innovation/en/horizon-magazine/citizen-science-science-and-people"
+  },
+  {
+    "objectID": "talks/2022-fub-seminar/presentation/index.html#science-case",
+    "href": "talks/2022-fub-seminar/presentation/index.html#science-case",
+    "title": "Planetary Research with Citizen Science",
+    "section": "Science case",
+    "text": "Science case"
+  },
+  {
+    "objectID": "talks/2022-fub-seminar/presentation/index.html#science-case-temporal",
+    "href": "talks/2022-fub-seminar/presentation/index.html#science-case-temporal",
+    "title": "Planetary Research with Citizen Science",
+    "section": "Science case temporal",
+    "text": "Science case temporal"
+  },
+  {
+    "objectID": "talks/2022-fub-seminar/presentation/index.html#science-case-kieffer-model",
+    "href": "talks/2022-fub-seminar/presentation/index.html#science-case-kieffer-model",
+    "title": "Planetary Research with Citizen Science",
+    "section": "Science case: Kieffer model",
+    "text": "Science case: Kieffer model\n\n\nJet deposits are aligned by prevalent winds at the time!\nMapping these features would be more wind data than we ever had on Mars!"
+  },
+  {
+    "objectID": "talks/2022-fub-seminar/presentation/index.html#active-areas-around-south-pole",
+    "href": "talks/2022-fub-seminar/presentation/index.html#active-areas-around-south-pole",
+    "title": "Planetary Research with Citizen Science",
+    "section": "Active areas around south pole",
+    "text": "Active areas around south pole\n\n\nSeasonal campaigns at most of these areas!\n\n-> Lots of huge HiRISE image data"
+  },
+  {
+    "objectID": "talks/2022-fub-seminar/presentation/index.html#input-data",
+    "href": "talks/2022-fub-seminar/presentation/index.html#input-data",
+    "title": "Planetary Research with Citizen Science",
+    "section": "Input data",
+    "text": "Input data\n\n221 HiRISE images from MY 29/30\nsplit up into over 40,000 image screen-sized tiles\nTiles are being “anonymized”, to prevent bias\nThe data input and reduction pipelines need to track everything"
+  },
+  {
+    "objectID": "talks/2022-fub-seminar/presentation/index.html#interface",
+    "href": "talks/2022-fub-seminar/presentation/index.html#interface",
+    "title": "Planetary Research with Citizen Science",
+    "section": "Interface",
+    "text": "Interface"
+  },
+  {
+    "objectID": "talks/2022-fub-seminar/presentation/index.html#interface-return",
+    "href": "talks/2022-fub-seminar/presentation/index.html#interface-return",
+    "title": "Planetary Research with Citizen Science",
+    "section": "Interface return",
+    "text": "Interface return\n\nDifficulty: What (contrast) defines the “end” of a surface feature?Minimum of 30 different volunteers per image tile!\n=> quite slow progress"
+  },
+  {
+    "objectID": "talks/2022-fub-seminar/presentation/index.html#reduction-pipeline",
+    "href": "talks/2022-fub-seminar/presentation/index.html#reduction-pipeline",
+    "title": "Planetary Research with Citizen Science",
+    "section": "Reduction pipeline",
+    "text": "Reduction pipeline\n\nComprehensive description in Aye et al. (2019) : “Planet Four: Probing springtime winds on Mars by mapping the southern polar CO2 jet deposits”"
+  },
+  {
+    "objectID": "talks/2022-fub-seminar/presentation/index.html#reduction-pipeline-2",
+    "href": "talks/2022-fub-seminar/presentation/index.html#reduction-pipeline-2",
+    "title": "Planetary Research with Citizen Science",
+    "section": "Reduction pipeline 2",
+    "text": "Reduction pipeline 2\n\nClockwise from upper left: 1) Raw, 2) Fan markings, 3) Blotch markings, 4) Blotch reduction, 5) Fan reduction, 6) catalog entry with 50% majority vote"
+  },
+  {
+    "objectID": "talks/2022-fub-seminar/presentation/index.html#catalog-entries",
+    "href": "talks/2022-fub-seminar/presentation/index.html#catalog-entries",
+    "title": "Planetary Research with Citizen Science",
+    "section": "Catalog entries",
+    "text": "Catalog entries"
+  },
+  {
+    "objectID": "talks/2022-fub-seminar/presentation/index.html#science-team-gold-markings",
+    "href": "talks/2022-fub-seminar/presentation/index.html#science-team-gold-markings",
+    "title": "Planetary Research with Citizen Science",
+    "section": "Science Team (Gold) markings",
+    "text": "Science Team (Gold) markings\n\nEach team member marked several hundred tiles\nSignificant differences between science team members\nYears of experience do not overcome the original contrast problem!"
+  },
+  {
+    "objectID": "talks/2022-fub-seminar/presentation/index.html#compare-experts-with-citizens",
+    "href": "talks/2022-fub-seminar/presentation/index.html#compare-experts-with-citizens",
+    "title": "Planetary Research with Citizen Science",
+    "section": "Compare experts with citizens",
+    "text": "Compare experts with citizens"
+  },
+  {
+    "objectID": "talks/2022-fub-seminar/presentation/index.html#results",
+    "href": "talks/2022-fub-seminar/presentation/index.html#results",
+    "title": "Planetary Research with Citizen Science",
+    "section": "Results",
+    "text": "Results\n\nOver 40,000 citizens have contributed\n\nMost only once\nCore team of approx 10-20 volunteers did most of the work\n\nca. 400,000 geo-located objects in catalog\navailable at https://www.zooniverse.org/projects/mschwamb/planet-four/about/results"
+  },
+  {
+    "objectID": "talks/2022-fub-seminar/presentation/index.html#what-can-be-done-with-it",
+    "href": "talks/2022-fub-seminar/presentation/index.html#what-can-be-done-with-it",
+    "title": "Planetary Research with Citizen Science",
+    "section": "What can be done with it?",
+    "text": "What can be done with it?\n\nPortyankina et al. (2022) “Planet Four: Derived South Polar Martian Winds Interpreted Using Mesoscale Modeling”"
+  },
+  {
+    "objectID": "talks/2022-fub-seminar/presentation/index.html#compare-with-climate-models",
+    "href": "talks/2022-fub-seminar/presentation/index.html#compare-with-climate-models",
+    "title": "Planetary Research with Citizen Science",
+    "section": "Compare with climate models",
+    "text": "Compare with climate models\n\nTeam member Tim Michaels nest GCM into high-res meso-scale models using CTX and HiRISE DTM topography\nRun for several days to avoid “spin-up” effects\nRun at different \\(L_s\\) over the season\nCompare wind predictions with Planet Four data\nJust published in Portyankina et al. (2022)"
+  },
+  {
+    "objectID": "talks/2022-fub-seminar/presentation/index.html#measure-of-success",
+    "href": "talks/2022-fub-seminar/presentation/index.html#measure-of-success",
+    "title": "Planetary Research with Citizen Science",
+    "section": "Measure of success",
+    "text": "Measure of success\n\nDefine status of good / average / bad fit with data\nUsing only direction very good match with climate models\nTaking into account wind strength as well less good\nOur assumptions for jet deposit <-> wind strength are too simple"
+  },
+  {
+    "objectID": "talks/2022-fub-seminar/presentation/index.html#section-3",
+    "href": "talks/2022-fub-seminar/presentation/index.html#section-3",
+    "title": "Planetary Research with Citizen Science",
+    "section": "",
+    "text": "Only wind directions"
+  },
+  {
+    "objectID": "talks/2022-fub-seminar/presentation/index.html#section-4",
+    "href": "talks/2022-fub-seminar/presentation/index.html#section-4",
+    "title": "Planetary Research with Citizen Science",
+    "section": "",
+    "text": "Wind directions and estimated strengths"
+  },
+  {
+    "objectID": "talks/2022-fub-seminar/presentation/index.html#conclusions",
+    "href": "talks/2022-fub-seminar/presentation/index.html#conclusions",
+    "title": "Planetary Research with Citizen Science",
+    "section": "Conclusions",
+    "text": "Conclusions\n\nCitizen Science is not only outreach\nScientific paradigms are being changed thanks to the work power of hundred thousands of citizen scientists all over the world\nIf data reduction is done carefully, the results are very reliable\nDon’t try to do this “on the side”\n\nIt’s a full time analytical job"
+  },
+  {
+    "objectID": "talks/2022-fub-seminar/presentation/index.html#conclusions-2",
+    "href": "talks/2022-fub-seminar/presentation/index.html#conclusions-2",
+    "title": "Planetary Research with Citizen Science",
+    "section": "Conclusions 2",
+    "text": "Conclusions 2\n\nOverall good match with models but discrepancies exist\nHope to derive jet eruption times"
+  },
+  {
+    "objectID": "talks/2021-pdw-planetarypy/index.html",
+    "href": "talks/2021-pdw-planetarypy/index.html",
+    "title": "The PlanetaryPy Project",
+    "section": "",
+    "text": "The PlanetaryPy Project is a community effort to develop a core package for planetary science in Python and foster interoperability between Python planetary science packages.\nThe PlanetaryPy Technical Committee (TC) is the governing body for the PlanetaryPy Project. All of their work is done in the open via the TC GitHub repo. To learn more about what the TC is, how it operates, or to get involved, you can read its Charter (see paragraph below). The PlanetaryPy TC has regular meetings to which all are welcome to attend. The meeting agendas for upcoming meetings, and notes from previous meetings can be found in the TC’s GitHub repo.\nevent_url\nurl_slides\nurl_code\nurl_pdf\nurl_video"
+  },
+  {
+    "objectID": "talks/2021-diviner-kharkiv-talk/index.html",
+    "href": "talks/2021-diviner-kharkiv-talk/index.html",
+    "title": "Calibration of the LRO Diviner Lunar Radiometer Experiment",
+    "section": "",
+    "text": "Location: Kharkiv, Ukraine (virtual)"
+  },
+  {
+    "objectID": "talks/2021-diviner-kharkiv-talk/index.html#talk-slides",
+    "href": "talks/2021-diviner-kharkiv-talk/index.html#talk-slides",
+    "title": "Calibration of the LRO Diviner Lunar Radiometer Experiment",
+    "section": "Talk slides",
+    "text": "Talk slides"
   },
   {
     "objectID": "talks.html",
     "href": "talks.html",
     "title": "Talks",
     "section": "",
-    "text": "online-presentation\n\n\n\n\nA short overview of the Planetary Research done via Citizen Science, followed by an in-depth review of the Planet Four Citizen Science projects.\n\n\n\n\n\n\n2022-10-27\n\n\nMichael Aye\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n5th Planetary Data Workshop\n\n\n\n\nplanetarypy\n\n\npython\n\n\n\n\n\n\n\n\n\n\n\n2021-07-01\n\n\nMichael Aye\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nInternational Conference for Young Professionals in Physics and Technology (ICYPPT)\n\n\n\n\ninvited talk\n\n\nconda\n\n\nsoftware management\n\n\n\n\n\n\n\n\n\n\n\n2021-04-28\n\n\nMichael Aye\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nInternational Conference for Young Professionals in Physics and Technology\n\n\n\n\ninvited talk\n\n\nLRO\n\n\nDiviner\n\n\ncalibration\n\n\n\n\n\n\n\n\n\n\n\n2021-04-27\n\n\nMichael Aye\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nOpenPlanetary Virtual Conference\n\n\n\n\nconda\n\n\npython\n\n\n\n\nI will explain the basic principles of the conda-based toolset, recommend best practices for using conda environments and channels, and demonstrate techniques on how to efficiently delete and reinstall everything in under 5 minutes. I also will discuss Python software package discovery and installation strategies in relation to these conda environments and how to efficiently develop your own libraries while being part of a conda environment.\n\n\n\n\n\n\n2020-06-23\n\n\nMichael Aye\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nOpenPlanetary Lunch Talk\n\n\n\n\nconda\n\n\npython\n\n\n\n\n\n\n\n\n\n\n\n2020-03-31\n\n\nMichael Aye\n\n\n\n\n\n\nNo matching items"
+    "text": "Introduction to Citizen Science and the Planet Four project\n\n\n\n\nmars\n\n\npolar science\n\n\ncitizen science\n\n\n\n\nPresentation given at Planetary Seminar of Freie Uni Berlin\n\n\n\n\n\n\n2022-10-27\n\n\nMichael Aye\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\nonline-presentation\n\n\n\n\nA short overview of the Planetary Research done via Citizen Science, followed by an in-depth review of the Planet Four Citizen Science projects.\n\n\n\n\n\n\n2022-10-27\n\n\nMichael Aye\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n5th Planetary Data Workshop\n\n\n\n\nplanetarypy\n\n\npython\n\n\n\n\n\n\n\n\n\n\n\n2021-07-01\n\n\nMichael Aye\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nInternational Conference for Young Professionals in Physics and Technology (ICYPPT)\n\n\n\n\ninvited talk\n\n\nconda\n\n\nsoftware management\n\n\n\n\n\n\n\n\n\n\n\n2021-04-28\n\n\nMichael Aye\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nInternational Conference for Young Professionals in Physics and Technology\n\n\n\n\ninvited talk\n\n\nLRO\n\n\nDiviner\n\n\ncalibration\n\n\n\n\n\n\n\n\n\n\n\n2021-04-27\n\n\nMichael Aye\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nOpenPlanetary Virtual Conference\n\n\n\n\nconda\n\n\npython\n\n\n\n\nI will explain the basic principles of the conda-based toolset, recommend best practices for using conda environments and channels, and demonstrate techniques on how to efficiently delete and reinstall everything in under 5 minutes. I also will discuss Python software package discovery and installation strategies in relation to these conda environments and how to efficiently develop your own libraries while being part of a conda environment.\n\n\n\n\n\n\n2020-06-23\n\n\nMichael Aye\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nOpenPlanetary Lunch Talk\n\n\n\n\nconda\n\n\npython\n\n\n\n\n\n\n\n\n\n\n\n2020-03-31\n\n\nMichael Aye\n\n\n\n\n\n\nNo matching items"
   },
   {
-    "objectID": "bibliography.html",
-    "href": "bibliography.html",
-    "title": "Home",
+    "objectID": "projects/saturn-rings/index.html",
+    "href": "projects/saturn-rings/index.html",
+    "title": "Mesoscale Structures in Saturn’s Rings: Clues to Origin and Evolution",
     "section": "",
-    "text": "Bibliography\n\nAnnex, Andrew, Ben Pearson, Benoît Seignovert, Brian Carcich, Helge Eichhorn, Jesse Mapel, Johan von Forstner, et al. 2020. “SpiceyPy: A Pythonic Wrapper for the SPICE Toolkit.” Journal of Open Source Software 5 (46): 2050. https://doi.org/10.21105/joss.02050.\n\n\nAye, K M, Ross Beyer, Andrew Annex, and Chase Million. 2021. “The PlanetaryPy Project.” LPI Contributions 2549: 7026.\n\n\nAye, K M, L W Esposito, J E Colwell, R G Jerousek, and G R Stewart. 2018. “Texture of Saturn’s C Ring Plateaus as Seen by Cassini ISS.” In. Vol. 2018. https://ui.adsabs.harvard.edu/abs/2018AGUFM.P43B..07A.\n\n\nAye, K M, M Rehnberg, and L W Esposito. 2017. “Confirmation of a Traveling Feature in Saturn’s Rings in Cassini Imaging Science Subsystem Data.” In. Vol. 2017. https://ui.adsabs.harvard.edu/abs/2017AGUFM.P23B2733A.\n\n\nAye, Klaus Michael, A M Brown, P M Chadwick, C Hadjichristidis, I J Latham, R Le Gallou, T J L McComb, et al. 2005. “Atmospheric Sensing for the H.E.S.S. Array.” In, 745:724–29. AIP. https://doi.org/10.1063/1.1878491.\n\n\nAye, Klaus Michael, P M Chadwick, M K Daniel, K Lyons, T J L McComb, J M McKenny, S J Nolan, K J Orford, J L Osborne, and S M Rayner. 2001a. “Correcting the Pointing of the Durham Mark 6 Cherenkov Telescope.” In, 7:2856. http://adsabs.harvard.edu/cgi-bin/nph-data_query?bibcode=2001ICRC....7.2856A&link_type=ABSTRACT.\n\n\n———. 2001b. “Energy Spectra of TeV Sources Measured with the Durham Mark 6 Telescope.” In, 7:2597. http://adsabs.harvard.edu/cgi-bin/nph-data_query?bibcode=2001ICRC....7.2597A&link_type=ABSTRACT.\n\n\nAye, Klaus Michael, P M Chadwick, M K Daniel, T J L McComb, J M McKenny, S J Nolan, K J Orford, J L Osborne, and S M Rayner. 2001. “Flat-Fielding of the Photomultiplier Camera of the Phase I HESS Cherenkov Telescopes.” In, 7:2919. http://adsabs.harvard.edu/cgi-bin/nph-data_query?bibcode=2001ICRC....7.2919A&link_type=ABSTRACT.\n\n\nAye, Klaus Michael, P M Chadwick, C N Hadjichristidis, I J Latham, R Le Gallou, T J L McComb, J M McKenny, et al. 2003. “Aluminium Mirrors: An Alternative for Ground Based Cherenkov Telescopes.” In, 5:2915. http://adsabs.harvard.edu/cgi-bin/nph-data_query?bibcode=2003ICRC....5.2915A&link_type=ABSTRACT.\n\n\nAye, Klaus Michael, D A Paige, M C Foote, B T Greenhagen, and M A Siegler. 2013. “The Coldest Place on the Moon.” In, 1719:3016. http://adsabs.harvard.edu/cgi-bin/nph-data_query?bibcode=2013LPICo1719.3016A&link_type=ABSTRACT.\n\n\nAye, Klaus Michael, D A Paige, M A Siegler, and B T Greenhagen. 2013. “Emissivity and Anisothermality Studies at the Lunar Poles with Diviner’s Far Infrared Channels.” In, 43:2027. http://adsabs.harvard.edu/cgi-bin/nph-data_query?bibcode=2013AGUFM.P43C2027A&link_type=ABSTRACT.\n\n\nAye, Klaus Michael, D A Paige, M A Siegler, E Sefton-Nash, and B T Greenhagen. 2014. “Diviner Monitoring of Coldest Lunar Polar Regions.” In, 45:2893. http://adsabs.harvard.edu/cgi-bin/nph-data_query?bibcode=2014LPI....45.2893A&link_type=ABSTRACT.\n\n\nAye, Klaus Michael, Ganna Portyankina, Antoine Pommerol, and N Thomas. 2011. “Automatic Dark Spot Identification at the Martian South Pole.” In, 1323:6081. http://adsabs.harvard.edu/cgi-bin/nph-data_query?bibcode=2011LPICo1323.6081A&link_type=ARTICLE.\n\n\nAye, Klaus Michael, Ganna Portyankina, Antoine Pommerol, and Nicolas Thomas. 2010. “Semi-Automatic Measures of Activity in Selected South Polar Regions of Mars Using Morphological Image Analysis.” In, 38:522. http://adsabs.harvard.edu/cgi-bin/nph-data_query?bibcode=2010cosp...38..522A&link_type=ABSTRACT.\n\n\nAye, Klaus-Michael, Morgan Rehnberg, Zarah Brown, and Larry W Esposito. 2016. “Searching for a Traveling Feature in Saturn’s Rings in Cassini Imaging Science Subsystem Data.” In. https://ui.adsabs.harvard.edu/abs/2016DPS....4812103A.\n\n\nAye, K-M. 2017. “Repeating Patterns in the Day-to-Day Work with Planetary Mission Data.” LPI Contributions 1986 (June): 7125. https://ui.adsabs.harvard.edu/#abs/2017LPICo1986.7125A.\n\n\n———. 2019a. “LRO Diviner Re-Calibration and Its Effect on Volatile Research.” In. https://ui.adsabs.harvard.edu/abs/2019LPI....50.3259A.\n\n\n———. 2019b. “pyRISE and Other Planetary Science Python Tools.” In. Vol. 2151. https://ui.adsabs.harvard.edu/abs/2019LPICo2151.7102A.\n\n\nAye, K-M, B T Greenhagen, and J P Williams. 2020. “Investigating the Possibility of Super-Resolution Reconstruction of LRO Diviner Data.” In, 3011. https://ui.adsabs.harvard.edu/abs/2020LPI....51.3011A.\n\n\nAye, K-M, and P O Hayne. 2020. “Polar Vortex Investigations Using MRO MCS Data.” LPI Contributions 2099 (January): 6079. https://ui.adsabs.harvard.edu/abs/2020LPICo2099.6079A.\n\n\nAye, K-Michael, Megan E Schwamb, Ganna Portyankina, Candice J Hansen, Adam McMaster, Grant R M Miller, Brian Carstensen, et al. 2018. “Planet Four: Probing Seasonal Winds on Mars by Mapping the Southern Polar CO$_2$ Jet Deposits.” arXiv [Astro-Ph.EP]. http://arxiv.org/abs/1803.10341.\n\n\n———, et al. 2019. “Planet Four: Probing Springtime Winds on Mars by Mapping the Southern Polar CO2 Jet Deposits.” Icarus 319 (February): 558–98. https://doi.org/10.1016/j.icarus.2018.08.018.\n\n\nAye, K-M, G Portyankina, C J Hansen, T I Michaels, and M E Schwamb. 2019. “Geophysical CO2 Gas Jet Modeling: Initial Set-Up.” LPI Contributions 2089 (July). https://ui.adsabs.harvard.edu/abs/2019LPICo2089.6214A.\n\n\nAye, K-M, G Portyankina, and N Thomas. 2010. “Semi-Automatic Measures of Activity in the Inca City Region of Mars Using Morphological Image Analysis.” In, 41:2707. https://ui.adsabs.harvard.edu/#abs/2010LPI....41.2707A.\n\n\nAye, K-M, M E Schwamb, G Portyankina, and C J Hansen. 2016. “Analyis Pipeline and Results from the PlanetFour Citizen Science Project.” In, 47:3056. https://ui.adsabs.harvard.edu/#abs/2016LPI....47.3056A.\n\n\nAye, K-M, M Schwamb, G Portyankina, and C J Hansen. 2017. “Science Results from the PlanetFour Citizen Science Project.” In. Vol. 48. https://ui.adsabs.harvard.edu/#abs/2017LPI....48.2903A.\n\n\nBeyer, Ross, K Michael Aye, Nicholas Estes, Carolyn Ernst, Caleb Fassett, Audrie Fennema, Dathon Golish, and Cynthia Phillips. 2018. “MAPSIT Special Action Team Report on Cartography and Image Processing Software at the Astrogeology Science Center.” https://doi.org/10.5281/zenodo.2280984.\n\n\nColwell, Joshua, Casey Coleman, Kirsten Lina, Richard Jerousek, Matthew Tiscareno, Klaus-Michael Aye, and Larry Esposito. 2021. “Small-Scale Structure in the Core of Saturn’s B Ring.” In, 53:407.04. https://ui.adsabs.harvard.edu/abs/2021DPS....5340704C.\n\n\nGyalay, S, M Aye, and D A Paige. 2017. “Recalibrating the Moon’s Thermometer: LRO Diviner Nonlinear Detector Response and Opposition Effect Corrections.” In. https://ui.adsabs.harvard.edu/abs/2017LPI....48.2655G.\n\n\nHansen, C J, K M Aye, G Portyankina, et al. 2019. “Interannual Variability of Seasonal Activity in Mars’ South Polar Region Dubbed\" Manhattan\".” Lunar and Planetary. http://adsabs.harvard.edu/abs/2019LPI....50.3110H.\n\n\nHansen, C J, K-M Aye, S Diniega, P Hayne, A McEwen, G Portyankina, and M E Schwamb. 2020. “Dynamic Seasons on Mars—Polar Images and Investigations.” LPI Contributions 2099: 6019. https://ui.adsabs.harvard.edu/abs/2020LPICo2099.6019H/abstract.\n\n\nHatcher, Chase, K-Michael Aye, and Ganna Portyankina. 2017. “CO2 Jets and Wind Patterns on Mars.” In, 49:418.19. https://ui.adsabs.harvard.edu/#abs/2017DPS....4941819H.\n\n\nHendrix, A R, T Holt, A Verbiscer, K Primm, K N Singer, E Royer, R J Wilson, et al. 2020. “Planetary Science Public Engagement at the Farmers Market.” In, 2492. https://ui.adsabs.harvard.edu/abs/2020LPI....51.2492H.\n\n\nJerousek, R, J Colwell, M Lewis, L Benyamine, C Singleton, K Aye, and M Tiscareno. 2020. “Mesoscale Structures in Saturn’s Rings from UVIS Autocorrelations.” In, 52:513.04. https://ui.adsabs.harvard.edu/abs/2020DPS....5251304J.\n\n\nKhuller, Aditya R, Laura Kerber, Megan E Schwamb, Sylvia Beer, Fernando E Nogal, Ray Perry, William Hood, Klaus-Michael Aye, Ganna Portyankina, and Candice J Hansen. 2022. “Irregular Polygonal Ridge Networks in Ancient Noachian Terrain on Mars.” Icarus 374 (114833): 114833. https://doi.org/10.1016/j.icarus.2021.114833.\n\n\nMcDonnell, Mark D., Eriita Jones, Megan E. Schwamb, K-Michael Aye, Ganna Portyankina, and Candice J. Hansen. 2022. “Planet Four: A Neural Network’s Search for Polar Spring-Time Fans on Mars.” Icarus, October, 115308. https://doi.org/10.1016/j.icarus.2022.115308.\n\n\nMerrison, J, Klaus Michael Aye, C Holstein-Rathlou, J Mason, A Merlone, P Nørnberg, M Patel, Ganna Portyankina, and K R Rasmussen. 2012. “Advances in a European Planetary Simulation Wind Tunnel Facility.” In, 99. http://adsabs.harvard.edu/cgi-bin/nph-data_query?bibcode=2012espc.conf...99M&link_type=ABSTRACT.\n\n\nMillion, C C, M St. Clair, K M Aye, and J Padams. 2021. “The Planetary Data Reader (Pdr): A Python Toolkit for Reading Planetary Data.” In, 2549:7096. https://ui.adsabs.harvard.edu/abs/2021LPICo2549.7096M.\n\n\nPortyankina, Ganna, Klaus-Michael Aye, Candice Hansen, Megan E Schwamb, and Timothy Michaels. 2021. “Spring Near-Surface Winds in the Southern Polar Regions of Mars: Results of Citizen Science Project Planet Four.” In, 43:392. https://ui.adsabs.harvard.edu/abs/2021cosp...43E.392P.\n\n\nPortyankina, Ganna, Larry W Esposito, Klaus-Michael Aye, Candice J Hansen, and Ashar Ali. 2022. “Modeling the Complete Set of Cassini’s UVIS Occultation Observations of Enceladus’ Plume.” Icarus, no. 114918 (February): 114918. https://doi.org/10.1016/j.icarus.2022.114918.\n\n\nPortyankina, Ganna, Candice J Hansen, and Klaus-Michael Aye. 2017. “Present-Day Erosion of Martian Polar Terrain by the Seasonal CO2 Jets.” Icarus 282 (January): 93–103. https://doi.org/10.1016/j.icarus.2016.09.007.\n\n\n———. 2020. “How Martian Araneiforms Get Their Shapes: Morphological Analysis and Diffusion-Limited Aggregation Model for Polar Surface Erosion.” Icarus 342 (May): 113217. https://doi.org/10.1016/j.icarus.2019.02.032.\n\n\nPortyankina, Ganna, J Merrison, Klaus Michael Aye, J J Iversen, Candice J Hansen, Antoine Pommerol, and N Thomas. 2011. “How to Create Translucent CO2 Ice on Mars: Simulations Using the Wind Tunnel of Aarhus Mars Laboratory.” In, 1623:6021. http://adsabs.harvard.edu/cgi-bin/nph-data_query?bibcode=2011LPICo1623.6021P&link_type=ARTICLE.\n\n\nPortyankina, Ganna, Timothy I Michaels, Klaus-Michael Aye, Megan E Schwamb, Candice J Hansen, and Chris J Lintott. 2022. “Planet Four: Derived South Polar Martian Winds Interpreted Using Mesoscale Modeling.” Planet. Sci. J. 3 (2): 31. https://doi.org/10.3847/PSJ/ac3087.\n\n\nPortyankina, Ganna, Antoine Pommerol, Klaus-Michael Aye, Candice J Hansen, and Nicolas Thomas. 2013. “Observations of the Northern Seasonal Polar Cap on Mars II: HiRISE Photometric Analysis of Evolution of Northern Polar Dunes in Spring.” Icarus 225 (2): 898–910. https://doi.org/10.1016/j.icarus.2012.10.017.\n\n\nPortyankina, Ganna, Nicolas Thomas, Antoine Pommerol, and Klaus Michael Aye. 2010. “Northern Polar Dunes: A Spring Activity Analog to That Seen in Southern Polar Terrains.” In, 38:511. http://adsabs.harvard.edu/cgi-bin/nph-data_query?bibcode=2010cosp...38..511P&link_type=ABSTRACT.\n\n\nPortyankina, Ganna, N Thomas, Antoine Pommerol, Klaus Michael Aye, Candice J Hansen, and K Herkenhoff. 2011. “Martian South Polar Terrains in Spring: II. Modelling of Relevant Physical Processes.” In, 42:1709. http://adsabs.harvard.edu/cgi-bin/nph-data_query?bibcode=2011LPI....42.1709P&link_type=ABSTRACT.\n\n\nPortyankina, G, K-M Aye, and C J Hansen. 2017. “Diffusion-Limited Aggregation Model for Araneiform Pattern Formation.” In. Vol. 48. https://ui.adsabs.harvard.edu/#abs/2017LPI....48.2441P.\n\n\nPortyankina, G, K-M Aye, C J Hansen, and M E Schwamb. 2019. “Mars Spring Seasonal Ice Cleaning as Detected by Planet Four Project.” In. https://ui.adsabs.harvard.edu/abs/2019LPI....50.1695P.\n\n\nPortyankina, G, K-M Aye, M E Schwamb, C J Hansen, and T Michaels. 2019. “Planet Four Pursuit of Studying Seasonal Activity and Spring Atmosphere with Citizen Science.” LPI Contributions 2089 (July). https://ui.adsabs.harvard.edu/abs/2019LPICo2089.6158P.\n\n\n———. 2020. “Near-Surface Winds and Seasonal Surface Phenomena Analyzed by the Planet Four Project.” LPI Contributions 2099 (January): 6062. https://ui.adsabs.harvard.edu/abs/2020LPICo2099.6062P.\n\n\nPortyankina, G, C J Hansen, and K-M Aye. 2020. “Sand, Wind, and Ices on Mars: How Sandy Environments Facilitate Erosion by CO2 Jets.” In, 2188:3036. https://ui.adsabs.harvard.edu/abs/2020LPICo2188.3036P.\n\n\nPortyankina, G, J Merrison, J J Iversen, Z Yoldi, C J Hansen, K-M Aye, A Pommerol, and N Thomas. 2019. “Laboratory Investigations of the Physical State of CO2 Ice in a Simulated Martian Environment.” Icarus 322 (April): 210–20. https://doi.org/10.1016/j.icarus.2018.04.021.\n\n\nPortyankina, G, T Michaels, K Aye, M Schwamb, and C Hansen. 2020. “Derived South Polar Martian Winds Interpreted Using Mesoscale Modeling.” In, 52:308.01. https://ui.adsabs.harvard.edu/abs/2020DPS....5230801P.\n\n\nPortyankina, G., A. Pommerol, K. -M. Aye, C. Hansen, and N. Thomas. 2013. “Spring Sublimation on Mars: Do Northern and Southern Hemispheres Tell Us the Same Story?” March, 1776. https://ui.adsabs.harvard.edu/abs/2013LPI....44.1776P.\n\n\nProckter, Louise, Meghan R Wheeler, Klaus-Michael Aye, Kevin H Baines, Michael T Bland, David T Blewett, Serina Diniega, et al. 2017. “The Value of Participating Scientist Programs to NASA’s Planetary Science Division.” https://www.lpi.usra.edu/analysis/reports/Value_of_Participating_Scientist_Programs_to_NASA_white_paper_final.pdf.\n\n\nSchwamb, Megan E, Klaus-Michael Aye, Ganna Portyankina, Candice J Hansen, Campbell Allen, Sarah Allen, Fred J Calef, Simone Duca, Adam McMaster, and Grant R M Miller. 2018. “Planet Four: Terrains – Discovery of Araneiforms Outside of the South Polar Layered Deposits.” Icarus 308 (July): 148–87. https://doi.org/10.1016/j.icarus.2017.06.017.\n\n\nSchwamb, Megan E, K-Michael Aye, Ganna Portyankina, Candice Hansen, Chris J Lintott, Campbell Allen, Sarah Allen, et al. 2017. “Discovery of Araneiforms Outside of the South Polar Layered Deposits.” In, 49:422.05. https://ui.adsabs.harvard.edu/#abs/2017DPS....4942205S.\n\n\nSefton-Nash, E, K M Aye, J P Williams, B T Greenhagen, M Sullivan, and D A Paige. 2014. “The LRO Diviner Foundation Dataset: A Comprehensive Temperature Record of the Moon.” In. Vol. 13. https://ui.adsabs.harvard.edu/#abs/2014AGUFM.P13B3819S.\n\n\nSefton-Nash, E, J-P Williams, B T Greenhagen, K-M Aye, and D A Paige. 2017. “Diviner Lunar Radiometer Gridded Brightness Temperatures from Geodesic Binning of Modeled Fields of View.” Icarus 298 (December): 98–110. https://doi.org/10.1016/j.icarus.2017.04.007.\n\n\nSefton-Nash, E, J-P Williams, B T Greenhagen, T J Warren, J L Bandfield, K-M Aye, F Leader, et al. 2019. “Evidence for Ultra-Cold Traps and Surface Water Ice in the Lunar South Polar Crater Amundsen.” Icarus 332 (November): 1–13. https://doi.org/10.1016/j.icarus.2019.06.002.\n\n\nVierling, S, S Ali-zade, E Young, M Bullock, C Cantrall, K-Michael Aye, Y Lee, J Peralta, and R Baena Gallé. 2020. “Venus Cloud Tracking Methods and Applications for Akatsuki, IRTF, and Nordic Optical Telescope Images.” In, 52:505.07. https://ui.adsabs.harvard.edu/abs/2020DPS....5250507V.\n\n\nWilliams, J ‐P, D A Paige, N Schorghofer, E Sefton‐Nash, P O Hayne, P G Lucey, M A Siegler, and K-Michael Aye. 2019. “Seasonal Polar Temperatures on the Moon.” Journal of Geophysical Research: Planets 124 (10): 2505–21. https://doi.org/10.1029/2019je006028."
+    "text": "I was a funded Co-I on this project led by Joshua Colwell (UCF) until I left the US in 2022.\nMy task was to analyze Cassini ISS images of the Saturn rings like shown above, project them into the ring-cylindrical coordinate system so that one can do statistics along the ring azimuth. After subtracting the dominant background density wave signal one can produce statistical statements about potential clumping changes over the Saturn ring radius, using robust median absolute deviation statistics."
+  },
+  {
+    "objectID": "projects/saturn-rings/index.html#project-summary",
+    "href": "projects/saturn-rings/index.html#project-summary",
+    "title": "Mesoscale Structures in Saturn’s Rings: Clues to Origin and Evolution",
+    "section": "Project summary",
+    "text": "Project summary\nWe propose to apply a variety of image processing techniques to observations of Saturn’s rings made by the Cassini Imaging Science Subsystem (ISS) and the Ultraviolet Imaging Spectrograph (UVIS) to investigate a previously unexpected aspect of Saturn’s rings: non-axisymmetric mesoscale structures that are larger than individual particles or self-gravitating clumps of particles and smaller than regular structures such as ringlets, density waves, and bending waves.\nISS images of the C ring reveal unexpected texture indicating structures spanning about 1 km in ring radius and several tens of km in the azimuthal direction. The nature and amount of this texture in the images varies across the C ring. Similar texture is seen in the outer portion of the B ring as well as within density waves in the A ring. UVIS observed a series of special stellar occultations that had very low velocities in the local ring particle frame (“particle tracking occultations”). These provide uniquely high resolution for non-axisymmetric structures.\nUVIS also observed many occultations of binary stars where the two stars’ separation distances projected in the ring plane span 10’s of m to a few km. These occultations are ideally suited for studying mesoscale structures. By analyzing changes in the auto-correlation of the occultation light curve we can measure changes in ring optical depth at a given ring plane radius since the two stellar components cross that radial position at different longitudes. The combination of multiple UVIS occultations at different viewing geometries, both in ring elevation and azimuth, make it possible to study not only the sizes and distribution of mesoscale structures but also their three-dimensional shapes.\nWe will incorporate analysis of the higher order moments of the UVIS stellar occultations as well as carry out N-body simulations of the rings using a well-tested collisional and self-gravitating model developed by Co-I Lewis. We will forward model the rings and reproduce the textured structure seen in ISS images as well as occultation signals of non-axisymmetric structures. We will test the effects of particle density, particle size distribution, and local embedded perturbers (giant boulders or miniature moonlets) to understand the conditions required for formation of these structures that likely include both large-scale aggregates or density enhancements as well as azimuthally-limited gaps or holes in the rings.\nWe will compare these results with observations made across the ring system including “straw” in density waves in the A ring and various streaky texture identified in images across the main rings. We will compare the simulations with particle-tracking occultations throughout the main rings to better understand the differences in ring particle properties across the system. Comparisons of both occultation data and high-resolution imaging data with simulations will show the effects of particle properties, distance from Saturn, local ring surface mass density, and effects of gravitational perturbations from external satellites and embedded moonlets.\nWe will search for evidence of secular changes in these structures to better understand the evolution of the system. Results from our analysis will constrain long-term evolutionary models of the viscous spreading of the rings as well as ring erosion and pollution models. The results of this research will thus help us address fundamental questions about the origin of the rings, such as whether the different main ring regions have a common or separate origin."
   },
   {
     "objectID": "projects/uvis-pdart/index.html",
@@ -91,25 +343,11 @@
     "text": "Relevance\nAs requested by the PDART solicitation document, section 1.2, we propose to generate higher-order data products for the UVIS instrument that will be delivered to the PDS, in the new and encouraged PDS4 framework. We also are relevant for section 1.7, as we will develop and deliver software tools and source code for basic visualizations of the new data product, and will store all produced source code at NASA’s PDS Github site."
   },
   {
-    "objectID": "projects/planetarypy/index.html",
-    "href": "projects/planetarypy/index.html",
-    "title": "PlanetaryPy",
+    "objectID": "projects/planet-four/index.html",
+    "href": "projects/planet-four/index.html",
+    "title": "Planet Four",
     "section": "",
-    "text": "To learn more about what the TC is, how it operates, or to get involved, you can read its Charter. The PlanetaryPy TC has regular meetings to which all are welcome to attend. The meeting agendas for upcoming meetings, and notes from previous meetings can be found in the TC’s GitHub repo.\nProject link\nLink to Github repo\nLink to slides\nVideo link"
-  },
-  {
-    "objectID": "projects/saturn-rings/index.html",
-    "href": "projects/saturn-rings/index.html",
-    "title": "Mesoscale Structures in Saturn’s Rings: Clues to Origin and Evolution",
-    "section": "",
-    "text": "I was a funded Co-I on this project led by Joshua Colwell (UCF) until I left the US in 2022.\nMy task was to analyze Cassini ISS images of the Saturn rings like shown above, project them into the ring-cylindrical coordinate system so that one can do statistics along the ring azimuth. After subtracting the dominant background density wave signal one can produce statistical statements about potential clumping changes over the Saturn ring radius, using robust median absolute deviation statistics."
-  },
-  {
-    "objectID": "projects/saturn-rings/index.html#project-summary",
-    "href": "projects/saturn-rings/index.html#project-summary",
-    "title": "Mesoscale Structures in Saturn’s Rings: Clues to Origin and Evolution",
-    "section": "Project summary",
-    "text": "Project summary\nWe propose to apply a variety of image processing techniques to observations of Saturn’s rings made by the Cassini Imaging Science Subsystem (ISS) and the Ultraviolet Imaging Spectrograph (UVIS) to investigate a previously unexpected aspect of Saturn’s rings: non-axisymmetric mesoscale structures that are larger than individual particles or self-gravitating clumps of particles and smaller than regular structures such as ringlets, density waves, and bending waves.\nISS images of the C ring reveal unexpected texture indicating structures spanning about 1 km in ring radius and several tens of km in the azimuthal direction. The nature and amount of this texture in the images varies across the C ring. Similar texture is seen in the outer portion of the B ring as well as within density waves in the A ring. UVIS observed a series of special stellar occultations that had very low velocities in the local ring particle frame (“particle tracking occultations”). These provide uniquely high resolution for non-axisymmetric structures.\nUVIS also observed many occultations of binary stars where the two stars’ separation distances projected in the ring plane span 10’s of m to a few km. These occultations are ideally suited for studying mesoscale structures. By analyzing changes in the auto-correlation of the occultation light curve we can measure changes in ring optical depth at a given ring plane radius since the two stellar components cross that radial position at different longitudes. The combination of multiple UVIS occultations at different viewing geometries, both in ring elevation and azimuth, make it possible to study not only the sizes and distribution of mesoscale structures but also their three-dimensional shapes.\nWe will incorporate analysis of the higher order moments of the UVIS stellar occultations as well as carry out N-body simulations of the rings using a well-tested collisional and self-gravitating model developed by Co-I Lewis. We will forward model the rings and reproduce the textured structure seen in ISS images as well as occultation signals of non-axisymmetric structures. We will test the effects of particle density, particle size distribution, and local embedded perturbers (giant boulders or miniature moonlets) to understand the conditions required for formation of these structures that likely include both large-scale aggregates or density enhancements as well as azimuthally-limited gaps or holes in the rings.\nWe will compare these results with observations made across the ring system including “straw” in density waves in the A ring and various streaky texture identified in images across the main rings. We will compare the simulations with particle-tracking occultations throughout the main rings to better understand the differences in ring particle properties across the system. Comparisons of both occultation data and high-resolution imaging data with simulations will show the effects of particle properties, distance from Saturn, local ring surface mass density, and effects of gravitational perturbations from external satellites and embedded moonlets.\nWe will search for evidence of secular changes in these structures to better understand the evolution of the system. Results from our analysis will constrain long-term evolutionary models of the viscous spreading of the rings as well as ring erosion and pollution models. The results of this research will thus help us address fundamental questions about the origin of the rings, such as whether the different main ring regions have a common or separate origin."
+    "text": "It is difficult if not impossible for computer algorithms to accurately map individual polar seasonal fans, spot araneiform (‘spider’) erosion, and identify polygonal ridges. Computers just aren’t good enough to do the job yet, but these features visible from orbit are easily spotted by the human eye. Volunteers from around the world have contributed to the Planet Four projects by mapping the seasonal fans, polygonal ridges, and araneiforms in Mars Reconnaissance Orbiter imagery.\nWith the help of volunteers, we are discovering new insights into the processes active in the past and present on the Red Planet.\nJoin us at https://planetfour.space .\nLink to project\nPDF link\nVideo link"
   },
   {
     "objectID": "projects/planetary-data-reader/index.html",
@@ -140,242 +378,11 @@
     "text": "Scope and relevance\nThe proposed work will “develop and disseminate software tools that facilitate the use of existing datasets or that would enable or enhance future science investigations of interest to the Planetary Science Division” and is therefore a Software Tool Development and Validation task per section 1.7 of the solicitation. The proposed work does not include a “science investigation” or application of t hese tools except as necessary to validate their performance. It is therefore within scope of and appropriate for PDART.\nLink to project\nPDF link\nListing picture source"
   },
   {
-    "objectID": "projects/planet-four/index.html",
-    "href": "projects/planet-four/index.html",
-    "title": "Planet Four",
+    "objectID": "projects/planetarypy/index.html",
+    "href": "projects/planetarypy/index.html",
+    "title": "PlanetaryPy",
     "section": "",
-    "text": "It is difficult if not impossible for computer algorithms to accurately map individual polar seasonal fans, spot araneiform (‘spider’) erosion, and identify polygonal ridges. Computers just aren’t good enough to do the job yet, but these features visible from orbit are easily spotted by the human eye. Volunteers from around the world have contributed to the Planet Four projects by mapping the seasonal fans, polygonal ridges, and araneiforms in Mars Reconnaissance Orbiter imagery.\nWith the help of volunteers, we are discovering new insights into the processes active in the past and present on the Red Planet.\nJoin us at https://planetfour.space .\nLink to project\nPDF link\nVideo link"
-  },
-  {
-    "objectID": "talks/2022-fub-seminar/index.html#political-answer-quotes-eu-horizon-monthly-focus",
-    "href": "talks/2022-fub-seminar/index.html#political-answer-quotes-eu-horizon-monthly-focus",
-    "title": "Planetary Research with Citizen Science",
-    "section": "Political answer (Quotes EU Horizon monthly focus)",
-    "text": "Political answer (Quotes EU Horizon monthly focus)\n\n“Through citizen science, ordinary people can take part in extraordinary research.”\n“Through their contributions, the citizen scientist can actively pursue personal values, and be part of a research community seeking the same goals.”\n“The professional scientist can get more data than they would otherwise. This leads to better precision in their measurements and more lines of enquiry in their research.”"
-  },
-  {
-    "objectID": "talks/2022-fub-seminar/index.html#what-is-cs-practically",
-    "href": "talks/2022-fub-seminar/index.html#what-is-cs-practically",
-    "title": "Planetary Research with Citizen Science",
-    "section": "What is CS, practically?",
-    "text": "What is CS, practically?\n\nProblem: Simple, but arduous or repetitive task\n\ntoo much data to go through yourself\n\nSplit up the task into screen-sized subtasks\nPresent the data with a simple workflow to thousands of untrained volunteers"
-  },
-  {
-    "objectID": "talks/2022-fub-seminar/index.html#what-is-in-it-for-scientists",
-    "href": "talks/2022-fub-seminar/index.html#what-is-in-it-for-scientists",
-    "title": "Planetary Research with Citizen Science",
-    "section": "What is in it for scientists?",
-    "text": "What is in it for scientists?\n\namount of data grows exponentially\nideal for simple but arduous questions\nML: labeled data always better\nCS is an efficient way to create many labels\ngood outreach opportunity"
-  },
-  {
-    "objectID": "talks/2022-fub-seminar/index.html#what-is-in-it-for-citizens",
-    "href": "talks/2022-fub-seminar/index.html#what-is-in-it-for-citizens",
-    "title": "Planetary Research with Citizen Science",
-    "section": "What is in it for citizens?",
-    "text": "What is in it for citizens?\n\nparticipate in real science\nindependent of prior education!\nwide variety of research fields offered as CS now"
-  },
-  {
-    "objectID": "talks/2022-fub-seminar/index.html#recognition-of-the-field-us",
-    "href": "talks/2022-fub-seminar/index.html#recognition-of-the-field-us",
-    "title": "Planetary Research with Citizen Science",
-    "section": "Recognition of the field (US)",
-    "text": "Recognition of the field (US)\n\nhttps://science.nasa.gov/citizenscience\nSeed funding available through standard NASA funding programs\nCan be attached to larger project applications"
-  },
-  {
-    "objectID": "talks/2022-fub-seminar/index.html#recognition-of-the-field-eu",
-    "href": "talks/2022-fub-seminar/index.html#recognition-of-the-field-eu",
-    "title": "Planetary Research with Citizen Science",
-    "section": "Recognition of the field (EU)",
-    "text": "Recognition of the field (EU)\nEU Horizon monthly focus and semi-regularly CS news\nhttps://ec.europa.eu/research-and-innovation/en/horizon-magazine/citizen-science-science-and-people"
-  },
-  {
-    "objectID": "talks/2022-fub-seminar/index.html#science-case",
-    "href": "talks/2022-fub-seminar/index.html#science-case",
-    "title": "Planetary Research with Citizen Science",
-    "section": "Science case",
-    "text": "Science case"
-  },
-  {
-    "objectID": "talks/2022-fub-seminar/index.html#science-case-temporal",
-    "href": "talks/2022-fub-seminar/index.html#science-case-temporal",
-    "title": "Planetary Research with Citizen Science",
-    "section": "Science case temporal",
-    "text": "Science case temporal"
-  },
-  {
-    "objectID": "talks/2022-fub-seminar/index.html#science-case-kieffer-model",
-    "href": "talks/2022-fub-seminar/index.html#science-case-kieffer-model",
-    "title": "Planetary Research with Citizen Science",
-    "section": "Science case: Kieffer model",
-    "text": "Science case: Kieffer model\n\n\nJet deposits are aligned by prevalent winds at the time!\nMapping these features would be more wind data than we ever had on Mars!"
-  },
-  {
-    "objectID": "talks/2022-fub-seminar/index.html#active-areas-around-south-pole",
-    "href": "talks/2022-fub-seminar/index.html#active-areas-around-south-pole",
-    "title": "Planetary Research with Citizen Science",
-    "section": "Active areas around south pole",
-    "text": "Active areas around south pole\n\n\nSeasonal campaigns at most of these areas!\n\n-> Lots of huge HiRISE image data"
-  },
-  {
-    "objectID": "talks/2022-fub-seminar/index.html#input-data",
-    "href": "talks/2022-fub-seminar/index.html#input-data",
-    "title": "Planetary Research with Citizen Science",
-    "section": "Input data",
-    "text": "Input data\n\n221 HiRISE images from MY 29/30\nsplit up into over 40,000 image screen-sized tiles\nTiles are being “anonymized”, to prevent bias\nThe data input and reduction pipelines need to track everything"
-  },
-  {
-    "objectID": "talks/2022-fub-seminar/index.html#interface",
-    "href": "talks/2022-fub-seminar/index.html#interface",
-    "title": "Planetary Research with Citizen Science",
-    "section": "Interface",
-    "text": "Interface"
-  },
-  {
-    "objectID": "talks/2022-fub-seminar/index.html#interface-return",
-    "href": "talks/2022-fub-seminar/index.html#interface-return",
-    "title": "Planetary Research with Citizen Science",
-    "section": "Interface return",
-    "text": "Interface return\n\nDifficulty: What (contrast) defines the “end” of a surface feature?Minimum of 30 different volunteers per image tile!\n=> quite slow progress"
-  },
-  {
-    "objectID": "talks/2022-fub-seminar/index.html#reduction-pipeline",
-    "href": "talks/2022-fub-seminar/index.html#reduction-pipeline",
-    "title": "Planetary Research with Citizen Science",
-    "section": "Reduction pipeline",
-    "text": "Reduction pipeline\n\nComprehensive description in Aye et al. (2019) : “Planet Four: Probing springtime winds on Mars by mapping the southern polar CO2 jet deposits”"
-  },
-  {
-    "objectID": "talks/2022-fub-seminar/index.html#reduction-pipeline-2",
-    "href": "talks/2022-fub-seminar/index.html#reduction-pipeline-2",
-    "title": "Planetary Research with Citizen Science",
-    "section": "Reduction pipeline 2",
-    "text": "Reduction pipeline 2\n\nClockwise from upper left: 1) Raw, 2) Fan markings, 3) Blotch markings, 4) Blotch reduction, 5) Fan reduction, 6) catalog entry with 50% majority vote"
-  },
-  {
-    "objectID": "talks/2022-fub-seminar/index.html#catalog-entries",
-    "href": "talks/2022-fub-seminar/index.html#catalog-entries",
-    "title": "Planetary Research with Citizen Science",
-    "section": "Catalog entries",
-    "text": "Catalog entries"
-  },
-  {
-    "objectID": "talks/2022-fub-seminar/index.html#science-team-gold-markings",
-    "href": "talks/2022-fub-seminar/index.html#science-team-gold-markings",
-    "title": "Planetary Research with Citizen Science",
-    "section": "Science Team (Gold) markings",
-    "text": "Science Team (Gold) markings\n\nEach team member marked several hundred tiles\nSignificant differences between science team members\nYears of experience do not overcome the original contrast problem!"
-  },
-  {
-    "objectID": "talks/2022-fub-seminar/index.html#compare-experts-with-citizens",
-    "href": "talks/2022-fub-seminar/index.html#compare-experts-with-citizens",
-    "title": "Planetary Research with Citizen Science",
-    "section": "Compare experts with citizens",
-    "text": "Compare experts with citizens"
-  },
-  {
-    "objectID": "talks/2022-fub-seminar/index.html#results",
-    "href": "talks/2022-fub-seminar/index.html#results",
-    "title": "Planetary Research with Citizen Science",
-    "section": "Results",
-    "text": "Results\n\nOver 40,000 citizens have contributed\n\nMost only once\nCore team of approx 10-20 volunteers did most of the work\n\nca. 400,000 geo-located objects in catalog\navailable at https://www.zooniverse.org/projects/mschwamb/planet-four/about/results"
-  },
-  {
-    "objectID": "talks/2022-fub-seminar/index.html#what-can-be-done-with-it",
-    "href": "talks/2022-fub-seminar/index.html#what-can-be-done-with-it",
-    "title": "Planetary Research with Citizen Science",
-    "section": "What can be done with it?",
-    "text": "What can be done with it?\n\nPortyankina et al. (2022) “Planet Four: Derived South Polar Martian Winds Interpreted Using Mesoscale Modeling”"
-  },
-  {
-    "objectID": "talks/2022-fub-seminar/index.html#compare-with-climate-models",
-    "href": "talks/2022-fub-seminar/index.html#compare-with-climate-models",
-    "title": "Planetary Research with Citizen Science",
-    "section": "Compare with climate models",
-    "text": "Compare with climate models\n\nTeam member Tim Michaels nest GCM into high-res meso-scale models using CTX and HiRISE DTM topography\nRun for several days to avoid “spin-up” effects\nRun at different \\(L_s\\) over the season\nCompare wind predictions with Planet Four data\nJust published in Portyankina et al. (2022)"
-  },
-  {
-    "objectID": "talks/2022-fub-seminar/index.html#measure-of-success",
-    "href": "talks/2022-fub-seminar/index.html#measure-of-success",
-    "title": "Planetary Research with Citizen Science",
-    "section": "Measure of success",
-    "text": "Measure of success\n\nDefine status of good / average / bad fit with data\nUsing only direction very good match with climate models\nTaking into account wind strength as well less good\nOur assumptions for jet deposit <-> wind strength are too simple"
-  },
-  {
-    "objectID": "talks/2022-fub-seminar/index.html#section-3",
-    "href": "talks/2022-fub-seminar/index.html#section-3",
-    "title": "Planetary Research with Citizen Science",
-    "section": "",
-    "text": "Only wind directions"
-  },
-  {
-    "objectID": "talks/2022-fub-seminar/index.html#section-4",
-    "href": "talks/2022-fub-seminar/index.html#section-4",
-    "title": "Planetary Research with Citizen Science",
-    "section": "",
-    "text": "Wind directions and estimated strengths"
-  },
-  {
-    "objectID": "talks/2022-fub-seminar/index.html#conclusions",
-    "href": "talks/2022-fub-seminar/index.html#conclusions",
-    "title": "Planetary Research with Citizen Science",
-    "section": "Conclusions",
-    "text": "Conclusions\n\nCitizen Science is not only outreach\nScientific paradigms are being changed thanks to the work power of hundred thousands of citizen scientists all over the world\nIf data reduction is done carefully, the results are very reliable\nDon’t try to do this “on the side”\n\nIt’s a full time analytical job"
-  },
-  {
-    "objectID": "talks/2022-fub-seminar/index.html#conclusions-2",
-    "href": "talks/2022-fub-seminar/index.html#conclusions-2",
-    "title": "Planetary Research with Citizen Science",
-    "section": "Conclusions 2",
-    "text": "Conclusions 2\n\nOverall good match with models but discrepancies exist\nHope to derive jet eruption times"
-  },
-  {
-    "objectID": "talks/2021-pdw-planetarypy/index.html",
-    "href": "talks/2021-pdw-planetarypy/index.html",
-    "title": "The PlanetaryPy Project",
-    "section": "",
-    "text": "The PlanetaryPy Project is a community effort to develop a core package for planetary science in Python and foster interoperability between Python planetary science packages.\nThe PlanetaryPy Technical Committee (TC) is the governing body for the PlanetaryPy Project. All of their work is done in the open via the TC GitHub repo. To learn more about what the TC is, how it operates, or to get involved, you can read its Charter (see paragraph below). The PlanetaryPy TC has regular meetings to which all are welcome to attend. The meeting agendas for upcoming meetings, and notes from previous meetings can be found in the TC’s GitHub repo.\nevent_url\nurl_slides\nurl_code\nurl_pdf\nurl_video"
-  },
-  {
-    "objectID": "talks/2021-conda-workshop-kharkiv/index.html",
-    "href": "talks/2021-conda-workshop-kharkiv/index.html",
-    "title": "How to create and maintain a scientific Python environment using conda",
-    "section": "",
-    "text": "Location: Kharkiv, Ukraine (virtual)"
-  },
-  {
-    "objectID": "talks/2021-conda-workshop-kharkiv/index.html#talk-slides",
-    "href": "talks/2021-conda-workshop-kharkiv/index.html#talk-slides",
-    "title": "How to create and maintain a scientific Python environment using conda",
-    "section": "Talk slides",
-    "text": "Talk slides"
-  },
-  {
-    "objectID": "talks/conda-lunchtalk/index.html",
-    "href": "talks/conda-lunchtalk/index.html",
-    "title": "Best practices for conda-based Python science analysis environments",
-    "section": "",
-    "text": "url_slides\nurl_video"
-  },
-  {
-    "objectID": "talks/conda-workshop/index.html",
-    "href": "talks/conda-workshop/index.html",
-    "title": "How to live peacefully with Ana/Mini/Conda",
-    "section": "",
-    "text": "url_slides\nurl_video"
-  },
-  {
-    "objectID": "talks/2021-diviner-kharkiv-talk/index.html",
-    "href": "talks/2021-diviner-kharkiv-talk/index.html",
-    "title": "Calibration of the LRO Diviner Lunar Radiometer Experiment",
-    "section": "",
-    "text": "Location: Kharkiv, Ukraine (virtual)"
-  },
-  {
-    "objectID": "talks/2021-diviner-kharkiv-talk/index.html#talk-slides",
-    "href": "talks/2021-diviner-kharkiv-talk/index.html#talk-slides",
-    "title": "Calibration of the LRO Diviner Lunar Radiometer Experiment",
-    "section": "Talk slides",
-    "text": "Talk slides"
+    "text": "To learn more about what the TC is, how it operates, or to get involved, you can read its Charter. The PlanetaryPy TC has regular meetings to which all are welcome to attend. The meeting agendas for upcoming meetings, and notes from previous meetings can be found in the TC’s GitHub repo.\nProject link\nLink to Github repo\nLink to slides\nVideo link"
   },
   {
     "objectID": "projects.html",
@@ -406,10 +413,10 @@
     "text": "Experience\nFreie Universität Berlin | Research Scientist | Juli 2022 – present\nUniversity of Colorado, Boulder | Laboratory for Atmospheric and Space Science (LASP) | Research Associate | December 2014 – June 2022\nUniversity of California, Los Angeles | Postdoctoral Researcher | August 2012 – Nov 2014\nPhysikalisches Institut Bern | Assistant Project Manager BepiColombo Laser Altimeter | Feb 2008 – July 2012\nMax-Planck-Institute for Solar System Research | Dawn Framing Camera Team | Feb 2005 – Feb 2008"
   },
   {
-    "objectID": "posts.html",
-    "href": "posts.html",
-    "title": "Blog posts",
+    "objectID": "bibliography.html",
+    "href": "bibliography.html",
+    "title": "Home",
     "section": "",
-    "text": "python\n\n\nconda\n\n\nmamba\n\n\nsoftware management\n\n\n\n\n\n\n\n\n\n\n\n2021-10-15\n\n\nMichael Aye\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nUse crontab and a bit of Python to store speedtest results in a CSV.\n\n\n\n\nhacking\n\n\npython\n\n\n\n\n\n\n\n\n\n\n\n2021-09-22\n\n\nMichael Aye\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nconda\n\n\nmamba\n\n\nsoftware management\n\n\n\n\n\n\n\n\n\n\n\n2021-09-10\n\n\nMichael Aye\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\nplanet four\n\n\n\n\n\n\n\n\n\n\n\n2014-08-05\n\n\nMichael Aye\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\nplotting\n\n\nmatplotlib\n\n\n\n\n\n\n\n\n\n\n\n2013-09-03\n\n\n\n\n\n\nNo matching items"
+    "text": "Bibliography\n\nAnnex, Andrew, Ben Pearson, Benoît Seignovert, Brian Carcich, Helge Eichhorn, Jesse Mapel, Johan von Forstner, et al. 2020. “SpiceyPy: A Pythonic Wrapper for the SPICE Toolkit.” Journal of Open Source Software 5 (46): 2050. https://doi.org/10.21105/joss.02050.\n\n\nAye, K M, Ross Beyer, Andrew Annex, and Chase Million. 2021. “The PlanetaryPy Project.” LPI Contributions 2549: 7026.\n\n\nAye, K M, L W Esposito, J E Colwell, R G Jerousek, and G R Stewart. 2018. “Texture of Saturn’s C Ring Plateaus as Seen by Cassini ISS.” In. Vol. 2018. https://ui.adsabs.harvard.edu/abs/2018AGUFM.P43B..07A.\n\n\nAye, K M, M Rehnberg, and L W Esposito. 2017. “Confirmation of a Traveling Feature in Saturn’s Rings in Cassini Imaging Science Subsystem Data.” In. Vol. 2017. https://ui.adsabs.harvard.edu/abs/2017AGUFM.P23B2733A.\n\n\nAye, Klaus Michael, A M Brown, P M Chadwick, C Hadjichristidis, I J Latham, R Le Gallou, T J L McComb, et al. 2005. “Atmospheric Sensing for the H.E.S.S. Array.” In, 745:724–29. AIP. https://doi.org/10.1063/1.1878491.\n\n\nAye, Klaus Michael, P M Chadwick, M K Daniel, K Lyons, T J L McComb, J M McKenny, S J Nolan, K J Orford, J L Osborne, and S M Rayner. 2001a. “Correcting the Pointing of the Durham Mark 6 Cherenkov Telescope.” In, 7:2856. http://adsabs.harvard.edu/cgi-bin/nph-data_query?bibcode=2001ICRC....7.2856A&link_type=ABSTRACT.\n\n\n———. 2001b. “Energy Spectra of TeV Sources Measured with the Durham Mark 6 Telescope.” In, 7:2597. http://adsabs.harvard.edu/cgi-bin/nph-data_query?bibcode=2001ICRC....7.2597A&link_type=ABSTRACT.\n\n\nAye, Klaus Michael, P M Chadwick, M K Daniel, T J L McComb, J M McKenny, S J Nolan, K J Orford, J L Osborne, and S M Rayner. 2001. “Flat-Fielding of the Photomultiplier Camera of the Phase I HESS Cherenkov Telescopes.” In, 7:2919. http://adsabs.harvard.edu/cgi-bin/nph-data_query?bibcode=2001ICRC....7.2919A&link_type=ABSTRACT.\n\n\nAye, Klaus Michael, P M Chadwick, C N Hadjichristidis, I J Latham, R Le Gallou, T J L McComb, J M McKenny, et al. 2003. “Aluminium Mirrors: An Alternative for Ground Based Cherenkov Telescopes.” In, 5:2915. http://adsabs.harvard.edu/cgi-bin/nph-data_query?bibcode=2003ICRC....5.2915A&link_type=ABSTRACT.\n\n\nAye, Klaus Michael, D A Paige, M C Foote, B T Greenhagen, and M A Siegler. 2013. “The Coldest Place on the Moon.” In, 1719:3016. http://adsabs.harvard.edu/cgi-bin/nph-data_query?bibcode=2013LPICo1719.3016A&link_type=ABSTRACT.\n\n\nAye, Klaus Michael, D A Paige, M A Siegler, and B T Greenhagen. 2013. “Emissivity and Anisothermality Studies at the Lunar Poles with Diviner’s Far Infrared Channels.” In, 43:2027. http://adsabs.harvard.edu/cgi-bin/nph-data_query?bibcode=2013AGUFM.P43C2027A&link_type=ABSTRACT.\n\n\nAye, Klaus Michael, D A Paige, M A Siegler, E Sefton-Nash, and B T Greenhagen. 2014. “Diviner Monitoring of Coldest Lunar Polar Regions.” In, 45:2893. http://adsabs.harvard.edu/cgi-bin/nph-data_query?bibcode=2014LPI....45.2893A&link_type=ABSTRACT.\n\n\nAye, Klaus Michael, Ganna Portyankina, Antoine Pommerol, and N Thomas. 2011. “Automatic Dark Spot Identification at the Martian South Pole.” In, 1323:6081. http://adsabs.harvard.edu/cgi-bin/nph-data_query?bibcode=2011LPICo1323.6081A&link_type=ARTICLE.\n\n\nAye, Klaus Michael, Ganna Portyankina, Antoine Pommerol, and Nicolas Thomas. 2010. “Semi-Automatic Measures of Activity in Selected South Polar Regions of Mars Using Morphological Image Analysis.” In, 38:522. http://adsabs.harvard.edu/cgi-bin/nph-data_query?bibcode=2010cosp...38..522A&link_type=ABSTRACT.\n\n\nAye, Klaus-Michael, Morgan Rehnberg, Zarah Brown, and Larry W Esposito. 2016. “Searching for a Traveling Feature in Saturn’s Rings in Cassini Imaging Science Subsystem Data.” In. https://ui.adsabs.harvard.edu/abs/2016DPS....4812103A.\n\n\nAye, K-M. 2017. “Repeating Patterns in the Day-to-Day Work with Planetary Mission Data.” LPI Contributions 1986 (June): 7125. https://ui.adsabs.harvard.edu/#abs/2017LPICo1986.7125A.\n\n\n———. 2019a. “LRO Diviner Re-Calibration and Its Effect on Volatile Research.” In. https://ui.adsabs.harvard.edu/abs/2019LPI....50.3259A.\n\n\n———. 2019b. “pyRISE and Other Planetary Science Python Tools.” In. Vol. 2151. https://ui.adsabs.harvard.edu/abs/2019LPICo2151.7102A.\n\n\nAye, K-M, B T Greenhagen, and J P Williams. 2020. “Investigating the Possibility of Super-Resolution Reconstruction of LRO Diviner Data.” In, 3011. https://ui.adsabs.harvard.edu/abs/2020LPI....51.3011A.\n\n\nAye, K-M, and P O Hayne. 2020. “Polar Vortex Investigations Using MRO MCS Data.” LPI Contributions 2099 (January): 6079. https://ui.adsabs.harvard.edu/abs/2020LPICo2099.6079A.\n\n\nAye, K-Michael, Megan E Schwamb, Ganna Portyankina, Candice J Hansen, Adam McMaster, Grant R M Miller, Brian Carstensen, et al. 2018. “Planet Four: Probing Seasonal Winds on Mars by Mapping the Southern Polar CO$_2$ Jet Deposits.” arXiv [Astro-Ph.EP]. http://arxiv.org/abs/1803.10341.\n\n\n———, et al. 2019. “Planet Four: Probing Springtime Winds on Mars by Mapping the Southern Polar CO2 Jet Deposits.” Icarus 319 (February): 558–98. https://doi.org/10.1016/j.icarus.2018.08.018.\n\n\nAye, K-M, G Portyankina, C J Hansen, T I Michaels, and M E Schwamb. 2019. “Geophysical CO2 Gas Jet Modeling: Initial Set-Up.” LPI Contributions 2089 (July). https://ui.adsabs.harvard.edu/abs/2019LPICo2089.6214A.\n\n\nAye, K-M, G Portyankina, and N Thomas. 2010. “Semi-Automatic Measures of Activity in the Inca City Region of Mars Using Morphological Image Analysis.” In, 41:2707. https://ui.adsabs.harvard.edu/#abs/2010LPI....41.2707A.\n\n\nAye, K-M, M E Schwamb, G Portyankina, and C J Hansen. 2016. “Analyis Pipeline and Results from the PlanetFour Citizen Science Project.” In, 47:3056. https://ui.adsabs.harvard.edu/#abs/2016LPI....47.3056A.\n\n\nAye, K-M, M Schwamb, G Portyankina, and C J Hansen. 2017. “Science Results from the PlanetFour Citizen Science Project.” In. Vol. 48. https://ui.adsabs.harvard.edu/#abs/2017LPI....48.2903A.\n\n\nBeyer, Ross, K Michael Aye, Nicholas Estes, Carolyn Ernst, Caleb Fassett, Audrie Fennema, Dathon Golish, and Cynthia Phillips. 2018. “MAPSIT Special Action Team Report on Cartography and Image Processing Software at the Astrogeology Science Center.” https://doi.org/10.5281/zenodo.2280984.\n\n\nColwell, Joshua, Casey Coleman, Kirsten Lina, Richard Jerousek, Matthew Tiscareno, Klaus-Michael Aye, and Larry Esposito. 2021. “Small-Scale Structure in the Core of Saturn’s B Ring.” In, 53:407.04. https://ui.adsabs.harvard.edu/abs/2021DPS....5340704C.\n\n\nGyalay, S, M Aye, and D A Paige. 2017. “Recalibrating the Moon’s Thermometer: LRO Diviner Nonlinear Detector Response and Opposition Effect Corrections.” In. https://ui.adsabs.harvard.edu/abs/2017LPI....48.2655G.\n\n\nHansen, C J, K M Aye, G Portyankina, et al. 2019. “Interannual Variability of Seasonal Activity in Mars’ South Polar Region Dubbed\" Manhattan\".” Lunar and Planetary. http://adsabs.harvard.edu/abs/2019LPI....50.3110H.\n\n\nHansen, C J, K-M Aye, S Diniega, P Hayne, A McEwen, G Portyankina, and M E Schwamb. 2020. “Dynamic Seasons on Mars—Polar Images and Investigations.” LPI Contributions 2099: 6019. https://ui.adsabs.harvard.edu/abs/2020LPICo2099.6019H/abstract.\n\n\nHatcher, Chase, K-Michael Aye, and Ganna Portyankina. 2017. “CO2 Jets and Wind Patterns on Mars.” In, 49:418.19. https://ui.adsabs.harvard.edu/#abs/2017DPS....4941819H.\n\n\nHendrix, A R, T Holt, A Verbiscer, K Primm, K N Singer, E Royer, R J Wilson, et al. 2020. “Planetary Science Public Engagement at the Farmers Market.” In, 2492. https://ui.adsabs.harvard.edu/abs/2020LPI....51.2492H.\n\n\nJerousek, R, J Colwell, M Lewis, L Benyamine, C Singleton, K Aye, and M Tiscareno. 2020. “Mesoscale Structures in Saturn’s Rings from UVIS Autocorrelations.” In, 52:513.04. https://ui.adsabs.harvard.edu/abs/2020DPS....5251304J.\n\n\nKhuller, Aditya R, Laura Kerber, Megan E Schwamb, Sylvia Beer, Fernando E Nogal, Ray Perry, William Hood, Klaus-Michael Aye, Ganna Portyankina, and Candice J Hansen. 2022. “Irregular Polygonal Ridge Networks in Ancient Noachian Terrain on Mars.” Icarus 374 (114833): 114833. https://doi.org/10.1016/j.icarus.2021.114833.\n\n\nMcDonnell, Mark D., Eriita Jones, Megan E. Schwamb, K-Michael Aye, Ganna Portyankina, and Candice J. Hansen. 2022. “Planet Four: A Neural Network’s Search for Polar Spring-Time Fans on Mars.” Icarus, October, 115308. https://doi.org/10.1016/j.icarus.2022.115308.\n\n\nMerrison, J, Klaus Michael Aye, C Holstein-Rathlou, J Mason, A Merlone, P Nørnberg, M Patel, Ganna Portyankina, and K R Rasmussen. 2012. “Advances in a European Planetary Simulation Wind Tunnel Facility.” In, 99. http://adsabs.harvard.edu/cgi-bin/nph-data_query?bibcode=2012espc.conf...99M&link_type=ABSTRACT.\n\n\nMillion, C C, M St. Clair, K M Aye, and J Padams. 2021. “The Planetary Data Reader (Pdr): A Python Toolkit for Reading Planetary Data.” In, 2549:7096. https://ui.adsabs.harvard.edu/abs/2021LPICo2549.7096M.\n\n\nPortyankina, Ganna, Klaus-Michael Aye, Candice Hansen, Megan E Schwamb, and Timothy Michaels. 2021. “Spring Near-Surface Winds in the Southern Polar Regions of Mars: Results of Citizen Science Project Planet Four.” In, 43:392. https://ui.adsabs.harvard.edu/abs/2021cosp...43E.392P.\n\n\nPortyankina, Ganna, Larry W Esposito, Klaus-Michael Aye, Candice J Hansen, and Ashar Ali. 2022. “Modeling the Complete Set of Cassini’s UVIS Occultation Observations of Enceladus’ Plume.” Icarus, no. 114918 (February): 114918. https://doi.org/10.1016/j.icarus.2022.114918.\n\n\nPortyankina, Ganna, Candice J Hansen, and Klaus-Michael Aye. 2017. “Present-Day Erosion of Martian Polar Terrain by the Seasonal CO2 Jets.” Icarus 282 (January): 93–103. https://doi.org/10.1016/j.icarus.2016.09.007.\n\n\n———. 2020. “How Martian Araneiforms Get Their Shapes: Morphological Analysis and Diffusion-Limited Aggregation Model for Polar Surface Erosion.” Icarus 342 (May): 113217. https://doi.org/10.1016/j.icarus.2019.02.032.\n\n\nPortyankina, Ganna, J Merrison, Klaus Michael Aye, J J Iversen, Candice J Hansen, Antoine Pommerol, and N Thomas. 2011. “How to Create Translucent CO2 Ice on Mars: Simulations Using the Wind Tunnel of Aarhus Mars Laboratory.” In, 1623:6021. http://adsabs.harvard.edu/cgi-bin/nph-data_query?bibcode=2011LPICo1623.6021P&link_type=ARTICLE.\n\n\nPortyankina, Ganna, Timothy I Michaels, Klaus-Michael Aye, Megan E Schwamb, Candice J Hansen, and Chris J Lintott. 2022. “Planet Four: Derived South Polar Martian Winds Interpreted Using Mesoscale Modeling.” Planet. Sci. J. 3 (2): 31. https://doi.org/10.3847/PSJ/ac3087.\n\n\nPortyankina, Ganna, Antoine Pommerol, Klaus-Michael Aye, Candice J Hansen, and Nicolas Thomas. 2013. “Observations of the Northern Seasonal Polar Cap on Mars II: HiRISE Photometric Analysis of Evolution of Northern Polar Dunes in Spring.” Icarus 225 (2): 898–910. https://doi.org/10.1016/j.icarus.2012.10.017.\n\n\nPortyankina, Ganna, Nicolas Thomas, Antoine Pommerol, and Klaus Michael Aye. 2010. “Northern Polar Dunes: A Spring Activity Analog to That Seen in Southern Polar Terrains.” In, 38:511. http://adsabs.harvard.edu/cgi-bin/nph-data_query?bibcode=2010cosp...38..511P&link_type=ABSTRACT.\n\n\nPortyankina, Ganna, N Thomas, Antoine Pommerol, Klaus Michael Aye, Candice J Hansen, and K Herkenhoff. 2011. “Martian South Polar Terrains in Spring: II. Modelling of Relevant Physical Processes.” In, 42:1709. http://adsabs.harvard.edu/cgi-bin/nph-data_query?bibcode=2011LPI....42.1709P&link_type=ABSTRACT.\n\n\nPortyankina, G, K-M Aye, and C J Hansen. 2017. “Diffusion-Limited Aggregation Model for Araneiform Pattern Formation.” In. Vol. 48. https://ui.adsabs.harvard.edu/#abs/2017LPI....48.2441P.\n\n\nPortyankina, G, K-M Aye, C J Hansen, and M E Schwamb. 2019. “Mars Spring Seasonal Ice Cleaning as Detected by Planet Four Project.” In. https://ui.adsabs.harvard.edu/abs/2019LPI....50.1695P.\n\n\nPortyankina, G, K-M Aye, M E Schwamb, C J Hansen, and T Michaels. 2019. “Planet Four Pursuit of Studying Seasonal Activity and Spring Atmosphere with Citizen Science.” LPI Contributions 2089 (July). https://ui.adsabs.harvard.edu/abs/2019LPICo2089.6158P.\n\n\n———. 2020. “Near-Surface Winds and Seasonal Surface Phenomena Analyzed by the Planet Four Project.” LPI Contributions 2099 (January): 6062. https://ui.adsabs.harvard.edu/abs/2020LPICo2099.6062P.\n\n\nPortyankina, G, C J Hansen, and K-M Aye. 2020. “Sand, Wind, and Ices on Mars: How Sandy Environments Facilitate Erosion by CO2 Jets.” In, 2188:3036. https://ui.adsabs.harvard.edu/abs/2020LPICo2188.3036P.\n\n\nPortyankina, G, J Merrison, J J Iversen, Z Yoldi, C J Hansen, K-M Aye, A Pommerol, and N Thomas. 2019. “Laboratory Investigations of the Physical State of CO2 Ice in a Simulated Martian Environment.” Icarus 322 (April): 210–20. https://doi.org/10.1016/j.icarus.2018.04.021.\n\n\nPortyankina, G, T Michaels, K Aye, M Schwamb, and C Hansen. 2020. “Derived South Polar Martian Winds Interpreted Using Mesoscale Modeling.” In, 52:308.01. https://ui.adsabs.harvard.edu/abs/2020DPS....5230801P.\n\n\nPortyankina, G., A. Pommerol, K. -M. Aye, C. Hansen, and N. Thomas. 2013. “Spring Sublimation on Mars: Do Northern and Southern Hemispheres Tell Us the Same Story?” March, 1776. https://ui.adsabs.harvard.edu/abs/2013LPI....44.1776P.\n\n\nProckter, Louise, Meghan R Wheeler, Klaus-Michael Aye, Kevin H Baines, Michael T Bland, David T Blewett, Serina Diniega, et al. 2017. “The Value of Participating Scientist Programs to NASA’s Planetary Science Division.” https://www.lpi.usra.edu/analysis/reports/Value_of_Participating_Scientist_Programs_to_NASA_white_paper_final.pdf.\n\n\nSchwamb, Megan E, Klaus-Michael Aye, Ganna Portyankina, Candice J Hansen, Campbell Allen, Sarah Allen, Fred J Calef, Simone Duca, Adam McMaster, and Grant R M Miller. 2018. “Planet Four: Terrains – Discovery of Araneiforms Outside of the South Polar Layered Deposits.” Icarus 308 (July): 148–87. https://doi.org/10.1016/j.icarus.2017.06.017.\n\n\nSchwamb, Megan E, K-Michael Aye, Ganna Portyankina, Candice Hansen, Chris J Lintott, Campbell Allen, Sarah Allen, et al. 2017. “Discovery of Araneiforms Outside of the South Polar Layered Deposits.” In, 49:422.05. https://ui.adsabs.harvard.edu/#abs/2017DPS....4942205S.\n\n\nSefton-Nash, E, K M Aye, J P Williams, B T Greenhagen, M Sullivan, and D A Paige. 2014. “The LRO Diviner Foundation Dataset: A Comprehensive Temperature Record of the Moon.” In. Vol. 13. https://ui.adsabs.harvard.edu/#abs/2014AGUFM.P13B3819S.\n\n\nSefton-Nash, E, J-P Williams, B T Greenhagen, K-M Aye, and D A Paige. 2017. “Diviner Lunar Radiometer Gridded Brightness Temperatures from Geodesic Binning of Modeled Fields of View.” Icarus 298 (December): 98–110. https://doi.org/10.1016/j.icarus.2017.04.007.\n\n\nSefton-Nash, E, J-P Williams, B T Greenhagen, T J Warren, J L Bandfield, K-M Aye, F Leader, et al. 2019. “Evidence for Ultra-Cold Traps and Surface Water Ice in the Lunar South Polar Crater Amundsen.” Icarus 332 (November): 1–13. https://doi.org/10.1016/j.icarus.2019.06.002.\n\n\nVierling, S, S Ali-zade, E Young, M Bullock, C Cantrall, K-Michael Aye, Y Lee, J Peralta, and R Baena Gallé. 2020. “Venus Cloud Tracking Methods and Applications for Akatsuki, IRTF, and Nordic Optical Telescope Images.” In, 52:505.07. https://ui.adsabs.harvard.edu/abs/2020DPS....5250507V.\n\n\nWilliams, J ‐P, D A Paige, N Schorghofer, E Sefton‐Nash, P O Hayne, P G Lucey, M A Siegler, and K-Michael Aye. 2019. “Seasonal Polar Temperatures on the Moon.” Journal of Geophysical Research: Planets 124 (10): 2505–21. https://doi.org/10.1029/2019je006028."
   }
 ]
