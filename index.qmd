@@ -46,5 +46,8 @@ Diploma in Physics (Astronomy, Particle Physics) | April 1995 -- June 1999
 
 **Max-Planck-Institute for Solar System Research** | Dawn Framing Camera Team | Feb 2005 -- Feb 2008
 
+## Activities
+
+* Guest Associate Editor for FrontiersIn Special Issue [Snakes on a Spaceship](https://www.frontiersin.org/research-topics/33555/snakes-on-a-spaceship-an-overview-of-python-in-space-physics)
 
 
