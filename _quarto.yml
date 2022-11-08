@@ -22,6 +22,8 @@ website:
         href: https://github.com/michaelaye
       - icon: twitter
         href: https://twitter.com/michaelaye
+execute:
+  freeze: auto
 format:
   html:
     theme:
