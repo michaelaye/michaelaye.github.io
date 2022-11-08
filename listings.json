@@ -1,17 +1,5 @@
 [
   {
-    "listing": "/talks.html",
-    "items": [
-      "/talks/2022-fub-seminar/index.html",
-      "/talks/2022-fub-seminar/presentation/index.html",
-      "/talks/2021-pdw-planetarypy/index.html",
-      "/talks/2021-conda-workshop-kharkiv/index.html",
-      "/talks/2021-diviner-kharkiv-talk/index.html",
-      "/talks/conda-workshop/index.html",
-      "/talks/conda-lunchtalk/index.html"
-    ]
-  },
-  {
     "listing": "/projects.html",
     "items": [
       "/projects/planetary-data-reader/index.html",
@@ -29,6 +17,18 @@
       "/posts/mamba-is-the-new-conda/index.html",
       "/posts/fan-creation/index.html",
       "/posts/matplotlib-ticklabel-formats/index.html"
+    ]
+  },
+  {
+    "listing": "/talks.html",
+    "items": [
+      "/talks/2022-fub-seminar/index.html",
+      "/talks/2022-fub-seminar/presentation/index.html",
+      "/talks/2021-pdw-planetarypy/index.html",
+      "/talks/2021-conda-workshop-kharkiv/index.html",
+      "/talks/2021-diviner-kharkiv-talk/index.html",
+      "/talks/conda-workshop/index.html",
+      "/talks/conda-lunchtalk/index.html"
     ]
   }
 ]
