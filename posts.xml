@@ -19,6 +19,12 @@
 
 
 
+<section id="disclaimer" class="level1">
+<h1>Disclaimer</h1>
+<p>Let me start by saying that my only work in this knowledge gathering was the combination of several internet searches. The real genius lies in the group of people creating the below-to-be-installed quirk files to get new devices working in ZHA. I just thought, as it isn’t very straight forward to understand what one needs to do, that I summarize things in this small blog post</p>
+</section>
+<section id="lets-go" class="level1">
+<h1>Let’s go!</h1>
 <p>I bought some Tuya thermostats on AliExpress after it became clear that Tuya products are well supported now in Home Assistant (HA). And I wanted them to be Zigbee only and not buy another hub from Tuya. There are 2 ways to integrate them, apparently, either with the ZHA Zigbee implementation or via Zigbee2Mqtt. But the latter would require another plugin, which I wanted to avoid for now.</p>
 <p>The thermostats I bought are <a href="https://www.aliexpress.com/item/1005004696707285.html?spm=a2g0o.order_list.order_list_main.4.c38c1802HlKHN3">these</a> and after an initial joining to the ZHA of HA, no usable entities appeared related to the thermostat.</p>
 <p>So I had to search the HA forums for solutions. I learned that for finding solutions to Zigbee issues one needs to search for the manufacturer ID string that is displayed in the ZHA Device info display:</p>
@@ -46,6 +52,7 @@
 <p>Hope it helps!</p>
 
 
+</section>
 
  ]]></description>
   <category>homeassistant</category>
