@@ -1,0 +1,63 @@
+---
+title: Integrate Zigbee Tuya Thermostats into Home Assistant
+subtitle: How to add unsupported ones to ZHA
+date: 2023-03-06
+summary:
+authors:
+  - name: "Michael Aye"
+    url: https://michaelaye.github.io
+    orcid: 0000-0002-4088-1928
+categories: [homeassistant, tuya, thermostats, python]
+---
+I bought some Tuya thermostats on AliExpress after it became clear that Tuya products are well supported now
+in Home Assistant (HA).
+And I wanted them to be Zigbee only and not buy another hub from Tuya.
+There are 2 ways to integrate them, apparently, either with the ZHA Zigbee implementation or via Zigbee2Mqtt.
+But the latter would require another plugin, which I wanted to avoid for now.
+
+The thermostats I bought are [these](https://www.aliexpress.com/item/1005004696707285.html?spm=a2g0o.order_list.order_list_main.4.c38c1802HlKHN3)
+and after an initial joining to the ZHA of HA, no usable entities appeared related to the thermostat.
+
+So I had to search the HA forums for solutions. 
+I learned that for finding solutions to Zigbee issues one needs to search for the manufacturer ID string that is displayed in the ZHA Device
+info display:
+
+![Manufacturer string shown after "by "](./zigbee_info.png)
+
+The manufacturer string is shown after the "by " below the general product ID `TS0601`, and in my case the manufacturer string is `_TZE200_6rdj8dzm`.
+
+Searching for this string one can learn that if a Zigbee product isn't (fully?) supported yet by ZHA, one can install so called [`quirk`](https://pypi.org/project/zha-quirks/) Python files that add the translator dictionaries required for understanding the Zigbee devices' communication.
+
+First, one needs to create a quirk folder on your Home Assistant device, in my case that's a Raspberry 4 running the HA OS, but it shouldn't matter.
+
+To manipulate files on my HA install, I use the `File Editor` Add-on which I can highly recommend.
+If you decide (again, recommended) to add the `File Editor` entry to the sidebar, it should look like this when clicking on the folder icon in the upper left of the Add-On:
+
+![](file_editor.png)
+
+The second icon at the top offers you to add a new folder.
+Make sure that you create the new folder in `/config`, at least that's what I saw recommendend, maybe it doesn't matter due to the next step, where we tell HA where the quirks folder is.
+
+Using the same File Editor we now open the famous `/config/configuration.yaml` to add
+the following to it:
+
+```yaml
+zha:
+  enable_quirks: true
+  custom_quirks_path: /config/quirks
+```
+
+if you create a new folder named `quirks` in your `/config` folder.
+
+Now you put the unzipped Python file from [here](https://github.com/zigpy/zha-device-handlers/files/10376432/ts0601_trv_me167.py.zip) into that folder.
+If you had previously connected the thermostat to ZHA, now is a good time to remove it, as you have to reboot HA anyway to activate the new quirk.
+
+After a reboot, put the thermostat into pairing mode again and connect it, you should have now several useful entities:
+
+![](new_device_info.png)
+
+Looking at the `Controls` section, the switch called `Lock` is called `Switch` at first, but it is for the child lock, so I renamed it to `Lock`.
+The 2nd entry `Number Temperat...` is very handy, it's a slider for 1 degree offsets to calibrate the measured temperatur of the thermostat, and they gonna need it! Mine was 3 degrees off from an external temp sensor I mounted on top of the thermostat handle.
+
+Hope it helps!
+
