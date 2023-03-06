@@ -24,6 +24,7 @@
   {
     "listing": "/posts.html",
     "items": [
+      "/posts/2023-03-06_Tuya_thermostats/index.html",
       "/posts/minimal-conda-setup-instructions/index.html",
       "/posts/execute-speedtest-regularly/index.html",
       "/posts/mamba-is-the-new-conda/index.html",

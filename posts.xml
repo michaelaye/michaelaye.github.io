@@ -10,7 +10,52 @@
 <atom:link href="https://michaelaye.github.io/posts.xml" rel="self" type="application/rss+xml"/>
 <description></description>
 <generator>quarto-1.2.335</generator>
-<lastBuildDate>Fri, 15 Oct 2021 18:36:10 GMT</lastBuildDate>
+<lastBuildDate>Mon, 06 Mar 2023 00:00:00 GMT</lastBuildDate>
+<item>
+  <title>Integrate Zigbee Tuya Thermostats into Home Assistant</title>
+  <link>https://michaelaye.github.io/posts/2023-03-06_Tuya_thermostats/index.html</link>
+  <description><![CDATA[ 
+
+
+
+
+<p>I bought some Tuya thermostats on AliExpress after it became clear that Tuya products are well supported now in Home Assistant (HA). And I wanted them to be Zigbee only and not buy another hub from Tuya. There are 2 ways to integrate them, apparently, either with the ZHA Zigbee implementation or via Zigbee2Mqtt. But the latter would require another plugin, which I wanted to avoid for now.</p>
+<p>The thermostats I bought are <a href="https://www.aliexpress.com/item/1005004696707285.html?spm=a2g0o.order_list.order_list_main.4.c38c1802HlKHN3">these</a> and after an initial joining to the ZHA of HA, no usable entities appeared related to the thermostat.</p>
+<p>So I had to search the HA forums for solutions. I learned that for finding solutions to Zigbee issues one needs to search for the manufacturer ID string that is displayed in the ZHA Device info display:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://michaelaye.github.io/posts/2023-03-06_Tuya_thermostats/zigbee_info.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Manufacturer string shown after “by”</figcaption><p></p>
+</figure>
+</div>
+<p>The manufacturer string is shown after the “by” below the general product ID <code>TS0601</code>, and in my case the manufacturer string is <code>_TZE200_6rdj8dzm</code>.</p>
+<p>Searching for this string one can learn that if a Zigbee product isn’t (fully?) supported yet by ZHA, one can install so called <a href="https://pypi.org/project/zha-quirks/"><code>quirk</code></a> Python files that add the translator dictionaries required for understanding the Zigbee devices’ communication.</p>
+<p>First, one needs to create a quirk folder on your Home Assistant device, in my case that’s a Raspberry 4 running the HA OS, but it shouldn’t matter.</p>
+<p>To manipulate files on my HA install, I use the <code>File Editor</code> Add-on which I can highly recommend. If you decide (again, recommended) to add the <code>File Editor</code> entry to the sidebar, it should look like this when clicking on the folder icon in the upper left of the Add-On:</p>
+<p><img src="https://michaelaye.github.io/posts/2023-03-06_Tuya_thermostats/file_editor.png" class="img-fluid"></p>
+<p>The second icon at the top offers you to add a new folder. Make sure that you create the new folder in <code>/config</code>, at least that’s what I saw recommendend, maybe it doesn’t matter due to the next step, where we tell HA where the quirks folder is.</p>
+<p>Using the same File Editor we now open the famous <code>/config/configuration.yaml</code> to add the following to it:</p>
+<div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><span class="fu" style="color: #4758AB;">zha</span><span class="kw" style="color: #003B4F;">:</span></span>
+<span id="cb1-2"><span class="at" style="color: #657422;">  </span><span class="fu" style="color: #4758AB;">enable_quirks</span><span class="kw" style="color: #003B4F;">:</span><span class="at" style="color: #657422;"> </span><span class="ch" style="color: #20794D;">true</span></span>
+<span id="cb1-3"><span class="at" style="color: #657422;">  </span><span class="fu" style="color: #4758AB;">custom_quirks_path</span><span class="kw" style="color: #003B4F;">:</span><span class="at" style="color: #657422;"> /config/quirks</span></span></code></pre></div>
+<p>if you create a new folder named <code>quirks</code> in your <code>/config</code> folder.</p>
+<p>Now you put the unzipped Python file from <a href="https://github.com/zigpy/zha-device-handlers/files/10376432/ts0601_trv_me167.py.zip">here</a> into that folder. If you had previously connected the thermostat to ZHA, now is a good time to remove it, as you have to reboot HA anyway to activate the new quirk.</p>
+<p>After a reboot, put the thermostat into pairing mode again and connect it, you should have now several useful entities:</p>
+<p><img src="https://michaelaye.github.io/posts/2023-03-06_Tuya_thermostats/new_device_info.png" class="img-fluid"></p>
+<p>Looking at the <code>Controls</code> section, the switch called <code>Lock</code> is called <code>Switch</code> at first, but it is for the child lock, so I renamed it to <code>Lock</code>. The 2nd entry <code>Number Temperat...</code> is very handy, it’s a slider for 1 degree offsets to calibrate the measured temperatur of the thermostat, and they gonna need it! Mine was 3 degrees off from an external temp sensor I mounted on top of the thermostat handle.</p>
+<p>Hope it helps!</p>
+
+
+
+ ]]></description>
+  <category>homeassistant</category>
+  <category>tuya</category>
+  <category>thermostats</category>
+  <category>python</category>
+  <guid>https://michaelaye.github.io/posts/2023-03-06_Tuya_thermostats/index.html</guid>
+  <pubDate>Mon, 06 Mar 2023 00:00:00 GMT</pubDate>
+  <media:content url="https://michaelaye.github.io/posts/2023-03-06_Tuya_thermostats/zigbee_info.png" medium="image" type="image/png" height="73" width="144"/>
+</item>
 <item>
   <title>Minimal Conda Setup Instructions</title>
   <dc:creator>Michael Aye</dc:creator>
