@@ -7,7 +7,7 @@
 <link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../../../site_libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.1.251">
+  <meta name="generator" content="quarto-1.2.335">
 
   <meta name="author" content="Michael Aye">
   <meta name="dcterms.date" content="2022-10-27">
@@ -352,12 +352,19 @@
   <div class="reveal">
     <div class="slides">
 
-<section id="title-slide" data-background-image="./image15.jpeg" data-background-opacity="0.5" data-background-size="cover" class="center">
+<section id="title-slide" data-background-image="./image15.jpeg" data-background-opacity="0.5" data-background-size="cover" class="quarto-title-block center">
   <h1 class="title">Planetary Research with Citizen Science</h1>
-  <p class="author">Michael Aye</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Michael Aye 
+</div>
+</div>
+</div>
+
   <p class="date">2022-10-27</p>
 </section>
-
 <section>
 <section id="what-is-citizen-science-cs" class="title-slide slide level1 center">
 <h1>What is Citizen Science (CS)?</h1>
@@ -444,7 +451,7 @@ redefinition!</li>
 <section id="science-case-kieffer-model" class="slide level2">
 <h2>Science case: Kieffer model</h2>
 
-<img data-src="image14.jpeg" class="r-stretch"><ul>
+<img data-src="./image14.jpeg" class="r-stretch"><ul>
 <li>Jet deposits are aligned by prevalent winds at the time!</li>
 <li>Mapping these features would be more wind data than we ever had on Mars!</li>
 </ul>
@@ -452,7 +459,7 @@ redefinition!</li>
 <section id="active-areas-around-south-pole" class="slide level2">
 <h2>Active areas around south pole</h2>
 
-<img data-src="rois_map.png" class="r-stretch"><ul>
+<img data-src="./rois_map.png" class="r-stretch"><ul>
 <li>Seasonal campaigns at most of these areas!
 <ul>
 <li>-&gt; Lots of huge HiRISE image data</li>
@@ -487,7 +494,7 @@ redefinition!</li>
 <img data-src="image23.png" class="r-stretch quarto-figure-center"><p class="caption">Clockwise from upper left: 1) Raw, 2) Fan markings, 3) Blotch markings, 4) Blotch reduction, 5) Fan reduction, 6) catalog entry with 50% majority vote</p></section>
 <section id="catalog-entries" class="slide level2">
 <h2>Catalog entries</h2>
-<p><img data-src="image7.png" class="absolute" style="left: 0px; "> <img data-src="image8.png" class="absolute" style="left: 500px; "></p>
+<p><img data-src="./image7.png" class="absolute" style="left: 0px; "> <img data-src="./image8.png" class="absolute" style="left: 500px; "></p>
 </section>
 <section id="science-team-gold-markings" class="slide level2">
 <h2>Science Team (Gold) markings</h2>
@@ -503,7 +510,7 @@ redefinition!</li>
 <section id="compare-experts-with-citizens" class="slide level2">
 <h2>Compare experts with citizens</h2>
 
-<img data-src="gold_blotch_areas_common.png" class="r-stretch"></section>
+<img data-src="./gold_blotch_areas_common.png" class="r-stretch"></section>
 <section id="results" class="slide level2">
 <h2>Results</h2>
 <ul>
@@ -532,11 +539,11 @@ redefinition!</li>
 </section>
 <section id="section-1" class="slide level2" data-auto-animate="true">
 <h2 data-id="quarto-animate-title"></h2>
-<p><img data-src="image10.png" class="absolute" style="top: 0px; left: 0px; width: 1000px; "></p>
+<p><img data-src="./image10.png" class="absolute" style="top: 0px; left: 0px; width: 1000px; "></p>
 </section>
 <section id="section-2" class="slide level2" data-auto-animate="true">
 <h2 data-id="quarto-animate-title"></h2>
-<p><img data-src="image10.png" class="absolute" style="top: -250px; left: 0px; width: 1000px; "></p>
+<p><img data-src="./image10.png" class="absolute" style="top: -250px; left: 0px; width: 1000px; "></p>
 </section>
 <section id="measure-of-success" class="slide level2">
 <h2>Measure of success</h2>
@@ -841,7 +848,24 @@ Portyankina, Ganna, Timothy I Michaels, Klaus-Michael Aye, Megan E Schwamb, Cand
         button.classList.add('code-copy-button-checked');
         var currentTitle = button.getAttribute("title");
         button.setAttribute("title", "Copied!");
+        let tooltip;
+        if (window.bootstrap) {
+          button.setAttribute("data-bs-toggle", "tooltip");
+          button.setAttribute("data-bs-placement", "left");
+          button.setAttribute("data-bs-title", "Copied!");
+          tooltip = new bootstrap.Tooltip(button, 
+            { trigger: "manual", 
+              customClass: "code-copy-button-tooltip",
+              offset: [0, -8]});
+          tooltip.show();    
+        }
         setTimeout(function() {
+          if (tooltip) {
+            tooltip.hide();
+            button.removeAttribute("data-bs-title");
+            button.removeAttribute("data-bs-toggle");
+            button.removeAttribute("data-bs-placement");
+          }
           button.setAttribute("title", currentTitle);
           button.classList.remove('code-copy-button-checked');
         }, 1000);
@@ -879,24 +903,42 @@ Portyankina, Ganna, Timothy I Michaels, Klaus-Michael Aye, Megan E Schwamb, Cand
           return note.innerHTML;
         });
       }
+      const findCites = (el) => {
+        const parentEl = el.parentElement;
+        if (parentEl) {
+          const cites = parentEl.dataset.cites;
+          if (cites) {
+            return {
+              el,
+              cites: cites.split(' ')
+            };
+          } else {
+            return findCites(el.parentElement)
+          }
+        } else {
+          return undefined;
+        }
+      };
       var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
       for (var i=0; i<bibliorefs.length; i++) {
         const ref = bibliorefs[i];
-        const cites = ref.parentNode.getAttribute('data-cites').split(' ');
-        tippyHover(ref, function() {
-          var popup = window.document.createElement('div');
-          cites.forEach(function(cite) {
-            var citeDiv = window.document.createElement('div');
-            citeDiv.classList.add('hanging-indent');
-            citeDiv.classList.add('csl-entry');
-            var biblioDiv = window.document.getElementById('ref-' + cite);
-            if (biblioDiv) {
-              citeDiv.innerHTML = biblioDiv.innerHTML;
-            }
-            popup.appendChild(citeDiv);
+        const citeInfo = findCites(ref);
+        if (citeInfo) {
+          tippyHover(citeInfo.el, function() {
+            var popup = window.document.createElement('div');
+            citeInfo.cites.forEach(function(cite) {
+              var citeDiv = window.document.createElement('div');
+              citeDiv.classList.add('hanging-indent');
+              citeDiv.classList.add('csl-entry');
+              var biblioDiv = window.document.getElementById('ref-' + cite);
+              if (biblioDiv) {
+                citeDiv.innerHTML = biblioDiv.innerHTML;
+              }
+              popup.appendChild(citeDiv);
+            });
+            return popup.innerHTML;
           });
-          return popup.innerHTML;
-        });
+        }
       }
     });
     </script>

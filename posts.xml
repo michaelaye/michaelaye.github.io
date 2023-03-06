@@ -9,7 +9,7 @@
 <link>https://michaelaye.github.io/posts.html</link>
 <atom:link href="https://michaelaye.github.io/posts.xml" rel="self" type="application/rss+xml"/>
 <description></description>
-<generator>quarto-1.1.251</generator>
+<generator>quarto-1.2.335</generator>
 <lastBuildDate>Fri, 15 Oct 2021 18:36:10 GMT</lastBuildDate>
 <item>
   <title>Minimal Conda Setup Instructions</title>

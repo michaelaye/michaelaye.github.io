@@ -1,91 +1,91 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://michaelaye.github.io/talks/2021-diviner-kharkiv-talk/index.html</loc>
-    <lastmod>2022-11-08T13:17:26.993Z</lastmod>
-  </url>
-  <url>
-    <loc>https://michaelaye.github.io/talks/2021-pdw-planetarypy/index.html</loc>
-    <lastmod>2022-11-08T13:17:28.281Z</lastmod>
-  </url>
-  <url>
-    <loc>https://michaelaye.github.io/talks/conda-lunchtalk/index.html</loc>
-    <lastmod>2022-11-08T13:17:28.805Z</lastmod>
-  </url>
-  <url>
-    <loc>https://michaelaye.github.io/talks/2021-conda-workshop-kharkiv/index.html</loc>
-    <lastmod>2022-11-08T13:17:29.313Z</lastmod>
-  </url>
-  <url>
-    <loc>https://michaelaye.github.io/talks/2022-fub-seminar/index.html</loc>
-    <lastmod>2022-11-08T13:17:29.789Z</lastmod>
-  </url>
-  <url>
-    <loc>https://michaelaye.github.io/talks/2022-fub-seminar/presentation/index.html</loc>
-    <lastmod>2022-11-08T13:17:30.373Z</lastmod>
-  </url>
-  <url>
-    <loc>https://michaelaye.github.io/talks/conda-workshop/index.html</loc>
-    <lastmod>2022-11-08T13:17:31.593Z</lastmod>
-  </url>
-  <url>
     <loc>https://michaelaye.github.io/posts/mamba-is-the-new-conda/index.html</loc>
-    <lastmod>2022-11-08T13:17:32.001Z</lastmod>
-  </url>
-  <url>
-    <loc>https://michaelaye.github.io/posts/execute-speedtest-regularly/index.html</loc>
-    <lastmod>2022-11-08T13:17:32.713Z</lastmod>
-  </url>
-  <url>
-    <loc>https://michaelaye.github.io/posts/fan-creation/index.html</loc>
-    <lastmod>2022-11-08T13:17:33.109Z</lastmod>
+    <lastmod>2023-03-06T08:55:49.163Z</lastmod>
   </url>
   <url>
     <loc>https://michaelaye.github.io/posts/matplotlib-ticklabel-formats/index.html</loc>
-    <lastmod>2022-11-08T13:17:33.469Z</lastmod>
+    <lastmod>2023-03-06T08:55:50.223Z</lastmod>
+  </url>
+  <url>
+    <loc>https://michaelaye.github.io/posts/execute-speedtest-regularly/index.html</loc>
+    <lastmod>2023-03-06T08:55:50.903Z</lastmod>
   </url>
   <url>
     <loc>https://michaelaye.github.io/posts/minimal-conda-setup-instructions/index.html</loc>
-    <lastmod>2022-11-08T13:17:33.917Z</lastmod>
+    <lastmod>2023-03-06T08:55:51.303Z</lastmod>
   </url>
   <url>
-    <loc>https://michaelaye.github.io/index.html</loc>
-    <lastmod>2022-11-08T13:17:34.637Z</lastmod>
+    <loc>https://michaelaye.github.io/posts/fan-creation/index.html</loc>
+    <lastmod>2023-03-06T08:55:51.675Z</lastmod>
+  </url>
+  <url>
+    <loc>https://michaelaye.github.io/talks/2021-diviner-kharkiv-talk/index.html</loc>
+    <lastmod>2023-03-06T08:55:52.387Z</lastmod>
+  </url>
+  <url>
+    <loc>https://michaelaye.github.io/talks/conda-lunchtalk/index.html</loc>
+    <lastmod>2023-03-06T08:55:52.807Z</lastmod>
+  </url>
+  <url>
+    <loc>https://michaelaye.github.io/talks/2022-fub-seminar/presentation/index.html</loc>
+    <lastmod>2023-03-06T08:55:53.335Z</lastmod>
+  </url>
+  <url>
+    <loc>https://michaelaye.github.io/talks/2022-fub-seminar/index.html</loc>
+    <lastmod>2023-03-06T08:55:54.427Z</lastmod>
+  </url>
+  <url>
+    <loc>https://michaelaye.github.io/talks/2021-conda-workshop-kharkiv/index.html</loc>
+    <lastmod>2023-03-06T08:55:54.851Z</lastmod>
+  </url>
+  <url>
+    <loc>https://michaelaye.github.io/talks/conda-workshop/index.html</loc>
+    <lastmod>2023-03-06T08:55:55.263Z</lastmod>
+  </url>
+  <url>
+    <loc>https://michaelaye.github.io/talks/2021-pdw-planetarypy/index.html</loc>
+    <lastmod>2023-03-06T08:55:55.703Z</lastmod>
   </url>
   <url>
     <loc>https://michaelaye.github.io/projects.html</loc>
-    <lastmod>2022-11-08T13:17:35.113Z</lastmod>
-  </url>
-  <url>
-    <loc>https://michaelaye.github.io/bibliography.html</loc>
-    <lastmod>2022-11-08T13:17:35.625Z</lastmod>
-  </url>
-  <url>
-    <loc>https://michaelaye.github.io/projects/saturn-rings/index.html</loc>
-    <lastmod>2022-11-08T13:17:36.041Z</lastmod>
-  </url>
-  <url>
-    <loc>https://michaelaye.github.io/projects/planetary-data-reader/index.html</loc>
-    <lastmod>2022-11-08T13:17:36.413Z</lastmod>
-  </url>
-  <url>
-    <loc>https://michaelaye.github.io/projects/uvis-pdart/index.html</loc>
-    <lastmod>2022-11-08T13:17:36.765Z</lastmod>
-  </url>
-  <url>
-    <loc>https://michaelaye.github.io/projects/planet-four/index.html</loc>
-    <lastmod>2022-11-08T13:17:37.201Z</lastmod>
-  </url>
-  <url>
-    <loc>https://michaelaye.github.io/projects/planetarypy/index.html</loc>
-    <lastmod>2022-11-08T13:17:37.565Z</lastmod>
-  </url>
-  <url>
-    <loc>https://michaelaye.github.io/posts.html</loc>
-    <lastmod>2022-11-08T13:17:38.001Z</lastmod>
+    <lastmod>2023-03-06T08:55:56.099Z</lastmod>
   </url>
   <url>
     <loc>https://michaelaye.github.io/talks.html</loc>
-    <lastmod>2022-11-08T13:17:38.509Z</lastmod>
+    <lastmod>2023-03-06T08:55:56.547Z</lastmod>
+  </url>
+  <url>
+    <loc>https://michaelaye.github.io/bibliography.html</loc>
+    <lastmod>2023-03-06T08:55:57.051Z</lastmod>
+  </url>
+  <url>
+    <loc>https://michaelaye.github.io/posts.html</loc>
+    <lastmod>2023-03-06T08:55:57.439Z</lastmod>
+  </url>
+  <url>
+    <loc>https://michaelaye.github.io/index.html</loc>
+    <lastmod>2023-03-06T08:55:57.775Z</lastmod>
+  </url>
+  <url>
+    <loc>https://michaelaye.github.io/projects/uvis-pdart/index.html</loc>
+    <lastmod>2023-03-06T08:55:58.127Z</lastmod>
+  </url>
+  <url>
+    <loc>https://michaelaye.github.io/projects/planetary-data-reader/index.html</loc>
+    <lastmod>2023-03-06T08:55:58.475Z</lastmod>
+  </url>
+  <url>
+    <loc>https://michaelaye.github.io/projects/saturn-rings/index.html</loc>
+    <lastmod>2023-03-06T08:55:58.831Z</lastmod>
+  </url>
+  <url>
+    <loc>https://michaelaye.github.io/projects/planetarypy/index.html</loc>
+    <lastmod>2023-03-06T08:55:59.171Z</lastmod>
+  </url>
+  <url>
+    <loc>https://michaelaye.github.io/projects/planet-four/index.html</loc>
+    <lastmod>2023-03-06T08:55:59.531Z</lastmod>
   </url>
 </urlset>
