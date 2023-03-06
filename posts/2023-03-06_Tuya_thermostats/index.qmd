@@ -9,6 +9,14 @@ authors:
     orcid: 0000-0002-4088-1928
 categories: [homeassistant, tuya, thermostats, python]
 ---
+# Disclaimer
+
+Let me start by saying that my only work in this knowledge gathering was the combination of several internet searches.
+The real genius lies in the group of people creating the below-to-be-installed quirk files to get new devices working in ZHA.
+I just thought, as it isn't very straight forward to understand what one needs to do, that I summarize things in this small blog post
+
+# Let's go!
+
 I bought some Tuya thermostats on AliExpress after it became clear that Tuya products are well supported now
 in Home Assistant (HA).
 And I wanted them to be Zigbee only and not buy another hub from Tuya.
