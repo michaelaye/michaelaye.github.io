@@ -1,9 +1,7 @@
 ---
 title: "Planetary Research with Citizen Science"
 title-slide-attributes: 
-  # data-background-image: ./section1_APF0000hmm.png
   data-background-image: ./image15.jpeg
-  # data-background-image: ./image13.gif
   data-background-size: cover
   data-background-opacity: "0.5"
 author: "Michael Aye"
@@ -81,13 +79,13 @@ EU Horizon monthly focus and semi-regularly CS news
 
 
 ## Science case: Kieffer model
-![](image14.jpeg)
+![](./image14.jpeg)
 
 * Jet deposits are aligned by prevalent winds at the time!
 * Mapping these features would be more wind data than we ever had on Mars!
 
 ## Active areas around south pole
-![](rois_map.png)
+![](./rois_map.png)
 
 * Seasonal campaigns at most of these areas!
   * -> Lots of huge HiRISE image data
@@ -115,8 +113,8 @@ Minimum of 30 different volunteers per image tile!
 ![Clockwise from upper left: 1) Raw, 2) Fan markings, 3) Blotch markings, 4) Blotch reduction, 5) Fan reduction, 6) catalog entry with 50% majority vote](image23.png)
 
 ## Catalog entries
-![](image7.png){.absolute left=0}
-![](image8.png){.absolute left=500}
+![](./image7.png){.absolute left=0}
+![](./image8.png){.absolute left=500}
 
 ## Science Team (Gold) markings
 * Each team member marked several hundred tiles
@@ -126,7 +124,7 @@ Minimum of 30 different volunteers per image tile!
 ## {background-image="gold_data114.png" background-size="contain"}
 
 ## Compare experts with citizens
-![](gold_blotch_areas_common.png)
+![](./gold_blotch_areas_common.png)
 
 ## Results
 * Over 40,000 citizens have contributed
@@ -147,10 +145,10 @@ Minimum of 30 different volunteers per image tile!
 * Just published in @portyankinaPlanetFourDerived2022
 
 ## {auto-animate=true}
-![](image10.png){.absolute top=0 left=0 width=1000}
+![](./image10.png){.absolute top=0 left=0 width=1000}
 
 ## {auto-animate=true}
-![](image10.png){.absolute top=-250 left=0 width=1000}
+![](./image10.png){.absolute top=-250 left=0 width=1000}
 
 ## Measure of success
 * Define status of good / average / bad fit with data
