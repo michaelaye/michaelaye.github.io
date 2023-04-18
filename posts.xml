@@ -9,7 +9,7 @@
 <link>https://michaelaye.github.io/posts.html</link>
 <atom:link href="https://michaelaye.github.io/posts.xml" rel="self" type="application/rss+xml"/>
 <description></description>
-<generator>quarto-1.2.335</generator>
+<generator>quarto-1.2.475</generator>
 <lastBuildDate>Mon, 06 Mar 2023 00:00:00 GMT</lastBuildDate>
 <item>
   <title>Integrate Zigbee Tuya Thermostats into Home Assistant</title>
