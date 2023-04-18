@@ -5,6 +5,9 @@ about:
   template: trestles
   image-shape: rounded
   links:
+    - icon: mastodon
+      text: Mastodon
+      href: https://mastodon.online/@michaelaye
     - icon: twitter
       text: Twitter
       href: https://twitter.com/michaelaye
