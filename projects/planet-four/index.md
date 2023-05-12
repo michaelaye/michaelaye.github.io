@@ -17,9 +17,11 @@ and araneiforms in Mars Reconnaissance Orbiter imagery.
 
 With the help of volunteers, we are discovering new insights into the processes active in the past and present on the Red Planet.
 
-Join us at https://planetfour.space .
+Join us at [https://planetfour.space](https://planetfour.space) .
 
 [Link to project](https://planetfour.space)
+
+[Link to data catalog](https://www.zooniverse.org/projects/mschwamb/planet-four/about/results)
 
 [PDF link](https://paperpile.com/shared/q73Uo6)
 
