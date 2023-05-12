@@ -9,7 +9,7 @@
 <link>https://michaelaye.github.io/posts.html</link>
 <atom:link href="https://michaelaye.github.io/posts.xml" rel="self" type="application/rss+xml"/>
 <description></description>
-<generator>quarto-1.2.475</generator>
+<generator>quarto-1.3.340</generator>
 <lastBuildDate>Mon, 06 Mar 2023 00:00:00 GMT</lastBuildDate>
 <item>
   <title>Integrate Zigbee Tuya Thermostats into Home Assistant</title>
@@ -31,7 +31,7 @@
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="https://michaelaye.github.io/posts/2023-03-06_Tuya_thermostats/zigbee_info.png" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Manufacturer string shown after “by”</figcaption><p></p>
+<figcaption class="figure-caption">Manufacturer string shown after “by”</figcaption>
 </figure>
 </div>
 <p>The manufacturer string is shown after the “by” below the general product ID <code>TS0601</code>, and in my case the manufacturer string is <code>_TZE200_6rdj8dzm</code>.</p>
@@ -41,9 +41,31 @@
 <p><img src="https://michaelaye.github.io/posts/2023-03-06_Tuya_thermostats/file_editor.png" class="img-fluid"></p>
 <p>The second icon at the top offers you to add a new folder. Make sure that you create the new folder in <code>/config</code>, at least that’s what I saw recommendend, maybe it doesn’t matter due to the next step, where we tell HA where the quirks folder is.</p>
 <p>Using the same File Editor we now open the famous <code>/config/configuration.yaml</code> to add the following to it:</p>
-<div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><span class="fu" style="color: #4758AB;">zha</span><span class="kw" style="color: #003B4F;">:</span></span>
-<span id="cb1-2"><span class="at" style="color: #657422;">  </span><span class="fu" style="color: #4758AB;">enable_quirks</span><span class="kw" style="color: #003B4F;">:</span><span class="at" style="color: #657422;"> </span><span class="ch" style="color: #20794D;">true</span></span>
-<span id="cb1-3"><span class="at" style="color: #657422;">  </span><span class="fu" style="color: #4758AB;">custom_quirks_path</span><span class="kw" style="color: #003B4F;">:</span><span class="at" style="color: #657422;"> /config/quirks</span></span></code></pre></div>
+<div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">zha</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">:</span></span>
+<span id="cb1-2"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">  </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">enable_quirks</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="ch" style="color: #20794D;
+background-color: null;
+font-style: inherit;">true</span></span>
+<span id="cb1-3"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">  </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">custom_quirks_path</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> /config/quirks</span></span></code></pre></div>
 <p>if you create a new folder named <code>quirks</code> in your <code>/config</code> folder.</p>
 <p>Now you put the unzipped Python file from <a href="https://github.com/zigpy/zha-device-handlers/files/10376432/ts0601_trv_me167.py.zip">here</a> into that folder. If you had previously connected the thermostat to ZHA, now is a good time to remove it, as you have to reboot HA anyway to activate the new quirk.</p>
 <p>After a reboot, put the thermostat into pairing mode again and connect it, you should have now several useful entities:</p>
@@ -61,7 +83,6 @@
   <category>python</category>
   <guid>https://michaelaye.github.io/posts/2023-03-06_Tuya_thermostats/index.html</guid>
   <pubDate>Mon, 06 Mar 2023 00:00:00 GMT</pubDate>
-  <media:content url="https://michaelaye.github.io/posts/2023-03-06_Tuya_thermostats/zigbee_info.png" medium="image" type="image/png" height="73" width="144"/>
 </item>
 <item>
   <title>Minimal Conda Setup Instructions</title>
@@ -206,10 +227,20 @@ which mamba</code></pre>
 <p>This post is making use of the <code>speedtest</code> command line version of Ookla’s speedtest tools, which you can get here for various OSes: https://www.speedtest.net/apps/cli</p>
 <p>Specifically, I was looking for a linux solution, and while it’s straight forward on the Mac, where the <code>--csv</code> flag produces a CSV string that includes a proper timestamp of the measurement, the interface or API for the <code>homebrew</code> CLI versions of Mac and Linux are quite different.</p>
 <p>On macOS, one can do</p>
-<div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><span class="ex" style="color: null;">speedtest</span> <span class="at" style="color: #657422;">--csv</span></span></code></pre></div>
+<div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">speedtest</span> <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">--csv</span></span></code></pre></div>
 <p>and the output will contain a column with a timestamp which is important for keeping track of the measurements.</p>
 <p>On Linux, however, for getting a CSV output, one needs to do</p>
-<div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><span class="ex" style="color: null;">speedtest</span> <span class="at" style="color: #657422;">--format</span><span class="op" style="color: #5E5E5E;">=</span>csv</span></code></pre></div>
+<div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">speedtest</span> <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">--format</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>csv</span></code></pre></div>
 <p>and unfortunately here we do <strong>NOT</strong> get a timestamp in the output. There is the option to use <code>--format=json</code> which actually does provide a timestamp, but I don’t want to deal with JSON parsing for this simple thing.</p>
 <p>So I added some bits of Python to catch the output of <code>speedtest</code> and add a timestamp to its CSV line before appending it to a record of measurements.</p>
 <p>The <code>sh</code> package is a very useful one-file package that enables you to call system programs in a function-like manner, with proper redirection utilities of any incoming output etc. BTW, I tried to simply work with the returned object, but it wasn’t simply the text, it was some kind of <code>CommandObject</code> and the docs are not clear on how to get the text out of the command object, probably easy but I didn’t inspect it. So maybe below script can be made even easier, without a callback function but directly working with the returned object.</p>
@@ -221,11 +252,25 @@ which mamba</code></pre>
 <h3 class="anchored" data-anchor-id="update">Update:</h3>
 <p>I forgot to add how to run it regularly using <code>crontab</code>:</p>
 <p>Execute</p>
-<div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><span class="fu" style="color: #4758AB;">crontab</span> <span class="at" style="color: #657422;">-e</span></span></code></pre></div>
+<div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">crontab</span> <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-e</span></span></code></pre></div>
 <p>and an editor should pop up.</p>
 <p>The first cryptical looking syntax of crontab, the service that enables you to regularly execute any program or script on your machine is actually pretty simple, HelpUbuntu has a good intro here: https://help.ubuntu.com/community/CronHowto</p>
 <p>In short, to run a script every hour on the minute 22 you put this into your crontab file:</p>
-<div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><span class="ex" style="color: null;">22</span> <span class="pp" style="color: #AD0000;">*</span> <span class="pp" style="color: #AD0000;">*</span> <span class="pp" style="color: #AD0000;">*</span> <span class="pp" style="color: #AD0000;">*</span> /path/to/script/to/run.py</span></code></pre></div>
+<div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">22</span> <span class="pp" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">*</span> <span class="pp" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">*</span> <span class="pp" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">*</span> <span class="pp" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">*</span> /path/to/script/to/run.py</span></code></pre></div>
 <p>Hope it helps someone. If anybody wants to see how to quickly analyze and plot the file using <code>pandas</code> let me know, but I figure most of my readers will know that?</p>
 <p>Let me know, put any questions or comments you may have on my Twitter feed! <a href="https://twitter.com/michaelaye/status/1440729099291402250">Comment</a></p>
 <p></p>
@@ -251,8 +296,14 @@ which mamba</code></pre>
 <p><a href="https://mamba.readthedocs.io/en/latest/user_guide/mamba.html">Mamba</a> is a CLI tool to manage conda environments and a drop-in replacement for the <code>conda</code> CLI tool. It is built in C/C++ and hence resolves package dependencies much faster than the Python-coded <code>conda</code>.</p>
 <p>It also offers parallel downloads for new or updated packages, so that updating your environment or adding a new package isn’t a chore anymore, it’s blazing fast! :)</p>
 <p>You install it (only!) into your <code>conda</code> <code>base</code> environment like so:</p>
-<div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><span class="ex" style="color: null;">conda</span> activate base</span>
-<span id="cb1-2"><span class="ex" style="color: null;">conda</span> install <span class="at" style="color: #657422;">-c</span> conda-forge mamba</span></code></pre></div>
+<div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">conda</span> activate base</span>
+<span id="cb1-2"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">conda</span> install <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-c</span> conda-forge mamba</span></code></pre></div>
 <p>When creating a new Python system, I can recommend to go immediately for the new <a href="https://github.com/conda-forge/miniforge"><code>mambaforge</code></a> installer, that will:</p>
 <ul>
 <li>install mamba into your base so that it is immediately available</li>
@@ -340,7 +391,7 @@ for i in range(100):
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="https://michaelaye.github.io/posts/fan-creation/20140805_fan_creation_25_1.png" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">png</figcaption><p></p>
+<figcaption class="figure-caption">png</figcaption>
 </figure>
 </div>
 <p>Here we see how the sun’s angle is developing over time. As expected we see a minimum (i.e.&nbsp;highest sun over horizon) right around noon. ###Do you hear the CO2 ice crackling?? ;) I find it amazing to know that in approx. 8 hours some of our beloved fans are being created!</p>
@@ -357,7 +408,7 @@ pd.Series(angles,index=times).plot()</code></pre>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="https://michaelaye.github.io/posts/fan-creation/20140805_fan_creation_27_1.png" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">png</figcaption><p></p>
+<figcaption class="figure-caption">png</figcaption>
 </figure>
 </div>
 <p>Interesting! Now we can see that around July 14th, the sun for the first time was below an inclination angle of 90, meaning that’s the first day of this season when it lurked over the horizon.</p>
@@ -372,7 +423,6 @@ pd.Series(angles,index=times).plot()</code></pre>
   <category>planet four</category>
   <guid>https://michaelaye.github.io/posts/fan-creation/index.html</guid>
   <pubDate>Tue, 05 Aug 2014 00:00:00 GMT</pubDate>
-  <media:content url="https://michaelaye.github.io/posts/fan-creation/20140805_fan_creation_25_1.png" medium="image" type="image/png" height="116" width="144"/>
 </item>
 <item>
   <title>Matplotlib Ticklabel Formats</title>
@@ -421,7 +471,6 @@ Weird, I thought I had the above shortcut working at some time, now it doesn’t
   <category>matplotlib</category>
   <guid>https://michaelaye.github.io/posts/matplotlib-ticklabel-formats/index.html</guid>
   <pubDate>Tue, 03 Sep 2013 00:00:00 GMT</pubDate>
-  <media:content url="http://2.bp.blogspot.com/-JWVf7z8w_Yc/UiZhRFt-7qI/AAAAAAAAIQk/uGIXoX-LtKM/s320/Screen+Shot+2013-09-03+at+15.22.05+.png" medium="image" type="image/png"/>
 </item>
 </channel>
 </rss>
