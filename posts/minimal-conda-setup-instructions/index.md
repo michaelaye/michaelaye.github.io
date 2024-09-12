@@ -149,4 +149,3 @@ Let me know if you have any questions or suggestions in the linked Twitter threa
 
 [Comment](https://twitter.com/michaelaye/status/1450561395515396100)
 
-{{< tweet 1450561395515396100 >}}

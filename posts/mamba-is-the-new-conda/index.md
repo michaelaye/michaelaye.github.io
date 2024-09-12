@@ -30,5 +30,3 @@ I am working exclusively with the the `conda-forge` channel for several years an
 > Just remember: Don't mix channels much, the less the better. (It's okay for a one-time mamba install into your `base` though.)
 
 [Comment](https://twitter.com/michaelaye/status/1436414613004988418?ref_src=twsrc%5Etfw%7Ctwcamp%5Etweetembed%7Ctwterm%5E1436414613004988418%7Ctwgr%5E%7Ctwcon%5Es1_c10&ref_url=https%3A%2F%2Fpublish.twitter.com%2F%3Fquery%3Dhttps3A2F2Ftwitter.com2Fmichaelaye2Fstatus2F1436414613004988418widget%3DTweet)
-
-{{< tweet 1436414613004988418 >}}

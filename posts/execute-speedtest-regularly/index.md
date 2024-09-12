@@ -76,5 +76,3 @@ I figure most of my readers will know that?
 
 Let me know, put any questions or comments you may have on my Twitter feed!
 [Comment](https://twitter.com/michaelaye/status/1440729099291402250)
-
-{{< tweet 1440729099291402250 >}}
