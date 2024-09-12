@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.340">
+<meta name="generator" content="quarto-1.5.57">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Home - Talks</title>
+<title>Talks – Home</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -49,7 +49,13 @@ ul.task-list li input[type="checkbox"] {
   "collapse-after": 3,
   "panel-placement": "end",
   "type": "overlay",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -58,8 +64,10 @@ ul.task-list li input[type="checkbox"] {
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
 <script>
@@ -92,13 +100,40 @@ ul.task-list li input[type="checkbox"] {
   })
   </script>
 
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
 <link rel="stylesheet" href="styles.css">
-<meta property="og:title" content="Home - Talks">
-<meta property="og:site-name" content="Home">
-<meta name="twitter:title" content="Home - Talks">
+<meta property="og:title" content="Talks – Home">
+<meta property="og:site_name" content="Home">
+<meta name="twitter:title" content="Talks – Home">
 <meta name="twitter:creator" content="@michaelaye">
 <meta name="twitter:card" content="summary">
 </head>
@@ -106,53 +141,53 @@ ul.task-list li input[type="checkbox"] {
 <body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg navbar-dark ">
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container">
+      <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">Home</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./posts.html" rel="" target="">
- <span class="menu-text">Blog</span></a>
+    <a class="nav-link" href="./posts.html"> 
+<span class="menu-text">Blog</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./talks.html" rel="" target="" aria-current="page">
- <span class="menu-text">Talks</span></a>
+    <a class="nav-link active" href="./talks.html" aria-current="page"> 
+<span class="menu-text">Talks</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./projects.html" rel="" target="">
- <span class="menu-text">Projects</span></a>
+    <a class="nav-link" href="./projects.html"> 
+<span class="menu-text">Projects</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./bibliography.html" rel="" target="">
- <span class="menu-text">Bibliography</span></a>
+    <a class="nav-link" href="./bibliography.html"> 
+<span class="menu-text">Bibliography</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/michaelaye" rel="" target=""><i class="bi bi-github" role="img">
+    <a class="nav-link" href="https://github.com/michaelaye"> <i class="bi bi-github" role="img">
 </i> 
- <span class="menu-text"></span></a>
+<span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://twitter.com/michaelaye" rel="" target=""><i class="bi bi-twitter" role="img">
+    <a class="nav-link" href="https://twitter.com/michaelaye"> <i class="bi bi-twitter" role="img">
 </i> 
- <span class="menu-text"></span></a>
+<span class="menu-text"></span></a>
   </li>  
 </ul>
+          </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
-          </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
     </nav>
 </header>
@@ -165,7 +200,7 @@ ul.task-list li input[type="checkbox"] {
   </div>
     
   
-  <div class="quarto-title-meta">
+  <div class="quarto-title-meta column-page-left">
 
       
     
@@ -189,21 +224,22 @@ ul.task-list li input[type="checkbox"] {
 
 
 
+
 <div class="quarto-listing quarto-listing-container-default" id="listing-listing">
 <div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="mars,polar science,citizen science" data-listing-date-sort="1666828800000" data-listing-file-modified-sort="1683875537816" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1">
+<div class="quarto-post image-right" data-index="0" data-categories="mars,polar science,citizen science" data-listing-date-sort="1666828800000" data-listing-file-modified-sort="1726134692639" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="23">
 <div class="thumbnail">
-<p><a href="./talks/2022-fub-seminar/index.html"> <div class="listing-item-img-placeholder card-img-top" >&nbsp;</div> </a></p>
+<p><a href="./talks/2022-fub-seminar/index.html" class="no-external"></a></p><a href="./talks/2022-fub-seminar/index.html" class="no-external">
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+</a><p><a href="./talks/2022-fub-seminar/index.html" class="no-external"></a></p>
 </div>
 <div class="body">
-<a href="./talks/2022-fub-seminar/index.html">
 <h3 class="no-anchor listing-title">
-Planetary Research with Citizen Science
+<a href="./talks/2022-fub-seminar/index.html" class="no-external">Planetary Research with Citizen Science</a>
 </h3>
 <div class="listing-subtitle">
-Introduction to Citizen Science and the Planet Four project
+<a href="./talks/2022-fub-seminar/index.html" class="no-external">Introduction to Citizen Science and the Planet Four project</a>
 </div>
-</a>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('mars'); return false;">
 mars
@@ -215,14 +251,12 @@ polar science
 citizen science
 </div>
 </div>
-<a href="./talks/2022-fub-seminar/index.html">
 <div class="listing-description">
-<p>Presentation given at Planetary Seminar of Freie Uni Berlin</p>
+<a href="./talks/2022-fub-seminar/index.html" class="no-external">Presentation given at Planetary Seminar of Freie Uni Berlin</a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./talks/2022-fub-seminar/index.html">
+<a href="./talks/2022-fub-seminar/index.html" class="no-external">
 <div class="listing-date">
 2022-10-27
 </div>
@@ -232,32 +266,30 @@ Michael Aye
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="1" data-categories="online-presentation" data-listing-date-sort="1666828800000" data-listing-file-modified-sort="1683875537848" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4">
+<div class="quarto-post image-right" data-index="1" data-categories="online-presentation" data-listing-date-sort="1666828800000" data-listing-file-modified-sort="1726134692667" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="702">
 <div class="thumbnail">
-<p><a href="./talks/2022-fub-seminar/presentation/index.html"> <div class="listing-item-img-placeholder card-img-top" >&nbsp;</div> </a></p>
+<p><a href="./talks/2022-fub-seminar/presentation/index.html" class="no-external"></a></p><a href="./talks/2022-fub-seminar/presentation/index.html" class="no-external">
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+</a><p><a href="./talks/2022-fub-seminar/presentation/index.html" class="no-external"></a></p>
 </div>
 <div class="body">
-<a href="./talks/2022-fub-seminar/presentation/index.html">
 <h3 class="no-anchor listing-title">
-Planetary Research with Citizen Science
+<a href="./talks/2022-fub-seminar/presentation/index.html" class="no-external">Planetary Research with Citizen Science</a>
 </h3>
 <div class="listing-subtitle">
-
+<a href="./talks/2022-fub-seminar/presentation/index.html" class="no-external"></a>
 </div>
-</a>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('online-presentation'); return false;">
 online-presentation
 </div>
 </div>
-<a href="./talks/2022-fub-seminar/presentation/index.html">
 <div class="listing-description">
-<p>A short overview of the Planetary Research done via Citizen Science, followed by an in-depth review of the Planet Four Citizen Science projects.</p>
+<a href="./talks/2022-fub-seminar/presentation/index.html" class="no-external">A short overview of the Planetary Research done via Citizen Science, followed by an in-depth review of the Planet Four Citizen Science projects.</a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./talks/2022-fub-seminar/presentation/index.html">
+<a href="./talks/2022-fub-seminar/presentation/index.html" class="no-external">
 <div class="listing-date">
 2022-10-27
 </div>
@@ -267,19 +299,19 @@ Michael Aye
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="2" data-categories="planetarypy,python" data-listing-date-sort="1625158800000" data-listing-file-modified-sort="1683875537816" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1">
+<div class="quarto-post image-right" data-index="2" data-categories="planetarypy,python" data-listing-date-sort="1625158800000" data-listing-file-modified-sort="1726134692639" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="113">
 <div class="thumbnail">
-<p><a href="./talks/2021-pdw-planetarypy/index.html"> <div class="listing-item-img-placeholder card-img-top" >&nbsp;</div> </a></p>
+<p><a href="./talks/2021-pdw-planetarypy/index.html" class="no-external"></a></p><a href="./talks/2021-pdw-planetarypy/index.html" class="no-external">
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+</a><p><a href="./talks/2021-pdw-planetarypy/index.html" class="no-external"></a></p>
 </div>
 <div class="body">
-<a href="./talks/2021-pdw-planetarypy/index.html">
 <h3 class="no-anchor listing-title">
-The PlanetaryPy Project
+<a href="./talks/2021-pdw-planetarypy/index.html" class="no-external">The PlanetaryPy Project</a>
 </h3>
 <div class="listing-subtitle">
-5th Planetary Data Workshop
+<a href="./talks/2021-pdw-planetarypy/index.html" class="no-external">5th Planetary Data Workshop</a>
 </div>
-</a>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('planetarypy'); return false;">
 planetarypy
@@ -288,33 +320,31 @@ planetarypy
 python
 </div>
 </div>
-<a href="./talks/2021-pdw-planetarypy/index.html">
 <div class="listing-description">
-The PlanetaryPy Project is a community effort to develop a core package for planetary science in Python and foster interoperability between Python planetary science packages.
+<a href="./talks/2021-pdw-planetarypy/index.html" class="no-external">The PlanetaryPy Project is a community effort to develop a core package for planetary science in Python and foster interoperability between Python planetary science packages.</a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./talks/2021-pdw-planetarypy/index.html">
+<a href="./talks/2021-pdw-planetarypy/index.html" class="no-external">
 <div class="listing-date">
 2021-07-01
 </div>
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="3" data-categories="invited talk,conda,software management" data-listing-date-sort="1619568000000" data-listing-file-modified-sort="1683875537804" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1">
+<div class="quarto-post image-right" data-index="3" data-categories="invited talk,conda,software management" data-listing-date-sort="1619568000000" data-listing-file-modified-sort="1726134692631" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="6">
 <div class="thumbnail">
-<p><a href="./talks/2021-conda-workshop-kharkiv/index.html"> <div class="listing-item-img-placeholder card-img-top" >&nbsp;</div> </a></p>
+<p><a href="./talks/2021-conda-workshop-kharkiv/index.html" class="no-external"></a></p><a href="./talks/2021-conda-workshop-kharkiv/index.html" class="no-external">
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+</a><p><a href="./talks/2021-conda-workshop-kharkiv/index.html" class="no-external"></a></p>
 </div>
 <div class="body">
-<a href="./talks/2021-conda-workshop-kharkiv/index.html">
 <h3 class="no-anchor listing-title">
-How to create and maintain a scientific Python environment using conda
+<a href="./talks/2021-conda-workshop-kharkiv/index.html" class="no-external">How to create and maintain a scientific Python environment using conda</a>
 </h3>
 <div class="listing-subtitle">
-International Conference for Young Professionals in Physics and Technology (ICYPPT)
+<a href="./talks/2021-conda-workshop-kharkiv/index.html" class="no-external">International Conference for Young Professionals in Physics and Technology (ICYPPT)</a>
 </div>
-</a>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('invited talk'); return false;">
 invited talk
@@ -326,33 +356,31 @@ conda
 software management
 </div>
 </div>
-<a href="./talks/2021-conda-workshop-kharkiv/index.html">
 <div class="listing-description">
-Conference Link
+<a href="./talks/2021-conda-workshop-kharkiv/index.html" class="no-external">Conference Link</a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./talks/2021-conda-workshop-kharkiv/index.html">
+<a href="./talks/2021-conda-workshop-kharkiv/index.html" class="no-external">
 <div class="listing-date">
 2021-04-28
 </div>
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="4" data-categories="invited talk,LRO,Diviner,calibration" data-listing-date-sort="1619513400000" data-listing-file-modified-sort="1683875537804" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1">
+<div class="quarto-post image-right" data-index="4" data-categories="invited talk,LRO,Diviner,calibration" data-listing-date-sort="1619513400000" data-listing-file-modified-sort="1726134692631" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="6">
 <div class="thumbnail">
-<p><a href="./talks/2021-diviner-kharkiv-talk/index.html"> <div class="listing-item-img-placeholder card-img-top" >&nbsp;</div> </a></p>
+<p><a href="./talks/2021-diviner-kharkiv-talk/index.html" class="no-external"></a></p><a href="./talks/2021-diviner-kharkiv-talk/index.html" class="no-external">
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+</a><p><a href="./talks/2021-diviner-kharkiv-talk/index.html" class="no-external"></a></p>
 </div>
 <div class="body">
-<a href="./talks/2021-diviner-kharkiv-talk/index.html">
 <h3 class="no-anchor listing-title">
-Calibration of the LRO Diviner Lunar Radiometer Experiment
+<a href="./talks/2021-diviner-kharkiv-talk/index.html" class="no-external">Calibration of the LRO Diviner Lunar Radiometer Experiment</a>
 </h3>
 <div class="listing-subtitle">
-International Conference for Young Professionals in Physics and Technology
+<a href="./talks/2021-diviner-kharkiv-talk/index.html" class="no-external">International Conference for Young Professionals in Physics and Technology</a>
 </div>
-</a>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('invited talk'); return false;">
 invited talk
@@ -367,33 +395,31 @@ Diviner
 calibration
 </div>
 </div>
-<a href="./talks/2021-diviner-kharkiv-talk/index.html">
 <div class="listing-description">
-Event URL
+<a href="./talks/2021-diviner-kharkiv-talk/index.html" class="no-external">Event URL</a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./talks/2021-diviner-kharkiv-talk/index.html">
+<a href="./talks/2021-diviner-kharkiv-talk/index.html" class="no-external">
 <div class="listing-date">
 2021-04-27
 </div>
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="5" data-categories="conda,python" data-listing-date-sort="1592931600000" data-listing-file-modified-sort="1683875537936" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1">
+<div class="quarto-post image-right" data-index="5" data-categories="conda,python" data-listing-date-sort="1592931600000" data-listing-file-modified-sort="1726134692731" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
 <div class="thumbnail">
-<p><a href="./talks/conda-workshop/index.html"> <div class="listing-item-img-placeholder card-img-top" >&nbsp;</div> </a></p>
+<p><a href="./talks/conda-workshop/index.html" class="no-external"></a></p><a href="./talks/conda-workshop/index.html" class="no-external">
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+</a><p><a href="./talks/conda-workshop/index.html" class="no-external"></a></p>
 </div>
 <div class="body">
-<a href="./talks/conda-workshop/index.html">
 <h3 class="no-anchor listing-title">
-How to live peacefully with Ana/Mini/Conda
+<a href="./talks/conda-workshop/index.html" class="no-external">How to live peacefully with Ana/Mini/Conda</a>
 </h3>
 <div class="listing-subtitle">
-OpenPlanetary Virtual Conference
+<a href="./talks/conda-workshop/index.html" class="no-external">OpenPlanetary Virtual Conference</a>
 </div>
-</a>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('conda'); return false;">
 conda
@@ -402,14 +428,12 @@ conda
 python
 </div>
 </div>
-<a href="./talks/conda-workshop/index.html">
 <div class="listing-description">
-<p>I will explain the basic principles of the conda-based toolset, recommend best practices for using conda environments and channels, and demonstrate techniques on how to efficiently delete and reinstall everything in under 5 minutes. I also will discuss Python software package discovery and installation strategies in relation to these conda environments and how to efficiently develop your own libraries while being part of a conda environment.</p>
+<a href="./talks/conda-workshop/index.html" class="no-external">I will explain the basic principles of the conda-based toolset, recommend best practices for using conda environments and channels, and demonstrate techniques on how to efficiently delete and reinstall everything in under 5 minutes. I also will discuss Python software package discovery and installation strategies in relation to these conda environments and how to efficiently develop your own libraries while being part of a conda environment.</a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./talks/conda-workshop/index.html">
+<a href="./talks/conda-workshop/index.html" class="no-external">
 <div class="listing-date">
 2020-06-23
 </div>
@@ -419,19 +443,19 @@ Michael Aye
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="6" data-categories="conda,python" data-listing-date-sort="1585656000000" data-listing-file-modified-sort="1683875537932" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1">
+<div class="quarto-post image-right" data-index="6" data-categories="conda,python" data-listing-date-sort="1585656000000" data-listing-file-modified-sort="1726134692731" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
 <div class="thumbnail">
-<p><a href="./talks/conda-lunchtalk/index.html"> <div class="listing-item-img-placeholder card-img-top" >&nbsp;</div> </a></p>
+<p><a href="./talks/conda-lunchtalk/index.html" class="no-external"></a></p><a href="./talks/conda-lunchtalk/index.html" class="no-external">
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+</a><p><a href="./talks/conda-lunchtalk/index.html" class="no-external"></a></p>
 </div>
 <div class="body">
-<a href="./talks/conda-lunchtalk/index.html">
 <h3 class="no-anchor listing-title">
-Best practices for conda-based Python science analysis environments
+<a href="./talks/conda-lunchtalk/index.html" class="no-external">Best practices for conda-based Python science analysis environments</a>
 </h3>
 <div class="listing-subtitle">
-OpenPlanetary Lunch Talk
+<a href="./talks/conda-lunchtalk/index.html" class="no-external">OpenPlanetary Lunch Talk</a>
 </div>
-</a>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('conda'); return false;">
 conda
@@ -440,14 +464,12 @@ conda
 python
 </div>
 </div>
-<a href="./talks/conda-lunchtalk/index.html">
 <div class="listing-description">
-event_url
+<a href="./talks/conda-lunchtalk/index.html" class="no-external">event_url</a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./talks/conda-lunchtalk/index.html">
+<a href="./talks/conda-lunchtalk/index.html" class="no-external">
 <div class="listing-date">
 2020-03-31
 </div>
@@ -503,6 +525,33 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       } else {
         el.classList.add('notransition');
       }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
     }
   }
   const toggleColorMode = (alternate) => {
@@ -571,13 +620,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return localAlternateSentinel;
     }
   }
-  let localAlternateSentinel = 'default';
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
   // Dark / light mode switch
   window.quartoToggleColorScheme = () => {
     // Read the current dark / light value 
     let toAlternate = !hasAlternateSentinel();
     toggleColorMode(toAlternate);
     setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
   };
   // Ensure there is a toggle, if there isn't float one in the top right
   if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
@@ -612,18 +663,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -655,11 +695,55 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
-  function tippyHover(el, contentFn) {
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/michaelaye\.github\.io");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+          // target, if specified
+          link.setAttribute("target", "_blank");
+          if (link.getAttribute("rel") === null) {
+            link.setAttribute("rel", "noopener");
+          }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -669,8 +753,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -682,7 +775,130 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -726,6 +942,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -751,6 +968,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -808,23 +1051,10 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       });
     }
   }
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-      var filterRegex = new RegExp("https:\/\/michaelaye\.github\.io");
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href);
-    }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-          // target, if specified
-          link.setAttribute("target", "_blank");
-      }
-    }
 });
 </script>
 </div> <!-- /content -->
+
 
 
 

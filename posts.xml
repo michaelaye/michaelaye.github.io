@@ -9,12 +9,13 @@
 <link>https://michaelaye.github.io/posts.html</link>
 <atom:link href="https://michaelaye.github.io/posts.xml" rel="self" type="application/rss+xml"/>
 <description></description>
-<generator>quarto-1.3.340</generator>
+<generator>quarto-1.5.57</generator>
 <lastBuildDate>Mon, 06 Mar 2023 00:00:00 GMT</lastBuildDate>
 <item>
   <title>Integrate Zigbee Tuya Thermostats into Home Assistant</title>
-  <link>https://michaelaye.github.io/posts/2023-03-06_Tuya_thermostats/index.html</link>
+  <link>https://michaelaye.github.io/posts/2023-03-06_Tuya_thermostats/</link>
   <description><![CDATA[ 
+
 
 
 
@@ -31,7 +32,7 @@
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="https://michaelaye.github.io/posts/2023-03-06_Tuya_thermostats/zigbee_info.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Manufacturer string shown after “by”</figcaption>
+<figcaption>Manufacturer string shown after “by”</figcaption>
 </figure>
 </div>
 <p>The manufacturer string is shown after the “by” below the general product ID <code>TS0601</code>, and in my case the manufacturer string is <code>_TZE200_6rdj8dzm</code>.</p>
@@ -45,6 +46,7 @@
 background-color: null;
 font-style: inherit;">zha</span><span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">:</span></span>
 <span id="cb1-2"><span class="at" style="color: #657422;
 background-color: null;
@@ -52,6 +54,7 @@ font-style: inherit;">  </span><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">enable_quirks</span><span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">:</span><span class="at" style="color: #657422;
 background-color: null;
 font-style: inherit;"> </span><span class="ch" style="color: #20794D;
@@ -63,6 +66,7 @@ font-style: inherit;">  </span><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">custom_quirks_path</span><span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">:</span><span class="at" style="color: #657422;
 background-color: null;
 font-style: inherit;"> /config/quirks</span></span></code></pre></div>
@@ -81,14 +85,15 @@ font-style: inherit;"> /config/quirks</span></span></code></pre></div>
   <category>tuya</category>
   <category>thermostats</category>
   <category>python</category>
-  <guid>https://michaelaye.github.io/posts/2023-03-06_Tuya_thermostats/index.html</guid>
+  <guid>https://michaelaye.github.io/posts/2023-03-06_Tuya_thermostats/</guid>
   <pubDate>Mon, 06 Mar 2023 00:00:00 GMT</pubDate>
 </item>
 <item>
   <title>Minimal Conda Setup Instructions</title>
   <dc:creator>Michael Aye</dc:creator>
-  <link>https://michaelaye.github.io/posts/minimal-conda-setup-instructions/index.html</link>
+  <link>https://michaelaye.github.io/posts/minimal-conda-setup-instructions/</link>
   <description><![CDATA[ 
+
 
 
 
@@ -201,7 +206,7 @@ which mamba</code></pre>
 <p>Hope this helps someone!</p>
 <p>Let me know if you have any questions or suggestions in the linked Twitter thread!</p>
 <p><a href="https://twitter.com/michaelaye/status/1450561395515396100">Comment</a></p>
-<p></p>
+{{&lt; tweet 1450561395515396100 &gt;}}
 
 
 </section>
@@ -212,14 +217,15 @@ which mamba</code></pre>
   <category>conda</category>
   <category>mamba</category>
   <category>software management</category>
-  <guid>https://michaelaye.github.io/posts/minimal-conda-setup-instructions/index.html</guid>
+  <guid>https://michaelaye.github.io/posts/minimal-conda-setup-instructions/</guid>
   <pubDate>Fri, 15 Oct 2021 18:36:10 GMT</pubDate>
 </item>
 <item>
   <title>Testing your internet speed regularly</title>
   <dc:creator>Michael Aye</dc:creator>
-  <link>https://michaelaye.github.io/posts/execute-speedtest-regularly/index.html</link>
+  <link>https://michaelaye.github.io/posts/execute-speedtest-regularly/</link>
   <description><![CDATA[ 
+
 
 
 
@@ -247,7 +253,7 @@ font-style: inherit;">=</span>csv</span></code></pre></div>
 <p>The header line by the way one can get by adding the <code>--output-header</code> flag to the above command. I then just went ahead and added <code>, time</code> to the header line, so that the header is complete for a quick pandas import down the road.</p>
 <p>Note that the numbers of <code>speedtest</code> are bytes/s, so one does need to do some math to convert to the usual Mbps.</p>
 <p>Here’s my script:</p>
-<p></p>
+{{&lt; gist michaelaye 67d3b9668b8667411eb83f77e83def8f &gt;}}
 <section id="update" class="level3">
 <h3 class="anchored" data-anchor-id="update">Update:</h3>
 <p>I forgot to add how to run it regularly using <code>crontab</code>:</p>
@@ -273,7 +279,7 @@ background-color: null;
 font-style: inherit;">*</span> /path/to/script/to/run.py</span></code></pre></div>
 <p>Hope it helps someone. If anybody wants to see how to quickly analyze and plot the file using <code>pandas</code> let me know, but I figure most of my readers will know that?</p>
 <p>Let me know, put any questions or comments you may have on my Twitter feed! <a href="https://twitter.com/michaelaye/status/1440729099291402250">Comment</a></p>
-<p></p>
+{{&lt; tweet 1440729099291402250 &gt;}}
 
 
 </section>
@@ -281,14 +287,15 @@ font-style: inherit;">*</span> /path/to/script/to/run.py</span></code></pre></di
  ]]></description>
   <category>hacking</category>
   <category>python</category>
-  <guid>https://michaelaye.github.io/posts/execute-speedtest-regularly/index.html</guid>
+  <guid>https://michaelaye.github.io/posts/execute-speedtest-regularly/</guid>
   <pubDate>Wed, 22 Sep 2021 03:04:05 GMT</pubDate>
 </item>
 <item>
   <title>Mamba is the new Conda</title>
   <dc:creator>Michael Aye</dc:creator>
-  <link>https://michaelaye.github.io/posts/mamba-is-the-new-conda/index.html</link>
+  <link>https://michaelaye.github.io/posts/mamba-is-the-new-conda/</link>
   <description><![CDATA[ 
+
 
 
 
@@ -314,7 +321,7 @@ font-style: inherit;">-c</span> conda-forge mamba</span></code></pre></div>
 <p>Just remember: Don’t mix channels much, the less the better. (It’s okay for a one-time mamba install into your <code>base</code> though.)</p>
 </blockquote>
 <p><a href="https://twitter.com/michaelaye/status/1436414613004988418?ref_src=twsrc%5Etfw%7Ctwcamp%5Etweetembed%7Ctwterm%5E1436414613004988418%7Ctwgr%5E%7Ctwcon%5Es1_c10&amp;ref_url=https%3A%2F%2Fpublish.twitter.com%2F%3Fquery%3Dhttps3A2F2Ftwitter.com2Fmichaelaye2Fstatus2F1436414613004988418widget%3DTweet">Comment</a></p>
-<p></p>
+{{&lt; tweet 1436414613004988418 &gt;}}
 
 
 
@@ -322,14 +329,15 @@ font-style: inherit;">-c</span> conda-forge mamba</span></code></pre></div>
   <category>conda</category>
   <category>mamba</category>
   <category>software management</category>
-  <guid>https://michaelaye.github.io/posts/mamba-is-the-new-conda/index.html</guid>
+  <guid>https://michaelaye.github.io/posts/mamba-is-the-new-conda/</guid>
   <pubDate>Fri, 10 Sep 2021 19:15:10 GMT</pubDate>
 </item>
 <item>
   <title>Fan Creation</title>
   <dc:creator>Michael Aye</dc:creator>
-  <link>https://michaelaye.github.io/posts/fan-creation/index.html</link>
+  <link>https://michaelaye.github.io/posts/fan-creation/</link>
   <description><![CDATA[ 
+
 
 
 
@@ -391,7 +399,7 @@ for i in range(100):
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="https://michaelaye.github.io/posts/fan-creation/20140805_fan_creation_25_1.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">png</figcaption>
+<figcaption>png</figcaption>
 </figure>
 </div>
 <p>Here we see how the sun’s angle is developing over time. As expected we see a minimum (i.e.&nbsp;highest sun over horizon) right around noon. ###Do you hear the CO2 ice crackling?? ;) I find it amazing to know that in approx. 8 hours some of our beloved fans are being created!</p>
@@ -408,7 +416,7 @@ pd.Series(angles,index=times).plot()</code></pre>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="https://michaelaye.github.io/posts/fan-creation/20140805_fan_creation_27_1.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">png</figcaption>
+<figcaption>png</figcaption>
 </figure>
 </div>
 <p>Interesting! Now we can see that around July 14th, the sun for the first time was below an inclination angle of 90, meaning that’s the first day of this season when it lurked over the horizon.</p>
@@ -421,23 +429,20 @@ pd.Series(angles,index=times).plot()</code></pre>
 
  ]]></description>
   <category>planet four</category>
-  <guid>https://michaelaye.github.io/posts/fan-creation/index.html</guid>
+  <guid>https://michaelaye.github.io/posts/fan-creation/</guid>
   <pubDate>Tue, 05 Aug 2014 00:00:00 GMT</pubDate>
 </item>
 <item>
   <title>Matplotlib Ticklabel Formats</title>
-  <link>https://michaelaye.github.io/posts/matplotlib-ticklabel-formats/index.html</link>
+  <link>https://michaelaye.github.io/posts/matplotlib-ticklabel-formats/</link>
   <description><![CDATA[ 
 
 
 
 
+
 <p>If you are a heavy matplotlib user, you are bound to have seen the funny offset numbers in the top left of the plot window:</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="http://2.bp.blogspot.com/-JWVf7z8w_Yc/UiZhRFt-7qI/AAAAAAAAIQk/uGIXoX-LtKM/s1600/Screen+Shot+2013-09-03+at+15.22.05+.png"><img src="https://michaelaye.github.io/posts/matplotlib-ticklabel-formats/http:/2.bp.blogspot.com/-JWVf7z8w_Yc/UiZhRFt-7qI/AAAAAAAAIQk/uGIXoX-LtKM/s320/Screen+Shot+2013-09-03+at+15.22.05+.png" class="img-fluid figure-img"></a></p>
-</figure>
-</div>
+<p><a href="http://2.bp.blogspot.com/-JWVf7z8w_Yc/UiZhRFt-7qI/AAAAAAAAIQk/uGIXoX-LtKM/s1600/Screen+Shot+2013-09-03+at+15.22.05+.png"><img src="http://2.bp.blogspot.com/-JWVf7z8w_Yc/UiZhRFt-7qI/AAAAAAAAIQk/uGIXoX-LtKM/s320/Screen+Shot+2013-09-03+at+15.22.05+.png" class="img-fluid"></a></p>
 <p>They are obviously there to help the viewer focus on the level where the numbers are really changing, removing the area where there’s no change happening.</p>
 <p>But I am claiming that due to pattern recognition, there are quite a few cases where this confuses more than it helps. In this example I (and the people in my team) are used to see 5-digit numbers and it takes quite some time to figure out here, that these are indeed 5-digit numbers.</p>
 <p>Therefore I researched how to switch this behavior off.</p>
@@ -469,7 +474,7 @@ Weird, I thought I had the above shortcut working at some time, now it doesn’t
  ]]></description>
   <category>plotting</category>
   <category>matplotlib</category>
-  <guid>https://michaelaye.github.io/posts/matplotlib-ticklabel-formats/index.html</guid>
+  <guid>https://michaelaye.github.io/posts/matplotlib-ticklabel-formats/</guid>
   <pubDate>Tue, 03 Sep 2013 00:00:00 GMT</pubDate>
 </item>
 </channel>
