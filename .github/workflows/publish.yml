@@ -18,8 +18,8 @@ jobs:
         uses: quarto-dev/quarto-actions/setup@v2
 
       - name: Install quarto extension
-        run: quarto install extension sellorm/quarto-social-embeds
-        
+        run: quarto install --no-prompt --quiet extension sellorm/quarto-social-embeds
+
       - name: Render and Publish
         uses: quarto-dev/quarto-actions/publish@v2
         with:
