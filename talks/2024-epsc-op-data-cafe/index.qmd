@@ -60,12 +60,18 @@ Our [mission](https://www.openplanetary.org/about) is
 
 ## People
 
-- co-founded by presiden Nicolas Manaud and US counter-part Chase Million (https://www.openplanetary.org/about)
+- co-founded by presiden Nicolas Manaud and US chttps://www.planetarymapping.eu/ounter-part Chase Million (https://www.openplanetary.org/about)
 - we have a board of directors with shared responsibilities
 - Slack channel has > 800 members from all over the world
 - you can find many planetary scientists, planetary data experts, software developers, directly involved in the tools you use every day
 
-## Covered topics by members
+## GMAP course
+
+- A regular growth event is the Planetary Geologic Mapping Winter School of the GMAP organization by Angelo Rossi and others
+- <https://www.planetarymapping.eu/>
+  - Lots of resources for planetary geologic mapping to find there!
+
+## Covered topics by OP members in Slack and Discourse Forum
 - channels for PDS, PSA, ISIS, GDAL, PlanetaryPython, SPICE, conda, mapping, jupyter, machine-learning, cloud, docker, QGIS, and more.
 - folks directly involved in the tools you use every day: GDAL, ISIS, PDS, SPICE, PSA, ASP, PlanetaryPython, etc.
 
