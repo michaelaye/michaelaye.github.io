@@ -172,14 +172,21 @@
     "href": "talks/2024-epsc-op-data-cafe/index.html#people",
     "title": "OpenPlanetary Data Cafe and Friends",
     "section": "People",
-    "text": "People\n\nco-founded by presiden Nicolas Manaud and US counter-part Chase Million (https://www.openplanetary.org/about)\nwe have a board of directors with shared responsibilities\nSlack channel has &gt; 800 members from all over the world\nyou can find many planetary scientists, planetary data experts, software developers, directly involved in the tools you use every day"
+    "text": "People\n\nco-founded by presiden Nicolas Manaud and US chttps://www.planetarymapping.eu/ounter-part Chase Million (https://www.openplanetary.org/about)\nwe have a board of directors with shared responsibilities\nSlack channel has &gt; 800 members from all over the world\nyou can find many planetary scientists, planetary data experts, software developers, directly involved in the tools you use every day"
   },
   {
-    "objectID": "talks/2024-epsc-op-data-cafe/index.html#covered-topics-by-members",
-    "href": "talks/2024-epsc-op-data-cafe/index.html#covered-topics-by-members",
+    "objectID": "talks/2024-epsc-op-data-cafe/index.html#gmap-course",
+    "href": "talks/2024-epsc-op-data-cafe/index.html#gmap-course",
     "title": "OpenPlanetary Data Cafe and Friends",
-    "section": "Covered topics by members",
-    "text": "Covered topics by members\n\nchannels for PDS, PSA, ISIS, GDAL, PlanetaryPython, SPICE, conda, mapping, jupyter, machine-learning, cloud, docker, QGIS, and more.\nfolks directly involved in the tools you use every day: GDAL, ISIS, PDS, SPICE, PSA, ASP, PlanetaryPython, etc."
+    "section": "GMAP course",
+    "text": "GMAP course\n\nA regular growth event is the Planetary Geologic Mapping Winter School of the GMAP organization by Angelo Rossi and others\nhttps://www.planetarymapping.eu/\n\nLots of resources for planetary geologic mapping to find there!"
+  },
+  {
+    "objectID": "talks/2024-epsc-op-data-cafe/index.html#covered-topics-by-op-members-in-slack-and-discourse-forum",
+    "href": "talks/2024-epsc-op-data-cafe/index.html#covered-topics-by-op-members-in-slack-and-discourse-forum",
+    "title": "OpenPlanetary Data Cafe and Friends",
+    "section": "Covered topics by OP members in Slack and Discourse Forum",
+    "text": "Covered topics by OP members in Slack and Discourse Forum\n\nchannels for PDS, PSA, ISIS, GDAL, PlanetaryPython, SPICE, conda, mapping, jupyter, machine-learning, cloud, docker, QGIS, and more.\nfolks directly involved in the tools you use every day: GDAL, ISIS, PDS, SPICE, PSA, ASP, PlanetaryPython, etc."
   },
   {
     "objectID": "talks/2024-epsc-op-data-cafe/index.html#forum",
