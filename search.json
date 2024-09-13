@@ -119,18 +119,11 @@
     "text": "The PlanetaryPy Project is a community effort to develop a core package for planetary science in Python and foster interoperability between Python planetary science packages.\nThe PlanetaryPy Technical Committee (TC) is the governing body for the PlanetaryPy Project. All of their work is done in the open via the TC GitHub repo. To learn more about what the TC is, how it operates, or to get involved, you can read its Charter (see paragraph below). The PlanetaryPy TC has regular meetings to which all are welcome to attend. The meeting agendas for upcoming meetings, and notes from previous meetings can be found in the TC’s GitHub repo.\nConference Program\nSlides\nProject URL\nAbstract PDF\nPresentation Video"
   },
   {
-    "objectID": "talks/conda-lunchtalk/index.html",
-    "href": "talks/conda-lunchtalk/index.html",
-    "title": "Best practices for conda-based Python science analysis environments",
+    "objectID": "talks/conda-workshop/index.html",
+    "href": "talks/conda-workshop/index.html",
+    "title": "How to live peacefully with Ana/Mini/Conda",
     "section": "",
-    "text": "event_url\nurl_slides\nurl_video\n\n\n\nCitationBibTeX citation:@online{aye2020,\n  author = {Aye, Michael},\n  title = {Best Practices for Conda-Based {Python} Science Analysis\n    Environments},\n  date = {2020-03-31},\n  url = {https://michaelaye.github.io/talks/conda-lunchtalk/},\n  langid = {en}\n}\nFor attribution, please cite this work as:\nAye, Michael. 2020. “Best Practices for Conda-Based Python Science\nAnalysis Environments.” March 31, 2020. https://michaelaye.github.io/talks/conda-lunchtalk/."
-  },
-  {
-    "objectID": "talks.html",
-    "href": "talks.html",
-    "title": "Talks",
-    "section": "",
-    "text": "Planetary Research with Citizen Science\n\n\nIntroduction to Citizen Science and the Planet Four project\n\n\n\nmars\n\n\npolar science\n\n\ncitizen science\n\n\n\nPresentation given at Planetary Seminar of Freie Uni Berlin\n\n\n\n\n\n2022-10-27\n\n\nMichael Aye\n\n\n\n\n\n\n\n\n\n\n\n\nPlanetary Research with Citizen Science\n\n\n\n\n\n\nonline-presentation\n\n\n\nA short overview of the Planetary Research done via Citizen Science, followed by an in-depth review of the Planet Four Citizen Science projects.\n\n\n\n\n\n2022-10-27\n\n\nMichael Aye\n\n\n\n\n\n\n\n\n\n\n\n\nThe PlanetaryPy Project\n\n\n5th Planetary Data Workshop\n\n\n\nplanetarypy\n\n\npython\n\n\n\n\n\n\n\n\n\n2021-07-01\n\n\n\n\n\n\n\n\n\n\n\n\nHow to create and maintain a scientific Python environment using conda\n\n\nInternational Conference for Young Professionals in Physics and Technology (ICYPPT)\n\n\n\ninvited talk\n\n\nconda\n\n\nsoftware management\n\n\n\n\n\n\n\n\n\n2021-04-28\n\n\n\n\n\n\n\n\n\n\n\n\nCalibration of the LRO Diviner Lunar Radiometer Experiment\n\n\nInternational Conference for Young Professionals in Physics and Technology\n\n\n\ninvited talk\n\n\nLRO\n\n\nDiviner\n\n\ncalibration\n\n\n\n\n\n\n\n\n\n2021-04-27\n\n\n\n\n\n\n\n\n\n\n\n\nHow to live peacefully with Ana/Mini/Conda\n\n\nOpenPlanetary Virtual Conference\n\n\n\nconda\n\n\npython\n\n\n\nI will explain the basic principles of the conda-based toolset, recommend best practices for using conda environments and channels, and demonstrate techniques on how to efficiently delete and reinstall everything in under 5 minutes. I also will discuss Python software package discovery and installation strategies in relation to these conda environments and how to efficiently develop your own libraries while being part of a conda environment.\n\n\n\n\n\n2020-06-23\n\n\nMichael Aye\n\n\n\n\n\n\n\n\n\n\n\n\nBest practices for conda-based Python science analysis environments\n\n\nOpenPlanetary Lunch Talk\n\n\n\nconda\n\n\npython\n\n\n\n\n\n\n\n\n\n2020-03-31\n\n\nMichael Aye\n\n\n\n\n\n\nNo matching items"
+    "text": "event_url\nurl_slides\nurl_video\n\n\n\nCitationBibTeX citation:@online{aye2020,\n  author = {Aye, Michael},\n  title = {How to Live Peacefully with {Ana/Mini/Conda}},\n  date = {2020-06-23},\n  url = {https://michaelaye.github.io/talks/conda-workshop/},\n  langid = {en},\n  abstract = {I will explain the basic principles of the conda-based\n    toolset, recommend best practices for using conda environments and\n    channels, and demonstrate techniques on how to efficiently delete\n    and reinstall everything in under 5 minutes. I also will discuss\n    Python software package discovery and installation strategies in\n    relation to these conda environments and how to efficiently develop\n    your own libraries while being part of a conda environment.}\n}\nFor attribution, please cite this work as:\nAye, Michael. 2020. “How to Live Peacefully with\nAna/Mini/Conda.” June 23, 2020. https://michaelaye.github.io/talks/conda-workshop/."
   },
   {
     "objectID": "talks/2021-diviner-kharkiv-talk/index.html",
@@ -140,11 +133,74 @@
     "text": "Event URL\nLocation: Kharkiv, Ukraine (virtual)\nTalk slides\n\n\n\nCitationBibTeX citation:@online{aye2021,\n  author = {Aye, Michael},\n  title = {Calibration of the {LRO} {Diviner} {Lunar} {Radiometer}\n    {Experiment}},\n  date = {2021-04-27},\n  url = {https://michaelaye.github.io/talks/2021-diviner-kharkiv-talk/},\n  langid = {en}\n}\nFor attribution, please cite this work as:\nAye, Michael. 2021. “Calibration of the LRO Diviner Lunar\nRadiometer Experiment.” April 27, 2021. https://michaelaye.github.io/talks/2021-diviner-kharkiv-talk/."
   },
   {
-    "objectID": "talks/conda-workshop/index.html",
-    "href": "talks/conda-workshop/index.html",
-    "title": "How to live peacefully with Ana/Mini/Conda",
+    "objectID": "talks.html",
+    "href": "talks.html",
+    "title": "Talks",
     "section": "",
-    "text": "event_url\nurl_slides\nurl_video\n\n\n\nCitationBibTeX citation:@online{aye2020,\n  author = {Aye, Michael},\n  title = {How to Live Peacefully with {Ana/Mini/Conda}},\n  date = {2020-06-23},\n  url = {https://michaelaye.github.io/talks/conda-workshop/},\n  langid = {en},\n  abstract = {I will explain the basic principles of the conda-based\n    toolset, recommend best practices for using conda environments and\n    channels, and demonstrate techniques on how to efficiently delete\n    and reinstall everything in under 5 minutes. I also will discuss\n    Python software package discovery and installation strategies in\n    relation to these conda environments and how to efficiently develop\n    your own libraries while being part of a conda environment.}\n}\nFor attribution, please cite this work as:\nAye, Michael. 2020. “How to Live Peacefully with\nAna/Mini/Conda.” June 23, 2020. https://michaelaye.github.io/talks/conda-workshop/."
+    "text": "OpenPlanetary Data Cafe and Friends\n\n\n\n\n\n\nonline-presentation\n\n\n\nA short overview of the OpenPlanetary organization, followed by a brief review of the planetary science software stack.\n\n\n\n\n\n2024-09-13\n\n\nMichael Aye\n\n\n\n\n\n\n\n\n\n\n\n\nPlanetary Research with Citizen Science\n\n\nIntroduction to Citizen Science and the Planet Four project\n\n\n\nmars\n\n\npolar science\n\n\ncitizen science\n\n\n\nPresentation given at Planetary Seminar of Freie Uni Berlin\n\n\n\n\n\n2022-10-27\n\n\nMichael Aye\n\n\n\n\n\n\n\n\n\n\n\n\nPlanetary Research with Citizen Science\n\n\n\n\n\n\nonline-presentation\n\n\n\nA short overview of the Planetary Research done via Citizen Science, followed by an in-depth review of the Planet Four Citizen Science projects.\n\n\n\n\n\n2022-10-27\n\n\nMichael Aye\n\n\n\n\n\n\n\n\n\n\n\n\nThe PlanetaryPy Project\n\n\n5th Planetary Data Workshop\n\n\n\nplanetarypy\n\n\npython\n\n\n\n\n\n\n\n\n\n2021-07-01\n\n\n\n\n\n\n\n\n\n\n\n\nHow to create and maintain a scientific Python environment using conda\n\n\nInternational Conference for Young Professionals in Physics and Technology (ICYPPT)\n\n\n\ninvited talk\n\n\nconda\n\n\nsoftware management\n\n\n\n\n\n\n\n\n\n2021-04-28\n\n\n\n\n\n\n\n\n\n\n\n\nCalibration of the LRO Diviner Lunar Radiometer Experiment\n\n\nInternational Conference for Young Professionals in Physics and Technology\n\n\n\ninvited talk\n\n\nLRO\n\n\nDiviner\n\n\ncalibration\n\n\n\n\n\n\n\n\n\n2021-04-27\n\n\n\n\n\n\n\n\n\n\n\n\nHow to live peacefully with Ana/Mini/Conda\n\n\nOpenPlanetary Virtual Conference\n\n\n\nconda\n\n\npython\n\n\n\nI will explain the basic principles of the conda-based toolset, recommend best practices for using conda environments and channels, and demonstrate techniques on how to efficiently delete and reinstall everything in under 5 minutes. I also will discuss Python software package discovery and installation strategies in relation to these conda environments and how to efficiently develop your own libraries while being part of a conda environment.\n\n\n\n\n\n2020-06-23\n\n\nMichael Aye\n\n\n\n\n\n\n\n\n\n\n\n\nBest practices for conda-based Python science analysis environments\n\n\nOpenPlanetary Lunch Talk\n\n\n\nconda\n\n\npython\n\n\n\n\n\n\n\n\n\n2020-03-31\n\n\nMichael Aye\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "talks/conda-lunchtalk/index.html",
+    "href": "talks/conda-lunchtalk/index.html",
+    "title": "Best practices for conda-based Python science analysis environments",
+    "section": "",
+    "text": "event_url\nurl_slides\nurl_video\n\n\n\nCitationBibTeX citation:@online{aye2020,\n  author = {Aye, Michael},\n  title = {Best Practices for Conda-Based {Python} Science Analysis\n    Environments},\n  date = {2020-03-31},\n  url = {https://michaelaye.github.io/talks/conda-lunchtalk/},\n  langid = {en}\n}\nFor attribution, please cite this work as:\nAye, Michael. 2020. “Best Practices for Conda-Based Python Science\nAnalysis Environments.” March 31, 2020. https://michaelaye.github.io/talks/conda-lunchtalk/."
+  },
+  {
+    "objectID": "talks/2024-epsc-op-data-cafe/index.html#practically-speaking",
+    "href": "talks/2024-epsc-op-data-cafe/index.html#practically-speaking",
+    "title": "OpenPlanetary Data Cafe and Friends",
+    "section": "Practically speaking",
+    "text": "Practically speaking\nWe are\n\na Slack forum (possibly changing soon-ish)\nan open discussion forum\n\npublicly searchable\nhttps://openplanetary.discourse.group/)"
+  },
+  {
+    "objectID": "talks/2024-epsc-op-data-cafe/index.html#our-mission",
+    "href": "talks/2024-epsc-op-data-cafe/index.html#our-mission",
+    "title": "OpenPlanetary Data Cafe and Friends",
+    "section": "Our Mission",
+    "text": "Our Mission\nOur mission is\n\nto promote and facilitate the open practice of planetary science and data analysis for professionals and amateurs\nby organizing events and conducting collaborative projects aimed at creating scientific, technical and educational resources, tools and data accessible to all.\n\ne.g. monthly OP Virtual Lunch talks"
+  },
+  {
+    "objectID": "talks/2024-epsc-op-data-cafe/index.html#our-story",
+    "href": "talks/2024-epsc-op-data-cafe/index.html#our-story",
+    "title": "OpenPlanetary Data Cafe and Friends",
+    "section": "OUR STORY",
+    "text": "OUR STORY\n\nstarted back in 2015 from an initial participants effort to stay connected and share information related to and beyond the ESA’s first Planetary GIS Workshop.\ncontinued during the 2nd USGS Planetary Data Workshop, and aggregated more people.\nIn 2018, established non-profit organisation, to provide a legal framework to sustainably fund our community framework, projects and activities, and better serve the planetary science community as a whole."
+  },
+  {
+    "objectID": "talks/2024-epsc-op-data-cafe/index.html#people",
+    "href": "talks/2024-epsc-op-data-cafe/index.html#people",
+    "title": "OpenPlanetary Data Cafe and Friends",
+    "section": "People",
+    "text": "People\n\nco-founded by presiden Nicolas Manaud and US counter-part Chase Million (https://www.openplanetary.org/about)\nwe have a board of directors with shared responsibilities\nSlack channel has &gt; 800 members from all over the world\nyou can find many planetary scientists, planetary data experts, software developers, directly involved in the tools you use every day"
+  },
+  {
+    "objectID": "talks/2024-epsc-op-data-cafe/index.html#covered-topics-by-members",
+    "href": "talks/2024-epsc-op-data-cafe/index.html#covered-topics-by-members",
+    "title": "OpenPlanetary Data Cafe and Friends",
+    "section": "Covered topics by members",
+    "text": "Covered topics by members\n\nchannels for PDS, PSA, ISIS, GDAL, PlanetaryPython, SPICE, conda, mapping, jupyter, machine-learning, cloud, docker, QGIS, and more.\nfolks directly involved in the tools you use every day: GDAL, ISIS, PDS, SPICE, PSA, ASP, PlanetaryPython, etc."
+  },
+  {
+    "objectID": "talks/2024-epsc-op-data-cafe/index.html#forum",
+    "href": "talks/2024-epsc-op-data-cafe/index.html#forum",
+    "title": "OpenPlanetary Data Cafe and Friends",
+    "section": "Forum",
+    "text": "Forum\n\nto preserve and make searchable / findable discussions of general interest to the community:\nhttps://openplanetary.discourse.group/"
+  },
+  {
+    "objectID": "talks/2024-epsc-op-data-cafe/index.html#software-virtual-environments",
+    "href": "talks/2024-epsc-op-data-cafe/index.html#software-virtual-environments",
+    "title": "OpenPlanetary Data Cafe and Friends",
+    "section": "Software virtual environments",
+    "text": "Software virtual environments\n\nDespite some challenges and learning curves, many people recommend conda environments as the most sustainable way to manage software dependencies in our field of science.\nDon’t listen to your IT departments, when they say, you can do everything without conda. (convince them otherwise ;) )\n\nGDAL still today is the dealbreaker, requires more work than really necessary.\nThere are a few other libraries that have similar issues."
+  },
+  {
+    "objectID": "talks/2024-epsc-op-data-cafe/index.html#planetary-python",
+    "href": "talks/2024-epsc-op-data-cafe/index.html#planetary-python",
+    "title": "OpenPlanetary Data Cafe and Friends",
+    "section": "Planetary Python",
+    "text": "Planetary Python\n\nWe are an organization as well:\n\nhttps://planetarypy.org/\nWe have code of conduct, regular technical meetings, trying to establish a core package for standard tasks in planetary python.\n\nI have a large-ish chaotic package, that is being transferred to the organization, piece-by-piece, in a peer-review fashion.\nslowly growing community package: https://github.com/planetarypy/planetarypy"
   },
   {
     "objectID": "talks/2021-conda-workshop-kharkiv/index.html",
