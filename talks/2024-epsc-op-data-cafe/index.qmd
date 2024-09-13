@@ -88,7 +88,9 @@ Here's a quick overview of the planetary science software stack.
   - There are a few other libraries that have similar issues.
 
 ---
+
 ### conda/mamba
+
 - ISIS requires conda anyway, so why not use it for everything?
 - I have created a *_"minimal reading"_*blog post for conda environments:
   - <https://michaelaye.github.io/posts/minimal-conda-setup-instructions/>
