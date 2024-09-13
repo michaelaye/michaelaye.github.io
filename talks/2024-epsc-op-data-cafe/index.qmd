@@ -1,0 +1,109 @@
+---
+title: "OpenPlanetary Data Cafe and Friends"
+title-slide-attributes: 
+  # data-background-image: ./image15.jpeg
+  data-background-size: cover
+  data-background-opacity: "0.5"
+author: "Michael Aye"
+format: 
+  revealjs:
+    theme: dark
+    navigation-mode: vertical
+    controls-layout: bottom-right
+    controls-tutorial: false
+    slide-number: true
+    # logo: p4_logo.jpeg
+    footer: "Michael Aye, OP Data Café @ EPSC 2024"
+    incremental: false
+    chalkboard: true
+# bibliography: references.bib
+date: 2024-09-13
+categories: [online-presentation]
+abstract: A short overview of the OpenPlanetary organization, followed by a brief review of the planetary science software stack.
+---
+# Who am I, Michael Aye?
+
+- Coding-inclined planetary scientist, participated in several space missions (Dawn, Cassini, BepiColombo)
+- Fighter for open-source, open-data, open-science
+  - If I can't reproduce with public data and public code, I consider published works at best *smelly*.
+- Worked at MPS, UBe, UCLA(JPL/NASA), LASP, Freie Uni Berlin.
+  
+
+You can find this talk and other resources on <https://michaelaye.github.io/>
+
+# What is OpenPlanetary?
+
+![](./op_header_about.png)
+
+## Practically speaking
+
+We are 
+
+* a Slack forum (possibly changing soon-ish)
+* an open discussion forum
+  * publicly searchable
+  * <https://openplanetary.discourse.group/>)
+
+
+## Our Mission
+
+Our [mission](https://www.openplanetary.org/about) is 
+
+- to promote and facilitate the open practice of planetary science and data analysis for professionals and amateurs 
+- by organizing events and conducting collaborative projects aimed at creating scientific, technical and educational resources, tools and data accessible to all.
+  - e.g. monthly OP Virtual Lunch talks
+
+## OUR STORY
+- started back in 2015 from an initial participants effort to stay connected and share information related to and beyond the ESA’s first Planetary GIS Workshop. 
+- continued during the 2nd USGS Planetary Data Workshop, and aggregated more people.
+- In 2018, established non-profit organisation, to provide a legal framework to sustainably fund our community framework, projects and activities, and better serve the planetary science community as a whole.
+
+## People
+
+- co-founded by presiden Nicolas Manaud and US counter-part Chase Million (https://www.openplanetary.org/about)
+- we have a board of directors with shared responsibilities
+- Slack channel has > 800 members from all over the world
+- you can find many planetary scientists, planetary data experts, software developers, directly involved in the tools you use every day
+
+## Covered topics by members
+- channels for PDS, PSA, ISIS, GDAL, PlanetaryPython, SPICE, conda, mapping, jupyter, machine-learning, cloud, docker, QGIS, and more.
+- folks directly involved in the tools you use every day: GDAL, ISIS, PDS, SPICE, PSA, ASP, PlanetaryPython, etc.
+
+## Forum
+
+- to preserve and make searchable / findable discussions of general interest to the community:
+- <https://openplanetary.discourse.group/>
+
+# Software stack
+
+If you are new to planetary science, you might not be aware of all the tools and resources available to you. (OP can help with that! #tools channel)
+
+Here's a quick overview of the planetary science software stack.
+
+## Software virtual environments
+
+- Despite some challenges and learning curves, many people recommend conda environments as the most sustainable way to manage software dependencies in our field of science.
+- Don't listen to your IT departments, when they say, you can do everything without conda. (convince them otherwise ;) ) 
+  - GDAL still today is the dealbreaker, requires more work than really necessary.
+  - There are a few other libraries that have similar issues.
+
+---
+### conda/mamba
+- ISIS requires conda anyway, so why not use it for everything?
+- I have created a *_"minimal reading"_*blog post for conda environments:
+  - <https://michaelaye.github.io/posts/minimal-conda-setup-instructions/>
+- There's also a presentation that might need some updates but contains general truths
+  - <https://michaelaye.github.io/talks/2021-conda-workshop-kharkiv/>
+- In short: Use mamba, via the conda-forge channel, enjoy life. 
+
+## Planetary Python
+
+- We are an organization as well:
+  - <https://planetarypy.org/>
+  - We have code of conduct, regular technical meetings, trying to establish a core package for standard tasks in planetary python.
+- I have a large-ish chaotic package, that is being transferred to the organization, piece-by-piece, in a peer-review fashion.
+- slowly growing community package: <https://github.com/planetarypy/planetarypy>
+---
+### Demo 
+
+- Show SPICE and Index functionality
