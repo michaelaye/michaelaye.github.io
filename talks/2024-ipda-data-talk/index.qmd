@@ -62,8 +62,7 @@ Candidates, IMHO:
 - see a product ID N1454725799
 - use an API to download the data
   - for example:
-  ```{python}
-  #| echo: true
+  ```
   from planetarypy.ciss import ISS
   iss = ISS("N1454725799")
   iss.download_calib()
@@ -185,3 +184,7 @@ Gives error message:
 | Rings     | 2                      | :green_heart:  | :neutral_face: |          | :green_heart:   | 
 | Atmo      | 1 / 9 (Know Atlas or not)|:green_heart: | :neutral_face: |          |         | 
 
+## Upcoming
+
+- Want to try to add VESPA / EPN-TAP to the table
+- Add it to planetarypy
