@@ -1,0 +1,174 @@
+---
+title: "Is it easy enough to get to planetary data?"
+from: markdown+emoji
+subtitle: "An imager (and user's) perspective"
+title-slide-attributes: 
+  data-background-image: ./pia06890-our-solar-system-banner-1920x640-1.jpg
+  data-background-size: cover
+  data-background-opacity: "0.5"
+author: "Michael Aye"
+format: 
+  revealjs:
+    theme: default
+    smaller: true  # autoscale for lots of text
+    navigation-mode: vertical
+    controls-layout: bottom-right
+    controls-tutorial: false
+    slide-number: true
+    logo: fu-logo.svg
+    footer: "19th IPDA Steering Committee Meeting, 16-18 Sep. 2024, Berlin, Germany (<https://michaelaye.github.io>)"
+    incremental: false
+    chalkboard: false
+    preview-links: auto
+# bibliography: references.bib
+date: 2024-09-16
+categories: [online-presentation]
+abstract: A review on how to access planetary image data, with a focus on what is easy and what is hard.
+---
+
+## Who am I?
+
+- Coding-inclined planetary scientist
+  - Worked on: Dawn, Cassini, BepiColombo, LRO, MRO, MEX 
+  - Worked as/on:Ground ops, Onboard software, Project Manager, Calibration, Data analyst 
+- Fighter for open-source, open-data, open-science
+  - If I can't reproduce with public data and public code: 
+    - -> at best *smelly*.
+- Worked at: MPS, UBe, UCLA(JPL/NASA), LASP(CU), Freie Uni Berlin.
+
+::: aside
+You can find this talk and other resources on <https://michaelaye.github.io/>
+:::
+
+## Disclaimer
+
+- I understand: an archiving budget and a "make things easy for the user"-budget aren't the same numbers, propably not even close.
+  - And I appreciate that most stakeholders are formally paid only for archiving.
+
+## What are the most prevalent types of data searches?
+
+This is really a question I have, do we have data on this?
+
+Candidates, IMHO:
+
+- by product / observation ID
+- by coordinates (space or time)
+- by observation geometry / illumination conditions
+- browsing (I'm really wondering how much this is done with an archive interface)
+
+## Testing for a set of data search types
+
+- By product / observation ID  (Is there a difference sometimes?)
+  - HRSC PID h6980_0000 (taken from a paper)
+  - Cassini ISS N1454725799
+- By coordinates (space or time)
+- Browsing
+
+# ProductID (PID) searches
+
+## PSA (HRSC)
+
+![](./psa_hrsc_welcome.png)
+
+## PSA continued
+- googled "ESA PSA"
+  - googling "PSA HRSC" not working, "PSA HRSC data" better, but not direct
+- very quick to filter for one instrument or mission (1 entry/click)
+- product ID filter is not shown immediately, distinction "Basic/Advanced" a bit small.
+- tried to use "Observation ID" to find "h6980_0000" using
+  - h6980_0000
+  - h6980_0000*
+  - "h6980_0000"
+  - nothing worked.
+- chose random other product for D/L testing, worked very smoothly. (zip)
+
+## Geosciences / ODE (HRSC){.scrollable}
+
+- googled "pds hrsc data", 1st hit
+- welcome view also tough to parse
+![](./ode_hrsc.png)
+
+## ODE continued
+
+1. picking "Mars Orbital Data Explorer"
+1. because i heard about, otherwise very tough
+1. data product search
+1. Esa's Mars Express
+1. HRSC
+1. calibrated data (simply choosing HRSC not possible?)
+1. filter by product ID
+1. "h6980_0000*" gives 9 results
+1. View results in table
+
+## Mars ODE{.scrollable}
+
+![](./ode_hrsc_2.png) 
+
+## Rings Node{.scrollable}
+- googled "pds rings node"
+- clicked on OPUS (guided well by one of 1st sentences)
+![](./rings_welcome.png)
+
+## Rings Node continued{.scrollable}
+1. cassini iss
+1. PDS constraints (not that easy to realize but i guess "guessable")
+1. PDS3 Product ID
+1. N1454725799
+1. Browse results (not too easy to realize)
+![](./opus_results.png)
+
+## Rings Node continued (results page)
+1. clicked on 1 results
+1. preview shown
+1. pressing spacebar to enter it to shopping cart got spinning wheel
+  - but cart got filled
+1. go to cart
+1. choose from download options
+
+## Atmosphere Node{.scrollable}
+
+- googled "pds atmospheres"
+![](./atmo1.png)
+
+## Atmosphere cont.
+1. Cassini Archive
+1. ISS
+1. Find info on PDS Image Atlas (the search engine)
+1. pick mission
+1. pick insterument
+1. find/enter PDS Archive Constraints (again, weirdly named?)
+1. one result shown
+1. clicking gives promising buttons
+1. choosing "Full Product" starts to stream binary code into the browser, WTH??
+   - even worse, right-click -> save as does not work with the button.
+
+## Atlas download options
+![](./pds_atlas_download_options.png)
+
+# Coordinates search
+
+## ODE (HRSC)
+
+Lat -85, -80,
+
+Lon 10, 20
+ 
+gives 509 results and no issues.
+
+## PSA (HRSC)
+
+Same coordinates as ODE.
+
+Gives error message:
+
+- please select a target with an available map
+
+# Results
+
+| Archive   | Welcome to data clicks | PID            | Coordinates    | Geometry | Browse          |
+| :-------- | :-------------         | :-----         | :----------    | :------- | :-----          |
+| PSA (HRSC)| 1                      | :broken_heart: | :broken_heart: |          | :green_heart:  |
+| ODE (HRSC)| 2                      | :green_heart:  | :green_heart:  |          |                 | 
+| Rings     | 2                      | :green_heart:  | :neutral_face: |          | :green_heart:   | 
+| Atmo      | 1 / 9 (Know Atlas or not)|:green_heart: | :neutral_face: |          |         | 
+
