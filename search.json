@@ -140,6 +140,13 @@
     "text": "What are the most prevalent types of data searches?\nThis is really a question I have, do we have data on this?\nCandidates, IMHO:\n\nby product / observation ID\nby coordinates (space or time)\nby observation geometry / illumination conditions\nbrowsing (I’m really wondering how much this is done with an archive interface)"
   },
   {
+    "objectID": "talks/2024-ipda-data-talk/index.html#one-of-my-perfect-use-cases",
+    "href": "talks/2024-ipda-data-talk/index.html#one-of-my-perfect-use-cases",
+    "title": "Is it easy enough to get to planetary data?",
+    "section": "One of my perfect use cases",
+    "text": "One of my perfect use cases\n\nRead a paper using Cassini ISS\nsee a product ID N1454725799\nuse an API to download the data\n\nfor example:\n\nfrom planetarypy.ciss import ISS\niss = ISS(\"N1454725799\")\niss.download_calib()"
+  },
+  {
     "objectID": "talks/2024-ipda-data-talk/index.html#testing-for-a-set-of-data-search-types",
     "href": "talks/2024-ipda-data-talk/index.html#testing-for-a-set-of-data-search-types",
     "title": "Is it easy enough to get to planetary data?",
@@ -236,6 +243,13 @@
     "title": "Is it easy enough to get to planetary data?",
     "section": "PSA (HRSC)",
     "text": "PSA (HRSC)\nSame coordinates as ODE.\nGives error message:\n\nplease select a target with an available map"
+  },
+  {
+    "objectID": "talks/2024-ipda-data-talk/index.html#upcoming",
+    "href": "talks/2024-ipda-data-talk/index.html#upcoming",
+    "title": "Is it easy enough to get to planetary data?",
+    "section": "Upcoming",
+    "text": "Upcoming\n\nWant to try to add VESPA / EPN-TAP to the table\nAdd it to planetarypy\n\n\n\n\n\n19th IPDA Steering Committee Meeting, 16-18 Sep. 2024, Berlin, Germany (https://michaelaye.github.io)"
   },
   {
     "objectID": "talks/conda-lunchtalk/index.html",

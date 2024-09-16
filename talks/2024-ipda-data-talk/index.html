@@ -388,6 +388,20 @@ Michael Aye
 <li>browsing (I’m really wondering how much this is done with an archive interface)</li>
 </ul>
 </section>
+<section id="one-of-my-perfect-use-cases" class="slide level2">
+<h2>One of my perfect use cases</h2>
+<ul>
+<li>Read a paper using Cassini ISS</li>
+<li>see a product ID N1454725799</li>
+<li>use an API to download the data
+<ul>
+<li>for example:</li>
+</ul>
+<pre><code>from planetarypy.ciss import ISS
+iss = ISS("N1454725799")
+iss.download_calib()</code></pre></li>
+</ul>
+</section>
 <section id="testing-for-a-set-of-data-search-types" class="slide level2">
 <h2>Testing for a set of data search types</h2>
 <ul>
@@ -531,6 +545,7 @@ Michael Aye
 <li>please select a target with an available map</li>
 </ul>
 </section></section>
+<section>
 <section id="results" class="title-slide slide level1 center">
 <h1>Results</h1>
 <table class="caption-top">
@@ -587,6 +602,13 @@ Michael Aye
 </tr>
 </tbody>
 </table>
+</section>
+<section id="upcoming" class="slide level2">
+<h2>Upcoming</h2>
+<ul>
+<li>Want to try to add VESPA / EPN-TAP to the table</li>
+<li>Add it to planetarypy</li>
+</ul>
 
 <div class="quarto-auto-generated-content">
 <p><img src="fu-logo.svg" class="slide-logo"></p>
@@ -594,7 +616,7 @@ Michael Aye
 <p>19th IPDA Steering Committee Meeting, 16-18 Sep.&nbsp;2024, Berlin, Germany (<a href="https://michaelaye.github.io" class="uri">https://michaelaye.github.io</a>)</p>
 </div>
 </div>
-</section>
+</section></section>
     </div>
   </div>
 
