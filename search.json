@@ -119,11 +119,137 @@
     "text": "The PlanetaryPy Project is a community effort to develop a core package for planetary science in Python and foster interoperability between Python planetary science packages.\nThe PlanetaryPy Technical Committee (TC) is the governing body for the PlanetaryPy Project. All of their work is done in the open via the TC GitHub repo. To learn more about what the TC is, how it operates, or to get involved, you can read its Charter (see paragraph below). The PlanetaryPy TC has regular meetings to which all are welcome to attend. The meeting agendas for upcoming meetings, and notes from previous meetings can be found in the TC’s GitHub repo.\nConference Program\nSlides\nProject URL\nAbstract PDF\nPresentation Video"
   },
   {
-    "objectID": "talks/conda-workshop/index.html",
-    "href": "talks/conda-workshop/index.html",
-    "title": "How to live peacefully with Ana/Mini/Conda",
+    "objectID": "talks/2024-ipda-data-talk/index.html#who-am-i",
+    "href": "talks/2024-ipda-data-talk/index.html#who-am-i",
+    "title": "Is it easy enough to get to planetary data?",
+    "section": "Who am I?",
+    "text": "Who am I?\n\nCoding-inclined planetary scientist\n\nWorked on: Dawn, Cassini, BepiColombo, LRO, MRO, MEX\nWorked as/on:Ground ops, Onboard software, Project Manager, Calibration, Data analyst\n\nFighter for open-source, open-data, open-science\n\nIf I can’t reproduce with public data and public code:\n\n-&gt; at best smelly.\n\n\nWorked at: MPS, UBe, UCLA(JPL/NASA), LASP(CU), Freie Uni Berlin.\n\n\n\nYou can find this talk and other resources on https://michaelaye.github.io/"
+  },
+  {
+    "objectID": "talks/2024-ipda-data-talk/index.html#disclaimer",
+    "href": "talks/2024-ipda-data-talk/index.html#disclaimer",
+    "title": "Is it easy enough to get to planetary data?",
+    "section": "Disclaimer",
+    "text": "Disclaimer\n\nI understand: an archiving budget and a “make things easy for the user”-budget aren’t the same numbers, propably not even close.\n\nAnd I appreciate that most stakeholders are formally paid only for archiving."
+  },
+  {
+    "objectID": "talks/2024-ipda-data-talk/index.html#what-are-the-most-prevalent-types-of-data-searches",
+    "href": "talks/2024-ipda-data-talk/index.html#what-are-the-most-prevalent-types-of-data-searches",
+    "title": "Is it easy enough to get to planetary data?",
+    "section": "What are the most prevalent types of data searches?",
+    "text": "What are the most prevalent types of data searches?\nThis is really a question I have, do we have data on this?\nCandidates, IMHO:\n\nby product / observation ID\nby coordinates (space or time)\nby observation geometry / illumination conditions\nbrowsing (I’m really wondering how much this is done with an archive interface)"
+  },
+  {
+    "objectID": "talks/2024-ipda-data-talk/index.html#testing-for-a-set-of-data-search-types",
+    "href": "talks/2024-ipda-data-talk/index.html#testing-for-a-set-of-data-search-types",
+    "title": "Is it easy enough to get to planetary data?",
+    "section": "Testing for a set of data search types",
+    "text": "Testing for a set of data search types\n\nBy product / observation ID (Is there a difference sometimes?)\n\nHRSC PID h6980_0000 (taken from a paper)\nCassini ISS N1454725799\n\nBy coordinates (space or time)\nBrowsing"
+  },
+  {
+    "objectID": "talks/2024-ipda-data-talk/index.html#psa-hrsc",
+    "href": "talks/2024-ipda-data-talk/index.html#psa-hrsc",
+    "title": "Is it easy enough to get to planetary data?",
+    "section": "PSA (HRSC)",
+    "text": "PSA (HRSC)"
+  },
+  {
+    "objectID": "talks/2024-ipda-data-talk/index.html#psa-continued",
+    "href": "talks/2024-ipda-data-talk/index.html#psa-continued",
+    "title": "Is it easy enough to get to planetary data?",
+    "section": "PSA continued",
+    "text": "PSA continued\n\ngoogled “ESA PSA”\n\ngoogling “PSA HRSC” not working, “PSA HRSC data” better, but not direct\n\nvery quick to filter for one instrument or mission (1 entry/click)\nproduct ID filter is not shown immediately, distinction “Basic/Advanced” a bit small.\ntried to use “Observation ID” to find “h6980_0000” using\n\nh6980_0000\nh6980_0000*\n“h6980_0000”\nnothing worked.\n\nchose random other product for D/L testing, worked very smoothly. (zip)"
+  },
+  {
+    "objectID": "talks/2024-ipda-data-talk/index.html#geosciences-ode-hrsc",
+    "href": "talks/2024-ipda-data-talk/index.html#geosciences-ode-hrsc",
+    "title": "Is it easy enough to get to planetary data?",
+    "section": "Geosciences / ODE (HRSC)",
+    "text": "Geosciences / ODE (HRSC)\n\ngoogled “pds hrsc data”, 1st hit\nwelcome view also tough to parse"
+  },
+  {
+    "objectID": "talks/2024-ipda-data-talk/index.html#ode-continued",
+    "href": "talks/2024-ipda-data-talk/index.html#ode-continued",
+    "title": "Is it easy enough to get to planetary data?",
+    "section": "ODE continued",
+    "text": "ODE continued\n\npicking “Mars Orbital Data Explorer”\nbecause i heard about, otherwise very tough\ndata product search\nEsa’s Mars Express\nHRSC\ncalibrated data (simply choosing HRSC not possible?)\nfilter by product ID\n“h6980_0000*” gives 9 results\nView results in table"
+  },
+  {
+    "objectID": "talks/2024-ipda-data-talk/index.html#mars-ode",
+    "href": "talks/2024-ipda-data-talk/index.html#mars-ode",
+    "title": "Is it easy enough to get to planetary data?",
+    "section": "Mars ODE",
+    "text": "Mars ODE"
+  },
+  {
+    "objectID": "talks/2024-ipda-data-talk/index.html#rings-node",
+    "href": "talks/2024-ipda-data-talk/index.html#rings-node",
+    "title": "Is it easy enough to get to planetary data?",
+    "section": "Rings Node",
+    "text": "Rings Node\n\ngoogled “pds rings node”\nclicked on OPUS (guided well by one of 1st sentences)"
+  },
+  {
+    "objectID": "talks/2024-ipda-data-talk/index.html#rings-node-continued",
+    "href": "talks/2024-ipda-data-talk/index.html#rings-node-continued",
+    "title": "Is it easy enough to get to planetary data?",
+    "section": "Rings Node continued",
+    "text": "Rings Node continued\n\ncassini iss\nPDS constraints (not that easy to realize but i guess “guessable”)\nPDS3 Product ID\nN1454725799\nBrowse results (not too easy to realize)"
+  },
+  {
+    "objectID": "talks/2024-ipda-data-talk/index.html#rings-node-continued-results-page",
+    "href": "talks/2024-ipda-data-talk/index.html#rings-node-continued-results-page",
+    "title": "Is it easy enough to get to planetary data?",
+    "section": "Rings Node continued (results page)",
+    "text": "Rings Node continued (results page)\n\nclicked on 1 results\npreview shown\npressing spacebar to enter it to shopping cart got spinning wheel\n\n\nbut cart got filled\n\n\ngo to cart\nchoose from download options"
+  },
+  {
+    "objectID": "talks/2024-ipda-data-talk/index.html#atmosphere-node",
+    "href": "talks/2024-ipda-data-talk/index.html#atmosphere-node",
+    "title": "Is it easy enough to get to planetary data?",
+    "section": "Atmosphere Node",
+    "text": "Atmosphere Node\n\ngoogled “pds atmospheres”"
+  },
+  {
+    "objectID": "talks/2024-ipda-data-talk/index.html#atmosphere-cont.",
+    "href": "talks/2024-ipda-data-talk/index.html#atmosphere-cont.",
+    "title": "Is it easy enough to get to planetary data?",
+    "section": "Atmosphere cont.",
+    "text": "Atmosphere cont.\n\nCassini Archive\nISS\nFind info on PDS Image Atlas (the search engine)\npick mission\npick insterument\nfind/enter PDS Archive Constraints (again, weirdly named?)\none result shown\nclicking gives promising buttons\nchoosing “Full Product” starts to stream binary code into the browser, WTH??\n\neven worse, right-click -&gt; save as does not work with the button."
+  },
+  {
+    "objectID": "talks/2024-ipda-data-talk/index.html#atlas-download-options",
+    "href": "talks/2024-ipda-data-talk/index.html#atlas-download-options",
+    "title": "Is it easy enough to get to planetary data?",
+    "section": "Atlas download options",
+    "text": "Atlas download options"
+  },
+  {
+    "objectID": "talks/2024-ipda-data-talk/index.html#ode-hrsc",
+    "href": "talks/2024-ipda-data-talk/index.html#ode-hrsc",
+    "title": "Is it easy enough to get to planetary data?",
+    "section": "ODE (HRSC)",
+    "text": "ODE (HRSC)\nLat -85, -80,\nLon 10, 20\ngives 509 results and no issues."
+  },
+  {
+    "objectID": "talks/2024-ipda-data-talk/index.html#psa-hrsc-1",
+    "href": "talks/2024-ipda-data-talk/index.html#psa-hrsc-1",
+    "title": "Is it easy enough to get to planetary data?",
+    "section": "PSA (HRSC)",
+    "text": "PSA (HRSC)\nSame coordinates as ODE.\nGives error message:\n\nplease select a target with an available map"
+  },
+  {
+    "objectID": "talks/conda-lunchtalk/index.html",
+    "href": "talks/conda-lunchtalk/index.html",
+    "title": "Best practices for conda-based Python science analysis environments",
     "section": "",
-    "text": "event_url\nurl_slides\nurl_video\n\n\n\nCitationBibTeX citation:@online{aye2020,\n  author = {Aye, Michael},\n  title = {How to Live Peacefully with {Ana/Mini/Conda}},\n  date = {2020-06-23},\n  url = {https://michaelaye.github.io/talks/conda-workshop/},\n  langid = {en},\n  abstract = {I will explain the basic principles of the conda-based\n    toolset, recommend best practices for using conda environments and\n    channels, and demonstrate techniques on how to efficiently delete\n    and reinstall everything in under 5 minutes. I also will discuss\n    Python software package discovery and installation strategies in\n    relation to these conda environments and how to efficiently develop\n    your own libraries while being part of a conda environment.}\n}\nFor attribution, please cite this work as:\nAye, Michael. 2020. “How to Live Peacefully with\nAna/Mini/Conda.” June 23, 2020. https://michaelaye.github.io/talks/conda-workshop/."
+    "text": "event_url\nurl_slides\nurl_video\n\n\n\nCitationBibTeX citation:@online{aye2020,\n  author = {Aye, Michael},\n  title = {Best Practices for Conda-Based {Python} Science Analysis\n    Environments},\n  date = {2020-03-31},\n  url = {https://michaelaye.github.io/talks/conda-lunchtalk/},\n  langid = {en}\n}\nFor attribution, please cite this work as:\nAye, Michael. 2020. “Best Practices for Conda-Based Python Science\nAnalysis Environments.” March 31, 2020. https://michaelaye.github.io/talks/conda-lunchtalk/."
+  },
+  {
+    "objectID": "talks.html",
+    "href": "talks.html",
+    "title": "Talks",
+    "section": "",
+    "text": "Is it easy enough to get to planetary data?\n\n\nAn imager (and user’s) perspective\n\n\n\nonline-presentation\n\n\n\nA review on how to access planetary image data, with a focus on what is easy and what is hard.\n\n\n\n\n\n2024-09-16\n\n\nMichael Aye\n\n\n\n\n\n\n\n\n\n\n\n\nOpenPlanetary Data Cafe and Friends\n\n\n\n\n\n\nonline-presentation\n\n\n\nA short overview of the OpenPlanetary organization, followed by a brief review of the planetary science software stack.\n\n\n\n\n\n2024-09-13\n\n\nMichael Aye\n\n\n\n\n\n\n\n\n\n\n\n\nPlanetary Research with Citizen Science\n\n\nIntroduction to Citizen Science and the Planet Four project\n\n\n\nmars\n\n\npolar science\n\n\ncitizen science\n\n\n\nPresentation given at Planetary Seminar of Freie Uni Berlin\n\n\n\n\n\n2022-10-27\n\n\nMichael Aye\n\n\n\n\n\n\n\n\n\n\n\n\nPlanetary Research with Citizen Science\n\n\n\n\n\n\nonline-presentation\n\n\n\nA short overview of the Planetary Research done via Citizen Science, followed by an in-depth review of the Planet Four Citizen Science projects.\n\n\n\n\n\n2022-10-27\n\n\nMichael Aye\n\n\n\n\n\n\n\n\n\n\n\n\nThe PlanetaryPy Project\n\n\n5th Planetary Data Workshop\n\n\n\nplanetarypy\n\n\npython\n\n\n\n\n\n\n\n\n\n2021-07-01\n\n\n\n\n\n\n\n\n\n\n\n\nHow to create and maintain a scientific Python environment using conda\n\n\nInternational Conference for Young Professionals in Physics and Technology (ICYPPT)\n\n\n\ninvited talk\n\n\nconda\n\n\nsoftware management\n\n\n\n\n\n\n\n\n\n2021-04-28\n\n\n\n\n\n\n\n\n\n\n\n\nCalibration of the LRO Diviner Lunar Radiometer Experiment\n\n\nInternational Conference for Young Professionals in Physics and Technology\n\n\n\ninvited talk\n\n\nLRO\n\n\nDiviner\n\n\ncalibration\n\n\n\n\n\n\n\n\n\n2021-04-27\n\n\n\n\n\n\n\n\n\n\n\n\nHow to live peacefully with Ana/Mini/Conda\n\n\nOpenPlanetary Virtual Conference\n\n\n\nconda\n\n\npython\n\n\n\nI will explain the basic principles of the conda-based toolset, recommend best practices for using conda environments and channels, and demonstrate techniques on how to efficiently delete and reinstall everything in under 5 minutes. I also will discuss Python software package discovery and installation strategies in relation to these conda environments and how to efficiently develop your own libraries while being part of a conda environment.\n\n\n\n\n\n2020-06-23\n\n\nMichael Aye\n\n\n\n\n\n\n\n\n\n\n\n\nBest practices for conda-based Python science analysis environments\n\n\nOpenPlanetary Lunch Talk\n\n\n\nconda\n\n\npython\n\n\n\n\n\n\n\n\n\n2020-03-31\n\n\nMichael Aye\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "talks/2021-diviner-kharkiv-talk/index.html",
@@ -133,18 +259,11 @@
     "text": "Event URL\nLocation: Kharkiv, Ukraine (virtual)\nTalk slides\n\n\n\nCitationBibTeX citation:@online{aye2021,\n  author = {Aye, Michael},\n  title = {Calibration of the {LRO} {Diviner} {Lunar} {Radiometer}\n    {Experiment}},\n  date = {2021-04-27},\n  url = {https://michaelaye.github.io/talks/2021-diviner-kharkiv-talk/},\n  langid = {en}\n}\nFor attribution, please cite this work as:\nAye, Michael. 2021. “Calibration of the LRO Diviner Lunar\nRadiometer Experiment.” April 27, 2021. https://michaelaye.github.io/talks/2021-diviner-kharkiv-talk/."
   },
   {
-    "objectID": "talks.html",
-    "href": "talks.html",
-    "title": "Talks",
+    "objectID": "talks/conda-workshop/index.html",
+    "href": "talks/conda-workshop/index.html",
+    "title": "How to live peacefully with Ana/Mini/Conda",
     "section": "",
-    "text": "OpenPlanetary Data Cafe and Friends\n\n\n\n\n\n\nonline-presentation\n\n\n\nA short overview of the OpenPlanetary organization, followed by a brief review of the planetary science software stack.\n\n\n\n\n\n2024-09-13\n\n\nMichael Aye\n\n\n\n\n\n\n\n\n\n\n\n\nPlanetary Research with Citizen Science\n\n\nIntroduction to Citizen Science and the Planet Four project\n\n\n\nmars\n\n\npolar science\n\n\ncitizen science\n\n\n\nPresentation given at Planetary Seminar of Freie Uni Berlin\n\n\n\n\n\n2022-10-27\n\n\nMichael Aye\n\n\n\n\n\n\n\n\n\n\n\n\nPlanetary Research with Citizen Science\n\n\n\n\n\n\nonline-presentation\n\n\n\nA short overview of the Planetary Research done via Citizen Science, followed by an in-depth review of the Planet Four Citizen Science projects.\n\n\n\n\n\n2022-10-27\n\n\nMichael Aye\n\n\n\n\n\n\n\n\n\n\n\n\nThe PlanetaryPy Project\n\n\n5th Planetary Data Workshop\n\n\n\nplanetarypy\n\n\npython\n\n\n\n\n\n\n\n\n\n2021-07-01\n\n\n\n\n\n\n\n\n\n\n\n\nHow to create and maintain a scientific Python environment using conda\n\n\nInternational Conference for Young Professionals in Physics and Technology (ICYPPT)\n\n\n\ninvited talk\n\n\nconda\n\n\nsoftware management\n\n\n\n\n\n\n\n\n\n2021-04-28\n\n\n\n\n\n\n\n\n\n\n\n\nCalibration of the LRO Diviner Lunar Radiometer Experiment\n\n\nInternational Conference for Young Professionals in Physics and Technology\n\n\n\ninvited talk\n\n\nLRO\n\n\nDiviner\n\n\ncalibration\n\n\n\n\n\n\n\n\n\n2021-04-27\n\n\n\n\n\n\n\n\n\n\n\n\nHow to live peacefully with Ana/Mini/Conda\n\n\nOpenPlanetary Virtual Conference\n\n\n\nconda\n\n\npython\n\n\n\nI will explain the basic principles of the conda-based toolset, recommend best practices for using conda environments and channels, and demonstrate techniques on how to efficiently delete and reinstall everything in under 5 minutes. I also will discuss Python software package discovery and installation strategies in relation to these conda environments and how to efficiently develop your own libraries while being part of a conda environment.\n\n\n\n\n\n2020-06-23\n\n\nMichael Aye\n\n\n\n\n\n\n\n\n\n\n\n\nBest practices for conda-based Python science analysis environments\n\n\nOpenPlanetary Lunch Talk\n\n\n\nconda\n\n\npython\n\n\n\n\n\n\n\n\n\n2020-03-31\n\n\nMichael Aye\n\n\n\n\n\n\nNo matching items"
-  },
-  {
-    "objectID": "talks/conda-lunchtalk/index.html",
-    "href": "talks/conda-lunchtalk/index.html",
-    "title": "Best practices for conda-based Python science analysis environments",
-    "section": "",
-    "text": "event_url\nurl_slides\nurl_video\n\n\n\nCitationBibTeX citation:@online{aye2020,\n  author = {Aye, Michael},\n  title = {Best Practices for Conda-Based {Python} Science Analysis\n    Environments},\n  date = {2020-03-31},\n  url = {https://michaelaye.github.io/talks/conda-lunchtalk/},\n  langid = {en}\n}\nFor attribution, please cite this work as:\nAye, Michael. 2020. “Best Practices for Conda-Based Python Science\nAnalysis Environments.” March 31, 2020. https://michaelaye.github.io/talks/conda-lunchtalk/."
+    "text": "event_url\nurl_slides\nurl_video\n\n\n\nCitationBibTeX citation:@online{aye2020,\n  author = {Aye, Michael},\n  title = {How to Live Peacefully with {Ana/Mini/Conda}},\n  date = {2020-06-23},\n  url = {https://michaelaye.github.io/talks/conda-workshop/},\n  langid = {en},\n  abstract = {I will explain the basic principles of the conda-based\n    toolset, recommend best practices for using conda environments and\n    channels, and demonstrate techniques on how to efficiently delete\n    and reinstall everything in under 5 minutes. I also will discuss\n    Python software package discovery and installation strategies in\n    relation to these conda environments and how to efficiently develop\n    your own libraries while being part of a conda environment.}\n}\nFor attribution, please cite this work as:\nAye, Michael. 2020. “How to Live Peacefully with\nAna/Mini/Conda.” June 23, 2020. https://michaelaye.github.io/talks/conda-workshop/."
   },
   {
     "objectID": "talks/2024-epsc-op-data-cafe/index.html#practically-speaking",
