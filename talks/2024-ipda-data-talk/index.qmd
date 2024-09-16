@@ -56,6 +56,19 @@ Candidates, IMHO:
 - by observation geometry / illumination conditions
 - browsing (I'm really wondering how much this is done with an archive interface)
 
+## One of my perfect use cases
+
+- Read a paper using Cassini ISS
+- see a product ID N1454725799
+- use an API to download the data
+  - for example:
+  ```{python}
+  #| echo: true
+  from planetarypy.ciss import ISS
+  iss = ISS("N1454725799")
+  iss.download_calib()
+  ```
+
 ## Testing for a set of data search types
 
 - By product / observation ID  (Is there a difference sometimes?)
