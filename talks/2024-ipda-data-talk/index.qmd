@@ -44,6 +44,7 @@ You can find this talk and other resources on <https://michaelaye.github.io/>
 
 - I understand: an archiving budget and a "make things easy for the user"-budget aren't the same numbers, propably not even close.
   - And I appreciate that most stakeholders are formally paid only for archiving.
+- Also, sometimes things are not working because an instrument team isn't delivering what is needed.
 
 ## What are the most prevalent types of data searches?
 
