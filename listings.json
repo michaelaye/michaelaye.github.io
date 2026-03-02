@@ -1,14 +1,16 @@
 [
   {
-    "listing": "/posts.html",
+    "listing": "/talks.html",
     "items": [
-      "/posts/rioxarray-xarray-version-pin/index.html",
-      "/posts/2023-03-06_Tuya_thermostats/index.html",
-      "/posts/minimal-conda-setup-instructions/index.html",
-      "/posts/execute-speedtest-regularly/index.html",
-      "/posts/mamba-is-the-new-conda/index.html",
-      "/posts/fan-creation/index.html",
-      "/posts/matplotlib-ticklabel-formats/index.html"
+      "/talks/2024-ipda-data-talk/index.html",
+      "/talks/2024-epsc-op-data-cafe/index.html",
+      "/talks/2022-fub-seminar/presentation/index.html",
+      "/talks/2022-fub-seminar/index.html",
+      "/talks/2021-pdw-planetarypy/index.html",
+      "/talks/2021-conda-workshop-kharkiv/index.html",
+      "/talks/2021-diviner-kharkiv-talk/index.html",
+      "/talks/conda-workshop/index.html",
+      "/talks/conda-lunchtalk/index.html"
     ]
   },
   {
@@ -22,17 +24,15 @@
     ]
   },
   {
-    "listing": "/talks.html",
+    "listing": "/posts.html",
     "items": [
-      "/talks/2024-ipda-data-talk/index.html",
-      "/talks/2024-epsc-op-data-cafe/index.html",
-      "/talks/2022-fub-seminar/presentation/index.html",
-      "/talks/2022-fub-seminar/index.html",
-      "/talks/2021-pdw-planetarypy/index.html",
-      "/talks/2021-conda-workshop-kharkiv/index.html",
-      "/talks/2021-diviner-kharkiv-talk/index.html",
-      "/talks/conda-workshop/index.html",
-      "/talks/conda-lunchtalk/index.html"
+      "/posts/rioxarray-xarray-version-pin/index.html",
+      "/posts/2023-03-06_Tuya_thermostats/index.html",
+      "/posts/minimal-conda-setup-instructions/index.html",
+      "/posts/execute-speedtest-regularly/index.html",
+      "/posts/mamba-is-the-new-conda/index.html",
+      "/posts/fan-creation/index.html",
+      "/posts/matplotlib-ticklabel-formats/index.html"
     ]
   }
 ]

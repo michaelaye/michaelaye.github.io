@@ -93,6 +93,35 @@ div.csl-indent {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="styles.css">
 <meta property="og:title" content="Bibliography – Home">
@@ -351,238 +380,478 @@ div.csl-indent {
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<section id="section-2024" class="level2">
+<h2 class="anchored" data-anchor-id="section-2024">2024</h2>
+<div id="ref-2024JOSS....9.7256B" class="csl-entry" role="listitem">
+Brown, Sierra, Michael St. Clair, Chase Million, Sabrina Curtis, <strong>K. -Michael Aye</strong>, and Zack Weinberg. 2024. <span>“<span>PDR: The Planetary Data Reader</span>.”</span> <em>The Journal of Open Source Software</em> 9 (102): 7256. <a href="https://doi.org/10.21105/joss.07256">https://doi.org/10.21105/joss.07256</a>.
+</div>
+<div id="ref-2024PSJ.....5..195M" class="csl-entry" role="listitem">
+Mc Keown, Lauren E., Michael J. Poston, Serina Diniega, Ganna Portyankina, Candice J. Hansen, <strong>Klaus-Michael Aye</strong>, Elizabeth M. Carey, et al. 2024. <span>“<span class="nocase">A Lab-scale Investigation of the Mars Kieffer Model</span>”</span> 5 (9): 195. <a href="https://doi.org/10.3847/PSJ/ad67c8">https://doi.org/10.3847/PSJ/ad67c8</a>.
+</div>
+<div id="ref-2024E&amp;SS...1103491W" class="csl-entry" role="listitem">
+Walter, S. H. G., <strong>K.-M. Aye</strong>, R. Jaumann, and F. Postberg. 2024. <span>“<span>Mars Reconnaissance Orbiter Context Camera Updated In-Flight Calibration</span>.”</span> <em>Earth and Space Science</em> 11 (2): e2023EA003491. <a href="https://doi.org/10.1029/2023EA003491">https://doi.org/10.1029/2023EA003491</a>.
+</div>
+<div id="ref-2024esoar.92634771W" class="csl-entry" role="listitem">
+Walter, Sebastian H. G., <strong>Klaus-Michael Aye</strong>, Ralf Jaumann, and Frank Postberg. 2024. <span>“<span>Mars Reconnaissance Orbiter Context Camera Updated In-Flight Calibration</span>.”</span> <em>ESS Open Archive Eprints</em> 926 (January): 92634771. <a href="https://doi.org/10.22541/au.170446769.92634771/v1">https://doi.org/10.22541/au.170446769.92634771/v1</a>.
+</div>
+</section>
+<section id="section-2023" class="level2">
+<h2 class="anchored" data-anchor-id="section-2023">2023</h2>
+<div id="ref-2023zndo...8306582A" class="csl-entry" role="listitem">
+Annex, Andrew, Ben Pearson, Benoı̂t Seignovert, Brian T. Carcich, Helge Eichhorn, Jesse A. Mapel, Johan L. Freiherr Von Forstner, et al. 2023. <span>“<span>AndrewAnnex/SpiceyPy: SpiceyPy 6.0.0</span>.”</span> Zenodo. <a href="https://doi.org/10.5281/zenodo.8306582">https://doi.org/10.5281/zenodo.8306582</a>.
+</div>
+<div id="ref-2023PSJ.....4...54B" class="csl-entry" role="listitem">
+Ben-Jaffel, Lotfi, Julianne I. Moses, Robert A. West, <strong>Klaus-Michael Aye</strong>, Eric T. Bradley, John T. Clarke, Jay B. Holberg, and Gilda E. Ballester. 2023. <span>“<span class="nocase">The Enigmatic Abundance of Atomic Hydrogen in Saturn’s Upper Atmosphere</span>”</span> 4 (3): 54. <a href="https://doi.org/10.3847/PSJ/acaf78">https://doi.org/10.3847/PSJ/acaf78</a>.
+</div>
+<div id="ref-2023JGRE..12807684M" class="csl-entry" role="listitem">
+Mc Keown, L. E., S. Diniega, G. Portyankina, C. J. Hansen, <strong>K.-M. Aye</strong>, S. Piqueux, and J. E. C. Scully. 2023. <span>“<span>Martian Araneiforms: A Review</span>.”</span> <em>Journal of Geophysical Research (Planets)</em> 128 (4): e2022JE007684. <a href="https://doi.org/10.1029/2022JE007684">https://doi.org/10.1029/2022JE007684</a>.
+</div>
+</section>
 <section id="section-2022" class="level2">
 <h2 class="anchored" data-anchor-id="section-2022">2022</h2>
-<div id="ref-bertrandVolatileTransportModeling2022" class="csl-entry" role="listitem">
-Bertrand, T., E. Lellouch, B. J. Holler, L. A. Young, B. Schmitt, J. Marques Oliveira, B. Sicardy, et al. 2022. <span>“Volatile Transport Modeling on <span>Triton</span> with New Observational Constraints.”</span> <em>Icarus</em> 373 (February): 114764. <a href="https://doi.org/10.1016/j.icarus.2021.114764">https://doi.org/10.1016/j.icarus.2021.114764</a>.
-</div>
-<div id="ref-khullerIrregularPolygonalRidge2022" class="csl-entry" role="listitem">
-Khuller, Aditya R, Laura Kerber, Megan E Schwamb, Sylvia Beer, Fernando E Nogal, Ray Perry, William Hood, <strong>Klaus-Michael Aye</strong>, Ganna Portyankina, and Candice J Hansen. 2022. <span>“Irregular Polygonal Ridge Networks in Ancient <span>Noachian</span> Terrain on <span>Mars</span>.”</span> <em>Icarus</em> 374 (114833): 114833. <a href="https://doi.org/10.1016/j.icarus.2021.114833">https://doi.org/10.1016/j.icarus.2021.114833</a>.
-</div>
-<div id="ref-portyankinaModelingCompleteSet2022" class="csl-entry" role="listitem">
-Portyankina, Ganna, Larry W Esposito, <strong>Klaus-Michael Aye</strong>, Candice J Hansen, and Ashar Ali. 2022. <span>“Modeling the Complete Set of <span>Cassini</span>’s <span>UVIS</span> Occultation Observations of <span>Enceladus</span>’ Plume.”</span> <em>Icarus</em>, no. 114918 (February): 114918. <a href="https://doi.org/10.1016/j.icarus.2022.114918">https://doi.org/10.1016/j.icarus.2022.114918</a>.
-</div>
-<div id="ref-portyankinaPlanetFourDerived2022" class="csl-entry" role="listitem">
-Portyankina, Ganna, Timothy I Michaels, <strong>Klaus-Michael Aye</strong>, Megan E Schwamb, Candice J Hansen, and Chris J Lintott. 2022. <span>“Planet <span>Four</span>: <span>Derived South Polar Martian Winds Interpreted Using Mesoscale Modeling</span>.”</span> <em>Planet. Sci. J.</em> 3 (2): 31. <a href="https://doi.org/10.3847/PSJ/ac3087">https://doi.org/10.3847/PSJ/ac3087</a>.
+<div id="ref-2022PSJ.....3...31P" class="csl-entry" role="listitem">
+Portyankina, Ganna, Timothy I. Michaels, <strong>Klaus-Michael Aye</strong>, Megan E. Schwamb, Candice J. Hansen, and Chris J. Lintott. 2022. <span>“<span>Planet Four: Derived South Polar Martian Winds Interpreted Using Mesoscale Modeling</span>”</span> 3 (2): 31. <a href="https://doi.org/10.3847/PSJ/ac3087">https://doi.org/10.3847/PSJ/ac3087</a>.
 </div>
 </section>
 <section id="section-2021" class="level2">
 <h2 class="anchored" data-anchor-id="section-2021">2021</h2>
-<div id="ref-ayePlanetaryPyProject2021" class="csl-entry" role="listitem">
-<strong>Aye, K M</strong>, Ross Beyer, Andrew Annex, and Chase Million. 2021. <span>“The <span>PlanetaryPy Project</span>.”</span> <em>LPI Contributions</em> 2549: 7026.
-</div>
-<div id="ref-colwellSmallScaleStructureCore2021" class="csl-entry" role="listitem">
-Colwell, Joshua, Casey Coleman, Kirsten Lina, Richard Jerousek, Matthew Tiscareno, <strong>Klaus-Michael Aye</strong>, and Larry Esposito. 2021. <span>“Small-<span>Scale Structure</span> in the <span>Core</span> of <span>Saturn</span>’s <span>B Ring</span>.”</span> In, 53:407.04. <a href="https://ui.adsabs.harvard.edu/abs/2021DPS....5340704C">https://ui.adsabs.harvard.edu/abs/2021DPS....5340704C</a>.
-</div>
-<div id="ref-millionPlanetaryDataReader2021" class="csl-entry" role="listitem">
-Million, C C, M St. Clair, <strong>K M Aye</strong>, and J Padams. 2021. <span>“The <span>Planetary Data Reader</span> (Pdr): <span>A Python Toolkit</span> for <span>Reading Planetary Data</span>.”</span> In, 2549:7096. <a href="https://ui.adsabs.harvard.edu/abs/2021LPICo2549.7096M">https://ui.adsabs.harvard.edu/abs/2021LPICo2549.7096M</a>.
-</div>
-<div id="ref-portyankinaSpringNearsurfaceWinds2021" class="csl-entry" role="listitem">
-Portyankina, Ganna, <strong>Klaus-Michael Aye</strong>, Candice Hansen, Megan E Schwamb, and Timothy Michaels. 2021. <span>“Spring Near-Surface Winds in the Southern Polar Regions of <span>Mars</span>: Results of Citizen Science Project <span>Planet Four</span>.”</span> In, 43:392. <a href="https://ui.adsabs.harvard.edu/abs/2021cosp...43E.392P">https://ui.adsabs.harvard.edu/abs/2021cosp...43E.392P</a>.
+<div id="ref-2021zndo...4883901A" class="csl-entry" role="listitem">
+Annex, Andrew, Ben Pearson, Benoı̂t Seignovert, Brian T. Carcich, Helge Eichhorn, Jesse A. Mapel, Johan L. Freiherr Von Forstner, et al. 2021. <span>“<span>AndrewAnnex/SpiceyPy: SpiceyPy 4.0.1</span>.”</span> Zenodo. <a href="https://doi.org/10.5281/zenodo.4883901">https://doi.org/10.5281/zenodo.4883901</a>.
 </div>
 </section>
 <section id="section-2020" class="level2">
 <h2 class="anchored" data-anchor-id="section-2020">2020</h2>
-<div id="ref-annexSpiceyPyPythonicWrapper2020" class="csl-entry" role="listitem">
-Annex, Andrew, Ben Pearson, Benoît Seignovert, Brian Carcich, Helge Eichhorn, Jesse Mapel, Johan von Forstner, et al. 2020. <span>“<span>SpiceyPy</span>: A <span>Pythonic Wrapper</span> for the <span>SPICE Toolkit</span>.”</span> <em>Journal of Open Source Software</em> 5 (46): 2050. <a href="https://doi.org/10.21105/joss.02050">https://doi.org/10.21105/joss.02050</a>.
+<div id="ref-2020JOSS....5.2050A" class="csl-entry" role="listitem">
+Annex, Andrew, Ben Pearson, Benoı̂t Seignovert, Brian Carcich, Helge Eichhorn, Jesse Mapel, Johan von Forstner, et al. 2020. <span>“<span class="nocase">SpiceyPy: a Pythonic Wrapper for the SPICE Toolkit</span>.”</span> <em>The Journal of Open Source Software</em> 5 (46): 2050. <a href="https://doi.org/10.21105/joss.02050">https://doi.org/10.21105/joss.02050</a>.
 </div>
-<div id="ref-ayeInvestigatingPossibilitySuperResolution2020" class="csl-entry" role="listitem">
-<strong>Aye, K-M</strong>, B T Greenhagen, and J P Williams. 2020. <span>“Investigating the <span>Possibility</span> of <span>Super-Resolution Reconstruction</span> of <span>LRO Diviner Data</span>.”</span> In, 3011. <a href="https://ui.adsabs.harvard.edu/abs/2020LPI....51.3011A">https://ui.adsabs.harvard.edu/abs/2020LPI....51.3011A</a>.
+<div id="ref-2020LPI....51.3011A" class="csl-entry" role="listitem">
+<strong>Aye, K.-M.</strong>, B. T. Greenhagen, and J. P. Williams. 2020. <span>“<span class="nocase">Investigating the Possibility of Super-Resolution Reconstruction of LRO Diviner Data</span>.”</span> In <em>51st Annual Lunar and Planetary Science Conference</em>, 3011. Lunar and Planetary Science Conference.
 </div>
-<div id="ref-ayePolarVortexInvestigations2020" class="csl-entry" role="listitem">
-<strong>Aye, K-M</strong>, and P O Hayne. 2020. <span>“Polar <span>Vortex Investigations Using MRO MCS Data</span>.”</span> <em>LPI Contributions</em> 2099 (January): 6079. <a href="https://ui.adsabs.harvard.edu/abs/2020LPICo2099.6079A">https://ui.adsabs.harvard.edu/abs/2020LPICo2099.6079A</a>.
+<div id="ref-2020LPICo2099.6079A" class="csl-entry" role="listitem">
+<strong>Aye, K.-M.</strong>, and P. O. Hayne. 2020. <span>“<span>Polar Vortex Investigations Using MRO MCS Data</span>.”</span> In <em>Seventh International Conference on Mars Polar Science and Exploration</em>, edited by LPI Editorial Board, 2099:6079. LPI Contributions.
 </div>
-<div id="ref-hansenDynamicSeasonsMars2020" class="csl-entry" role="listitem">
-Hansen, C J, <strong>K-M Aye</strong>, S Diniega, P Hayne, A McEwen, G Portyankina, and M E Schwamb. 2020. <span>“Dynamic <span>Seasons</span> on <span>Mars</span>—<span>Polar Images</span> and <span>Investigations</span>.”</span> <em>LPI Contributions</em> 2099: 6019. <a href="https://ui.adsabs.harvard.edu/abs/2020LPICo2099.6019H/abstract">https://ui.adsabs.harvard.edu/abs/2020LPICo2099.6019H/abstract</a>.
+<div id="ref-2020LPICo2099.6019H" class="csl-entry" role="listitem">
+Hansen, C. J., <strong>K.-M. Aye</strong>, S. Diniega, P. Hayne, A. McEwen, G. Portyankina, and M. E. Schwamb. 2020. <span>“<span class="nocase">Dynamic Seasons on Mars <span></span> Polar Images and Investigations</span>.”</span> In <em>Seventh International Conference on Mars Polar Science and Exploration</em>, edited by LPI Editorial Board, 2099:6019. LPI Contributions.
 </div>
-<div id="ref-hendrixPlanetarySciencePublic2020" class="csl-entry" role="listitem">
-Hendrix, A R, T Holt, A Verbiscer, K Primm, K N Singer, E Royer, R J Wilson, et al. 2020. <span>“Planetary <span>Science Public Engagement</span> at the <span>Farmers Market</span>.”</span> In, 2492. <a href="https://ui.adsabs.harvard.edu/abs/2020LPI....51.2492H">https://ui.adsabs.harvard.edu/abs/2020LPI....51.2492H</a>.
+<div id="ref-2020LPI....51.2492H" class="csl-entry" role="listitem">
+Hendrix, A. R., T. Holt, A. Verbiscer, K. Primm, K. N. Singer, E. Royer, R. J. Wilson, et al. 2020. <span>“<span class="nocase">Planetary Science Public Engagement at the Farmers Market</span>.”</span> In <em>51st Annual Lunar and Planetary Science Conference</em>, 2492. Lunar and Planetary Science Conference.
 </div>
-<div id="ref-jerousekMesoscaleStructuresSaturn2020" class="csl-entry" role="listitem">
-Jerousek, R, J Colwell, M Lewis, L Benyamine, C Singleton, <strong>K Aye</strong>, and M Tiscareno. 2020. <span>“Mesoscale Structures in <span>Saturn</span>’s Rings from <span>UVIS</span> Autocorrelations.”</span> In, 52:513.04. <a href="https://ui.adsabs.harvard.edu/abs/2020DPS....5251304J">https://ui.adsabs.harvard.edu/abs/2020DPS....5251304J</a>.
+<div id="ref-2020LPICo2099.6075M" class="csl-entry" role="listitem">
+McKeown, L. E., S. Diniega, G. Portyankina, and <strong>K. M. Aye</strong>. 2020. <span>“<span class="nocase">A Review of Martian CO2 Sublimation Processes and Their Field and Laboratory Analogs</span>.”</span> In <em>Seventh International Conference on Mars Polar Science and Exploration</em>, edited by LPI Editorial Board, 2099:6075. LPI Contributions.
 </div>
-<div id="ref-portyankinaHowMartianAraneiforms2020" class="csl-entry" role="listitem">
-Portyankina, Ganna, Candice J Hansen, and <strong>Klaus-Michael Aye</strong>. 2020. <span>“How Martian Araneiforms Get Their Shapes: Morphological Analysis and Diffusion-Limited Aggregation Model for Polar Surface Erosion.”</span> <em>Icarus</em> 342 (May): 113217. <a href="https://doi.org/10.1016/j.icarus.2019.02.032">https://doi.org/10.1016/j.icarus.2019.02.032</a>.
+<div id="ref-2020arXiv200402663P" class="csl-entry" role="listitem">
+Portyankina, Ganna, Larry W. Esposito, <strong>Klaus-Michael Aye</strong>, Candice J. Hansen, and Ashar Ali. 2020. <span>“<span class="nocase">Modeling the complete set of Cassini’s UVIS occultation observations of Enceladus’ plume</span>.”</span> <em>arXiv e-Prints</em>, April, arXiv:2004.02663. <a href="https://doi.org/10.48550/arXiv.2004.02663">https://doi.org/10.48550/arXiv.2004.02663</a>.
 </div>
-<div id="ref-portyankinaNearSurfaceWindsSeasonal2020" class="csl-entry" role="listitem">
-Portyankina, G, <strong>K-M Aye</strong>, M E Schwamb, C J Hansen, and T Michaels. 2020. <span>“Near-<span>Surface Winds</span> and <span>Seasonal Surface Phenomena Analyzed</span> by the <span>Planet Four Project</span>.”</span> <em>LPI Contributions</em> 2099 (January): 6062. <a href="https://ui.adsabs.harvard.edu/abs/2020LPICo2099.6062P">https://ui.adsabs.harvard.edu/abs/2020LPICo2099.6062P</a>.
+<div id="ref-2020Icar..34213217P" class="csl-entry" role="listitem">
+Portyankina, Ganna, Candice J. Hansen, and <strong>Klaus-Michael Aye</strong>. 2020. <span>“<span class="nocase">How martian araneiforms get their shapes: morphological analysis and diffusion-limited aggregation model for polar surface erosion</span>”</span> 342 (May): 113217. <a href="https://doi.org/10.1016/j.icarus.2019.02.032">https://doi.org/10.1016/j.icarus.2019.02.032</a>.
 </div>
-<div id="ref-portyankinaSandWindIces2020" class="csl-entry" role="listitem">
-Portyankina, G, C J Hansen, and <strong>K-M Aye</strong>. 2020. <span>“Sand, <span>Wind</span>, and <span>Ices</span> on <span>Mars</span>: <span>How Sandy Environments Facilitate Erosion</span> by <span>CO2 Jets</span>.”</span> In, 2188:3036. <a href="https://ui.adsabs.harvard.edu/abs/2020LPICo2188.3036P">https://ui.adsabs.harvard.edu/abs/2020LPICo2188.3036P</a>.
-</div>
-<div id="ref-portyankinaDerivedSouthPolar2020" class="csl-entry" role="listitem">
-Portyankina, G, T Michaels, <strong>K Aye</strong>, M Schwamb, and C Hansen. 2020. <span>“Derived <span>South Polar Martian Winds Interpreted Using Mesoscale Modeling</span>.”</span> In, 52:308.01. <a href="https://ui.adsabs.harvard.edu/abs/2020DPS....5230801P">https://ui.adsabs.harvard.edu/abs/2020DPS....5230801P</a>.
-</div>
-<div id="ref-vierlingVenusCloudTracking2020" class="csl-entry" role="listitem">
-Vierling, S, S Ali-zade, E Young, M Bullock, C Cantrall, <strong>K-Michael Aye</strong>, Y Lee, J Peralta, and R Baena Gallé. 2020. <span>“Venus <span>Cloud Tracking Methods</span> and <span>Applications</span> for <span>Akatsuki</span>, <span>IRTF</span>, and <span>Nordic Optical Telescope Images</span>.”</span> In, 52:505.07. <a href="https://ui.adsabs.harvard.edu/abs/2020DPS....5250507V">https://ui.adsabs.harvard.edu/abs/2020DPS....5250507V</a>.
+<div id="ref-2020LPICo2099.6062P" class="csl-entry" role="listitem">
+Portyankina, G., <strong>K.-M. Aye</strong>, M. E. Schwamb, C. J. Hansen, and T. Michaels. 2020. <span>“<span class="nocase">Near-Surface Winds and Seasonal Surface Phenomena Analyzed by the Planet Four Project</span>.”</span> In <em>Seventh International Conference on Mars Polar Science and Exploration</em>, edited by LPI Editorial Board, 2099:6062. LPI Contributions.
 </div>
 </section>
 <section id="section-2019" class="level2">
 <h2 class="anchored" data-anchor-id="section-2019">2019</h2>
-<div id="ref-ayeLRODivinerReCalibration2019" class="csl-entry" role="listitem">
-<strong>Aye, K-M</strong>. 2019a. <span>“<span>LRO Diviner Re-Calibration</span> and <span>Its Effect</span> on <span>Volatile Research</span>.”</span> In. <a href="https://ui.adsabs.harvard.edu/abs/2019LPI....50.3259A">https://ui.adsabs.harvard.edu/abs/2019LPI....50.3259A</a>.
+<div id="ref-2019Icar..319..558A" class="csl-entry" role="listitem">
+<strong>Aye, K</strong>. -Michael, Megan E. Schwamb, Ganna Portyankina, Candice J. Hansen, Adam McMaster, Grant R. M. Miller, Brian Carstensen, et al. 2019. <span>“<span class="nocase">Planet Four: Probing springtime winds on Mars by mapping the southern polar CO<span class="math inline">\(_{2}\)</span> jet deposits</span>”</span> 319 (February): 558–98. <a href="https://doi.org/10.1016/j.icarus.2018.08.018">https://doi.org/10.1016/j.icarus.2018.08.018</a>.
 </div>
-<div id="ref-ayePyRISEOtherPlanetary2019" class="csl-entry" role="listitem">
-<strong>Aye, K-M</strong>. 2019b. <span>“<span class="nocase">pyRISE</span> and <span>Other Planetary Science Python Tools</span>.”</span> In. Vol. 2151. <a href="https://ui.adsabs.harvard.edu/abs/2019LPICo2151.7102A">https://ui.adsabs.harvard.edu/abs/2019LPICo2151.7102A</a>.
+<div id="ref-2019LPI....50.3259A" class="csl-entry" role="listitem">
+<strong>Aye, K.-M</strong>. 2019a. <span>“<span class="nocase">LRO Diviner Re-Calibration and Its Effect on Volatile Research</span>.”</span> In <em>50th Annual Lunar and Planetary Science Conference</em>, 3259. Lunar and Planetary Science Conference.
 </div>
-<div id="ref-ayePlanetFourProbing2019" class="csl-entry" role="listitem">
-<strong>Aye, K-Michael</strong>, Megan E Schwamb, Ganna Portyankina, Candice J Hansen, Adam McMaster, Grant R M Miller, Brian Carstensen, et al. 2019. <span>“Planet <span>Four</span>: <span>Probing</span> Springtime Winds on <span>Mars</span> by Mapping the Southern Polar <span>CO2</span> Jet Deposits.”</span> <em>Icarus</em> 319 (February): 558–98. <a href="https://doi.org/10.1016/j.icarus.2018.08.018">https://doi.org/10.1016/j.icarus.2018.08.018</a>.
+<div id="ref-2019LPICo2151.7102A" class="csl-entry" role="listitem">
+<strong>Aye, K.-M</strong>. 2019b. <span>“<span class="nocase">pyRISE and Other Planetary Science Python Tools</span>.”</span> In <em>4th Planetary Data Workshop</em>, edited by LPI Editorial Board, 2151:7102. LPI Contributions.
 </div>
-<div id="ref-ayeGeophysicalCO2Gas2019" class="csl-entry" role="listitem">
-<strong>Aye, K-M</strong>, G Portyankina, C J Hansen, T I Michaels, and M E Schwamb. 2019. <span>“Geophysical <span>CO2 Gas Jet Modeling</span>: <span>Initial Set-Up</span>.”</span> <em>LPI Contributions</em> 2089 (July). <a href="https://ui.adsabs.harvard.edu/abs/2019LPICo2089.6214A">https://ui.adsabs.harvard.edu/abs/2019LPICo2089.6214A</a>.
+<div id="ref-2019LPICo2089.6214A" class="csl-entry" role="listitem">
+<strong>Aye, K.-M.</strong>, G. Portyankina, C. J. Hansen, T. I. Michaels, and M. E. Schwamb. 2019. <span>“<span>Geophysical CO2 Gas Jet Modeling: Initial Set-Up</span>.”</span> In <em>Ninth International Conference on Mars</em>, edited by LPI Editorial Board, 2089:6214. LPI Contributions.
 </div>
-<div id="ref-hansenInterannualVariabilitySeasonal2019" class="csl-entry" role="listitem">
-Hansen, C J, <strong>K M Aye</strong>, G Portyankina, et al. 2019. <span>“Interannual <span>Variability</span> of <span>Seasonal Activity</span> in <span>Mars</span>’ <span>South Polar Region Dubbed</span>" <span>Manhattan</span>".”</span> <em>Lunar and Planetary</em>. <a href="http://adsabs.harvard.edu/abs/2019LPI....50.3110H">http://adsabs.harvard.edu/abs/2019LPI....50.3110H</a>.
+<div id="ref-2019AGUFM.P41B3414B" class="csl-entry" role="listitem">
+Badri, S., <strong>K. M. Aye</strong>, and G. Portyankina. 2019. <span>“<span class="nocase">Planet Four: CO<span class="math inline">\(_{2}\)</span> jets formed by basal sublimation in Mars’ southern polar regions</span>.”</span> In <em>AGU Fall Meeting Abstracts</em>, 2019:P41B–3414. AGU Fall Meeting Abstracts.
 </div>
-<div id="ref-portyankinaMarsSpringSeasonal2019" class="csl-entry" role="listitem">
-Portyankina, G, <strong>K-M Aye</strong>, C J Hansen, and M E Schwamb. 2019. <span>“Mars <span>Spring Seasonal Ice Cleaning</span> as <span>Detected</span> by <span>Planet Four Project</span>.”</span> In. <a href="https://ui.adsabs.harvard.edu/abs/2019LPI....50.1695P">https://ui.adsabs.harvard.edu/abs/2019LPI....50.1695P</a>.
+<div id="ref-2019AGUFM.P23C3505C" class="csl-entry" role="listitem">
+Colwell, J. E., R. Jerousek, M. Lewis, <strong>K. M. Aye</strong>, M. S. Tiscareno, and L. W. Esposito. 2019. <span>“<span class="nocase">Mesoscale Structures in Saturn’s Rings from Cassini UVIS Stellar Occultation Data</span>.”</span> In <em>AGU Fall Meeting Abstracts</em>, 2019:P23C–3505. AGU Fall Meeting Abstracts.
 </div>
-<div id="ref-portyankinaPlanetFourPursuit2019" class="csl-entry" role="listitem">
-Portyankina, G, <strong>K-M Aye</strong>, M E Schwamb, C J Hansen, and T Michaels. 2019. <span>“Planet <span>Four Pursuit</span> of <span>Studying Seasonal Activity</span> and <span>Spring Atmosphere</span> with <span>Citizen Science</span>.”</span> <em>LPI Contributions</em> 2089 (July). <a href="https://ui.adsabs.harvard.edu/abs/2019LPICo2089.6158P">https://ui.adsabs.harvard.edu/abs/2019LPICo2089.6158P</a>.
+<div id="ref-2019LPI....50.3110H" class="csl-entry" role="listitem">
+Hansen, C. J., <strong>K.-M. Aye</strong>, G. Portyankina, and M. Schwamb. 2019. <span>“<span class="nocase">Interannual Variability of Seasonal Activity in Mars’ South Polar Region Dubbed <span>‘Manhattan’</span></span>.”</span> In <em>50th Annual Lunar and Planetary Science Conference</em>, 3110. Lunar and Planetary Science Conference.
 </div>
-<div id="ref-portyankinaLaboratoryInvestigationsPhysical2019" class="csl-entry" role="listitem">
-Portyankina, G, J Merrison, J J Iversen, Z Yoldi, C J Hansen, <strong>K-M Aye</strong>, A Pommerol, and N Thomas. 2019. <span>“Laboratory Investigations of the Physical State of <span>CO2</span> Ice in a Simulated <span>Martian</span> Environment.”</span> <em>Icarus</em> 322 (April): 210–20. <a href="https://doi.org/10.1016/j.icarus.2018.04.021">https://doi.org/10.1016/j.icarus.2018.04.021</a>.
+<div id="ref-2019LPI....50.1695P" class="csl-entry" role="listitem">
+Portyankina, G., <strong>K.-M. Aye</strong>, C. J. Hansen, and M. E. Schwamb. 2019. <span>“<span class="nocase">Mars Spring Seasonal Ice Cleaning as Detected by Planet Four Project</span>.”</span> In <em>50th Annual Lunar and Planetary Science Conference</em>, 1695. Lunar and Planetary Science Conference.
 </div>
-<div id="ref-sefton-nashEvidenceUltracoldTraps2019" class="csl-entry" role="listitem">
-Sefton-Nash, E, J-P Williams, B T Greenhagen, T J Warren, J L Bandfield, <strong>K-M Aye</strong>, F Leader, et al. 2019. <span>“Evidence for Ultra-Cold Traps and Surface Water Ice in the Lunar South Polar Crater <span>Amundsen</span>.”</span> <em>Icarus</em> 332 (November): 1–13. <a href="https://doi.org/10.1016/j.icarus.2019.06.002">https://doi.org/10.1016/j.icarus.2019.06.002</a>.
+<div id="ref-2019LPICo2089.6158P" class="csl-entry" role="listitem">
+Portyankina, G., <strong>K.-M. Aye</strong>, M. E. Schwamb, C. J. Hansen, and T. Michaels. 2019. <span>“<span class="nocase">Planet Four Pursuit of Studying Seasonal Activity and Spring Atmosphere with Citizen Science</span>.”</span> In <em>Ninth International Conference on Mars</em>, edited by LPI Editorial Board, 2089:6158. LPI Contributions.
 </div>
-<div id="ref-williamsSeasonalPolarTemperatures2019" class="csl-entry" role="listitem">
-Williams, J ‐P, D A Paige, N Schorghofer, E Sefton‐Nash, P O Hayne, P G Lucey, M A Siegler, and <strong>K-Michael Aye</strong>. 2019. <span>“Seasonal <span>Polar Temperatures</span> on the <span>Moon</span>.”</span> <em>Journal of Geophysical Research: Planets</em> 124 (10): 2505–21. <a href="https://doi.org/10.1029/2019je006028">https://doi.org/10.1029/2019je006028</a>.
+<div id="ref-2019Icar..322..210P" class="csl-entry" role="listitem">
+Portyankina, G., J. Merrison, J. J. Iversen, Z. Yoldi, C. J. Hansen, <strong>K.-M. Aye</strong>, A. Pommerol, and N. Thomas. 2019. <span>“<span class="nocase">Laboratory investigations of the physical state of CO<span class="math inline">\(_{2}\)</span> ice in a simulated Martian environment</span>”</span> 322 (April): 210–20. <a href="https://doi.org/10.1016/j.icarus.2018.04.021">https://doi.org/10.1016/j.icarus.2018.04.021</a>.
+</div>
+<div id="ref-2019Icar..332....1S" class="csl-entry" role="listitem">
+Sefton-Nash, E., J.-P. Williams, B. T. Greenhagen, T. J. Warren, J. L. Bandfield, <strong>K.-M. Aye</strong>, F. Leader, et al. 2019. <span>“<span class="nocase">Evidence for ultra-cold traps and surface water ice in the lunar south polar crater Amundsen</span>”</span> 332 (November): 1–13. <a href="https://doi.org/10.1016/j.icarus.2019.06.002">https://doi.org/10.1016/j.icarus.2019.06.002</a>.
+</div>
+<div id="ref-2019LPI....50.2852W" class="csl-entry" role="listitem">
+Williams, J.-P., B. T. Greenhagen, D. A. Paige, N. Schorghofer, <strong>K.-M. Aye</strong>, P. O. Hayne, M. A. Siegler, and E. Sefton-Nash. 2019. <span>“<span class="nocase">Seasonal Variations in South Polar Temperatures on the Moon</span>.”</span> In <em>50th Annual Lunar and Planetary Science Conference</em>, 2852. Lunar and Planetary Science Conference.
+</div>
+<div id="ref-2019JGRE..124.2505W" class="csl-entry" role="listitem">
+Williams, J.-P., B. T. Greenhagen, D. A. Paige, N. Schorghofer, E. Sefton-Nash, P. O. Hayne, P. G. Lucey, M. A. Siegler, and <strong>K. Michael Aye</strong>. 2019. <span>“<span class="nocase">Seasonal Polar Temperatures on the Moon</span>.”</span> <em>Journal of Geophysical Research (Planets)</em> 124 (10): 2505–21. <a href="https://doi.org/10.1029/2019JE006028">https://doi.org/10.1029/2019JE006028</a>.
 </div>
 </section>
 <section id="section-2018" class="level2">
 <h2 class="anchored" data-anchor-id="section-2018">2018</h2>
-<div id="ref-ayeTextureSaturnRing2018" class="csl-entry" role="listitem">
-<strong>Aye, K M</strong>, L W Esposito, J E Colwell, R G Jerousek, and G R Stewart. 2018. <span>“Texture of <span>Saturn</span>’s <span>C Ring Plateaus</span> as Seen by <span>Cassini ISS</span>.”</span> In. Vol. 2018. <a href="https://ui.adsabs.harvard.edu/abs/2018AGUFM.P43B..07A">https://ui.adsabs.harvard.edu/abs/2018AGUFM.P43B..07A</a>.
+<div id="ref-2018AGUFM.P43B..07A" class="csl-entry" role="listitem">
+<strong>Aye, K</strong>. M., L. W. Esposito, J. E. Colwell, R. G. Jerousek, and G. R. Stewart. 2018. <span>“<span class="nocase">Texture of Saturn’s C Ring Plateaus as seen by Cassini ISS</span>.”</span> In <em>AGU Fall Meeting Abstracts</em>, 2018:P43B–07. AGU Fall Meeting Abstracts.
 </div>
-<div id="ref-ayePlanetFourProbing2018" class="csl-entry" role="listitem">
-<strong>Aye, K-Michael</strong>, Megan E Schwamb, Ganna Portyankina, Candice J Hansen, Adam McMaster, Grant R M Miller, Brian Carstensen, et al. 2018. <span>“Planet <span>Four</span>: <span>Probing Seasonal Winds</span> on <span>Mars</span> by <span>Mapping</span> the <span>Southern Polar CO</span>$_2$ <span>Jet Deposits</span>.”</span> <em>arXiv [Astro-Ph.EP]</em>. <a href="http://arxiv.org/abs/1803.10341">http://arxiv.org/abs/1803.10341</a>.
+<div id="ref-2018EGUGA..2011432A" class="csl-entry" role="listitem">
+<strong>Aye, Klaus-Michael</strong>, Ganna Portyankina, Megan E. Schwamb, Candice J. Hansen, Chris J. Lintott, Brian Carstensen, Christopher Snyder, et al. 2018. <span>“<span class="nocase">Planet Four: Probing Seasonal Winds on Mars by Mapping the Southern Polar CO2 Jet Deposits</span>.”</span> In <em>EGU General Assembly Conference Abstracts</em>, 11432. EGU General Assembly Conference Abstracts.
 </div>
-<div id="ref-beyerMAPSITSpecialAction2018" class="csl-entry" role="listitem">
-Beyer, Ross, <strong>K Michael Aye</strong>, Nicholas Estes, Carolyn Ernst, Caleb Fassett, Audrie Fennema, Dathon Golish, and Cynthia Phillips. 2018. <span>“<span>MAPSIT Special Action Team Report</span> on <span>Cartography</span> and <span>Image Processing Software</span> at the <span>Astrogeology Science Center</span>.”</span> <a href="https://doi.org/10.5281/zenodo.2280984">https://doi.org/10.5281/zenodo.2280984</a>.
+<div id="ref-2018LPICo2082.6068A" class="csl-entry" role="listitem">
+<strong>Aye, K.-M</strong>. 2018. <span>“<span class="nocase">Successful Design Patterns in the Day-to-Day Work with Planetary Mission Data</span>.”</span> In <em>Planetary Science Informatics and Data Analytics Conference</em>, edited by LPI Editorial Board, 2082:6068. LPI Contributions.
 </div>
-<div id="ref-schwambPlanetFourTerrains2018" class="csl-entry" role="listitem">
-Schwamb, Megan E, <strong>Klaus-Michael Aye</strong>, Ganna Portyankina, Candice J Hansen, Campbell Allen, Sarah Allen, Fred J Calef, Simone Duca, Adam McMaster, and Grant R M Miller. 2018. <span>“Planet <span>Four</span>: <span>Terrains</span> – <span>Discovery</span> of Araneiforms Outside of the <span>South Polar</span> Layered Deposits.”</span> <em>Icarus</em> 308 (July): 148–87. <a href="https://doi.org/10.1016/j.icarus.2017.06.017">https://doi.org/10.1016/j.icarus.2017.06.017</a>.
+<div id="ref-2018LPI....49.2948A" class="csl-entry" role="listitem">
+<strong>Aye, K.-M.</strong>, G. Holsclaw, M. VanWoerkom, and G. Portyankina. 2018. <span>“<span>Martian Polar SmallSat Explorer (MAPSE)</span>.”</span> In <em>49th Annual Lunar and Planetary Science Conference</em>, 2948. Lunar and Planetary Science Conference.
+</div>
+<div id="ref-2018LPI....49.2841A" class="csl-entry" role="listitem">
+<strong>Aye, K.-M.</strong>, M. E. Schwamb, G. Portyankina, C. J. Hansen, C. J. Lintott, B. Carstensen, C. Snyder, et al. 2018. <span>“<span class="nocase">Probing the Martian South Polar Winds by Mapping CO2 Jet Deposits</span>.”</span> In <em>49th Annual Lunar and Planetary Science Conference</em>, 2841. Lunar and Planetary Science Conference.
+</div>
+<div id="ref-2018LPI....49.2972K" class="csl-entry" role="listitem">
+Kerber, L., M. E. Schwamb, G. Portyankina, C. J. Hansen, and <strong>K.-M. Aye</strong>. 2018. <span>“<span class="nocase">Global Polygonal Ridge Networks: Evidence for Pervasive Noachian Crustal Groundwater Circulation</span>.”</span> In <em>49th Annual Lunar and Planetary Science Conference</em>, 2972. Lunar and Planetary Science Conference.
+</div>
+<div id="ref-2018AGUFM.P43A..06K" class="csl-entry" role="listitem">
+Khuller, A. R., L. Kerber, M. E. Schwamb, S. Beer, R. Perry, W. Hood, F. Nogal, <strong>K. M. Aye</strong>, G. Portyankina, and C. J. Hansen. 2018. <span>“<span class="nocase">Polygonal Ridge Networks in Arabia Terra, Nili Fossae and Nilosyrtis: Potential Implications for Mars 2020 Landing Site Selection</span>.”</span> In <em>AGU Fall Meeting Abstracts</em>, 2018:P43A–06. AGU Fall Meeting Abstracts.
+</div>
+<div id="ref-2018EGUGA..2011320P" class="csl-entry" role="listitem">
+Portyankina, Ganna, Larry W. Esposito, Candice J. Hansen, and <strong>Klaus-Michael Aye</strong>. 2018. <span>“<span class="nocase">Modeling the Complete Set of Cassini’s UVIS Occultation Observations of Enceladus Jets</span>.”</span> In <em>EGU General Assembly Conference Abstracts</em>, 11320. EGU General Assembly Conference Abstracts.
+</div>
+<div id="ref-2018EPSC...12..548P" class="csl-entry" role="listitem">
+Portyankina, Ganna, Jonathan Merrison, Jeans Jacob Iversen, Zurine Yoldi, Candice Hansen, <strong>Klaus-Michael Aye</strong>, Antoine Pommerol, and Nicolas Thomas. 2018. <span>“<span class="nocase">CO2 ice morphologies under Martian conditions</span>.”</span> In <em>European Planetary Science Congress</em>, EPSC2018–548.
+</div>
+<div id="ref-2018AGUFM.P41D3770P" class="csl-entry" role="listitem">
+Portyankina, G., <strong>K. M. Aye</strong>, M. E. Schwamb, C. J. Hansen, A. McMaster, G. R. M. Miller, B. Carstensen, et al. 2018. <span>“<span class="nocase">DBSCAN Hyperparameter Tuning for the Planet Four Citizen Science Project</span>.”</span> In <em>AGU Fall Meeting Abstracts</em>, 2018:P41D–3770. AGU Fall Meeting Abstracts.
+</div>
+<div id="ref-2018DPS....5030001S" class="csl-entry" role="listitem">
+Schwamb, Megan E., <strong>K. -Michael Aye</strong>, Ganna Portyankina, Candice Hansen, Chris J. Lintott, Adam McMaster, Grant R. Miller, et al. 2018. <span>“<span class="nocase">Mapping Mars’ Southern Springtime Winds and Seasonal Polar Fans with Planet Four</span>.”</span> In <em>AAS/Division for Planetary Sciences Meeting Abstracts #50</em>, 50:300.01. AAS/Division for Planetary Sciences Meeting Abstracts.
+</div>
+<div id="ref-2018Icar..308..148S" class="csl-entry" role="listitem">
+Schwamb, Megan E., <strong>Klaus-Michael Aye</strong>, Ganna Portyankina, Candice J. Hansen, Campbell Allen, Sarah Allen, Fred J. Calef, Simone Duca, Adam McMaster, and Grant R. M. Miller. 2018. <span>“<span class="nocase">Planet Four: Terrains - Discovery of araneiforms outside of the South Polar layered deposits</span>”</span> 308 (July): 148–87. <a href="https://doi.org/10.1016/j.icarus.2017.06.017">https://doi.org/10.1016/j.icarus.2017.06.017</a>.
 </div>
 </section>
 <section id="section-2017" class="level2">
 <h2 class="anchored" data-anchor-id="section-2017">2017</h2>
-<div id="ref-ayeConfirmationTravelingFeature2017" class="csl-entry" role="listitem">
-<strong>Aye, K M</strong>, M Rehnberg, and L W Esposito. 2017. <span>“Confirmation of a Traveling Feature in <span>Saturn</span>’s Rings in <span>Cassini Imaging Science Subsystem</span> Data.”</span> In. Vol. 2017. <a href="https://ui.adsabs.harvard.edu/abs/2017AGUFM.P23B2733A">https://ui.adsabs.harvard.edu/abs/2017AGUFM.P23B2733A</a>.
+<div id="ref-2017AGUFM.P23B2733A" class="csl-entry" role="listitem">
+<strong>Aye, K</strong>. M., M. Rehnberg, and L. W. Esposito. 2017. <span>“<span class="nocase">Confirmation of a traveling feature in Saturn’s rings in Cassini Imaging Science Subsystem data</span>.”</span> In <em>AGU Fall Meeting Abstracts</em>, 2017:P23B–2733. AGU Fall Meeting Abstracts.
 </div>
-<div id="ref-ayeRepeatingPatternsDaytoDay2017" class="csl-entry" role="listitem">
-<strong>Aye, K-M</strong>. 2017. <span>“Repeating <span>Patterns</span> in the <span class="nocase">Day-to-Day Work</span> with <span>Planetary Mission Data</span>.”</span> <em>LPI Contributions</em> 1986 (June): 7125. <a href="https://ui.adsabs.harvard.edu/#abs/2017LPICo1986.7125A">https://ui.adsabs.harvard.edu/#abs/2017LPICo1986.7125A</a>.
+<div id="ref-2017LPICo1986.7125A" class="csl-entry" role="listitem">
+<strong>Aye, K.-M</strong>. 2017. <span>“<span class="nocase">Repeating Patterns in the Day-to-Day Work with Planetary Mission Data</span>.”</span> In <em>Third Planetary Data Workshop and the Planetary Geologic Mappers Annual Meeting</em>, edited by LPI Editorial Board, 1986:7125. LPI Contributions.
 </div>
-<div id="ref-ayeScienceResultsPlanetFour2017" class="csl-entry" role="listitem">
-<strong>Aye, K-M</strong>, M Schwamb, G Portyankina, and C J Hansen. 2017. <span>“Science <span>Results</span> from the <span>PlanetFour Citizen Science Project</span>.”</span> In. Vol. 48. <a href="https://ui.adsabs.harvard.edu/#abs/2017LPI....48.2903A">https://ui.adsabs.harvard.edu/#abs/2017LPI....48.2903A</a>.
+<div id="ref-2017LPICo1989.8215A" class="csl-entry" role="listitem">
+<strong>Aye, K.-M.</strong>, and A. Muench. 2017. <span>“<span class="nocase">Data Technologies for Planetary Science of the Next 3 Decades</span>.”</span> In <em>Planetary Science Vision 2050 Workshop</em>, edited by LPI Editorial Board, 1989:8215. LPI Contributions.
 </div>
-<div id="ref-gyalayRecalibratingMoonThermometer2017" class="csl-entry" role="listitem">
-Gyalay, S, <strong>M Aye</strong>, and D A Paige. 2017. <span>“Recalibrating the <span>Moon</span>’s <span>Thermometer</span>: <span>LRO Diviner Nonlinear Detector Response</span> and <span>Opposition Effect Corrections</span>.”</span> In. <a href="https://ui.adsabs.harvard.edu/abs/2017LPI....48.2655G">https://ui.adsabs.harvard.edu/abs/2017LPI....48.2655G</a>.
+<div id="ref-2017LPI....48.2903A" class="csl-entry" role="listitem">
+<strong>Aye, K.-M.</strong>, M. Schwamb, G. Portyankina, and C. J. Hansen. 2017. <span>“<span class="nocase">Science Results from the PlanetFour Citizen Science Project</span>.”</span> In <em>48th Annual Lunar and Planetary Science Conference</em>, 2903. Lunar and Planetary Science Conference.
 </div>
-<div id="ref-hatcherCO2JetsWind2017" class="csl-entry" role="listitem">
-Hatcher, Chase, <strong>K-Michael Aye</strong>, and Ganna Portyankina. 2017. <span>“<span>CO2 Jets</span> and <span>Wind Patterns</span> on <span>Mars</span>.”</span> In, 49:418.19. <a href="https://ui.adsabs.harvard.edu/#abs/2017DPS....4941819H">https://ui.adsabs.harvard.edu/#abs/2017DPS....4941819H</a>.
+<div id="ref-2017GeoRL..44..672H" class="csl-entry" role="listitem">
+Hansen, C. J., L. W. Esposito, <strong>K.-M. Aye</strong>, J. E. Colwell, A. R. Hendrix, G. Portyankina, and D. Shemansky. 2017. <span>“<span class="nocase">Investigation of diurnal variability of water vapor in Enceladus’ plume by the Cassini ultraviolet imaging spectrograph</span>”</span> 44 (2): 672–77. <a href="https://doi.org/10.1002/2016GL071853">https://doi.org/10.1002/2016GL071853</a>.
 </div>
-<div id="ref-portyankinaPresentdayErosionMartian2017" class="csl-entry" role="listitem">
-Portyankina, Ganna, Candice J Hansen, and <strong>Klaus-Michael Aye</strong>. 2017. <span>“Present-Day Erosion of <span>Martian</span> Polar Terrain by the Seasonal <span>CO2</span> Jets.”</span> <em>Icarus</em> 282 (January): 93–103. <a href="https://doi.org/10.1016/j.icarus.2016.09.007">https://doi.org/10.1016/j.icarus.2016.09.007</a>.
+<div id="ref-2017LPI....48.2812H" class="csl-entry" role="listitem">
+Hansen, C. J., M. E. Schwamb, G. Portyankina, and <strong>K.-M. Aye</strong>. 2017. <span>“<span class="nocase">Planet Four: Terrains - Araneiform in the South Polar Region of Mars</span>.”</span> In <em>48th Annual Lunar and Planetary Science Conference</em>, 2812. Lunar and Planetary Science Conference.
 </div>
-<div id="ref-portyankinaDiffusionLimitedAggregationModel2017" class="csl-entry" role="listitem">
-Portyankina, G, <strong>K-M Aye</strong>, and C J Hansen. 2017. <span>“Diffusion-<span>Limited Aggregation Model</span> for <span>Araneiform Pattern Formation</span>.”</span> In. Vol. 48. <a href="https://ui.adsabs.harvard.edu/#abs/2017LPI....48.2441P">https://ui.adsabs.harvard.edu/#abs/2017LPI....48.2441P</a>.
+<div id="ref-2017DPS....4941819H" class="csl-entry" role="listitem">
+Hatcher, Chase, <strong>K. -Michael Aye</strong>, and Ganna Portyankina. 2017. <span>“<span class="nocase">CO2 Jets and Wind Patterns on Mars</span>.”</span> In <em>AAS/Division for Planetary Sciences Meeting Abstracts #49</em>, 49:418.19. AAS/Division for Planetary Sciences Meeting Abstracts.
 </div>
-<div id="ref-prockterValueParticipatingScientist2017" class="csl-entry" role="listitem">
-Prockter, Louise, Meghan R Wheeler, <strong>Klaus-Michael Aye</strong>, Kevin H Baines, Michael T Bland, David T Blewett, Serina Diniega, et al. 2017. <span>“The <span>Value</span> of <span>Participating Scientist Programs</span> to <span>NASA</span>’s <span>Planetary Science Division</span>.”</span> <a href="https://www.lpi.usra.edu/analysis/reports/Value_of_Participating_Scientist_Programs_to_NASA_white_paper_final.pdf">https://www.lpi.usra.edu/analysis/reports/Value_of_Participating_Scientist_Programs_to_NASA_white_paper_final.pdf</a>.
+<div id="ref-2017Icar..282...93P" class="csl-entry" role="listitem">
+Portyankina, Ganna, Candice J. Hansen, and <strong>Klaus-Michael Aye</strong>. 2017. <span>“<span class="nocase">Present-day erosion of Martian polar terrain by the seasonal CO<span class="math inline">\(_{2}\)</span> jets</span>”</span> 282 (January): 93–103. <a href="https://doi.org/10.1016/j.icarus.2016.09.007">https://doi.org/10.1016/j.icarus.2016.09.007</a>.
 </div>
-<div id="ref-schwambDiscoveryAraneiformsOutside2017" class="csl-entry" role="listitem">
-Schwamb, Megan E, <strong>K-Michael Aye</strong>, Ganna Portyankina, Candice Hansen, Chris J Lintott, Campbell Allen, Sarah Allen, et al. 2017. <span>“Discovery of Araneiforms Outside of the <span>South Polar Layered Deposits</span>.”</span> In, 49:422.05. <a href="https://ui.adsabs.harvard.edu/#abs/2017DPS....4942205S">https://ui.adsabs.harvard.edu/#abs/2017DPS....4942205S</a>.
+<div id="ref-2017LPI....48.2441P" class="csl-entry" role="listitem">
+Portyankina, G., <strong>K.-M. Aye</strong>, and C. J. Hansen. 2017. <span>“<span class="nocase">Diffusion-Limited Aggregation Model for Araneiform Pattern Formation</span>.”</span> In <em>48th Annual Lunar and Planetary Science Conference</em>, 2441. Lunar and Planetary Science Conference.
 </div>
-<div id="ref-sefton-nashDivinerLunarRadiometer2017" class="csl-entry" role="listitem">
-Sefton-Nash, E, J-P Williams, B T Greenhagen, <strong>K-M Aye</strong>, and D A Paige. 2017. <span>“Diviner Lunar Radiometer Gridded Brightness Temperatures from Geodesic Binning of Modeled Fields of View.”</span> <em>Icarus</em> 298 (December): 98–110. <a href="https://doi.org/10.1016/j.icarus.2017.04.007">https://doi.org/10.1016/j.icarus.2017.04.007</a>.
+<div id="ref-2017LPICo1961.3052P" class="csl-entry" role="listitem">
+Portyankina, G., C. J. Hansen, and <strong>K.-M. Aye</strong>. 2017. <span>“<span class="nocase">Seasonal Small-Scale Phenomena on Martian Polar Dunes</span>.”</span> In <em>Fifth International Planetary Dunes Workshop‘</em>, edited by LPI Editorial Board, 1961:3052. LPI Contributions.
+</div>
+<div id="ref-2017LPI....48.2418P" class="csl-entry" role="listitem">
+Portyankina, G., M. M. Hedmann, C. J. Hansen, L. W. Esposito, <strong>K.-M. Aye</strong>, and D. Dhingra. 2017. <span>“<span class="nocase">Simultaneous Cassini UVIS and VIMS Solar Occultation Observations: Modeling Insights</span>.”</span> In <em>48th Annual Lunar and Planetary Science Conference</em>, 2418. Lunar and Planetary Science Conference.
+</div>
+<div id="ref-2017DPS....4942205S" class="csl-entry" role="listitem">
+Schwamb, Megan E., <strong>K. -Michael Aye</strong>, Ganna Portyankina, Candice Hansen, Chris J. Lintott, Campbell Allen, Sarah Allen, et al. 2017. <span>“<span class="nocase">Discovery of araneiforms outside of the South Polar Layered Deposits</span>.”</span> In <em>AAS/Division for Planetary Sciences Meeting Abstracts #49</em>, 49:422.05. AAS/Division for Planetary Sciences Meeting Abstracts.
+</div>
+<div id="ref-2017Icar..298...98S" class="csl-entry" role="listitem">
+Sefton-Nash, E., J.-P. Williams, B. T. Greenhagen, <strong>K.-M. Aye</strong>, and D. A. Paige. 2017. <span>“<span class="nocase">Diviner lunar radiometer gridded brightness temperatures from geodesic binning of modeled fields of view</span>”</span> 298 (December): 98–110. <a href="https://doi.org/10.1016/j.icarus.2017.04.007">https://doi.org/10.1016/j.icarus.2017.04.007</a>.
 </div>
 </section>
 <section id="section-2016" class="level2">
 <h2 class="anchored" data-anchor-id="section-2016">2016</h2>
-<div id="ref-ayeSearchingTravelingFeature2016" class="csl-entry" role="listitem">
-<strong>Aye, Klaus-Michael</strong>, Morgan Rehnberg, Zarah Brown, and Larry W Esposito. 2016. <span>“Searching for a Traveling Feature in <span>Saturn</span>’s Rings in <span>Cassini Imaging Science Subsystem</span> Data.”</span> In. <a href="https://ui.adsabs.harvard.edu/abs/2016DPS....4812103A">https://ui.adsabs.harvard.edu/abs/2016DPS....4812103A</a>.
+<div id="ref-2016DPS....4812103A" class="csl-entry" role="listitem">
+<strong>Aye, Klaus-Michael</strong>, Morgan Rehnberg, Zarah Brown, and Larry W. Esposito. 2016. <span>“<span class="nocase">Searching for a traveling feature in Saturn’s rings in Cassini Imaging Science Subsystem data</span>.”</span> In <em>AAS/Division for Planetary Sciences Meeting Abstracts #48</em>, 48:121.03. AAS/Division for Planetary Sciences Meeting Abstracts.
 </div>
-<div id="ref-ayeAnalyisPipelineResults2016" class="csl-entry" role="listitem">
-<strong>Aye, K-M</strong>, M E Schwamb, G Portyankina, and C J Hansen. 2016. <span>“Analyis <span>Pipeline</span> and <span>Results</span> from the <span>PlanetFour Citizen Science Project</span>.”</span> In, 47:3056. <a href="https://ui.adsabs.harvard.edu/#abs/2016LPI....47.3056A">https://ui.adsabs.harvard.edu/#abs/2016LPI....47.3056A</a>.
+<div id="ref-2016LPI....47.2974A" class="csl-entry" role="listitem">
+<strong>Aye, K.-M.</strong>, and L. W. Esposito. 2016. <span>“<span class="nocase">Searching for Structure in the Rings of Saturn</span>.”</span> In <em>47th Annual Lunar and Planetary Science Conference</em>, 2974. Lunar and Planetary Science Conference.
+</div>
+<div id="ref-2016LPICo1926.6073A" class="csl-entry" role="listitem">
+<strong>Aye, K.-M.</strong>, M. E. Schwamb, T. Michaels, C. J. Hansen, C. Lintott, B. Carstensen, C. Snyder, et al. 2016. <span>“<span class="nocase">Planet Four: From Imaging to Quantitative Analysis of Seasonal Activity at the Martian South Pole</span>.”</span> In <em>Sixth International Conference on Mars Polar Science and Exploration</em>, edited by LPI Editorial Board, 1926:6073. LPI Contributions.
+</div>
+<div id="ref-2016LPI....47.3056A" class="csl-entry" role="listitem">
+<strong>Aye, K.-M.</strong>, M. E. Schwamb, G. Portyankina, and C. J. Hansen. 2016. <span>“<span class="nocase">Analyis Pipeline and Results from the PlanetFour Citizen Science Project</span>.”</span> In <em>47th Annual Lunar and Planetary Science Conference</em>, 3056. Lunar and Planetary Science Conference.
+</div>
+<div id="ref-2016AGUFM.P53A2175G" class="csl-entry" role="listitem">
+Gyalay, S., <strong>K. M. Aye</strong>, and D. A. Paige. 2016. <span>“<span class="nocase">LRO Diviner Nonlinear Response and Opposition Effect Corrections</span>.”</span> In <em>AGU Fall Meeting Abstracts</em>, P53A–2175. AGU Fall Meeting Abstracts.
+</div>
+<div id="ref-2016LPI....47.2672H" class="csl-entry" role="listitem">
+Hansen, C. J., M. E. Schwamb, G. Portyankina, <strong>K.-M. Aye</strong>, A. Martin, and R. Perry. 2016. <span>“<span class="nocase">Planet Four Terrains: A Citizen Science Project to Study the South Polar Region of Mars</span>.”</span> In <em>47th Annual Lunar and Planetary Science Conference</em>, 2672. Lunar and Planetary Science Conference.
+</div>
+<div id="ref-2016DPS....4821407H" class="csl-entry" role="listitem">
+Hansen, Candice, Larry W. Esposito, Ganna Portyankina, Amanda Hendrix, Joshua E. Colwell, and <strong>Klaus-Michael Aye</strong>. 2016. <span>“<span class="nocase">Enceladus’ Supersonic Gas Jets’ Role in Diurnal Variability of Particle Flux</span>.”</span> In <em>AAS/Division for Planetary Sciences Meeting Abstracts #48</em>, 48:214.07. AAS/Division for Planetary Sciences Meeting Abstracts.
+</div>
+<div id="ref-2016DPS....4821408P" class="csl-entry" role="listitem">
+Portyankina, Ganna, Larry W. Esposito, Candice Hansen, and <strong>Klaus-Michael Aye</strong>. 2016. <span>“<span class="nocase">Comparing different Ultraviolet Imaging Spectrograph (UVIS) occultation observations using modeling of water vapor jets</span>.”</span> In <em>AAS/Division for Planetary Sciences Meeting Abstracts #48</em>, 48:214.08. AAS/Division for Planetary Sciences Meeting Abstracts.
+</div>
+<div id="ref-2016LPICo1926.6099P" class="csl-entry" role="listitem">
+Portyankina, G., J. Merrison, J. J. Iversen, Z. Yoldi, C. J. Hansen, <strong>K.-M. Aye</strong>, and A. Pommeroll. 2016. <span>“<span class="nocase">Laboratory Investigations of Physical State of CO2 Ice on Mars</span>.”</span> In <em>Sixth International Conference on Mars Polar Science and Exploration</em>, edited by LPI Editorial Board, 1926:6099. LPI Contributions.
+</div>
+<div id="ref-2016DPS....4833202P" class="csl-entry" role="listitem">
+Prockter, Louise, <strong>Klaus-Michael Aye</strong>, Kevin Baines, Michael T. Bland, David T. Blewett, Pontus Brandt, Serina Diniega, et al. 2016. <span>“<span class="nocase">The Value of Participating Scientists on NASA Planetary Missions</span>.”</span> In <em>AAS/Division for Planetary Sciences Meeting Abstracts #48</em>, 48:332.02. AAS/Division for Planetary Sciences Meeting Abstracts.
+</div>
+<div id="ref-2016DPS....4840601S" class="csl-entry" role="listitem">
+Schwamb, Megan Elizabeth, <strong>Klaus-Michael Aye</strong>, Ganna Portyankina, Candice Hansen, Chris Lintott, Brian Carstensen, Simone Duca, Michael Parrish, and Grant Miller. 2016. <span>“<span class="nocase">Planet Four: Terrains - Pointing the Highest Resolution Camera Ever Sent to Mars with the Help of 10,000 Earthlings</span>.”</span> In <em>AAS/Division for Planetary Sciences Meeting Abstracts #48</em>, 48:406.01. AAS/Division for Planetary Sciences Meeting Abstracts.
+</div>
+</section>
+<section id="section-2015" class="level2">
+<h2 class="anchored" data-anchor-id="section-2015">2015</h2>
+<div id="ref-2015DPS....4742001A" class="csl-entry" role="listitem">
+<strong>Aye, Klaus-Michael</strong>, Meg Schwamb, Ganna Portyankina, and Candice J. Hansen. 2015. <span>“<span class="nocase">First results of the PlanetFour Citizen Science project</span>.”</span> In <em>AAS/Division for Planetary Sciences Meeting Abstracts #47</em>, 47:420.01. AAS/Division for Planetary Sciences Meeting Abstracts.
+</div>
+<div id="ref-2015DPS....4741005P" class="csl-entry" role="listitem">
+Portyankina, Ganna, Larry W. Esposito, <strong>Klaus-Michael Aye</strong>, and Candice J. Hansen. 2015. <span>“<span class="nocase">Modeling of the Enceladus water vapor jets for interpreting UVIS star and solar occultation observations</span>.”</span> In <em>AAS/Division for Planetary Sciences Meeting Abstracts #47</em>, 47:410.05. AAS/Division for Planetary Sciences Meeting Abstracts.
 </div>
 </section>
 <section id="section-2014" class="level2">
 <h2 class="anchored" data-anchor-id="section-2014">2014</h2>
-<div id="ref-ayeDivinerMonitoringColdest2014" class="csl-entry" role="listitem">
-<strong>Aye, Klaus Michael</strong>, D A Paige, M A Siegler, E Sefton-Nash, and B T Greenhagen. 2014. <span>“Diviner <span>Monitoring</span> of <span>Coldest Lunar Polar Regions</span>.”</span> In, 45:2893. <a href="http://adsabs.harvard.edu/cgi-bin/nph-data_query?bibcode=2014LPI....45.2893A&amp;link_type=ABSTRACT">http://adsabs.harvard.edu/cgi-bin/nph-data_query?bibcode=2014LPI....45.2893A&amp;link_type=ABSTRACT</a>.
+<div id="ref-2014LPI....45.2893A" class="csl-entry" role="listitem">
+<strong>Aye, K.-M.</strong>, D. A. Paige, M. A. Siegler, E. Sefton-Nash, and B. T. Greenhagen. 2014. <span>“<span class="nocase">Diviner Monitoring of Coldest Lunar Polar Regions</span>.”</span> In <em>45th Annual Lunar and Planetary Science Conference</em>, 2893. Lunar and Planetary Science Conference.
 </div>
-<div id="ref-sefton-nashLRODivinerFoundation2014" class="csl-entry" role="listitem">
-Sefton-Nash, E, <strong>K M Aye</strong>, J P Williams, B T Greenhagen, M Sullivan, and D A Paige. 2014. <span>“The <span>LRO Diviner Foundation Dataset</span>: <span>A Comprehensive Temperature Record</span> of the <span>Moon</span>.”</span> In. Vol. 13. <a href="https://ui.adsabs.harvard.edu/#abs/2014AGUFM.P13B3819S">https://ui.adsabs.harvard.edu/#abs/2014AGUFM.P13B3819S</a>.
+<div id="ref-2014LPICo1791.1480A" class="csl-entry" role="listitem">
+<strong>Aye, K.-M.</strong>, M. E. Schwamb, C. J. Hansen, and G. Portyankina. 2014. <span>“<span class="nocase">Investigation of Polar Seasonal Fan Deposits Using Crowdsourcing</span>.”</span> In <em>Eighth International Conference on Mars</em>, edited by LPI Editorial Board, 1791:1480. LPI Contributions.
+</div>
+<div id="ref-2014LPI....45.2289P" class="csl-entry" role="listitem">
+Portyankina, G., C. J. Hansen, and <strong>K.-M. Aye</strong>. 2014. <span>“<span class="nocase">Differences in Seasonal CO2 Cover of Dune Slopes in Martian Northern Polar Erg</span>.”</span> In <em>45th Annual Lunar and Planetary Science Conference</em>, 2289. Lunar and Planetary Science Conference.
+</div>
+<div id="ref-2014LPICo1791.1380P" class="csl-entry" role="listitem">
+Portyankina, G., C. J. Hansen, N. Thomas, <strong>K.-M. Aye</strong>, and A. Pommerol. 2014. <span>“<span class="nocase">Seasonal Polar Caps of Mars in Spring: Cold Jet Activity Observed By MRO’s HiRISE and CRISM</span>.”</span> In <em>Eighth International Conference on Mars</em>, edited by LPI Editorial Board, 1791:1380. LPI Contributions.
+</div>
+<div id="ref-2014AGUFM.P13B3819S" class="csl-entry" role="listitem">
+Sefton-Nash, E., <strong>K. M. Aye</strong>, J. P. Williams, B. T. Greenhagen, M. Sullivan, and D. A. Paige. 2014. <span>“<span class="nocase">The LRO Diviner Foundation Dataset: A Comprehensive Temperature Record of the Moon</span>.”</span> In <em>AGU Fall Meeting Abstracts</em>, 2014:P13B–3819. AGU Fall Meeting Abstracts.
 </div>
 </section>
 <section id="section-2013" class="level2">
 <h2 class="anchored" data-anchor-id="section-2013">2013</h2>
-<div id="ref-ayeColdestPlaceMoon2013" class="csl-entry" role="listitem">
-<strong>Aye, Klaus Michael</strong>, D A Paige, M C Foote, B T Greenhagen, and M A Siegler. 2013. <span>“The <span>Coldest Place</span> on the <span>Moon</span>.”</span> In, 1719:3016. <a href="http://adsabs.harvard.edu/cgi-bin/nph-data_query?bibcode=2013LPICo1719.3016A&amp;link_type=ABSTRACT">http://adsabs.harvard.edu/cgi-bin/nph-data_query?bibcode=2013LPICo1719.3016A&amp;link_type=ABSTRACT</a>.
+<div id="ref-2013LPI....44.3016A" class="csl-entry" role="listitem">
+<strong>Aye, K.-M.</strong>, D. A. Paige, M. C. Foote, B. T. Greenhagen, and M. A. Siegler. 2013. <span>“<span class="nocase">The Coldest Place on the Moon</span>.”</span> In <em>44th Annual Lunar and Planetary Science Conference</em>, 3016. Lunar and Planetary Science Conference.
 </div>
-<div id="ref-ayeEmissivityAnisothermalityStudies2013" class="csl-entry" role="listitem">
-<strong>Aye, Klaus Michael</strong>, D A Paige, M A Siegler, and B T Greenhagen. 2013. <span>“Emissivity and <span>Anisothermality Studies</span> at the <span>Lunar Poles</span> with <span>Diviner</span>’s <span>Far Infrared Channels</span>.”</span> In, 43:2027. <a href="http://adsabs.harvard.edu/cgi-bin/nph-data_query?bibcode=2013AGUFM.P43C2027A&amp;link_type=ABSTRACT">http://adsabs.harvard.edu/cgi-bin/nph-data_query?bibcode=2013AGUFM.P43C2027A&amp;link_type=ABSTRACT</a>.
+<div id="ref-2013AGUFM.P43C2027A" class="csl-entry" role="listitem">
+<strong>Aye, K.</strong>, D. A. Paige, M. A. Siegler, and B. T. Greenhagen. 2013. <span>“<span class="nocase">Emissivity and Anisothermality Studies at the Lunar Poles with Diviner’s Far Infrared Channels</span>.”</span> In <em>AGU Fall Meeting Abstracts</em>, 2013:P43C–2027. AGU Fall Meeting Abstracts.
 </div>
-<div id="ref-portyankinaObservationsNorthernSeasonal2013" class="csl-entry" role="listitem">
-Portyankina, Ganna, Antoine Pommerol, <strong>Klaus-Michael Aye</strong>, Candice J Hansen, and Nicolas Thomas. 2013. <span>“Observations of the Northern Seasonal Polar Cap on <span>Mars II</span>: <span>HiRISE</span> Photometric Analysis of Evolution of Northern Polar Dunes in Spring.”</span> <em>Icarus</em> 225 (2): 898–910. <a href="https://doi.org/10.1016/j.icarus.2012.10.017">https://doi.org/10.1016/j.icarus.2012.10.017</a>.
+<div id="ref-2013EPSC....8..855H" class="csl-entry" role="listitem">
+Hansen, C. J., G. Portyankina, <strong>K. M. Aye</strong>, M. E. Schwamb, C. Lintott, and A. Smith. 2013. <span>“<span class="nocase">Mars’ Seasonal Fans Measured by Citizen Scientists</span>.”</span> In <em>European Planetary Science Congress</em>, EPSC2013–855.
 </div>
-<div id="ref-portyankinaSpringSublimationMars2013" class="csl-entry" role="listitem">
-Portyankina, G., A. Pommerol, <strong>K. -M. Aye</strong>, C. Hansen, and N. Thomas. 2013. <span>“Spring <span>Sublimation</span> on <span>Mars</span>: <span>Do Northern</span> and <span>Southern Hemispheres</span> Tell Us the <span>Same Story</span>?”</span> March, 1776. <a href="https://ui.adsabs.harvard.edu/abs/2013LPI....44.1776P">https://ui.adsabs.harvard.edu/abs/2013LPI....44.1776P</a>.
+<div id="ref-2013EPSC....8..418M" class="csl-entry" role="listitem">
+Merrison, J., <strong>K. M. Aye</strong>, G. A. Douillet, U. Kueppers, J. Mason, A. Merlone, M. Patel, and G. Portyankina. 2013. <span>“<span class="nocase">Activities at a European Planetary Simulation Facility</span>.”</span> In <em>European Planetary Science Congress</em>, EPSC2013–418.
+</div>
+<div id="ref-2013Icar..225..911P" class="csl-entry" role="listitem">
+Pommerol, A., T. Appéré, G. Portyankina, <strong>K.-M. Aye</strong>, N. Thomas, and C. J. Hansen. 2013. <span>“<span class="nocase">Observations of the northern seasonal polar cap on Mars III: CRISM/HiRISE observations of spring sublimation</span>”</span> 225 (2): 911–22. <a href="https://doi.org/10.1016/j.icarus.2012.08.039">https://doi.org/10.1016/j.icarus.2012.08.039</a>.
+</div>
+<div id="ref-2013Icar..225..898P" class="csl-entry" role="listitem">
+Portyankina, Ganna, Antoine Pommerol, <strong>Klaus-Michael Aye</strong>, Candice J. Hansen, and Nicolas Thomas. 2013. <span>“<span class="nocase">Observations of the northern seasonal polar cap on Mars II: HiRISE photometric analysis of evolution of northern polar dunes in spring</span>”</span> 225 (2): 898–910. <a href="https://doi.org/10.1016/j.icarus.2012.10.017">https://doi.org/10.1016/j.icarus.2012.10.017</a>.
+</div>
+<div id="ref-2013LPI....44.1776P" class="csl-entry" role="listitem">
+Portyankina, G., A. Pommerol, <strong>K.-M. Aye</strong>, C. Hansen, and N. Thomas. 2013. <span>“<span class="nocase">Spring Sublimation on Mars: Do Northern and Southern Hemispheres tell us the Same Story?</span>”</span> In <em>44th Annual Lunar and Planetary Science Conference</em>, 1776. Lunar and Planetary Science Conference.
+</div>
+<div id="ref-2013EPSC....8..410P" class="csl-entry" role="listitem">
+Portyankina, G., A. Pommerol, <strong>K.-M. Aye</strong>, N. Thomas, S. Mattson, and C. J. Hansen. 2013a. <span>“<span class="nocase">Influence of small scale topography on early spring activity in martian polar areas. An example study based on DEM of Inca City region.</span>”</span> In <em>European Planetary Science Congress</em>, EPSC2013–410.
+</div>
+<div id="ref-2013AGUFM.P41A1914P" class="csl-entry" role="listitem">
+Portyankina, G., A. Pommerol, <strong>K. Aye</strong>, N. Thomas, S. Mattson, and C. J. Hansen. 2013b. <span>“<span class="nocase">Using high-resolution HiRISE digital elevation models to study early activity in polar regions</span>.”</span> In <em>AGU Fall Meeting Abstracts</em>, 2013:P41A–1914. AGU Fall Meeting Abstracts.
+</div>
+<div id="ref-2013Icar..226.1304S" class="csl-entry" role="listitem">
+Schröder, S. E., T. Maue, P. Gutiérrez Marqués, S. Mottola, <strong>K. M. Aye</strong>, H. Sierks, H. U. Keller, and A. Nathues. 2013. <span>“<span class="nocase">In-flight calibration of the Dawn Framing Camera</span>”</span> 226 (2): 1304–17. <a href="https://doi.org/10.1016/j.icarus.2013.07.036">https://doi.org/10.1016/j.icarus.2013.07.036</a>.
+</div>
+<div id="ref-2013hsa7.conf...57T" class="csl-entry" role="listitem">
+Thomas, N., C. J. Hansen, A. Pommerol, G. Portyankina, <strong>K.-M. Aye</strong>, and P. S. Russell. 2013. <span>“<span class="nocase">Observations of the surface effects of the CO2 and H2O cycles on Mars</span>.”</span> In <em>Highlights of Spanish Astrophysics VII</em>, edited by J. C. Guirado, L. M. Lara, V. Quilis, and J. Gorgas, 57–70.
 </div>
 </section>
 <section id="section-2012" class="level2">
 <h2 class="anchored" data-anchor-id="section-2012">2012</h2>
-<div id="ref-merrisonAdvancesEuropeanPlanetary2012" class="csl-entry" role="listitem">
-Merrison, J, <strong>Klaus Michael Aye</strong>, C Holstein-Rathlou, J Mason, A Merlone, P Nørnberg, M Patel, Ganna Portyankina, and K R Rasmussen. 2012. <span>“Advances in a <span>European Planetary Simulation Wind Tunnel Facility</span>.”</span> In, 99. <a href="http://adsabs.harvard.edu/cgi-bin/nph-data_query?bibcode=2012espc.conf...99M&amp;link_type=ABSTRACT">http://adsabs.harvard.edu/cgi-bin/nph-data_query?bibcode=2012espc.conf...99M&amp;link_type=ABSTRACT</a>.
+<div id="ref-2012epsc.conf...99M" class="csl-entry" role="listitem">
+Merrison, J., <strong>K. M. Aye</strong>, C. Holstein-Rathlou, J. Mason, A. Merlone, P. Nørnberg, M. Patel, G. Portyankina, and K. R. Rasmussen. 2012. <span>“<span class="nocase">Advances in a European Planetary Simulation Wind Tunnel Facility</span>.”</span> In <em>European Planetary Science Congress 2012</em>, EPSC2012–99.
+</div>
+<div id="ref-2012JGRE..117.2006P" class="csl-entry" role="listitem">
+Portyankina, Ganna, Antoine Pommerol, <strong>Klaus-Michael Aye</strong>, Candice J. Hansen, and Nicolas Thomas. 2012. <span>“<span class="nocase">Polygonal cracks in the seasonal semi-translucent CO<span class="math inline">\(_{2}\)</span> ice layer in Martian polar areas</span>.”</span> <em>Journal of Geophysical Research (Planets)</em> 117 (E2): E02006. <a href="https://doi.org/10.1029/2011JE003917">https://doi.org/10.1029/2011JE003917</a>.
+</div>
+<div id="ref-2012epsc.conf..938T" class="csl-entry" role="listitem">
+Thomas, N., C. J. Hansen, <strong>K.-M. Aye</strong>, A. Pommerol, and G. Portyankina. 2012. <span>“<span class="nocase">HiRISE Observations of Seasonal Processes on Mars</span>.”</span> In <em>European Planetary Science Congress 2012</em>, EPSC2012–938.
+</div>
+<div id="ref-2012cosp...39.1964T" class="csl-entry" role="listitem">
+Thomas, Nicolas, Antoine Pommerol, Ganna Portyankina, <strong>Klaus-Michael Aye</strong>, and Candice Hansen. 2012. <span>“<span class="nocase">Observations and modelling of CO2 jets in the polar regions of Mars</span>.”</span> In <em>39th COSPAR Scientific Assembly</em>, 39:1964.
 </div>
 </section>
 <section id="section-2011" class="level2">
 <h2 class="anchored" data-anchor-id="section-2011">2011</h2>
-<div id="ref-ayeAutomaticDarkSpot2011" class="csl-entry" role="listitem">
-<strong>Aye, Klaus Michael</strong>, Ganna Portyankina, Antoine Pommerol, and N Thomas. 2011. <span>“Automatic <span>Dark Spot Identification</span> at the <span>Martian South Pole</span>.”</span> In, 1323:6081. <a href="http://adsabs.harvard.edu/cgi-bin/nph-data_query?bibcode=2011LPICo1323.6081A&amp;link_type=ARTICLE">http://adsabs.harvard.edu/cgi-bin/nph-data_query?bibcode=2011LPICo1323.6081A&amp;link_type=ARTICLE</a>.
+<div id="ref-2011LPI....42.2320A" class="csl-entry" role="listitem">
+<strong>Aye, K.-M.</strong>, A. Pommerol, G. Portyankina, N. Thomas, and C. J. Hansen. 2011. <span>“<span class="nocase">Martian South Polar Terrains in Spring: I. Multi-Instrumental Observations</span>.”</span> In <em>42nd Annual Lunar and Planetary Science Conference</em>, 2320. Lunar and Planetary Science Conference.
 </div>
-<div id="ref-portyankinaHowCreateTranslucent2011" class="csl-entry" role="listitem">
-Portyankina, Ganna, J Merrison, <strong>Klaus Michael Aye</strong>, J J Iversen, Candice J Hansen, Antoine Pommerol, and N Thomas. 2011. <span>“How to <span>Create Translucent CO2 Ice</span> on <span>Mars</span>: <span>Simulations Using</span> the <span>Wind Tunnel</span> of <span>Aarhus Mars Laboratory</span>.”</span> In, 1623:6021. <a href="http://adsabs.harvard.edu/cgi-bin/nph-data_query?bibcode=2011LPICo1623.6021P&amp;link_type=ARTICLE">http://adsabs.harvard.edu/cgi-bin/nph-data_query?bibcode=2011LPICo1623.6021P&amp;link_type=ARTICLE</a>.
+<div id="ref-2011LPICo1623.6081A" class="csl-entry" role="listitem">
+<strong>Aye, K.-M.</strong>, G. Portyankina, A. Pommerol, and N. Thomas. 2011. <span>“<span class="nocase">Automatic Dark Spot Identification at the Martian South Pole</span>.”</span> In <em>Fifth International Conference on Mars Polar Science and Exploration</em>, edited by LPI Editorial Board, 1623:6081. LPI Contributions.
 </div>
-<div id="ref-portyankinaMartianSouthPolar2011" class="csl-entry" role="listitem">
-Portyankina, Ganna, N Thomas, Antoine Pommerol, <strong>Klaus Michael Aye</strong>, Candice J Hansen, and K Herkenhoff. 2011. <span>“Martian <span>South Polar Terrains</span> in <span>Spring</span>: <span>II</span>. <span>Modelling</span> of <span>Relevant Physical Processes</span>.”</span> In, 42:1709. <a href="http://adsabs.harvard.edu/cgi-bin/nph-data_query?bibcode=2011LPI....42.1709P&amp;link_type=ABSTRACT">http://adsabs.harvard.edu/cgi-bin/nph-data_query?bibcode=2011LPI....42.1709P&amp;link_type=ABSTRACT</a>.
+<div id="ref-2011LPICo1623.6013P" class="csl-entry" role="listitem">
+Pommerol, A., G. Portyankina, N. Thomas, <strong>K.-M. Aye</strong>, T. Appere, C. J. Hansen, M. Vincendon, and Y. Langevin. 2011. <span>“<span class="nocase">Spring Evolution of Martian Seasonal Caps from High-Resolution MRO Observations</span>.”</span> In <em>Fifth International Conference on Mars Polar Science and Exploration</em>, edited by LPI Editorial Board, 1623:6013. LPI Contributions.
+</div>
+<div id="ref-2011JGRE..116.8007P" class="csl-entry" role="listitem">
+Pommerol, A., G. Portyankina, N. Thomas, <strong>K.-M. Aye</strong>, C. J. Hansen, M. Vincendon, and Y. Langevin. 2011. <span>“<span class="nocase">Evolution of south seasonal cap during Martian spring: Insights from high-resolution observations by HiRISE and CRISM on Mars Reconnaissance Orbiter</span>.”</span> <em>Journal of Geophysical Research (Planets)</em> 116 (E8): E08007. <a href="https://doi.org/10.1029/2010JE003790">https://doi.org/10.1029/2010JE003790</a>.
+</div>
+<div id="ref-2011P&amp;SS...59.1601P" class="csl-entry" role="listitem">
+Pommerol, A., N. Thomas, M. Affolter, G. Portyankina, B. Jost, K. Seiferlin, and <strong>K.-M. Aye</strong>. 2011. <span>“<span class="nocase">Photometry and bulk physical properties of Solar System surfaces icy analogs: The Planetary Ice Laboratory at University of Bern</span>”</span> 59 (13): 1601–12. <a href="https://doi.org/10.1016/j.pss.2011.07.009">https://doi.org/10.1016/j.pss.2011.07.009</a>.
+</div>
+<div id="ref-2011LPICo1623.6021P" class="csl-entry" role="listitem">
+Portyankina, G., J. Merrison, <strong>K.-M. Aye</strong>, J. J. Iversen, C. Hansen, A. Pommerol, and N. Thomas. 2011. <span>“<span class="nocase">How to Create Translucent CO2 Ice on Mars: Simulations Using the Wind Tunnel of Aarhus Mars Laboratory</span>.”</span> In <em>Fifth International Conference on Mars Polar Science and Exploration</em>, edited by LPI Editorial Board, 1623:6021. LPI Contributions.
+</div>
+<div id="ref-2011epsc.conf..339P" class="csl-entry" role="listitem">
+Portyankina, G., A. Pommerol, <strong>K.-M. Aye</strong>, C. Hansen, S. Mattson, N. Thomas, and K. Herkenhoff. 2011. <span>“<span class="nocase">Multi-step model of seasonal activity related to CO2 ice basal sublimation in Martian polar areas</span>.”</span> In <em>EPSC-DPS Joint Meeting 2011</em>, 2011:339.
+</div>
+<div id="ref-2011LPI....42.1709P" class="csl-entry" role="listitem">
+Portyankina, G., N. Thomas, A. Pommerol, <strong>K.-M. Aye</strong>, C. J. Hansen, and K. Herkenhoff. 2011. <span>“<span class="nocase">Martian South Polar Terrains in Spring: II. Modelling of Relevant Physical Processes</span>.”</span> In <em>42nd Annual Lunar and Planetary Science Conference</em>, 1709. Lunar and Planetary Science Conference.
 </div>
 </section>
 <section id="section-2010" class="level2">
 <h2 class="anchored" data-anchor-id="section-2010">2010</h2>
-<div id="ref-ayeSemiautomaticMeasuresActivity2010" class="csl-entry" role="listitem">
-<strong>Aye, Klaus Michael</strong>, Ganna Portyankina, Antoine Pommerol, and Nicolas Thomas. 2010. <span>“Semi-Automatic Measures of Activity in Selected South Polar Regions of <span>Mars</span> Using Morphological Image Analysis.”</span> In, 38:522. <a href="http://adsabs.harvard.edu/cgi-bin/nph-data_query?bibcode=2010cosp...38..522A&amp;link_type=ABSTRACT">http://adsabs.harvard.edu/cgi-bin/nph-data_query?bibcode=2010cosp...38..522A&amp;link_type=ABSTRACT</a>.
+<div id="ref-2010cosp...38..522A" class="csl-entry" role="listitem">
+<strong>Aye, Klaus-Michael</strong>, Ganna Portyankina, Antoine Pommerol, and Nicolas Thomas. 2010. <span>“<span class="nocase">Semi-automatic measures of activity in selected south polar regions of Mars using morphological image analysis</span>.”</span> In <em>38th COSPAR Scientific Assembly</em>, 38:5.
 </div>
-<div id="ref-ayeSemiAutomaticMeasuresActivity2010" class="csl-entry" role="listitem">
-<strong>Aye, K-M</strong>, G Portyankina, and N Thomas. 2010. <span>“Semi-<span>Automatic Measures</span> of <span>Activity</span> in the <span>Inca City Region</span> of <span>Mars Using Morphological Image Analysis</span>.”</span> In, 41:2707. <a href="https://ui.adsabs.harvard.edu/#abs/2010LPI....41.2707A">https://ui.adsabs.harvard.edu/#abs/2010LPI....41.2707A</a>.
+<div id="ref-2010LPI....41.2707A" class="csl-entry" role="listitem">
+<strong>Aye, K.-M.</strong>, G. Portyankina, and N. Thomas. 2010. <span>“<span class="nocase">Semi-Automatic Measures of Activity in the Inca City Region of Mars Using Morphological Image Analysis</span>.”</span> In <em>41st Annual Lunar and Planetary Science Conference</em>, 2707. Lunar and Planetary Science Conference.
 </div>
-<div id="ref-portyankinaNorthernPolarDunes2010" class="csl-entry" role="listitem">
-Portyankina, Ganna, Nicolas Thomas, Antoine Pommerol, and <strong>Klaus Michael Aye</strong>. 2010. <span>“Northern Polar Dunes: A Spring Activity Analog to That Seen in Southern Polar Terrains.”</span> In, 38:511. <a href="http://adsabs.harvard.edu/cgi-bin/nph-data_query?bibcode=2010cosp...38..511P&amp;link_type=ABSTRACT">http://adsabs.harvard.edu/cgi-bin/nph-data_query?bibcode=2010cosp...38..511P&amp;link_type=ABSTRACT</a>.
+<div id="ref-2010cosp...38..510P" class="csl-entry" role="listitem">
+Pommerol, Antoine, Ganna Portyankina, Nicolas Thomas, <strong>Klaus-Michael Aye</strong>, Mathieu Vincendon, and Yves Langevin. 2010. <span>“<span class="nocase">Towards a general scenario for spring sublimation of volatiles in the South Polar Regions of Mars: insights from MRO high-resolution observations by HiRISE and CRISM.</span>”</span> In <em>38th COSPAR Scientific Assembly</em>, 38:7.
+</div>
+<div id="ref-2010epsc.conf..316P" class="csl-entry" role="listitem">
+Pommerol, A., G. Portyankina, N. Thomas, <strong>K.-M. Aye</strong>, C. J. Hansen, M. Vincendon, and Y. Langevin. 2010. <span>“<span class="nocase">Spring evolution of Martian south polar terrains: insights from high-resolution observations by HiRISE and CRISM.</span>”</span> In <em>European Planetary Science Congress 2010</em>, 316.
+</div>
+<div id="ref-2010cosp...38..511P" class="csl-entry" role="listitem">
+Portyankina, Ganna, Nicolas Thomas, Antoine Pommerol, and <strong>Klaus-Michael Aye</strong>. 2010. <span>“<span class="nocase">Northern polar dunes: a spring activity analog to that seen in southern polar terrains</span>.”</span> In <em>38th COSPAR Scientific Assembly</em>, 38:5.
+</div>
+<div id="ref-2010LPI....41.2671P" class="csl-entry" role="listitem">
+Portyankina, G., N. Thomas, C. Hansen, and <strong>K.-M. Aye</strong>. 2010. <span>“<span class="nocase">Cracks in Seasonal Semi-Translucent Ice Layer in Martian Polar Areas</span>.”</span> In <em>41st Annual Lunar and Planetary Science Conference</em>, 2671. Lunar and Planetary Science Conference.
+</div>
+<div id="ref-2010LPI....41.1582P" class="csl-entry" role="listitem">
+Portyankina, G., M. Vincendon, N. Thomas, and <strong>K.-M. Aye</strong>. 2010. <span>“<span class="nocase">Recovery of Surface Reflectance from Atmospheric Aerosol Contribution: Application to HiRISE Images</span>.”</span> In <em>41st Annual Lunar and Planetary Science Conference</em>, 1582. Lunar and Planetary Science Conference.
+</div>
+</section>
+<section id="section-2009" class="level2">
+<h2 class="anchored" data-anchor-id="section-2009">2009</h2>
+<div id="ref-2009EGUGA..1111272P" class="csl-entry" role="listitem">
+Portyankina, G., N. Thomas, C. J. Hansen, F. Schmidt, and <strong>K.-M. Aye</strong>. 2009. <span>“<span class="nocase">Early spring evolution of the Giza and Inca City regions as observed by the High Resolution Imaging Science Experiment over two Martian years</span>.”</span> In <em>EGU General Assembly Conference Abstracts</em>, 11272. EGU General Assembly Conference Abstracts.
 </div>
 </section>
 <section id="section-2005" class="level2">
 <h2 class="anchored" data-anchor-id="section-2005">2005</h2>
-<div id="ref-ayeAtmosphericSensingArray2005" class="csl-entry" role="listitem">
-<strong>Aye, Klaus Michael</strong>, A M Brown, P M Chadwick, C Hadjichristidis, I J Latham, R Le Gallou, T J L McComb, et al. 2005. <span>“Atmospheric Sensing for the <span>H</span>.<span>E</span>.<span>S</span>.<span>S</span>. Array.”</span> In, 745:724–29. AIP. <a href="https://doi.org/10.1063/1.1878491">https://doi.org/10.1063/1.1878491</a>.
+<div id="ref-2005A&amp;A...430..865A" class="csl-entry" role="listitem">
+Aharonian, F., A. G. Akhperjanian, <strong>K.-M. Aye</strong>, A. R. Bazer-Bachi, M. Beilicke, W. Benbow, D. Berge, P. Berghaus, K. Bernlöhr, O. Bolz, et al. 2005. <span>“<span class="nocase">H.E.S.S. observations of PKS 2155-304</span>”</span> 430 (February): 865–75. <a href="https://doi.org/10.1051/0004-6361:20041853">https://doi.org/10.1051/0004-6361:20041853</a>.
+</div>
+<div id="ref-2005Sci...307.1938A" class="csl-entry" role="listitem">
+Aharonian, F., A. G. Akhperjanian, <strong>K.-M. Aye</strong>, A. R. Bazer-Bachi, M. Beilicke, W. Benbow, D. Berge, P. Berghaus, K. Bernlöhr, C. Boisson, O. Bolz, C. Borgmeier, I. Braun, F. Breitling, A. M. Brown, J. Bussons Gordo, et al. 2005. <span>“<span class="nocase">A New Population of Very High Energy Gamma-Ray Sources in the Milky Way</span>.”</span> <em>Science</em> 307 (5717): 1938–42. <a href="https://doi.org/10.1126/science.1108643">https://doi.org/10.1126/science.1108643</a>.
+</div>
+<div id="ref-2005A&amp;A...432L...9A" class="csl-entry" role="listitem">
+Aharonian, F., A. G. Akhperjanian, <strong>K.-M. Aye</strong>, A. R. Bazer-Bachi, M. Beilicke, W. Benbow, D. Berge, P. Berghaus, K. Bernlöhr, C. Boisson, O. Bolz, C. Borgmeier, I. Braun, F. Breitling, A. M. Brown, J. Bussons Gordo, P. M. Chadwick, L.-M. Chounet, R. Cornils, L. Costamante, B. Degrange, A. Djannati-Ataı̈, L. O’C. Drury, G. Dubus, T. Ergin, P. Espigat, F. Feinstein, P. Fleury, G. Fontaine, Y. Fuchs, et al. 2005. <span>“<span class="nocase">Search for TeV emission from the region around PSR B1706-44 with the HESS experiment</span>”</span> 432 (1): L9–12. <a href="https://doi.org/10.1051/0004-6361:200500008">https://doi.org/10.1051/0004-6361:200500008</a>.
+</div>
+<div id="ref-2005A&amp;A...432L..25A" class="csl-entry" role="listitem">
+Aharonian, F., A. G. Akhperjanian, <strong>K.-M. Aye</strong>, A. R. Bazer-Bachi, M. Beilicke, W. Benbow, D. Berge, P. Berghaus, K. Bernlöhr, C. Boisson, O. Bolz, C. Borgmeier, I. Braun, F. Breitling, A. M. Brown, J. Bussons Gordo, P. M. Chadwick, L.-M. Chounet, R. Cornils, L. Costamante, B. Degrange, A. Djannati-Ataı̈, L. O’C. Drury, G. Dubus, T. Ergin, P. Espigat, F. Feinstein, P. Fleury, G. Fontaine, S. Funk, et al. 2005. <span>“<span class="nocase">Very high energy gamma rays from the composite SNR G 0.9+0.1</span>”</span> 432 (2): L25–29. <a href="https://doi.org/10.1051/0004-6361:200500022">https://doi.org/10.1051/0004-6361:200500022</a>.
+</div>
+<div id="ref-2005A&amp;A...435L..17A" class="csl-entry" role="listitem">
+Aharonian, F., A. G. Akhperjanian, <strong>K.-M. Aye</strong>, A. R. Bazer-Bachi, M. Beilicke, W. Benbow, D. Berge, P. Berghaus, K. Bernlöhr, C. Boisson, O. Bolz, I. Braun, F. Breitling, A. M. Brown, J. Bussons Gordo, P. M. Chadwick, L.-M. Chounet, R. Cornils, L. Costamante, B. Degrange, A. Djannati-Ataı̈, L. O’C. Drury, G. Dubus, D. Emmanoulopoulos, P. Espigat, F. Feinstein, P. Fleury, G. Fontaine, Y. Fuchs, S. Funk, Y. A. Gallant, B. Giebels, S. Gillessen, J. F. Glicenstein, P. Goret, C. Hadjichristidis, M. Hauser, G. Heinzelmann, G. Henri, G. Hermann, J. A. Hinton, W. Hofmann, M. Holleran, D. Horns, O. C. de Jager, B. Khélifi, Nu. Komin, A. Konopelko, I. J. Latham, R. Le Gallou, A. Lemière, M. Lemoine-Goumard, N. Leroy, T. Lohse, O. Martineau-Huynh, A. Marcowith, C. Masterson, T. J. L. McComb, M. de Naurois, S. J. Nolan, A. Noutsos, K. J. Orford, J. L. Osborne, M. Ouchrif, M. Panter, G. Pelletier, S. Pita, G. Pühlhofer, M. Punch, B. C. Raubenheimer, M. Raue, J. Raux, S. M. Rayner, I. Redondo, A. Reimer, O. Reimer, J. Ripken, L. Rob, L. Rolland, G. Rowell, V. Sahakian, L. Saugé, S. Schlenker, R. Schlickeiser, C. Schuster, U. Schwanke, M. Siewert, H. Sol, R. Steenkamp, C. Stegmann, J.-P. Tavernet, R. Terrier, C. G. Théoret, M. Tluczykont, G. Vasileiadis, et al. 2005a. <span>“<span class="nocase">Discovery of extended VHE gamma-ray emission from the asymmetric pulsar wind nebula in MSH 15-52 with HESS</span>”</span> 435 (1): L17–20. <a href="https://doi.org/10.1051/0004-6361:200500105">https://doi.org/10.1051/0004-6361:200500105</a>.
+</div>
+<div id="ref-2005A&amp;A...436L..17A" class="csl-entry" role="listitem">
+Aharonian, F., A. G. Akhperjanian, <strong>K.-M. Aye</strong>, A. R. Bazer-Bachi, M. Beilicke, W. Benbow, D. Berge, P. Berghaus, K. Bernlöhr, C. Boisson, O. Bolz, I. Braun, F. Breitling, A. M. Brown, J. Bussons Gordo, P. M. Chadwick, L.-M. Chounet, R. Cornils, L. Costamante, B. Degrange, A. Djannati-Ataı̈, L. O’C. Drury, G. Dubus, D. Emmanoulopoulos, P. Espigat, F. Feinstein, P. Fleury, G. Fontaine, Y. Fuchs, S. Funk, Y. A. Gallant, B. Giebels, S. Gillessen, J. F. Glicenstein, P. Goret, C. Hadjichristidis, M. Hauser, G. Heinzelmann, G. Henri, G. Hermann, J. A. Hinton, W. Hofmann, M. Holleran, D. Horns, O. C. de Jager, B. Khélifi, Nu. Komin, A. Konopelko, I. J. Latham, R. Le Gallou, A. Lemière, M. Lemoine-Goumard, N. Leroy, T. Lohse, O. Martineau-Huynh, A. Marcowith, C. Masterson, T. J. L. McComb, M. de Naurois, S. J. Nolan, A. Noutsos, K. J. Orford, J. L. Osborne, M. Ouchrif, M. Panter, G. Pelletier, S. Pita, G. Pühlhofer, M. Punch, B. C. Raubenheimer, M. Raue, J. Raux, S. M. Rayner, I. Redondo, A. Reimer, O. Reimer, J. Ripken, L. Rob, L. Rolland, G. Rowell, V. Sahakian, L. Saugé, S. Schlenker, R. Schlickeiser, C. Schuster, U. Schwanke, M. Siewert, H. Sol, R. Steenkamp, C. Stegmann, J.-P. Tavernet, R. Terrier, C. G. Théoret, M. Tluczykont, G. Vasileiadis, et al. 2005b. <span>“<span class="nocase">Discovery of VHE gamma rays from PKS 2005-489</span>”</span> 436 (2): L17–20. <a href="https://doi.org/10.1051/0004-6361:200500113">https://doi.org/10.1051/0004-6361:200500113</a>.
+</div>
+<div id="ref-2005Sci...309..746A" class="csl-entry" role="listitem">
+Aharonian, F., A. G. Akhperjanian, <strong>K.-M. Aye</strong>, A. R. Bazer-Bachi, M. Beilicke, W. Benbow, D. Berge, P. Berghaus, K. Bernlöhr, C. Boisson, O. Bolz, V. Borrel, et al. 2005. <span>“<span class="nocase">Discovery of Very High Energy Gamma Rays Associated with an X-ray Binary</span>.”</span> <em>Science</em> 309 (5735): 746–49. <a href="https://doi.org/10.1126/science.1113764">https://doi.org/10.1126/science.1113764</a>.
+</div>
+<div id="ref-2005A&amp;A...437...95A" class="csl-entry" role="listitem">
+Aharonian, F., A. G. Akhperjanian, <strong>K.-M. Aye</strong>, A. R. Bazer-Bachi, M. Beilicke, W. Benbow, D. Berge, P. Berghaus, K. Bernlöhr, C. Boisson, O. Bolz, I. Braun, F. Breitling, A. M. Brown, J. Bussons Gordo, P. M. Chadwick, L.-M. Chounet, R. Cornils, L. Costamante, B. Degrange, A. Djannati-Ataı̈, L. O’C. Drury, G. Dubus, D. Emmanoulopoulos, P. Espigat, F. Feinstein, P. Fleury, G. Fontaine, Y. Fuchs, S. Funk, Y. A. Gallant, B. Giebels, S. Gillessen, J. F. Glicenstein, P. Goret, C. Hadjichristidis, M. Hauser, G. Heinzelmann, G. Henri, G. Hermann, J. A. Hinton, W. Hofmann, M. Holleran, D. Horns, O. C. de Jager, B. Khélifi, Nu. Komin, A. Konopelko, I. J. Latham, R. Le Gallou, A. Lemière, M. Lemoine, et al. 2005. <span>“<span class="nocase">Observations of Mkn 421 in 2004 with HESS at large zenith angles</span>”</span> 437 (1): 95–99. <a href="https://doi.org/10.1051/0004-6361:20053050">https://doi.org/10.1051/0004-6361:20053050</a>.
+</div>
+<div id="ref-2005A&amp;A...437..135A" class="csl-entry" role="listitem">
+Aharonian, F., A. G. Akhperjanian, <strong>K.-M. Aye</strong>, A. R. Bazer-Bachi, M. Beilicke, W. Benbow, D. Berge, P. Berghaus, K. Bernlöhr, C. Boisson, O. Bolz, C. Borgmeier, F. Breitling, et al. 2005. <span>“<span class="nocase">Upper limits to the SN1006 multi-TeV gamma-ray flux from HESS observations</span>”</span> 437 (1): 135–39. <a href="https://doi.org/10.1051/0004-6361:20042522">https://doi.org/10.1051/0004-6361:20042522</a>.
+</div>
+<div id="ref-2005A&amp;A...439.1013A" class="csl-entry" role="listitem">
+Aharonian, F., A. G. Akhperjanian, <strong>K.-M. Aye</strong>, A. R. Bazer-Bachi, M. Beilicke, W. Benbow, D. Berge, P. Berghaus, K. Bernlöhr, C. Boisson, O. Bolz, I. Braun, F. Breitling, A. M. Brown, J. Bussons Gordo, P. M. Chadwick, L.-M. Chounet, R. Cornils, L. Costamante, B. Degrange, A. Djannati-Ataı̈, L. O’C. Drury, G. Dubus, D. Emmanoulopoulos, P. Espigat, F. Feinstein, P. Fleury, G. Fontaine, Y. Fuchs, S. Funk, Y. A. Gallant, B. Giebels, S. Gillessen, J. F. Glicenstein, P. Goret, C. Hadjichristidis, M. Hauser, G. Heinzelmann, G. Henri, G. Hermann, J. A. Hinton, W. Hofmann, M. Holleran, D. Horns, O. C. de Jager, B. Khélifi, Nu. Komin, A. Konopelko, I. J. Latham, R. Le Gallou, A. Lemière, M. Lemoine-Goumard, N. Leroy, T. Lohse, O. Martineau-Huynh, A. Marcowith, C. Masterson, T. J. L. McComb, M. de Naurois, S. J. Nolan, A. Noutsos, K. J. Orford, J. L. Osborne, M. Ouchrif, M. Panter, G. Pelletier, S. Pita, G. Pühlhofer, M. Punch, B. C. Raubenheimer, M. Raue, J. Raux, S. M. Rayner, I. Redondo, A. Reimer, O. Reimer, J. Ripken, L. Rob, L. Rolland, G. Rowell, V. Sahakian, L. Saugé, S. Schlenker, R. Schlickeiser, C. Schuster, U. Schwanke, M. Siewert, H. Sol, R. Steenkamp, C. Stegmann, J.-P. Tavernet, R. Terrier, C. G. Théoret, M. Tluczykont, D. J. van der Walt, et al. 2005. <span>“<span class="nocase">Serendipitous discovery of the unidentified extended TeV <span><span class="math inline">\(\gamma\)</span></span>-ray source HESS J1303-631</span>”</span> 439 (3): 1013–21. <a href="https://doi.org/10.1051/0004-6361:20053195">https://doi.org/10.1051/0004-6361:20053195</a>.
+</div>
+<div id="ref-2005A&amp;A...442....1A" class="csl-entry" role="listitem">
+Aharonian, F., A. G. Akhperjanian, <strong>K.-M. Aye</strong>, A. R. Bazer-Bachi, M. Beilicke, W. Benbow, D. Berge, P. Berghaus, K. Bernlöhr, C. Boisson, O. Bolz, I. Braun, F. Breitling, A. M. Brown, J. Bussons Gordo, P. M. Chadwick, L.-M. Chounet, R. Cornils, L. Costamante, B. Degrange, A. Djannati-Ataı̈, L. O’C. Drury, G. Dubus, D. Emmanoulopoulos, P. Espigat, F. Feinstein, P. Fleury, G. Fontaine, Y. Fuchs, S. Funk, Y. A. Gallant, B. Giebels, S. Gillessen, J. F. Glicenstein, P. Goret, C. Hadjichristidis, M. Hauser, G. Heinzelmann, G. Henri, G. Hermann, J. A. Hinton, W. Hofmann, M. Holleran, D. Horns, O. C. de Jager, S. Johnston, et al. 2005. <span>“<span class="nocase">Discovery of the binary pulsar PSR B1259-63 in very-high-energy gamma rays around periastron with HESS</span>”</span> 442 (1): 1–10. <a href="https://doi.org/10.1051/0004-6361:20052983">https://doi.org/10.1051/0004-6361:20052983</a>.
+</div>
+<div id="ref-2005AIPC..745..724A" class="csl-entry" role="listitem">
+<strong>Aye, K.-M.</strong>, A. M. Brown, P. M. Chadwick, C. Hadjichristidis, I. J. Latham, R. Le Gallou, T. J. L. McComb, et al. 2005. <span>“<span class="nocase">Atmospheric sensing for the H.E.S.S. array</span>.”</span> In <em>High Energy Gamma-Ray Astronomy</em>, edited by Felix A. Aharonian, Heinz J. Völk, and Dieter Horns, 745:724–29. American Institute of Physics Conference Series. AIP. <a href="https://doi.org/10.1063/1.1878491">https://doi.org/10.1063/1.1878491</a>.
+</div>
+<div id="ref-2005AIPC..745..323L" class="csl-entry" role="listitem">
+Latham, I. J., <strong>K.-M. Aye</strong>, A. M. Brown, P. M. Chadwick, C. N. Hadjichristidis, R. Le Gallou, T. J. L. McComb, et al. 2005. <span>“<span class="nocase"><span><span class="math inline">\(\gamma\)</span></span>-Ray Generation in Microquasars: the link with AGN</span>.”</span> In <em>High Energy Gamma-Ray Astronomy</em>, edited by Felix A. Aharonian, Heinz J. Völk, and Dieter Horns, 745:323–28. American Institute of Physics Conference Series. AIP. <a href="https://doi.org/10.1063/1.1878424">https://doi.org/10.1063/1.1878424</a>.
+</div>
+</section>
+<section id="section-2004" class="level2">
+<h2 class="anchored" data-anchor-id="section-2004">2004</h2>
+<div id="ref-2004Natur.432...75A" class="csl-entry" role="listitem">
+Aharonian, F. A., A. G. Akhperjanian, <strong>K.-M. Aye</strong>, A. R. Bazer-Bachi, M. Beilicke, W. Benbow, D. Berge, et al. 2004. <span>“<span class="nocase">High-energy particle acceleration in the shell of a supernova remnant</span>”</span> 432 (7013): 75–77. <a href="https://doi.org/10.1038/nature02960">https://doi.org/10.1038/nature02960</a>.
+</div>
+<div id="ref-2004A&amp;A...425L..13A" class="csl-entry" role="listitem">
+Aharonian, F., A. G. Akhperjanian, <strong>K.-M. Aye</strong>, A. R. Bazer-Bachi, M. Beilicke, W. Benbow, D. Berge, P. Berghaus, K. Bernlöhr, O. Bolz, C. Boisson, C. Borgmeier, F. Breitling, A. M. Brown, J. Bussons Gordo, et al. 2004. <span>“<span class="nocase">Very high energy gamma rays from the direction of Sagittarius A<span class="math inline">\(^{*}\)</span></span>”</span> 425 (October): L13–17. <a href="https://doi.org/10.1051/0004-6361:200400055">https://doi.org/10.1051/0004-6361:200400055</a>.
+</div>
+<div id="ref-2004APh....22..109A" class="csl-entry" role="listitem">
+Aharonian, F., A. G. Akhperjanian, <strong>K.-M. Aye</strong>, A. R. Bazer-Bachi, M. Beilicke, W. Benbow, D. Berge, P. Berghaus, K. Bernlöhr, O. Bolz, C. Boisson, C. Borgmeier, F. Breitling, A. M. Brown, P. M. Chadwick, et al. 2004. <span>“<span class="nocase">Calibration of cameras of the H.E.S.S. detector</span>.”</span> <em>Astroparticle Physics</em> 22 (2): 109–25. <a href="https://doi.org/10.1016/j.astropartphys.2004.06.006">https://doi.org/10.1016/j.astropartphys.2004.06.006</a>.
 </div>
 </section>
 <section id="section-2003" class="level2">
 <h2 class="anchored" data-anchor-id="section-2003">2003</h2>
-<div id="ref-ayeAluminiumMirrorsAlternative2003" class="csl-entry" role="listitem">
-<strong>Aye, Klaus Michael</strong>, P M Chadwick, C N Hadjichristidis, I J Latham, R Le Gallou, T J L McComb, J M McKenny, et al. 2003. <span>“Aluminium <span>Mirrors</span>: <span>An Alternative</span> for <span>Ground Based Cherenkov Telescopes</span>.”</span> In, 5:2915. <a href="http://adsabs.harvard.edu/cgi-bin/nph-data_query?bibcode=2003ICRC....5.2915A&amp;link_type=ABSTRACT">http://adsabs.harvard.edu/cgi-bin/nph-data_query?bibcode=2003ICRC....5.2915A&amp;link_type=ABSTRACT</a>.
+<div id="ref-2003ICRC....5.2915A" class="csl-entry" role="listitem">
+<strong>Aye, K.-M.</strong>, P. M. Chadwick, C. N. Hadjichristidis, I. J. Latham, R. Le Gallou, T. J. L. McComb, J. M. McKenny, et al. 2003. <span>“<span class="nocase">Aluminium Mirrors: An Alternative for Ground Based Cherenkov Telescopes</span>.”</span> In <em>International Cosmic Ray Conference</em>, 5:2915. International Cosmic Ray Conference.
+</div>
+<div id="ref-2003ICRC....5.2879A" class="csl-entry" role="listitem">
+<strong>Aye, K.-M.</strong>, P. M. Chadwick, C. Hadjichristidis, M. K. Daniel, I. J. Latham, R. Le Gallou, T. J. L. McComb, J. M. McKenny, A. Noutsos, et al. 2003. <span>“<span class="nocase">Atmospheric Monitoring for the H.E.S.S. Project</span>.”</span> In <em>International Cosmic Ray Conference</em>, 5:2879. International Cosmic Ray Conference.
+</div>
+<div id="ref-2003ICRC....5.2883A" class="csl-entry" role="listitem">
+<strong>Aye, K.-M.</strong>, P. M. Chadwick, C. Hadjichristidis, M. K. Daniel, I. J. Latham, R. Le Gallou, T. J. L. McComb, J. M. McKenny, S. J. Nolan, et al. 2003. <span>“<span class="nocase">Implications of LIDAR Observations at the H.E.S.S. Site in Namibia for Energy Calibration of the Atmospheric Cherenkov Telescopes</span>.”</span> In <em>International Cosmic Ray Conference</em>, 5:2883. International Cosmic Ray Conference.
+</div>
+<div id="ref-2003ICRC....5.2975A" class="csl-entry" role="listitem">
+<strong>Aye, K.-M.</strong>, P. M. Chadwick, C. Hadjichristidis, I. J. Latham, R. Le Gallou, A. Noutsos, T. J. L. McComb, et al. 2003. <span>“<span class="nocase">A Novel Alternative to UV-Lasers Used in Flat-Fielding VHE g-Ray Telescopes</span>.”</span> In <em>International Cosmic Ray Conference</em>, 5:2975. International Cosmic Ray Conference.
+</div>
+<div id="ref-2003ICRC....4.2525L" class="csl-entry" role="listitem">
+Latham, I. J., <strong>K.-M. Aye</strong>, P. M. Chadwick, C. N. Hadjichristidis, R. Le Gallou, T. J. L. McComb, J. M. McKenny, et al. 2003. <span>“<span class="nocase">g-Ray Generation in Microquasars: The Link with AGN</span>.”</span> In <em>International Cosmic Ray Conference</em>, 4:2525. International Cosmic Ray Conference.
+</div>
+<div id="ref-2003ICRC....3.1637L" class="csl-entry" role="listitem">
+Le Gallou, R., <strong>K-M Aye</strong>, P. M. Chadwick, C. Hadjichristidis, L. McComb, J. McKenny, A. Noutsos, K. J. Orford, J. L. Osborne, and S. M. Rayner. 2003. <span>“<span class="nocase">New Constraints on the Nature of Space-Time Planck Scale Fluctuations Using X-Ray and TeV Gamma-Ray Observations</span>.”</span> In <em>International Cosmic Ray Conference</em>, 3:1637. International Cosmic Ray Conference.
+</div>
+<div id="ref-2003ICRC....5.2895L" class="csl-entry" role="listitem">
+Leroy, N., O. Bolz, J. Guy, I. Jung, I. Redondo, L. Rolland, J.-P. Tavernet, et al. 2003. <span>“<span class="nocase">Calibration Results for the First Two H.E.S.S. Array Telescopes</span>.”</span> In <em>International Cosmic Ray Conference</em>, 5:2895. International Cosmic Ray Conference.
+</div>
+</section>
+<section id="section-2002" class="level2">
+<h2 class="anchored" data-anchor-id="section-2002">2002</h2>
+<div id="ref-2002A&amp;A...383..864A" class="csl-entry" role="listitem">
+Atoyan, A. M., <strong>K.-M. Aye</strong>, P. M. Chadwick, M. K. Daniel, K. Lyons, T. J. L. McComb, J. M. McKenny, et al. 2002. <span>“<span class="nocase">Very high energy gamma-rays from Centaurus X-3: Indications and implications</span>”</span> 383 (March): 864–80. <a href="https://doi.org/10.1051/0004-6361:20011732">https://doi.org/10.1051/0004-6361:20011732</a>.
 </div>
 </section>
 <section id="section-2001" class="level2">
 <h2 class="anchored" data-anchor-id="section-2001">2001</h2>
-<div id="ref-ayeCorrectingPointingDurham2001" class="csl-entry" role="listitem">
-<strong>Aye, Klaus Michael</strong>, P M Chadwick, M K Daniel, K Lyons, T J L McComb, J M McKenny, S J Nolan, K J Orford, J L Osborne, and S M Rayner. 2001a. <span>“Correcting the <span>Pointing</span> of the <span>Durham Mark</span> 6 <span>Cherenkov Telescope</span>.”</span> In, 7:2856. <a href="http://adsabs.harvard.edu/cgi-bin/nph-data_query?bibcode=2001ICRC....7.2856A&amp;link_type=ABSTRACT">http://adsabs.harvard.edu/cgi-bin/nph-data_query?bibcode=2001ICRC....7.2856A&amp;link_type=ABSTRACT</a>.
+<div id="ref-2001ICRC....6.2517A" class="csl-entry" role="listitem">
+Atoyan, A. M., <strong>K.-M. Aye</strong>, P. M. Chadwick, M. K. Daniel, K. Lyons, T. J. L. McComb, J. M. McKenny, et al. 2001a. <span>“<span class="nocase">Possible implications of VHE gamma-radiation from the X-ray binary Centaurus X-3</span>.”</span> In <em>International Cosmic Ray Conference</em>, 6:2517. International Cosmic Ray Conference.
 </div>
-<div id="ref-ayeEnergySpectraTeV2001" class="csl-entry" role="listitem">
-<strong>Aye, Klaus Michael</strong>, P M Chadwick, M K Daniel, K Lyons, T J L McComb, J M McKenny, S J Nolan, K J Orford, J L Osborne, and S M Rayner. 2001b. <span>“Energy <span>Spectra</span> of <span>TeV Sources Measured</span> with the <span>Durham Mark</span> 6 <span>Telescope</span>.”</span> In, 7:2597. <a href="http://adsabs.harvard.edu/cgi-bin/nph-data_query?bibcode=2001ICRC....7.2597A&amp;link_type=ABSTRACT">http://adsabs.harvard.edu/cgi-bin/nph-data_query?bibcode=2001ICRC....7.2597A&amp;link_type=ABSTRACT</a>.
+<div id="ref-2001ICRC....6.2493A" class="csl-entry" role="listitem">
+Atoyan, A. M., <strong>K.-M. Aye</strong>, P. M. Chadwick, M. K. Daniel, K. Lyons, T. J. L. McComb, J. M. McKenny, et al. 2001b. <span>“<span class="nocase">Timing analysis of VHE gamma-rays from Cen X-3</span>.”</span> In <em>International Cosmic Ray Conference</em>, 6:2493. International Cosmic Ray Conference.
 </div>
-<div id="ref-ayeFlatfieldingPhotomultiplierCamera2001" class="csl-entry" role="listitem">
-<strong>Aye, Klaus Michael</strong>, P M Chadwick, M K Daniel, T J L McComb, J M McKenny, S J Nolan, K J Orford, J L Osborne, and S M Rayner. 2001. <span>“Flat-Fielding of the <span>Photomultiplier Camera</span> of the <span>Phase I HESS Cherenkov Telescopes</span>.”</span> In, 7:2919. <a href="http://adsabs.harvard.edu/cgi-bin/nph-data_query?bibcode=2001ICRC....7.2919A&amp;link_type=ABSTRACT">http://adsabs.harvard.edu/cgi-bin/nph-data_query?bibcode=2001ICRC....7.2919A&amp;link_type=ABSTRACT</a>.
+<div id="ref-2001ICRC....7.2842A" class="csl-entry" role="listitem">
+<strong>Aye, K.-M.</strong>, P. M. Chadwick, M. K. Daniel, K. Lyons, T. J. L. McComb, J. M. McKenny, S. J. Nolan, K. J. Orford, J. L. Osborne, and S. M. Rayner. 2001a. <span>“<span class="nocase">Correcting High Resolution Imaging for the Effects of the Geomagnetic Field</span>.”</span> In <em>International Cosmic Ray Conference</em>, 7:2842. International Cosmic Ray Conference.
+</div>
+<div id="ref-2001ICRC....7.2856A" class="csl-entry" role="listitem">
+<strong>Aye, K.-M.</strong>, P. M. Chadwick, M. K. Daniel, K. Lyons, T. J. L. McComb, J. M. McKenny, S. J. Nolan, K. J. Orford, J. L. Osborne, and S. M. Rayner. 2001b. <span>“<span class="nocase">Correcting the Pointing of the Durham Mark 6 Cherenkov Telescope</span>.”</span> In <em>International Cosmic Ray Conference</em>, 7:2856. International Cosmic Ray Conference.
+</div>
+<div id="ref-2001ICRC....7.2597A" class="csl-entry" role="listitem">
+<strong>Aye, K.-M.</strong>, P. M. Chadwick, M. K. Daniel, K. Lyons, T. J. L. McComb, J. M. McKenny, S. J. Nolan, K. J. Orford, J. L. Osborne, and S. M. Rayner. 2001c. <span>“<span class="nocase">Energy Spectra of TeV Sources Measured with the Durham Mark 6 Telescope</span>.”</span> In <em>International Cosmic Ray Conference</em>, 7:2597. International Cosmic Ray Conference.
+</div>
+<div id="ref-2001ICRC....7.2676A" class="csl-entry" role="listitem">
+<strong>Aye, K.-M.</strong>, P. M. Chadwick, M. K. Daniel, K. Lyons, T. J. L. McComb, J. M. McKenny, S. J. Nolan, K. J. Orford, J. L. Osborne, and S. M. Rayner. 2001d. <span>“<span class="nocase">Observations of PKS 2155-304 by the University of Durham Mark 6 Telescope: An Update</span>.”</span> In <em>International Cosmic Ray Conference</em>, 7:2676. International Cosmic Ray Conference.
+</div>
+<div id="ref-2001ICRC....7.2859A" class="csl-entry" role="listitem">
+<strong>Aye, K.-M.</strong>, P. M. Chadwick, M. K. Daniel, T. J. L. McComb, J. M. McKenny, S. J. Nolan, K. J. Orford, J. L. Osborne, and S. M. Rayner. 2001e. <span>“<span class="nocase">Atmospheric Sensing for Ground-Based Gamma-Ray Telescopes</span>.”</span> In <em>International Cosmic Ray Conference</em>, 7:2859. International Cosmic Ray Conference.
+</div>
+<div id="ref-2001ICRC....7.2919A" class="csl-entry" role="listitem">
+<strong>Aye, K.-M.</strong>, P. M. Chadwick, M. K. Daniel, T. J. L. McComb, J. M. McKenny, S. J. Nolan, K. J. Orford, J. L. Osborne, and S. M. Rayner. 2001f. <span>“<span class="nocase">Flat-fielding of the Photomultiplier Camera of the Phase I HESS Cherenkov Telescopes</span>.”</span> In <em>International Cosmic Ray Conference</em>, 7:2919. International Cosmic Ray Conference.
 </div>
 </section>
 </div>
