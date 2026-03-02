@@ -26,7 +26,7 @@ Add three lines to your YAML front matter:
 ```yaml
 citeproc: false
 filters:
-  - highlight-author
+  - michaelaye/highlight-author
 highlight-author: "Aye"
 ```
 
