@@ -7,7 +7,7 @@ nocite: |
 citeproc: false
 filters:
   - michaelaye/highlight-author
-  - group-by-year.lua
+  - michaelaye/chronobib
 highlight-author: "Aye"
 title-block-banner: true
 ---
