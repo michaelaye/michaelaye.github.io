@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Michael Aye">
+<meta name="dcterms.date" content="2026-03-02">
 
-<title>Projects – Home</title>
+<title>highlight-author: A Quarto Extension to Highlight Your Name in Bibliographies – Home</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,33 +22,66 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-2a367172f4fe7d9182ebf8e09f85cb4e.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-7fb59815a1c41eec7c034637f0c35ff0.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-2a367172f4fe7d9182ebf8e09f85cb4e.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-64aecfdaf28a2a0e0d48c81b82caff02.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-eea294e0f30f5f4779076c4894dc1d37.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-64aecfdaf28a2a0e0d48c81b82caff02.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-2a367172f4fe7d9182ebf8e09f85cb4e.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-7fb59815a1c41eec7c034637f0c35ff0.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-2a367172f4fe7d9182ebf8e09f85cb4e.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-64aecfdaf28a2a0e0d48c81b82caff02.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-eea294e0f30f5f4779076c4894dc1d37.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-64aecfdaf28a2a0e0d48c81b82caff02.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -74,78 +109,16 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
 
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
 
-    const options = {
-      valueNames: ['listing-title','listing-author','listing-date','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-title","listing-author","listing-date","listing-image","listing-description","listing-categories"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
-
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
-
-<link rel="stylesheet" href="styles.css">
-<meta property="og:title" content="Projects – Home">
-<meta property="og:image" content="https://michaelaye.github.io/projects/planet-four/featured.png">
+<link rel="stylesheet" href="../../styles.css">
+<meta property="og:title" content="highlight-author: A Quarto Extension to Highlight Your Name in Bibliographies – Home">
+<meta property="og:description" content="Because every CV, grant proposal, and publication page needs it">
 <meta property="og:site_name" content="Home">
-<meta property="og:image:height" content="2516">
-<meta property="og:image:width" content="1945">
-<meta name="twitter:title" content="Projects – Home">
-<meta name="twitter:image" content="https://michaelaye.github.io/projects/planet-four/featured.png">
+<meta name="twitter:title" content="highlight-author: A Quarto Extension to Highlight Your Name in Bibliographies – Home">
+<meta name="twitter:description" content="Because every CV, grant proposal, and publication page needs it">
 <meta name="twitter:creator" content="@michaelaye">
-<meta name="twitter:image-height" content="2516">
-<meta name="twitter:image-width" content="1945">
-<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:card" content="summary">
 </head>
 
 <body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
@@ -317,7 +290,7 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Home</span>
     </a>
   </div>
@@ -328,19 +301,19 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./posts.html"> 
+    <a class="nav-link" href="../../posts.html"> 
 <span class="menu-text">Blog</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./talks.html"> 
+    <a class="nav-link" href="../../talks.html"> 
 <span class="menu-text">Talks</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./projects.html" aria-current="page"> 
+    <a class="nav-link" href="../../projects.html"> 
 <span class="menu-text">Projects</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./bibliography.html"> 
+    <a class="nav-link" href="../../bibliography.html"> 
 <span class="menu-text">Bibliography</span></a>
   </li>  
 </ul>
@@ -366,200 +339,148 @@ window.Quarto = {
 <!-- content -->
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-page-left">
-      <h1 class="title">Projects</h1>
-                      </div>
+    <div class="quarto-title column-body">
+      <h1 class="title">highlight-author: A Quarto Extension to Highlight Your Name in Bibliographies</h1>
+            <p class="subtitle lead">Because every CV, grant proposal, and publication page needs it</p>
+                                <div class="quarto-categories">
+                <div class="quarto-category">quarto</div>
+                <div class="quarto-category">academic</div>
+                <div class="quarto-category">bibliography</div>
+                <div class="quarto-category">open-source</div>
+              </div>
+                  </div>
   </div>
     
   
-  <div class="quarto-title-meta column-page-left">
+  <div class="quarto-title-meta">
 
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Michael Aye </p>
+            </div>
+    </div>
       
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">2026-03-02</p>
+      </div>
+    </div>
     
       
     </div>
     
   
-  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(5)</span></div><div class="category" data-category="Y2Fzc2luaSUyMGlzcw==">cassini iss <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Y2Fzc2luaSUyMHV2aXM=">cassini uvis <span class="quarto-category-count">(2)</span></div><div class="category" data-category="Y2l0aXplbiUyMHNjaWVuY2U=">citizen science <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Y28taQ==">co-i <span class="quarto-category-count">(2)</span></div><div class="category" data-category="bWFycw==">mars <span class="quarto-category-count">(1)</span></div><div class="category" data-category="cGRz">pds <span class="quarto-category-count">(1)</span></div><div class="category" data-category="cGk=">pi <span class="quarto-category-count">(1)</span></div><div class="category" data-category="cHl0aG9u">python <span class="quarto-category-count">(2)</span></div><div class="category" data-category="c2F0dXJuJTIwcmluZ3M=">saturn rings <span class="quarto-category-count">(1)</span></div></div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#installation" id="toc-installation" class="nav-link active" data-scroll-target="#installation">Installation</a></li>
+  <li><a href="#usage" id="toc-usage" class="nav-link" data-scroll-target="#usage">Usage</a></li>
+  <li><a href="#choosing-a-style" id="toc-choosing-a-style" class="nav-link" data-scroll-target="#choosing-a-style">Choosing a style</a></li>
+  <li><a href="#why-citeproc-false" id="toc-why-citeproc-false" class="nav-link" data-scroll-target="#why-citeproc-false">Why <code>citeproc: false</code>?</a></li>
+  <li><a href="#who-is-this-for" id="toc-who-is-this-for" class="nav-link" data-scroll-target="#who-is-this-for">Who is this for?</a></li>
+  <li><a href="#links" id="toc-links" class="nav-link" data-scroll-target="#links">Links</a></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
-<main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
+<main class="content quarto-banner-title-block" id="quarto-document-content">
 
 
 
 
 
 
+<p>If you’ve ever built an academic homepage, a CV, or a grant proposal in Quarto, you’ve probably wanted one simple thing: <strong>make your own name stand out</strong> in the bibliography.</p>
+<p>CSL (Citation Style Language) doesn’t support this. Pandoc’s citeproc doesn’t support it. There’s no built-in Quarto option for it. So I built <a href="https://github.com/michaelaye/highlight-author">highlight-author</a>, a small Quarto extension that does exactly this.</p>
+<section id="installation" class="level2">
+<h2 class="anchored" data-anchor-id="installation">Installation</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> add michaelaye/highlight-author</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="usage" class="level2">
+<h2 class="anchored" data-anchor-id="usage">Usage</h2>
+<p>Add three lines to your YAML front matter:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">citeproc</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">filters</span><span class="kw">:</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> highlight-author</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">highlight-author</span><span class="kw">:</span><span class="at"> </span><span class="st">"Aye"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>That’s it. Every occurrence of “Aye” and its surrounding name parts gets wrapped in <code>&lt;strong&gt;</code> tags. Here’s what it looks like on <a href="../../bibliography.html">my bibliography page</a>:</p>
+<blockquote class="blockquote">
+<p>Walter, S. H. G., <strong>K.-M. Aye</strong>, R. Jaumann, and F. Postberg. 2024. “Mars Reconnaissance Orbiter Context Camera Updated In-Flight Calibration.” <em>Earth and Space Science</em> 11 (2).</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>Brown, Sierra, Michael St.&nbsp;Clair, Chase Million, Sabrina Curtis, <strong>K. -Michael Aye</strong>, and Zack Weinberg. 2024. “PDR: The Planetary Data Reader.” <em>The Journal of Open Source Software</em> 9 (102).</p>
+</blockquote>
+<blockquote class="blockquote">
+<p><strong>Aye, K.-M.</strong>, B. T. Greenhagen, and J. P. Williams. 2020. “Investigating the Possibility of Super-Resolution Reconstruction of LRO Diviner Data.” In <em>51st Annual Lunar and Planetary Science Conference</em>.</p>
+</blockquote>
+<p>Notice it handles all the ways a name appears in citations:</p>
+<ul>
+<li><strong>Surname-first:</strong> <strong>Aye, K.-M.</strong> or <strong>Aye, Klaus Michael</strong></li>
+<li><strong>Given-name-first:</strong> <strong>K.-M. Aye</strong> or <strong>Klaus-Michael Aye</strong></li>
+<li><strong>Initials only:</strong> <strong>K. M. Aye</strong></li>
+</ul>
+<p>The entire name span (surname + given names) gets highlighted together, not just the surname in isolation.</p>
+</section>
+<section id="choosing-a-style" class="level2">
+<h2 class="anchored" data-anchor-id="choosing-a-style">Choosing a style</h2>
+<p>Bold is the default, but you can pick other styles:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Italic</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">highlight-author</span><span class="kw">:</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">"Aye"</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">style</span><span class="kw">:</span><span class="at"> italic</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Underline</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">highlight-author</span><span class="kw">:</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">"Aye"</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">style</span><span class="kw">:</span><span class="at"> underline</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Custom CSS class</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="fu">highlight-author</span><span class="kw">:</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">"Aye"</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">style</span><span class="kw">:</span><span class="at"> </span><span class="st">"my-highlight"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The CSS class option is the most flexible. For example, bold + blue:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode css code-with-copy"><code class="sourceCode css"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">.my-highlight</span> {</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">font-weight</span><span class="ch">:</span> <span class="dv">bold</span><span class="op">;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">color</span><span class="ch">:</span> <span class="cn">#2563eb</span><span class="op">;</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="why-citeproc-false" class="level2">
+<h2 class="anchored" data-anchor-id="why-citeproc-false">Why <code>citeproc: false</code>?</h2>
+<p>Pandoc runs citeproc <em>after</em> all Lua filters, which means a normal filter never sees the rendered bibliography. The workaround is to set <code>citeproc: false</code> in YAML and have the filter call <code>pandoc.utils.citeproc()</code> internally. This is the same approach used by other bibliography-processing extensions like <a href="https://github.com/bcdavasconcelos/citetools">citetools</a>.</p>
+<p>If you use other bibliography filters alongside this one (e.g., for year grouping), put <code>highlight-author</code> first in the filter list.</p>
+</section>
+<section id="who-is-this-for" class="level2">
+<h2 class="anchored" data-anchor-id="who-is-this-for">Who is this for?</h2>
+<p>Anyone with a Quarto document and a bibliography where one name should stand out:</p>
+<ul>
+<li>Academic homepages and publication lists</li>
+<li>CVs and resumes</li>
+<li>Grant proposals (NSF, NASA, and others expect the PI’s name highlighted)</li>
+<li>Tenure and promotion packets</li>
+<li>Lab group pages</li>
+<li>Theses and dissertations</li>
+</ul>
+<p>The extension works with any Quarto output format: HTML, PDF, Word.</p>
+</section>
+<section id="links" class="level2">
+<h2 class="anchored" data-anchor-id="links">Links</h2>
+<ul>
+<li>GitHub: <a href="https://github.com/michaelaye/highlight-author">michaelaye/highlight-author</a></li>
+<li>Install: <code>quarto add michaelaye/highlight-author</code></li>
+<li>Live example: <a href="../../bibliography.html">my bibliography page</a></li>
+</ul>
 
 
+</section>
 
-
-<div class="quarto-listing quarto-listing-container-grid" id="listing-listing">
-<div class="list grid quarto-listing-cols-3">
-<div class="g-col-1" data-index="0" data-categories="Y28taSUyQ3BkcyUyQ3B5dGhvbg==" data-listing-date-sort="1631077698000" data-listing-file-modified-sort="1772460527648" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="600">
-<a href="./projects/planetary-data-reader/index.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img loading="lazy" src="https://upload.wikimedia.org/wikipedia/commons/1/19/Solar_System_true_color.jpg" class="thumbnail-image card-img" style="height: 150px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Planetary Data Reader
-</h5>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('Y28taQ=='); return false;">co-i</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('cGRz'); return false;">pds</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('cHl0aG9u'); return false;">python</div>
-
-</div>
-<div class="card-text listing-description delink">
-I am a Collaborator (Co-I until I left the US) in this exciting project, led by Chase Million of Million Concepts.
-</div>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-Chase Million, Michael St.&nbsp;Clair, Michael Aye
-</div>
-<div class="listing-date">
-2021-09-08
-</div>
-</div>
-</div>
-</div></a>
-</div>
-<div class="g-col-1" data-index="1" data-categories="Y28taSUyQ3NhdHVybiUyMHJpbmdzJTJDY2Fzc2luaSUyMHV2aXMlMkNjYXNzaW5pJTIwaXNz" data-listing-date-sort="1631077679000" data-listing-file-modified-sort="1772460527655" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="622">
-<a href="./projects/saturn-rings/index.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top"><img src="projects/saturn-rings/featured.png" style="height: 150px;"  class="thumbnail-image card-img"/></p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Mesoscale Structures in Saturn’s Rings: Clues to Origin and Evolution
-</h5>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('Y28taQ=='); return false;">co-i</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('c2F0dXJuJTIwcmluZ3M='); return false;">saturn rings</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('Y2Fzc2luaSUyMHV2aXM='); return false;">cassini uvis</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('Y2Fzc2luaSUyMGlzcw=='); return false;">cassini iss</div>
-
-</div>
-<div class="card-text listing-description delink">
-I was a funded Co-I on this project led by Joshua Colwell (UCF) until I left the US in 2022.
-</div>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-Joshua Colwell, Michael Aye
-</div>
-<div class="listing-date">
-2021-09-08
-</div>
-</div>
-</div>
-</div></a>
-</div>
-<div class="g-col-1" data-index="2" data-categories="cHl0aG9u" data-listing-date-sort="1631077600000" data-listing-file-modified-sort="1772460527648" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="106">
-<a href="./projects/planetarypy/index.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img loading="lazy" src="./projects/planetarypy/website_header.png" class="thumbnail-image card-img" style="height: 150px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-PlanetaryPy
-</h5>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('cHl0aG9u'); return false;">python</div>
-
-</div>
-<div class="card-text listing-description delink">
-The PlanetaryPy Project is a community effort to develop a core package for planetary science in Python and foster interoperability between Python planetary science…
-</div>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-Michael Aye, Ross Beyer, Andrew Annex, Chase Million
-</div>
-<div class="listing-date">
-2021-09-08
-</div>
-</div>
-</div>
-</div></a>
-</div>
-<div class="g-col-1" data-index="3" data-categories="Y2Fzc2luaSUyMHV2aXMlMkNwaQ==" data-listing-date-sort="1631077581000" data-listing-file-modified-sort="1772460527655" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="365">
-<a href="./projects/uvis-pdart/index.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img loading="lazy" src="./projects/uvis-pdart/uvis-aurora.jpg" class="thumbnail-image card-img" style="height: 150px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Cassini UVIS Data Product Enhancement
-</h5>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('Y2Fzc2luaSUyMHV2aXM='); return false;">cassini uvis</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('cGk='); return false;">pi</div>
-
-</div>
-<div class="card-text listing-description delink">
-I am the PI of this NASA PDART project. Update: I was the PI of this project until I had to give it up when moving back to Germany. The new PI will be at the SETI institute.
-</div>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-Michael Aye
-</div>
-<div class="listing-date">
-2021-09-08
-</div>
-</div>
-</div>
-</div></a>
-</div>
-<div class="g-col-1" data-index="4" data-categories="bWFycyUyQ2NpdGl6ZW4lMjBzY2llbmNl" data-listing-date-sort="1631042301000" data-listing-file-modified-sort="1772460527648" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="138">
-<a href="./projects/planet-four/index.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img loading="lazy" src="./projects/planet-four/featured.png" class="thumbnail-image card-img" style="height: 150px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Planet Four
-</h5>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('bWFycw=='); return false;">mars</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('Y2l0aXplbiUyMHNjaWVuY2U='); return false;">citizen science</div>
-
-</div>
-<div class="card-text listing-description delink">
-The Red Planet is a unique and dynamic world. Through the power of the Internet and its volunteers, we can explore the surface, climate, and history of Mars with our suite…
-</div>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-Michael Aye, Ganna Portyankina, Candice Hansen, Meg Schwamb, Tim Michaels, Chris Lintott, et al.
-</div>
-<div class="listing-date">
-2021-09-07
-</div>
-</div>
-</div>
-</div></a>
-</div>
-</div>
-<div class="listing-no-matching d-none">No matching items</div>
-</div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right

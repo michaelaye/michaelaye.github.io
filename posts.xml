@@ -135,6 +135,243 @@ font-style: inherit;">pip</span> install git+https://github.com/corteva/rioxarra
   <pubDate>Mon, 02 Mar 2026 00:00:00 GMT</pubDate>
 </item>
 <item>
+  <title>highlight-author: A Quarto Extension to Highlight Your Name in Bibliographies</title>
+  <dc:creator>Michael Aye</dc:creator>
+  <link>https://michaelaye.github.io/posts/highlight-author-quarto-extension/</link>
+  <description><![CDATA[ 
+
+
+
+
+
+
+<p>If you’ve ever built an academic homepage, a CV, or a grant proposal in Quarto, you’ve probably wanted one simple thing: <strong>make your own name stand out</strong> in the bibliography.</p>
+<p>CSL (Citation Style Language) doesn’t support this. Pandoc’s citeproc doesn’t support it. There’s no built-in Quarto option for it. So I built <a href="https://github.com/michaelaye/highlight-author">highlight-author</a>, a small Quarto extension that does exactly this.</p>
+<section id="installation" class="level2">
+<h2 class="anchored" data-anchor-id="installation">Installation</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">quarto</span> add michaelaye/highlight-author</span></code></pre></div></div>
+</section>
+<section id="usage" class="level2">
+<h2 class="anchored" data-anchor-id="usage">Usage</h2>
+<p>Add three lines to your YAML front matter:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb2-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">citeproc</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="ch" style="color: #20794D;
+background-color: null;
+font-style: inherit;">false</span></span>
+<span id="cb2-2"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">filters</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span></span>
+<span id="cb2-3"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">  </span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">-</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> highlight-author</span></span>
+<span id="cb2-4"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">highlight-author</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Aye"</span></span></code></pre></div></div>
+<p>That’s it. Every occurrence of “Aye” and its surrounding name parts gets wrapped in <code>&lt;strong&gt;</code> tags. Here’s what it looks like on <a href="../../bibliography.html">my bibliography page</a>:</p>
+<blockquote class="blockquote">
+<p>Walter, S. H. G., <strong>K.-M. Aye</strong>, R. Jaumann, and F. Postberg. 2024. “Mars Reconnaissance Orbiter Context Camera Updated In-Flight Calibration.” <em>Earth and Space Science</em> 11 (2).</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>Brown, Sierra, Michael St.&nbsp;Clair, Chase Million, Sabrina Curtis, <strong>K. -Michael Aye</strong>, and Zack Weinberg. 2024. “PDR: The Planetary Data Reader.” <em>The Journal of Open Source Software</em> 9 (102).</p>
+</blockquote>
+<blockquote class="blockquote">
+<p><strong>Aye, K.-M.</strong>, B. T. Greenhagen, and J. P. Williams. 2020. “Investigating the Possibility of Super-Resolution Reconstruction of LRO Diviner Data.” In <em>51st Annual Lunar and Planetary Science Conference</em>.</p>
+</blockquote>
+<p>Notice it handles all the ways a name appears in citations:</p>
+<ul>
+<li><strong>Surname-first:</strong> <strong>Aye, K.-M.</strong> or <strong>Aye, Klaus Michael</strong></li>
+<li><strong>Given-name-first:</strong> <strong>K.-M. Aye</strong> or <strong>Klaus-Michael Aye</strong></li>
+<li><strong>Initials only:</strong> <strong>K. M. Aye</strong></li>
+</ul>
+<p>The entire name span (surname + given names) gets highlighted together, not just the surname in isolation.</p>
+</section>
+<section id="choosing-a-style" class="level2">
+<h2 class="anchored" data-anchor-id="choosing-a-style">Choosing a style</h2>
+<p>Bold is the default, but you can pick other styles:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb3-1"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Italic</span></span>
+<span id="cb3-2"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">highlight-author</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span></span>
+<span id="cb3-3"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">  </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">name</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Aye"</span></span>
+<span id="cb3-4"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">  </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">style</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> italic</span></span>
+<span id="cb3-5"></span>
+<span id="cb3-6"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Underline</span></span>
+<span id="cb3-7"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">highlight-author</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span></span>
+<span id="cb3-8"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">  </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">name</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Aye"</span></span>
+<span id="cb3-9"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">  </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">style</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> underline</span></span>
+<span id="cb3-10"></span>
+<span id="cb3-11"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Custom CSS class</span></span>
+<span id="cb3-12"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">highlight-author</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span></span>
+<span id="cb3-13"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">  </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">name</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Aye"</span></span>
+<span id="cb3-14"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">  </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">style</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"my-highlight"</span></span></code></pre></div></div>
+<p>The CSS class option is the most flexible. For example, bold + blue:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode css code-with-copy"><code class="sourceCode css"><span id="cb4-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">.my-highlight</span> {</span>
+<span id="cb4-2">  <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">font-weight</span><span class="ch" style="color: #20794D;
+background-color: null;
+font-style: inherit;">:</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">bold</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">;</span></span>
+<span id="cb4-3">  <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">color</span><span class="ch" style="color: #20794D;
+background-color: null;
+font-style: inherit;">:</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">#2563eb</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">;</span></span>
+<span id="cb4-4">}</span></code></pre></div></div>
+</section>
+<section id="why-citeproc-false" class="level2">
+<h2 class="anchored" data-anchor-id="why-citeproc-false">Why <code>citeproc: false</code>?</h2>
+<p>Pandoc runs citeproc <em>after</em> all Lua filters, which means a normal filter never sees the rendered bibliography. The workaround is to set <code>citeproc: false</code> in YAML and have the filter call <code>pandoc.utils.citeproc()</code> internally. This is the same approach used by other bibliography-processing extensions like <a href="https://github.com/bcdavasconcelos/citetools">citetools</a>.</p>
+<p>If you use other bibliography filters alongside this one (e.g., for year grouping), put <code>highlight-author</code> first in the filter list.</p>
+</section>
+<section id="who-is-this-for" class="level2">
+<h2 class="anchored" data-anchor-id="who-is-this-for">Who is this for?</h2>
+<p>Anyone with a Quarto document and a bibliography where one name should stand out:</p>
+<ul>
+<li>Academic homepages and publication lists</li>
+<li>CVs and resumes</li>
+<li>Grant proposals (NSF, NASA, and others expect the PI’s name highlighted)</li>
+<li>Tenure and promotion packets</li>
+<li>Lab group pages</li>
+<li>Theses and dissertations</li>
+</ul>
+<p>The extension works with any Quarto output format: HTML, PDF, Word.</p>
+</section>
+<section id="links" class="level2">
+<h2 class="anchored" data-anchor-id="links">Links</h2>
+<ul>
+<li>GitHub: <a href="https://github.com/michaelaye/highlight-author">michaelaye/highlight-author</a></li>
+<li>Install: <code>quarto add michaelaye/highlight-author</code></li>
+<li>Live example: <a href="../../bibliography.html">my bibliography page</a></li>
+</ul>
+
+
+</section>
+
+ ]]></description>
+  <category>quarto</category>
+  <category>academic</category>
+  <category>bibliography</category>
+  <category>open-source</category>
+  <guid>https://michaelaye.github.io/posts/highlight-author-quarto-extension/</guid>
+  <pubDate>Mon, 02 Mar 2026 00:00:00 GMT</pubDate>
+</item>
+<item>
   <title>Integrate Zigbee Tuya Thermostats into Home Assistant</title>
   <link>https://michaelaye.github.io/posts/2023-03-06_Tuya_thermostats/</link>
   <description><![CDATA[ 

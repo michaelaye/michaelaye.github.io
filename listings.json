@@ -27,6 +27,7 @@
     "listing": "/posts.html",
     "items": [
       "/posts/rioxarray-xarray-version-pin/index.html",
+      "/posts/highlight-author-quarto-extension/index.html",
       "/posts/2023-03-06_Tuya_thermostats/index.html",
       "/posts/minimal-conda-setup-instructions/index.html",
       "/posts/execute-speedtest-regularly/index.html",
