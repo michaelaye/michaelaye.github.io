@@ -12,6 +12,16 @@
     ]
   },
   {
+    "listing": "/projects.html",
+    "items": [
+      "/projects/planetary-data-reader/index.html",
+      "/projects/saturn-rings/index.html",
+      "/projects/planetarypy/index.html",
+      "/projects/uvis-pdart/index.html",
+      "/projects/planet-four/index.html"
+    ]
+  },
+  {
     "listing": "/talks.html",
     "items": [
       "/talks/2024-ipda-data-talk/index.html",
@@ -23,16 +33,6 @@
       "/talks/2021-diviner-kharkiv-talk/index.html",
       "/talks/conda-workshop/index.html",
       "/talks/conda-lunchtalk/index.html"
-    ]
-  },
-  {
-    "listing": "/projects.html",
-    "items": [
-      "/projects/planetary-data-reader/index.html",
-      "/projects/saturn-rings/index.html",
-      "/projects/planetarypy/index.html",
-      "/projects/uvis-pdart/index.html",
-      "/projects/planet-four/index.html"
     ]
   }
 ]
