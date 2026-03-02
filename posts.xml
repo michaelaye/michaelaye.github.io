@@ -9,12 +9,136 @@
 <link>https://michaelaye.github.io/posts.html</link>
 <atom:link href="https://michaelaye.github.io/posts.xml" rel="self" type="application/rss+xml"/>
 <description></description>
-<generator>quarto-1.5.57</generator>
-<lastBuildDate>Mon, 06 Mar 2023 00:00:00 GMT</lastBuildDate>
+<generator>quarto-1.8.27</generator>
+<lastBuildDate>Mon, 02 Mar 2026 00:00:00 GMT</lastBuildDate>
+<item>
+  <title>Why rioxarray 0.21 Won’t Install with xarray 2026</title>
+  <dc:creator>Michael Aye</dc:creator>
+  <link>https://michaelaye.github.io/posts/rioxarray-xarray-version-pin/</link>
+  <description><![CDATA[ 
+
+
+
+
+
+
+<p>If you’ve recently tried to install <code>rioxarray</code> alongside a current <code>xarray</code>, you’ve likely hit something like this:</p>
+<pre><code>ERROR: Cannot install rioxarray==0.21.0 because these package versions have conflicting dependencies.
+    rioxarray 0.21.0 depends on xarray&lt;2025.12,&gt;=2024.7.0</code></pre>
+<p>Your perfectly fine <code>xarray 2026.1</code> is being rejected. What happened?</p>
+<section id="the-dependency-change" class="level2">
+<h2 class="anchored" data-anchor-id="the-dependency-change">The dependency change</h2>
+<p>Comparing the two releases on PyPI:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th></th>
+<th>rioxarray 0.20.0 (Oct 2025)</th>
+<th>rioxarray 0.21.0 (Jan 2026)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>xarray constraint</td>
+<td><code>&gt;=2024.7.0</code></td>
+<td><code>&gt;=2024.7.0,&lt;2025.12</code></td>
+</tr>
+</tbody>
+</table>
+<p>That <code>&lt;2025.12</code> upper bound is new, and it’s what blocks all of xarray 2026.x.</p>
+</section>
+<section id="the-root-cause-xarray-2025.12.0" class="level2">
+<h2 class="anchored" data-anchor-id="the-root-cause-xarray-2025.12.0">The root cause: xarray 2025.12.0</h2>
+<p>xarray 2025.12.0 shipped <a href="https://github.com/pydata/xarray/pull/10948">PR #10948</a>, which changed how <code>LazilyIndexedArray</code> handles slice normalization. The intent was to fix <a href="https://github.com/pydata/xarray/issues/10941">#10941</a>, but it introduced a regression with negative-step slices (<a href="https://github.com/pydata/xarray/issues/11000">#11000</a>):</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> xarray.core.indexing <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> normalize_indexer, _decompose_slice</span>
+<span id="cb2-2"></span>
+<span id="cb2-3"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># This now breaks:</span></span>
+<span id="cb2-4">_decompose_slice(normalize_indexer(<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">slice</span>(<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>, <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">None</span>, <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>), <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">8</span>), <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">8</span>)</span>
+<span id="cb2-5"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># IndexError: range object index out of range</span></span></code></pre></div></div>
+<p>The problem: <code>slice.indices(8)</code> on a reverse slice returns <code>(7, -1, -1)</code> — a negative stop — which gets misinterpreted as a relative-from-end index rather than an absolute bound.</p>
+<p>rioxarray hits this code path in raster operations that involve axis flipping (e.g., north-to-south for certain CRS transforms), so this broke real workflows.</p>
+</section>
+<section id="the-pin" class="level2">
+<h2 class="anchored" data-anchor-id="the-pin">The pin</h2>
+<p>The rioxarray maintainer added the pin in <a href="https://github.com/corteva/rioxarray/pull/881">PR #881</a> (December 2025) to protect users from the broken xarray release. Reasonable decision at the time — but the constraint <code>&lt;2025.12</code> is too broad. It blocks xarray 2026.1+, which contains the fix (<a href="https://github.com/pydata/xarray/pull/11044">PR #11044</a>).</p>
+<p>The resulting user pain is tracked in <a href="https://github.com/corteva/rioxarray/issues/902">rioxarray #902</a>.</p>
+</section>
+<section id="workarounds-right-now" class="level2">
+<h2 class="anchored" data-anchor-id="workarounds-right-now">Workarounds (right now)</h2>
+<p><strong>Option 1: Pin xarray to the last pre-regression version</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">pip</span> install <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"rioxarray==0.21.0"</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"xarray&gt;=2024.7.0,&lt;2025.12"</span></span></code></pre></div></div>
+<p>The last compatible version is xarray 2025.11.x. This is the safe, stable path.</p>
+<p><strong>Option 2: Install rioxarray from the dev branch</strong></p>
+<p><a href="https://github.com/corteva/rioxarray/pull/907">PR #907</a> relaxes the pin to <code>xarray&gt;=2026.2</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">pip</span> install git+https://github.com/corteva/rioxarray.git</span></code></pre></div></div>
+<p>Only do this if you’re comfortable running unreleased code.</p>
+<p><strong>Option 3: Wait for rioxarray 0.22.0</strong></p>
+<p>The fix is merged and will ship in the next release.</p>
+</section>
+<section id="timeline" class="level2">
+<h2 class="anchored" data-anchor-id="timeline">Timeline</h2>
+<pre><code>2025-11    xarray PR#10948 — fix lazy slice normalization
+2025-11    xarray 2025.12.0 released with the "fix"
+2025-12    xarray #11000 — regression discovered
+2025-12    rioxarray PR#881 — pin xarray&lt;2025.12
+2026-01    xarray PR#11044 — actual fix merged
+2026-01    rioxarray 0.21.0 released (with the pin)
+2026-02    rioxarray #902 — users report 2026.x conflict
+2026-??    rioxarray 0.22.0 — pin relaxed to &gt;=2026.2</code></pre>
+</section>
+<section id="takeaway" class="level2">
+<h2 class="anchored" data-anchor-id="takeaway">Takeaway</h2>
+<p>This is a textbook example of how a well-intentioned upper-bound version pin can outlive its usefulness. The pin was correct when xarray 2025.12 was the only version with the bug, but it wasn’t updated when xarray shipped the fix. If you maintain a library, consider pinning to specific broken versions (<code>!=2025.12.0</code>) rather than open-ended upper bounds (<code>&lt;2025.12</code>) — it’s more surgical and won’t block future fixes.</p>
+
+
+</section>
+
+ ]]></description>
+  <category>python</category>
+  <category>geospatial</category>
+  <category>xarray</category>
+  <category>rioxarray</category>
+  <category>debugging</category>
+  <guid>https://michaelaye.github.io/posts/rioxarray-xarray-version-pin/</guid>
+  <pubDate>Mon, 02 Mar 2026 00:00:00 GMT</pubDate>
+</item>
 <item>
   <title>Integrate Zigbee Tuya Thermostats into Home Assistant</title>
   <link>https://michaelaye.github.io/posts/2023-03-06_Tuya_thermostats/</link>
   <description><![CDATA[ 
+
 
 
 
@@ -42,7 +166,7 @@
 <p><img src="https://michaelaye.github.io/posts/2023-03-06_Tuya_thermostats/file_editor.png" class="img-fluid"></p>
 <p>The second icon at the top offers you to add a new folder. Make sure that you create the new folder in <code>/config</code>, at least that’s what I saw recommendend, maybe it doesn’t matter due to the next step, where we tell HA where the quirks folder is.</p>
 <p>Using the same File Editor we now open the famous <code>/config/configuration.yaml</code> to add the following to it:</p>
-<div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><span class="fu" style="color: #4758AB;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">zha</span><span class="kw" style="color: #003B4F;
 background-color: null;
@@ -69,7 +193,7 @@ background-color: null;
 font-weight: bold;
 font-style: inherit;">:</span><span class="at" style="color: #657422;
 background-color: null;
-font-style: inherit;"> /config/quirks</span></span></code></pre></div>
+font-style: inherit;"> /config/quirks</span></span></code></pre></div></div>
 <p>if you create a new folder named <code>quirks</code> in your <code>/config</code> folder.</p>
 <p>Now you put the unzipped Python file from <a href="https://github.com/zigpy/zha-device-handlers/files/10376432/ts0601_trv_me167.py.zip">here</a> into that folder. If you had previously connected the thermostat to ZHA, now is a good time to remove it, as you have to reboot HA anyway to activate the new quirk.</p>
 <p>After a reboot, put the thermostat into pairing mode again and connect it, you should have now several useful entities:</p>
@@ -93,6 +217,7 @@ font-style: inherit;"> /config/quirks</span></span></code></pre></div>
   <dc:creator>Michael Aye</dc:creator>
   <link>https://michaelaye.github.io/posts/minimal-conda-setup-instructions/</link>
   <description><![CDATA[ 
+
 
 
 
@@ -229,23 +354,24 @@ which mamba</code></pre>
 
 
 
+
 <p>This post is making use of the <code>speedtest</code> command line version of Ookla’s speedtest tools, which you can get here for various OSes: https://www.speedtest.net/apps/cli</p>
 <p>Specifically, I was looking for a linux solution, and while it’s straight forward on the Mac, where the <code>--csv</code> flag produces a CSV string that includes a proper timestamp of the measurement, the interface or API for the <code>homebrew</code> CLI versions of Mac and Linux are quite different.</p>
 <p>On macOS, one can do</p>
-<div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><span class="ex" style="color: null;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><span class="ex" style="color: null;
 background-color: null;
 font-style: inherit;">speedtest</span> <span class="at" style="color: #657422;
 background-color: null;
-font-style: inherit;">--csv</span></span></code></pre></div>
+font-style: inherit;">--csv</span></span></code></pre></div></div>
 <p>and the output will contain a column with a timestamp which is important for keeping track of the measurements.</p>
 <p>On Linux, however, for getting a CSV output, one needs to do</p>
-<div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><span class="ex" style="color: null;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><span class="ex" style="color: null;
 background-color: null;
 font-style: inherit;">speedtest</span> <span class="at" style="color: #657422;
 background-color: null;
 font-style: inherit;">--format</span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">=</span>csv</span></code></pre></div>
+font-style: inherit;">=</span>csv</span></code></pre></div></div>
 <p>and unfortunately here we do <strong>NOT</strong> get a timestamp in the output. There is the option to use <code>--format=json</code> which actually does provide a timestamp, but I don’t want to deal with JSON parsing for this simple thing.</p>
 <p>So I added some bits of Python to catch the output of <code>speedtest</code> and add a timestamp to its CSV line before appending it to a record of measurements.</p>
 <p>The <code>sh</code> package is a very useful one-file package that enables you to call system programs in a function-like manner, with proper redirection utilities of any incoming output etc. BTW, I tried to simply work with the returned object, but it wasn’t simply the text, it was some kind of <code>CommandObject</code> and the docs are not clear on how to get the text out of the command object, probably easy but I didn’t inspect it. So maybe below script can be made even easier, without a callback function but directly working with the returned object.</p>
@@ -257,15 +383,15 @@ font-style: inherit;">=</span>csv</span></code></pre></div>
 <h3 class="anchored" data-anchor-id="update">Update:</h3>
 <p>I forgot to add how to run it regularly using <code>crontab</code>:</p>
 <p>Execute</p>
-<div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><span class="fu" style="color: #4758AB;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">crontab</span> <span class="at" style="color: #657422;
 background-color: null;
-font-style: inherit;">-e</span></span></code></pre></div>
+font-style: inherit;">-e</span></span></code></pre></div></div>
 <p>and an editor should pop up.</p>
 <p>The first cryptical looking syntax of crontab, the service that enables you to regularly execute any program or script on your machine is actually pretty simple, HelpUbuntu has a good intro here: https://help.ubuntu.com/community/CronHowto</p>
 <p>In short, to run a script every hour on the minute 22 you put this into your crontab file:</p>
-<div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><span class="ex" style="color: null;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><span class="ex" style="color: null;
 background-color: null;
 font-style: inherit;">22</span> <span class="pp" style="color: #AD0000;
 background-color: null;
@@ -275,7 +401,7 @@ font-style: inherit;">*</span> <span class="pp" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">*</span> <span class="pp" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">*</span> /path/to/script/to/run.py</span></code></pre></div>
+font-style: inherit;">*</span> /path/to/script/to/run.py</span></code></pre></div></div>
 <p>Hope it helps someone. If anybody wants to see how to quickly analyze and plot the file using <code>pandas</code> let me know, but I figure most of my readers will know that?</p>
 <p>Let me know, put any questions or comments you may have on my Twitter feed! <a href="https://twitter.com/michaelaye/status/1440729099291402250">Comment</a></p>
 
@@ -298,17 +424,18 @@ font-style: inherit;">*</span> /path/to/script/to/run.py</span></code></pre></di
 
 
 
+
 <p><a href="https://mamba.readthedocs.io/en/latest/user_guide/mamba.html">Mamba</a> is a CLI tool to manage conda environments and a drop-in replacement for the <code>conda</code> CLI tool. It is built in C/C++ and hence resolves package dependencies much faster than the Python-coded <code>conda</code>.</p>
 <p>It also offers parallel downloads for new or updated packages, so that updating your environment or adding a new package isn’t a chore anymore, it’s blazing fast! :)</p>
 <p>You install it (only!) into your <code>conda</code> <code>base</code> environment like so:</p>
-<div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><span class="ex" style="color: null;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><span class="ex" style="color: null;
 background-color: null;
 font-style: inherit;">conda</span> activate base</span>
 <span id="cb1-2"><span class="ex" style="color: null;
 background-color: null;
 font-style: inherit;">conda</span> install <span class="at" style="color: #657422;
 background-color: null;
-font-style: inherit;">-c</span> conda-forge mamba</span></code></pre></div>
+font-style: inherit;">-c</span> conda-forge mamba</span></code></pre></div></div>
 <p>When creating a new Python system, I can recommend to go immediately for the new <a href="https://github.com/conda-forge/miniforge"><code>mambaforge</code></a> installer, that will:</p>
 <ul>
 <li>install mamba into your base so that it is immediately available</li>
@@ -334,6 +461,7 @@ font-style: inherit;">-c</span> conda-forge mamba</span></code></pre></div>
   <dc:creator>Michael Aye</dc:creator>
   <link>https://michaelaye.github.io/posts/fan-creation/</link>
   <description><![CDATA[ 
+
 
 
 
@@ -433,6 +561,7 @@ pd.Series(angles,index=times).plot()</code></pre>
   <title>Matplotlib Ticklabel Formats</title>
   <link>https://michaelaye.github.io/posts/matplotlib-ticklabel-formats/</link>
   <description><![CDATA[ 
+
 
 
 

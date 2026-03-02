@@ -6,9 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2021-04-27">
+<meta name="author" content="Michael Aye">
+<meta name="dcterms.date" content="2026-03-02">
 
-<title>Calibration of the LRO Diviner Lunar Radiometer Experiment – Home</title>
+<title>Why rioxarray 0.21 Won’t Install with xarray 2026 – Home</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +21,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -76,15 +112,13 @@ ul.task-list li input[type="checkbox"] {
 
 
 <link rel="stylesheet" href="../../styles.css">
-<meta property="og:title" content="Calibration of the LRO Diviner Lunar Radiometer Experiment – Home">
-<meta property="og:description" content="International Conference for Young Professionals in Physics and Technology">
-<meta property="og:image" content="https://michaelaye.github.io/talks/2021-diviner-kharkiv-talk/data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg==">
+<meta property="og:title" content="Why rioxarray 0.21 Won’t Install with xarray 2026 – Home">
+<meta property="og:description" content="Tracing a version pin from a slice indexing regression">
 <meta property="og:site_name" content="Home">
-<meta name="twitter:title" content="Calibration of the LRO Diviner Lunar Radiometer Experiment – Home">
-<meta name="twitter:description" content="International Conference for Young Professionals in Physics and Technology">
-<meta name="twitter:image" content="https://michaelaye.github.io/talks/2021-diviner-kharkiv-talk/data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg==">
+<meta name="twitter:title" content="Why rioxarray 0.21 Won’t Install with xarray 2026 – Home">
+<meta name="twitter:description" content="Tracing a version pin from a slice indexing regression">
 <meta name="twitter:creator" content="@michaelaye">
-<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:card" content="summary">
 </head>
 
 <body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
@@ -306,40 +340,32 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Calibration of the LRO Diviner Lunar Radiometer Experiment</h1>
-            <p class="subtitle lead">International Conference for Young Professionals in Physics and Technology</p>
+      <h1 class="title">Why rioxarray 0.21 Won’t Install with xarray 2026</h1>
+            <p class="subtitle lead">Tracing a version pin from a slice indexing regression</p>
                                 <div class="quarto-categories">
-                <div class="quarto-category">invited talk</div>
-                <div class="quarto-category">LRO</div>
-                <div class="quarto-category">Diviner</div>
-                <div class="quarto-category">calibration</div>
+                <div class="quarto-category">python</div>
+                <div class="quarto-category">geospatial</div>
+                <div class="quarto-category">xarray</div>
+                <div class="quarto-category">rioxarray</div>
+                <div class="quarto-category">debugging</div>
               </div>
                   </div>
   </div>
     
-  <div class="quarto-title-meta-author">
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-heading">Affiliation</div>
-    
-      <div class="quarto-title-meta-contents">
-      <p class="author"><a href="https://michaelaye.github.io">Michael Aye</a> <a href="https://orcid.org/0000-0002-4088-1928" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
-    </div>
-    <div class="quarto-title-meta-contents">
-          <p class="affiliation">
-              <a href="https://lasp.colorado.edu">
-              Laboratory for Atmospheric and Space Science
-              </a>
-            </p>
-        </div>
-    </div>
-
+  
   <div class="quarto-title-meta">
 
-        
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Michael Aye </p>
+            </div>
+    </div>
+      
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">2021-04-27</p>
+        <p class="date">2026-03-02</p>
       </div>
     </div>
     
@@ -350,8 +376,19 @@ ul.task-list li input[type="checkbox"] {
   </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#the-dependency-change" id="toc-the-dependency-change" class="nav-link active" data-scroll-target="#the-dependency-change">The dependency change</a></li>
+  <li><a href="#the-root-cause-xarray-2025.12.0" id="toc-the-root-cause-xarray-2025.12.0" class="nav-link" data-scroll-target="#the-root-cause-xarray-2025.12.0">The root cause: xarray 2025.12.0</a></li>
+  <li><a href="#the-pin" id="toc-the-pin" class="nav-link" data-scroll-target="#the-pin">The pin</a></li>
+  <li><a href="#workarounds-right-now" id="toc-workarounds-right-now" class="nav-link" data-scroll-target="#workarounds-right-now">Workarounds (right now)</a></li>
+  <li><a href="#timeline" id="toc-timeline" class="nav-link" data-scroll-target="#timeline">Timeline</a></li>
+  <li><a href="#takeaway" id="toc-takeaway" class="nav-link" data-scroll-target="#takeaway">Takeaway</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content quarto-banner-title-block" id="quarto-document-content">
@@ -361,24 +398,78 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<p><a href="https://sites.google.com/view/icyppt2021/icyppt?authuser=0">Event URL</a></p>
-<p>Location: Kharkiv, Ukraine (virtual)</p>
-<p><a href="main.pdf">Talk slides</a></p>
+<p>If you’ve recently tried to install <code>rioxarray</code> alongside a current <code>xarray</code>, you’ve likely hit something like this:</p>
+<pre><code>ERROR: Cannot install rioxarray==0.21.0 because these package versions have conflicting dependencies.
+    rioxarray 0.21.0 depends on xarray&lt;2025.12,&gt;=2024.7.0</code></pre>
+<p>Your perfectly fine <code>xarray 2026.1</code> is being rejected. What happened?</p>
+<section id="the-dependency-change" class="level2">
+<h2 class="anchored" data-anchor-id="the-dependency-change">The dependency change</h2>
+<p>Comparing the two releases on PyPI:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th></th>
+<th>rioxarray 0.20.0 (Oct 2025)</th>
+<th>rioxarray 0.21.0 (Jan 2026)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>xarray constraint</td>
+<td><code>&gt;=2024.7.0</code></td>
+<td><code>&gt;=2024.7.0,&lt;2025.12</code></td>
+</tr>
+</tbody>
+</table>
+<p>That <code>&lt;2025.12</code> upper bound is new, and it’s what blocks all of xarray 2026.x.</p>
+</section>
+<section id="the-root-cause-xarray-2025.12.0" class="level2">
+<h2 class="anchored" data-anchor-id="the-root-cause-xarray-2025.12.0">The root cause: xarray 2025.12.0</h2>
+<p>xarray 2025.12.0 shipped <a href="https://github.com/pydata/xarray/pull/10948">PR #10948</a>, which changed how <code>LazilyIndexedArray</code> handles slice normalization. The intent was to fix <a href="https://github.com/pydata/xarray/issues/10941">#10941</a>, but it introduced a regression with negative-step slices (<a href="https://github.com/pydata/xarray/issues/11000">#11000</a>):</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> xarray.core.indexing <span class="im">import</span> normalize_indexer, _decompose_slice</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># This now breaks:</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>_decompose_slice(normalize_indexer(<span class="bu">slice</span>(<span class="op">-</span><span class="dv">1</span>, <span class="va">None</span>, <span class="op">-</span><span class="dv">1</span>), <span class="dv">8</span>), <span class="dv">8</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># IndexError: range object index out of range</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The problem: <code>slice.indices(8)</code> on a reverse slice returns <code>(7, -1, -1)</code> — a negative stop — which gets misinterpreted as a relative-from-end index rather than an absolute bound.</p>
+<p>rioxarray hits this code path in raster operations that involve axis flipping (e.g., north-to-south for certain CRS transforms), so this broke real workflows.</p>
+</section>
+<section id="the-pin" class="level2">
+<h2 class="anchored" data-anchor-id="the-pin">The pin</h2>
+<p>The rioxarray maintainer added the pin in <a href="https://github.com/corteva/rioxarray/pull/881">PR #881</a> (December 2025) to protect users from the broken xarray release. Reasonable decision at the time — but the constraint <code>&lt;2025.12</code> is too broad. It blocks xarray 2026.1+, which contains the fix (<a href="https://github.com/pydata/xarray/pull/11044">PR #11044</a>).</p>
+<p>The resulting user pain is tracked in <a href="https://github.com/corteva/rioxarray/issues/902">rioxarray #902</a>.</p>
+</section>
+<section id="workarounds-right-now" class="level2">
+<h2 class="anchored" data-anchor-id="workarounds-right-now">Workarounds (right now)</h2>
+<p><strong>Option 1: Pin xarray to the last pre-regression version</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install <span class="st">"rioxarray==0.21.0"</span> <span class="st">"xarray&gt;=2024.7.0,&lt;2025.12"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The last compatible version is xarray 2025.11.x. This is the safe, stable path.</p>
+<p><strong>Option 2: Install rioxarray from the dev branch</strong></p>
+<p><a href="https://github.com/corteva/rioxarray/pull/907">PR #907</a> relaxes the pin to <code>xarray&gt;=2026.2</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install git+https://github.com/corteva/rioxarray.git</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Only do this if you’re comfortable running unreleased code.</p>
+<p><strong>Option 3: Wait for rioxarray 0.22.0</strong></p>
+<p>The fix is merged and will ship in the next release.</p>
+</section>
+<section id="timeline" class="level2">
+<h2 class="anchored" data-anchor-id="timeline">Timeline</h2>
+<pre><code>2025-11    xarray PR#10948 — fix lazy slice normalization
+2025-11    xarray 2025.12.0 released with the "fix"
+2025-12    xarray #11000 — regression discovered
+2025-12    rioxarray PR#881 — pin xarray&lt;2025.12
+2026-01    xarray PR#11044 — actual fix merged
+2026-01    rioxarray 0.21.0 released (with the pin)
+2026-02    rioxarray #902 — users report 2026.x conflict
+2026-??    rioxarray 0.22.0 — pin relaxed to &gt;=2026.2</code></pre>
+</section>
+<section id="takeaway" class="level2">
+<h2 class="anchored" data-anchor-id="takeaway">Takeaway</h2>
+<p>This is a textbook example of how a well-intentioned upper-bound version pin can outlive its usefulness. The pin was correct when xarray 2025.12 was the only version with the bug, but it wasn’t updated when xarray shipped the fix. If you maintain a library, consider pinning to specific broken versions (<code>!=2025.12.0</code>) rather than open-ended upper bounds (<code>&lt;2025.12</code>) — it’s more surgical and won’t block future fixes.</p>
 
 
+</section>
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{aye2021,
-  author = {Aye, Michael},
-  title = {Calibration of the {LRO} {Diviner} {Lunar} {Radiometer}
-    {Experiment}},
-  date = {2021-04-27},
-  url = {https://michaelaye.github.io/talks/2021-diviner-kharkiv-talk/},
-  langid = {en}
-}
-</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-aye2021" class="csl-entry quarto-appendix-citeas" role="listitem">
-Aye, Michael. 2021. <span>“Calibration of the LRO Diviner Lunar
-Radiometer Experiment.”</span> April 27, 2021. <a href="https://michaelaye.github.io/talks/2021-diviner-kharkiv-talk/">https://michaelaye.github.io/talks/2021-diviner-kharkiv-talk/</a>.
-</div></div></section></div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right
