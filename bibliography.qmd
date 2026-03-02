@@ -1,7 +1,11 @@
 ---
-title: ""
+title: "Bibliography"
 bibliography: "MyPublications.bib"
+csl: chicago-author-date-no-substitute.csl
 nocite: |
   @*
+citeproc: false
+filters:
+  - group-by-year.lua
+title-block-banner: true
 ---
-# Bibliography
