@@ -1,0 +1,37 @@
+name: Update Bibliography from ADS
+
+on:
+  schedule:
+    - cron: '0 6 * * 0'  # Sunday 6am UTC
+  workflow_dispatch:
+
+jobs:
+  update-bib:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Fetch bibliography from ADS
+        env:
+          ADS_API_TOKEN: ${{ secrets.ADS_API_TOKEN }}
+        run: python scripts/update_bib.py
+
+      - name: Commit and push if changed
+        run: |
+          git diff --quiet MyPublications.bib && exit 0
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add MyPublications.bib
+          git commit -m "Update bibliography from NASA ADS"
+          git push
