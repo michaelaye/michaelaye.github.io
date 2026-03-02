@@ -358,6 +358,8 @@ font-style: inherit;">;</span></span>
 <li>GitHub: <a href="https://github.com/michaelaye/highlight-author">michaelaye/highlight-author</a></li>
 <li>Install: <code>quarto add michaelaye/highlight-author</code></li>
 <li>Live example: <a href="../../bibliography.html">my bibliography page</a></li>
+<li>Quarto discussion: <a href="https://github.com/orgs/quarto-dev/discussions/14140">Feature: highlight/bold specific author name in bibliography</a></li>
+<li>Upstream proposal: <a href="https://github.com/bcdavasconcelos/citetools/issues/4">citetools #4</a> — proposed as a feature for the citetools extension</li>
 </ul>
 
 

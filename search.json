@@ -235,7 +235,7 @@
     "href": "posts/highlight-author-quarto-extension/index.html#links",
     "title": "highlight-author: A Quarto Extension to Highlight Your Name in Bibliographies",
     "section": "Links",
-    "text": "Links\n\nGitHub: michaelaye/highlight-author\nInstall: quarto add michaelaye/highlight-author\nLive example: my bibliography page"
+    "text": "Links\n\nGitHub: michaelaye/highlight-author\nInstall: quarto add michaelaye/highlight-author\nLive example: my bibliography page\nQuarto discussion: Feature: highlight/bold specific author name in bibliography\nUpstream proposal: citetools #4 — proposed as a feature for the citetools extension"
   },
   {
     "objectID": "posts/fan-creation/index.html",
