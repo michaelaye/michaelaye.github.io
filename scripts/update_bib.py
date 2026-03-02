@@ -50,11 +50,19 @@ def main():
 
     headers = {"Authorization": f"Bearer {token}"}
 
-    # Step 1: Search for all papers by ORCID
+    # Step 1: Search for all papers by ORCID (all claim sources)
+    # ADS stores ORCID claims in three fields:
+    #   orcid_pub  — from publisher metadata
+    #   orcid_user — from ADS-linked ORCID profile
+    #   orcid_other — from ADS claiming interface
+    # The generic "orcid:" may not cover all three, so we OR them explicitly.
+    query = (
+        f"orcid_pub:{ORCID} OR orcid_user:{ORCID} OR orcid_other:{ORCID}"
+    )
     resp = requests.get(
         f"{ADS_BASE}/search/query",
         headers=headers,
-        params={"q": f"orcid:{ORCID}", "fl": "bibcode", "rows": 200},
+        params={"q": query, "fl": "bibcode", "rows": 500},
     )
     resp.raise_for_status()
     docs = resp.json()["response"]["docs"]
