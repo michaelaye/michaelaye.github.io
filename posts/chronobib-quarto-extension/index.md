@@ -29,7 +29,20 @@ chronobib takes a flat bibliography and groups entries by publication year, addi
 >
 > Portyankina, Ganna, et al. 2022. "Planet Four: Derived South Polar Martian Winds ..." *PSJ* 3 (2).
 
-Instead of scrolling through a wall of references, readers can jump to a specific year via the table of contents.
+Because the year headings are proper document headings (not trapped inside the bibliography div), Quarto automatically generates a table of contents from them:
+
+> **On this page**
+>
+> - 2024
+> - 2023
+> - 2022
+> - 2021
+> - 2020
+> - 2019
+> - ...
+> - 2001
+
+Instead of scrolling through a wall of references, readers can jump to a specific year in one click.
 
 ## Installation and usage
 
