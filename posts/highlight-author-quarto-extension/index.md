@@ -100,3 +100,5 @@ The extension works with any Quarto output format: HTML, PDF, Word.
 - GitHub: [michaelaye/highlight-author](https://github.com/michaelaye/highlight-author)
 - Install: `quarto add michaelaye/highlight-author`
 - Live example: [my bibliography page](/bibliography.html)
+- Quarto discussion: [Feature: highlight/bold specific author name in bibliography](https://github.com/orgs/quarto-dev/discussions/14140)
+- Upstream proposal: [citetools #4](https://github.com/bcdavasconcelos/citetools/issues/4) — proposed as a feature for the citetools extension
