@@ -158,7 +158,21 @@ font-style: inherit;">pip</span> install git+https://github.com/corteva/rioxarra
 <h2 id="section-2" class="anchored">2022</h2>
 <p>Portyankina, Ganna, et al.&nbsp;2022. “Planet Four: Derived South Polar Martian Winds …” <em>PSJ</em> 3 (2).</p>
 </blockquote>
-<p>Instead of scrolling through a wall of references, readers can jump to a specific year via the table of contents.</p>
+<p>Because the year headings are proper document headings (not trapped inside the bibliography div), Quarto automatically generates a table of contents from them:</p>
+<blockquote class="blockquote">
+<p><strong>On this page</strong></p>
+<ul>
+<li>2024</li>
+<li>2023</li>
+<li>2022</li>
+<li>2021</li>
+<li>2020</li>
+<li>2019</li>
+<li>…</li>
+<li>2001</li>
+</ul>
+</blockquote>
+<p>Instead of scrolling through a wall of references, readers can jump to a specific year in one click.</p>
 </section>
 <section id="installation-and-usage" class="level2">
 <h2 class="anchored" data-anchor-id="installation-and-usage">Installation and usage</h2>
