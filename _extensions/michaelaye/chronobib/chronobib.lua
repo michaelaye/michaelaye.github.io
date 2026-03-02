@@ -64,17 +64,18 @@ function Pandoc(doc)
     doc = pandoc.utils.citeproc(doc)
   end
 
-  -- Find and restructure the #refs div
-  doc.blocks = doc.blocks:walk({
-    Div = function(div)
-      if div.identifier ~= "refs" then
-        return nil
-      end
+  -- Find the refs div and replace it with year-grouped blocks
+  local new_blocks = pandoc.Blocks{}
+  for _, block in ipairs(doc.blocks) do
+    if block.t == "Div" and block.identifier == "refs" then
+      -- Extract ref attributes to preserve on per-year divs
+      local ref_classes = block.classes
+      local ref_attributes = block.attributes
 
-      -- Group by year
+      -- Group entries by year
       local by_year = {}
       local year_order = {}
-      for _, elem in ipairs(div.content) do
+      for _, elem in ipairs(block.content) do
         if elem.t == "Div" then
           local key = elem.identifier:gsub("^ref%-", "")
           local year = key_to_year[key] or "Unknown"
@@ -93,23 +94,29 @@ function Pandoc(doc)
         table.sort(year_order, function(a, b) return a > b end)
       end
 
-      -- Rebuild div content with year headings
-      local new_content = pandoc.Blocks{}
+      -- Emit year headings and ref divs as top-level blocks
       for _, year in ipairs(year_order) do
-        new_content:insert(pandoc.Header(
+        new_blocks:insert(pandoc.Header(
           heading_level,
           pandoc.Str(year),
           pandoc.Attr("section-" .. year)
         ))
-        for _, ref_div in ipairs(by_year[year]) do
-          new_content:insert(ref_div)
-        end
+        -- Wrap each year's entries in a refs div to preserve bibliography styling
+        local year_div = pandoc.Div(
+          by_year[year],
+          pandoc.Attr(
+            "refs-" .. year,
+            ref_classes,
+            ref_attributes
+          )
+        )
+        new_blocks:insert(year_div)
       end
-
-      div.content = new_content
-      return div
+    else
+      new_blocks:insert(block)
     end
-  })
+  end
 
+  doc.blocks = new_blocks
   return doc
 end
