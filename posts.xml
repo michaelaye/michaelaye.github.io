@@ -135,6 +135,189 @@ font-style: inherit;">pip</span> install git+https://github.com/corteva/rioxarra
   <pubDate>Mon, 02 Mar 2026 00:00:00 GMT</pubDate>
 </item>
 <item>
+  <title>chronobib: Group Your Quarto Bibliography by Year</title>
+  <dc:creator>Michael Aye</dc:creator>
+  <link>https://michaelaye.github.io/posts/chronobib-quarto-extension/</link>
+  <description><![CDATA[ 
+
+
+
+
+
+
+<p>After publishing <a href="../../posts/highlight-author-quarto-extension/">highlight-author</a> earlier today, I extracted the other half of my bibliography tooling into its own extension: <a href="https://github.com/michaelaye/chronobib">chronobib</a>.</p>
+<section id="what-it-does" class="level2">
+<h2 class="anchored" data-anchor-id="what-it-does">What it does</h2>
+<p>chronobib takes a flat bibliography and groups entries by publication year, adding section headings. The result on <a href="../../bibliography.html">my bibliography page</a> looks like this:</p>
+<blockquote class="blockquote">
+<h2 id="section" class="anchored">2024</h2>
+<p>Brown, Sierra, et al.&nbsp;2024. “PDR: The Planetary Data Reader.” <em>JOSS</em> 9 (102).</p>
+<p>Walter, S. H. G., et al.&nbsp;2024. “Mars Reconnaissance Orbiter Context Camera Updated In-Flight Calibration.” <em>Earth and Space Science</em> 11 (2).</p>
+<h2 id="section-1" class="anchored">2023</h2>
+<p>Mc Keown, L. E., et al.&nbsp;2023. “Martian Araneiforms: A Review.” <em>JGR Planets</em> 128 (4).</p>
+<h2 id="section-2" class="anchored">2022</h2>
+<p>Portyankina, Ganna, et al.&nbsp;2022. “Planet Four: Derived South Polar Martian Winds …” <em>PSJ</em> 3 (2).</p>
+</blockquote>
+<p>Instead of scrolling through a wall of references, readers can jump to a specific year via the table of contents.</p>
+</section>
+<section id="installation-and-usage" class="level2">
+<h2 class="anchored" data-anchor-id="installation-and-usage">Installation and usage</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">quarto</span> add michaelaye/chronobib</span></code></pre></div></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb2-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">bibliography</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> references.bib</span></span>
+<span id="cb2-2"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">citeproc</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="ch" style="color: #20794D;
+background-color: null;
+font-style: inherit;">false</span></span>
+<span id="cb2-3"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">filters</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span></span>
+<span id="cb2-4"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">  </span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">-</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> michaelaye/chronobib</span></span>
+<span id="cb2-5"></span>
+<span id="cb2-6"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">nocite</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">: </span><span class="ch" style="color: #20794D;
+background-color: null;
+font-style: inherit;">|</span></span>
+<span id="cb2-7">  @*</span></code></pre></div></div>
+<p>That’s it. Entries are sorted newest-first by default.</p>
+<section id="options" class="level3">
+<h3 class="anchored" data-anchor-id="options">Options</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb3-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">chronobib</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span></span>
+<span id="cb3-2"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">  </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">heading-level</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">3</span><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">      # H3 instead of default H2</span></span>
+<span id="cb3-3"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">  </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">sort</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> ascending</span><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">        # oldest first</span></span></code></pre></div></div>
+</section>
+</section>
+<section id="pairing-with-highlight-author" class="level2">
+<h2 class="anchored" data-anchor-id="pairing-with-highlight-author">Pairing with highlight-author</h2>
+<p>The two extensions are designed to work together. Put highlight-author first (it runs citeproc), and chronobib detects the existing bibliography and skips the redundant citeproc call:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb4-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">citeproc</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="ch" style="color: #20794D;
+background-color: null;
+font-style: inherit;">false</span></span>
+<span id="cb4-2"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">filters</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span></span>
+<span id="cb4-3"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">  </span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">-</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> michaelaye/highlight-author</span></span>
+<span id="cb4-4"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">  </span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">-</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> michaelaye/chronobib</span></span>
+<span id="cb4-5"></span>
+<span id="cb4-6"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">highlight-author</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Aye"</span></span></code></pre></div></div>
+<p>This is exactly what powers <a href="../../bibliography.html">my bibliography page</a> — names highlighted in bold, entries grouped by year.</p>
+</section>
+<section id="how-it-works" class="level2">
+<h2 class="anchored" data-anchor-id="how-it-works">How it works</h2>
+<p>Like highlight-author, chronobib needs <code>citeproc: false</code> because Pandoc runs citeproc <em>after</em> all Lua filters. The filter calls <code>pandoc.utils.citeproc()</code> internally (or skips it if another filter already did), then walks the <code>#refs</code> div, reads each entry’s year from the bibliography metadata, groups them, and inserts heading elements between the year groups.</p>
+</section>
+<section id="links" class="level2">
+<h2 class="anchored" data-anchor-id="links">Links</h2>
+<ul>
+<li>GitHub: <a href="https://github.com/michaelaye/chronobib">michaelaye/chronobib</a></li>
+<li>Install: <code>quarto add michaelaye/chronobib</code></li>
+<li>Companion: <a href="https://github.com/michaelaye/highlight-author">michaelaye/highlight-author</a></li>
+<li>Live example: <a href="../../bibliography.html">my bibliography page</a></li>
+<li>Quarto discussion: <a href="https://github.com/orgs/quarto-dev/discussions/14139">Feature: group bibliography entries by year</a></li>
+</ul>
+
+
+</section>
+
+ ]]></description>
+  <category>quarto</category>
+  <category>academic</category>
+  <category>bibliography</category>
+  <category>open-source</category>
+  <guid>https://michaelaye.github.io/posts/chronobib-quarto-extension/</guid>
+  <pubDate>Mon, 02 Mar 2026 00:00:00 GMT</pubDate>
+</item>
+<item>
   <title>highlight-author: A Quarto Extension to Highlight Your Name in Bibliographies</title>
   <dc:creator>Michael Aye</dc:creator>
   <link>https://michaelaye.github.io/posts/highlight-author-quarto-extension/</link>
