@@ -10,7 +10,257 @@
 <atom:link href="https://michaelaye.github.io/posts.xml" rel="self" type="application/rss+xml"/>
 <description></description>
 <generator>quarto-1.8.27</generator>
-<lastBuildDate>Mon, 02 Mar 2026 00:00:00 GMT</lastBuildDate>
+<lastBuildDate>Tue, 03 Mar 2026 00:00:00 GMT</lastBuildDate>
+<item>
+  <title>ads-bib-tools: Fetch Your Full Publication List from NASA ADS</title>
+  <dc:creator>Michael Aye</dc:creator>
+  <link>https://michaelaye.github.io/posts/ads-bib-tools/</link>
+  <description><![CDATA[ 
+
+
+
+
+
+
+<p>Existing ADS bibliography tools like <a href="https://github.com/yymao/adstex">adstex</a>, <a href="https://github.com/dgerosa/filltex">filltex</a>, and <a href="https://github.com/mkmcc/bibslurp">bibslurp</a> are all designed for LaTeX workflows: you have a <code>.tex</code> file with <code>\cite{}</code> commands, and they resolve the citation keys against ADS.</p>
+<p>But if you maintain an academic homepage with <a href="https://quarto.org">Quarto</a> (or any static site generator), you need the opposite workflow: start from <strong>your identity</strong> (ORCID), fetch <strong>everything</strong>, and produce a clean <code>.bib</code> file ready for the web.</p>
+<p>That’s what <a href="https://github.com/michaelaye/ads-bib-tools">ads-bib-tools</a> does.</p>
+<section id="what-it-does" class="level2">
+<h2 class="anchored" data-anchor-id="what-it-does">What it does</h2>
+<p>One command:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">python</span> update_bib.py <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">--orcid</span> 0000-0002-4088-1928</span></code></pre></div></div>
+<p>This:</p>
+<ol type="1">
+<li><strong>Fetches</strong> all papers linked to your ORCID from NASA ADS, querying all three claim sources (<code>orcid_pub</code>, <code>orcid_user</code>, <code>orcid_other</code>) so nothing gets missed</li>
+<li><strong>Strips</strong> bulky fields like <code>abstract</code> and <code>file</code> that bloat the <code>.bib</code> and aren’t needed for rendering</li>
+<li><strong>Cleans</strong> MathML markup that some publishers (notably Elsevier) embed in titles — converts it to proper LaTeX notation so your titles render correctly</li>
+<li><strong>Tags</strong> each entry with <code>refereed</code> or <code>non-refereed</code> in the BibTeX <code>keywords</code> field, based on the ADS <code>property</code> metadata</li>
+</ol>
+<p>The output is a website-ready <code>.bib</code> file. The script is idempotent — run it again and it updates cleanly without duplicating tags.</p>
+</section>
+<section id="the-mathml-problem" class="level2">
+<h2 class="anchored" data-anchor-id="the-mathml-problem">The MathML problem</h2>
+<p>This is one of those things you don’t notice until it ruins a title on your homepage. Some publishers store formulas as MathML in their metadata, and ADS faithfully passes it through. So instead of seeing:</p>
+<blockquote class="blockquote">
+<p>CO₂ ice sublimation on Mars</p>
+</blockquote>
+<p>you get a mess of <code>&lt;mml:msub&gt;</code> tags in your BibTeX title field. The script detects and converts these to LaTeX notation automatically.</p>
+</section>
+<section id="refereed-vs.-non-refereed" class="level2">
+<h2 class="anchored" data-anchor-id="refereed-vs.-non-refereed">Refereed vs.&nbsp;non-refereed</h2>
+<p>The ADS API exposes a <code>property</code> field on each paper that includes <code>REFEREED</code> for peer-reviewed publications. The script reads this and adds a <code>refereed</code> or <code>non-refereed</code> keyword to each BibTeX entry.</p>
+<p>Why bother? Because you can then split your bibliography page into tabs. This is exactly what I do on <a href="../../bibliography.html">my bibliography page</a> using the <a href="https://github.com/michaelaye/chronobib">chronobib</a> Quarto extension:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb2-1"><span class="pp" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">---</span></span>
+<span id="cb2-2"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">bibliography</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> MyPublications.bib</span></span>
+<span id="cb2-3"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">citeproc</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="ch" style="color: #20794D;
+background-color: null;
+font-style: inherit;">false</span></span>
+<span id="cb2-4"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">filters</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span></span>
+<span id="cb2-5"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">  </span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">-</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> michaelaye/highlight-author</span></span>
+<span id="cb2-6"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">  </span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">-</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> michaelaye/chronobib</span></span>
+<span id="cb2-7"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">highlight-author</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Aye"</span></span>
+<span id="cb2-8"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">chronobib</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span></span>
+<span id="cb2-9"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">  </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">split-keyword</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> refereed</span></span>
+<span id="cb2-10"><span class="pp" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">---</span></span>
+<span id="cb2-11"></span>
+<span id="cb2-12"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">:</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">:</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">{</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">.panel-tabset</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">}</span></span>
+<span id="cb2-13"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">## Refereed</span></span>
+<span id="cb2-14"></span>
+<span id="cb2-15"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">:</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">:</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">{</span><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">#refs-refereed}</span></span>
+<span id="cb2-16"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">:</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">:</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span></span>
+<span id="cb2-17"></span>
+<span id="cb2-18"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">## Non-Refereed</span></span>
+<span id="cb2-19"></span>
+<span id="cb2-20"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">:</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">:</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">{</span><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">#refs-nonrefereed}</span></span>
+<span id="cb2-21"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">:</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">:</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span></span>
+<span id="cb2-22"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">:</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">:</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span></span></code></pre></div></div>
+<p>This gives you two tabs, each with year-grouped entries, and your name highlighted in bold. Three tools, one clean result.</p>
+</section>
+<section id="installation" class="level2">
+<h2 class="anchored" data-anchor-id="installation">Installation</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">git</span> clone https://github.com/michaelaye/ads-bib-tools.git</span>
+<span id="cb3-2"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">pip</span> install requests</span></code></pre></div></div>
+<p>Or grab just the script:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">curl</span> <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-O</span> https://raw.githubusercontent.com/michaelaye/ads-bib-tools/main/update_bib.py</span>
+<span id="cb4-2"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">pip</span> install requests</span></code></pre></div></div>
+<p>You’ll need an <a href="https://ui.adsabs.harvard.edu/user/settings/token">ADS API token</a> exported as <code>ADS_API_TOKEN</code>.</p>
+</section>
+<section id="the-full-pipeline" class="level2">
+<h2 class="anchored" data-anchor-id="the-full-pipeline">The full pipeline</h2>
+<p>Here’s how all the pieces fit together for an academic Quarto homepage:</p>
+<ol type="1">
+<li><strong>ads-bib-tools</strong> fetches and cleans your <code>.bib</code> file from ADS</li>
+<li><strong><a href="https://github.com/michaelaye/highlight-author">highlight-author</a></strong> highlights your name in the rendered bibliography</li>
+<li><strong><a href="https://github.com/michaelaye/chronobib">chronobib</a></strong> groups entries by year and optionally splits them into refereed/non-refereed tabs</li>
+</ol>
+<p>Each tool works independently, but they’re designed to complement each other.</p>
+</section>
+<section id="links" class="level2">
+<h2 class="anchored" data-anchor-id="links">Links</h2>
+<ul>
+<li>GitHub: <a href="https://github.com/michaelaye/ads-bib-tools">michaelaye/ads-bib-tools</a></li>
+<li>DOI: <a href="https://doi.org/10.5281/zenodo.18853606"><img src="https://zenodo.org/badge/1171942580.svg" class="img-fluid" alt="DOI"></a></li>
+<li>Companion extensions: <a href="https://github.com/michaelaye/highlight-author">highlight-author</a>, <a href="https://github.com/michaelaye/chronobib">chronobib</a></li>
+<li>Live example: <a href="../../bibliography.html">my bibliography page</a></li>
+</ul>
+
+
+</section>
+
+ ]]></description>
+  <category>python</category>
+  <category>quarto</category>
+  <category>academic</category>
+  <category>bibliography</category>
+  <category>open-source</category>
+  <category>nasa-ads</category>
+  <guid>https://michaelaye.github.io/posts/ads-bib-tools/</guid>
+  <pubDate>Tue, 03 Mar 2026 00:00:00 GMT</pubDate>
+</item>
 <item>
   <title>Why rioxarray 0.21 Won’t Install with xarray 2026</title>
   <dc:creator>Michael Aye</dc:creator>

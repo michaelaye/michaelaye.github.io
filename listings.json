@@ -26,6 +26,7 @@
   {
     "listing": "/posts.html",
     "items": [
+      "/posts/ads-bib-tools/index.html",
       "/posts/rioxarray-xarray-version-pin/index.html",
       "/posts/chronobib-quarto-extension/index.html",
       "/posts/highlight-author-quarto-extension/index.html",

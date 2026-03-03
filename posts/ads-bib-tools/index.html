@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Michael Aye">
+<meta name="dcterms.date" content="2026-03-03">
 
-<title>Projects – Home</title>
+<title>ads-bib-tools: Fetch Your Full Publication List from NASA ADS – Home</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,35 +22,68 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-2a367172f4fe7d9182ebf8e09f85cb4e.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-7fb59815a1c41eec7c034637f0c35ff0.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-2a367172f4fe7d9182ebf8e09f85cb4e.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-64aecfdaf28a2a0e0d48c81b82caff02.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-eea294e0f30f5f4779076c4894dc1d37.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-64aecfdaf28a2a0e0d48c81b82caff02.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/quarto-contrib/fontawesome6-6.7.2/all.min.css" rel="stylesheet">
-<link href="site_libs/quarto-contrib/fontawesome6-6.7.2/latex-fontsize.css" rel="stylesheet">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-2a367172f4fe7d9182ebf8e09f85cb4e.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-7fb59815a1c41eec7c034637f0c35ff0.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-2a367172f4fe7d9182ebf8e09f85cb4e.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-64aecfdaf28a2a0e0d48c81b82caff02.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-eea294e0f30f5f4779076c4894dc1d37.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-64aecfdaf28a2a0e0d48c81b82caff02.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/quarto-contrib/fontawesome6-6.7.2/all.min.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/fontawesome6-6.7.2/latex-fontsize.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -76,78 +111,16 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
 
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
 
-    const options = {
-      valueNames: ['listing-title','listing-author','listing-date','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-title","listing-author","listing-date","listing-image","listing-description","listing-categories"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
-
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
-
-<link rel="stylesheet" href="styles.css">
-<meta property="og:title" content="Projects – Home">
-<meta property="og:image" content="https://michaelaye.github.io/projects/planet-four/featured.png">
+<link rel="stylesheet" href="../../styles.css">
+<meta property="og:title" content="ads-bib-tools: Fetch Your Full Publication List from NASA ADS – Home">
+<meta property="og:description" content="ORCID-based bibliography management for Quarto and static sites">
 <meta property="og:site_name" content="Home">
-<meta property="og:image:height" content="2516">
-<meta property="og:image:width" content="1945">
-<meta name="twitter:title" content="Projects – Home">
-<meta name="twitter:image" content="https://michaelaye.github.io/projects/planet-four/featured.png">
+<meta name="twitter:title" content="ads-bib-tools: Fetch Your Full Publication List from NASA ADS – Home">
+<meta name="twitter:description" content="ORCID-based bibliography management for Quarto and static sites">
 <meta name="twitter:creator" content="@michaelaye">
-<meta name="twitter:image-height" content="2516">
-<meta name="twitter:image-width" content="1945">
-<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:card" content="summary">
 </head>
 
 <body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
@@ -319,7 +292,7 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Home</span>
     </a>
   </div>
@@ -330,19 +303,19 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./posts.html"> 
+    <a class="nav-link" href="../../posts.html"> 
 <span class="menu-text">Blog</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./talks.html"> 
+    <a class="nav-link" href="../../talks.html"> 
 <span class="menu-text">Talks</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./projects.html" aria-current="page"> 
+    <a class="nav-link" href="../../projects.html"> 
 <span class="menu-text">Projects</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./bibliography.html"> 
+    <a class="nav-link" href="../../bibliography.html"> 
 <span class="menu-text">Bibliography</span></a>
   </li>  
 </ul>
@@ -372,200 +345,150 @@ window.Quarto = {
 <!-- content -->
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-page-left">
-      <h1 class="title">Projects</h1>
-                      </div>
+    <div class="quarto-title column-body">
+      <h1 class="title">ads-bib-tools: Fetch Your Full Publication List from NASA ADS</h1>
+            <p class="subtitle lead">ORCID-based bibliography management for Quarto and static sites</p>
+                                <div class="quarto-categories">
+                <div class="quarto-category">python</div>
+                <div class="quarto-category">quarto</div>
+                <div class="quarto-category">academic</div>
+                <div class="quarto-category">bibliography</div>
+                <div class="quarto-category">open-source</div>
+                <div class="quarto-category">nasa-ads</div>
+              </div>
+                  </div>
   </div>
     
   
-  <div class="quarto-title-meta column-page-left">
+  <div class="quarto-title-meta">
 
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Michael Aye </p>
+            </div>
+    </div>
       
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">2026-03-03</p>
+      </div>
+    </div>
     
       
     </div>
     
   
-  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(5)</span></div><div class="category" data-category="Y2Fzc2luaSUyMGlzcw==">cassini iss <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Y2Fzc2luaSUyMHV2aXM=">cassini uvis <span class="quarto-category-count">(2)</span></div><div class="category" data-category="Y2l0aXplbiUyMHNjaWVuY2U=">citizen science <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Y28taQ==">co-i <span class="quarto-category-count">(2)</span></div><div class="category" data-category="bWFycw==">mars <span class="quarto-category-count">(1)</span></div><div class="category" data-category="cGRz">pds <span class="quarto-category-count">(1)</span></div><div class="category" data-category="cGk=">pi <span class="quarto-category-count">(1)</span></div><div class="category" data-category="cHl0aG9u">python <span class="quarto-category-count">(2)</span></div><div class="category" data-category="c2F0dXJuJTIwcmluZ3M=">saturn rings <span class="quarto-category-count">(1)</span></div></div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#what-it-does" id="toc-what-it-does" class="nav-link active" data-scroll-target="#what-it-does">What it does</a></li>
+  <li><a href="#the-mathml-problem" id="toc-the-mathml-problem" class="nav-link" data-scroll-target="#the-mathml-problem">The MathML problem</a></li>
+  <li><a href="#refereed-vs.-non-refereed" id="toc-refereed-vs.-non-refereed" class="nav-link" data-scroll-target="#refereed-vs.-non-refereed">Refereed vs.&nbsp;non-refereed</a></li>
+  <li><a href="#installation" id="toc-installation" class="nav-link" data-scroll-target="#installation">Installation</a></li>
+  <li><a href="#the-full-pipeline" id="toc-the-full-pipeline" class="nav-link" data-scroll-target="#the-full-pipeline">The full pipeline</a></li>
+  <li><a href="#links" id="toc-links" class="nav-link" data-scroll-target="#links">Links</a></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
-<main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
+<main class="content quarto-banner-title-block" id="quarto-document-content">
 
 
 
 
 
 
+<p>Existing ADS bibliography tools like <a href="https://github.com/yymao/adstex">adstex</a>, <a href="https://github.com/dgerosa/filltex">filltex</a>, and <a href="https://github.com/mkmcc/bibslurp">bibslurp</a> are all designed for LaTeX workflows: you have a <code>.tex</code> file with <code>\cite{}</code> commands, and they resolve the citation keys against ADS.</p>
+<p>But if you maintain an academic homepage with <a href="https://quarto.org">Quarto</a> (or any static site generator), you need the opposite workflow: start from <strong>your identity</strong> (ORCID), fetch <strong>everything</strong>, and produce a clean <code>.bib</code> file ready for the web.</p>
+<p>That’s what <a href="https://github.com/michaelaye/ads-bib-tools">ads-bib-tools</a> does.</p>
+<section id="what-it-does" class="level2">
+<h2 class="anchored" data-anchor-id="what-it-does">What it does</h2>
+<p>One command:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> update_bib.py <span class="at">--orcid</span> 0000-0002-4088-1928</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This:</p>
+<ol type="1">
+<li><strong>Fetches</strong> all papers linked to your ORCID from NASA ADS, querying all three claim sources (<code>orcid_pub</code>, <code>orcid_user</code>, <code>orcid_other</code>) so nothing gets missed</li>
+<li><strong>Strips</strong> bulky fields like <code>abstract</code> and <code>file</code> that bloat the <code>.bib</code> and aren’t needed for rendering</li>
+<li><strong>Cleans</strong> MathML markup that some publishers (notably Elsevier) embed in titles — converts it to proper LaTeX notation so your titles render correctly</li>
+<li><strong>Tags</strong> each entry with <code>refereed</code> or <code>non-refereed</code> in the BibTeX <code>keywords</code> field, based on the ADS <code>property</code> metadata</li>
+</ol>
+<p>The output is a website-ready <code>.bib</code> file. The script is idempotent — run it again and it updates cleanly without duplicating tags.</p>
+</section>
+<section id="the-mathml-problem" class="level2">
+<h2 class="anchored" data-anchor-id="the-mathml-problem">The MathML problem</h2>
+<p>This is one of those things you don’t notice until it ruins a title on your homepage. Some publishers store formulas as MathML in their metadata, and ADS faithfully passes it through. So instead of seeing:</p>
+<blockquote class="blockquote">
+<p>CO₂ ice sublimation on Mars</p>
+</blockquote>
+<p>you get a mess of <code>&lt;mml:msub&gt;</code> tags in your BibTeX title field. The script detects and converts these to LaTeX notation automatically.</p>
+</section>
+<section id="refereed-vs.-non-refereed" class="level2">
+<h2 class="anchored" data-anchor-id="refereed-vs.-non-refereed">Refereed vs.&nbsp;non-refereed</h2>
+<p>The ADS API exposes a <code>property</code> field on each paper that includes <code>REFEREED</code> for peer-reviewed publications. The script reads this and adds a <code>refereed</code> or <code>non-refereed</code> keyword to each BibTeX entry.</p>
+<p>Why bother? Because you can then split your bibliography page into tabs. This is exactly what I do on <a href="../../bibliography.html">my bibliography page</a> using the <a href="https://github.com/michaelaye/chronobib">chronobib</a> Quarto extension:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">bibliography</span><span class="kw">:</span><span class="at"> MyPublications.bib</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">citeproc</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">filters</span><span class="kw">:</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> michaelaye/highlight-author</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> michaelaye/chronobib</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">highlight-author</span><span class="kw">:</span><span class="at"> </span><span class="st">"Aye"</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">chronobib</span><span class="kw">:</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">split-keyword</span><span class="kw">:</span><span class="at"> refereed</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="at">:</span><span class="fu">:</span><span class="kw">:</span><span class="at"> </span><span class="kw">{</span><span class="at">.panel-tabset</span><span class="kw">}</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co">## Refereed</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="at">:</span><span class="fu">:</span><span class="kw">:</span><span class="at"> </span><span class="kw">{</span><span class="co">#refs-refereed}</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="at">:</span><span class="fu">:</span><span class="kw">:</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="co">## Non-Refereed</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="at">:</span><span class="fu">:</span><span class="kw">:</span><span class="at"> </span><span class="kw">{</span><span class="co">#refs-nonrefereed}</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="at">:</span><span class="fu">:</span><span class="kw">:</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="at">:</span><span class="fu">:</span><span class="kw">:</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This gives you two tabs, each with year-grouped entries, and your name highlighted in bold. Three tools, one clean result.</p>
+</section>
+<section id="installation" class="level2">
+<h2 class="anchored" data-anchor-id="installation">Installation</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/michaelaye/ads-bib-tools.git</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install requests</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Or grab just the script:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-O</span> https://raw.githubusercontent.com/michaelaye/ads-bib-tools/main/update_bib.py</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install requests</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>You’ll need an <a href="https://ui.adsabs.harvard.edu/user/settings/token">ADS API token</a> exported as <code>ADS_API_TOKEN</code>.</p>
+</section>
+<section id="the-full-pipeline" class="level2">
+<h2 class="anchored" data-anchor-id="the-full-pipeline">The full pipeline</h2>
+<p>Here’s how all the pieces fit together for an academic Quarto homepage:</p>
+<ol type="1">
+<li><strong>ads-bib-tools</strong> fetches and cleans your <code>.bib</code> file from ADS</li>
+<li><strong><a href="https://github.com/michaelaye/highlight-author">highlight-author</a></strong> highlights your name in the rendered bibliography</li>
+<li><strong><a href="https://github.com/michaelaye/chronobib">chronobib</a></strong> groups entries by year and optionally splits them into refereed/non-refereed tabs</li>
+</ol>
+<p>Each tool works independently, but they’re designed to complement each other.</p>
+</section>
+<section id="links" class="level2">
+<h2 class="anchored" data-anchor-id="links">Links</h2>
+<ul>
+<li>GitHub: <a href="https://github.com/michaelaye/ads-bib-tools">michaelaye/ads-bib-tools</a></li>
+<li>DOI: <a href="https://doi.org/10.5281/zenodo.18853606"><img src="https://zenodo.org/badge/1171942580.svg" class="img-fluid" alt="DOI"></a></li>
+<li>Companion extensions: <a href="https://github.com/michaelaye/highlight-author">highlight-author</a>, <a href="https://github.com/michaelaye/chronobib">chronobib</a></li>
+<li>Live example: <a href="../../bibliography.html">my bibliography page</a></li>
+</ul>
 
 
+</section>
 
-
-<div class="quarto-listing quarto-listing-container-grid" id="listing-listing">
-<div class="list grid quarto-listing-cols-3">
-<div class="g-col-1" data-index="0" data-categories="Y28taSUyQ3BkcyUyQ3B5dGhvbg==" data-listing-date-sort="1631077698000" data-listing-file-modified-sort="1772576343425" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="600">
-<a href="./projects/planetary-data-reader/index.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img loading="lazy" src="https://upload.wikimedia.org/wikipedia/commons/1/19/Solar_System_true_color.jpg" class="thumbnail-image card-img" style="height: 150px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Planetary Data Reader
-</h5>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('Y28taQ=='); return false;">co-i</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('cGRz'); return false;">pds</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('cHl0aG9u'); return false;">python</div>
-
-</div>
-<div class="card-text listing-description delink">
-I am a Collaborator (Co-I until I left the US) in this exciting project, led by Chase Million of Million Concepts.
-</div>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-Chase Million, Michael St.&nbsp;Clair, Michael Aye
-</div>
-<div class="listing-date">
-2021-09-08
-</div>
-</div>
-</div>
-</div></a>
-</div>
-<div class="g-col-1" data-index="1" data-categories="Y28taSUyQ3NhdHVybiUyMHJpbmdzJTJDY2Fzc2luaSUyMHV2aXMlMkNjYXNzaW5pJTIwaXNz" data-listing-date-sort="1631077679000" data-listing-file-modified-sort="1772576343432" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="622">
-<a href="./projects/saturn-rings/index.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top"><img src="projects/saturn-rings/featured.png" style="height: 150px;"  class="thumbnail-image card-img"/></p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Mesoscale Structures in Saturn’s Rings: Clues to Origin and Evolution
-</h5>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('Y28taQ=='); return false;">co-i</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('c2F0dXJuJTIwcmluZ3M='); return false;">saturn rings</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('Y2Fzc2luaSUyMHV2aXM='); return false;">cassini uvis</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('Y2Fzc2luaSUyMGlzcw=='); return false;">cassini iss</div>
-
-</div>
-<div class="card-text listing-description delink">
-I was a funded Co-I on this project led by Joshua Colwell (UCF) until I left the US in 2022.
-</div>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-Joshua Colwell, Michael Aye
-</div>
-<div class="listing-date">
-2021-09-08
-</div>
-</div>
-</div>
-</div></a>
-</div>
-<div class="g-col-1" data-index="2" data-categories="cHl0aG9u" data-listing-date-sort="1631077600000" data-listing-file-modified-sort="1772576343425" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="106">
-<a href="./projects/planetarypy/index.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img loading="lazy" src="./projects/planetarypy/website_header.png" class="thumbnail-image card-img" style="height: 150px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-PlanetaryPy
-</h5>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('cHl0aG9u'); return false;">python</div>
-
-</div>
-<div class="card-text listing-description delink">
-The PlanetaryPy Project is a community effort to develop a core package for planetary science in Python and foster interoperability between Python planetary science…
-</div>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-Michael Aye, Ross Beyer, Andrew Annex, Chase Million
-</div>
-<div class="listing-date">
-2021-09-08
-</div>
-</div>
-</div>
-</div></a>
-</div>
-<div class="g-col-1" data-index="3" data-categories="Y2Fzc2luaSUyMHV2aXMlMkNwaQ==" data-listing-date-sort="1631077581000" data-listing-file-modified-sort="1772576343433" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="365">
-<a href="./projects/uvis-pdart/index.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img loading="lazy" src="./projects/uvis-pdart/uvis-aurora.jpg" class="thumbnail-image card-img" style="height: 150px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Cassini UVIS Data Product Enhancement
-</h5>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('Y2Fzc2luaSUyMHV2aXM='); return false;">cassini uvis</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('cGk='); return false;">pi</div>
-
-</div>
-<div class="card-text listing-description delink">
-I am the PI of this NASA PDART project. Update: I was the PI of this project until I had to give it up when moving back to Germany. The new PI will be at the SETI institute.
-</div>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-Michael Aye
-</div>
-<div class="listing-date">
-2021-09-08
-</div>
-</div>
-</div>
-</div></a>
-</div>
-<div class="g-col-1" data-index="4" data-categories="bWFycyUyQ2NpdGl6ZW4lMjBzY2llbmNl" data-listing-date-sort="1631042301000" data-listing-file-modified-sort="1772576343425" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="138">
-<a href="./projects/planet-four/index.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img loading="lazy" src="./projects/planet-four/featured.png" class="thumbnail-image card-img" style="height: 150px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Planet Four
-</h5>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('bWFycw=='); return false;">mars</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('Y2l0aXplbiUyMHNjaWVuY2U='); return false;">citizen science</div>
-
-</div>
-<div class="card-text listing-description delink">
-The Red Planet is a unique and dynamic world. Through the power of the Internet and its volunteers, we can explore the surface, climate, and history of Mars with our suite…
-</div>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-Michael Aye, Ganna Portyankina, Candice Hansen, Meg Schwamb, Tim Michaels, Chris Lintott, et al.
-</div>
-<div class="listing-date">
-2021-09-07
-</div>
-</div>
-</div>
-</div></a>
-</div>
-</div>
-<div class="listing-no-matching d-none">No matching items</div>
-</div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right
