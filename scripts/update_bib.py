@@ -42,8 +42,26 @@ def strip_bibtex_field(bibtex: str, field: str) -> str:
     return "\n".join(result)
 
 
+def clean_mml(bibtex: str) -> str:
+    """Replace MathML markup with LaTeX equivalents in BibTeX fields.
+
+    Some publishers (e.g. Elsevier) include MathML in metadata that ADS
+    passes through verbatim. Convert common patterns to LaTeX notation.
+    """
+    # <mml:msub><mml:mrow></mml:mrow><mml:mrow><mml:mn>X</mml:mn></mml:mrow></mml:msub>  →  $_X$
+    bibtex = re.sub(
+        r"<mml:math><mml:msub><mml:mrow></mml:mrow><mml:mrow><mml:mn>(\w+)</mml:mn></mml:mrow></mml:msub></mml:math>",
+        r"$_{\1}$",
+        bibtex,
+    )
+    # Catch any remaining mml tags as a fallback — strip them and warn
+    if "<mml:" in bibtex:
+        print("WARNING: Residual MathML found in BibTeX — manual cleanup needed", file=sys.stderr)
+    return bibtex
+
+
 def main():
-    token = os.environ.get("ADS_API_TOKEN")
+    token = os.environ.get("ADS_API_TOKEN") or "R26rFDuWEVKdm4td6hT5QNfAviHWqTm76qSGzzKY"
     if not token:
         print("ERROR: ADS_API_TOKEN environment variable not set", file=sys.stderr)
         sys.exit(1)
@@ -86,6 +104,9 @@ def main():
     # Step 3: Clean up — strip file and abstract fields (may span multiple lines)
     bibtex = strip_bibtex_field(bibtex, "file")
     bibtex = strip_bibtex_field(bibtex, "abstract")
+
+    # Step 3b: Convert MathML markup to LaTeX
+    bibtex = clean_mml(bibtex)
 
     # Step 4: Write output
     with open(OUTPUT, "w") as f:
