@@ -21,9 +21,11 @@ website:
       - bibliography.qmd
     right:
       - icon: github
-        href: https://github.com/michaelaye
-      - icon: twitter
-        href: https://twitter.com/michaelaye
+        href: https://github.com/michaelaye/michaelaye.github.io
+      - icon: mastodon
+        href: https://mastodon.online/@michaelaye
+      - text: "{{< fa brands bluesky >}}"
+        href: https://bsky.app/profile/michaelaye.bsky.social
 execute:
   freeze: auto
 format:
