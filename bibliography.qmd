@@ -9,5 +9,20 @@ filters:
   - michaelaye/highlight-author
   - michaelaye/chronobib
 highlight-author: "Aye"
+chronobib:
+  split-keyword: refereed
+toc: false
 title-block-banner: true
 ---
+
+::: {.panel-tabset}
+## Refereed
+
+::: {#refs-refereed}
+:::
+
+## Non-Refereed
+
+::: {#refs-nonrefereed}
+:::
+:::

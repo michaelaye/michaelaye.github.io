@@ -42,6 +42,67 @@ def strip_bibtex_field(bibtex: str, field: str) -> str:
     return "\n".join(result)
 
 
+def tag_refereed_keyword(bibtex: str, bibcode_to_refereed: dict) -> str:
+    """Add refereed/non-refereed keyword to each BibTeX entry.
+
+    Appends to existing keywords field or inserts a new one. Idempotent:
+    strips any prior refereed/non-refereed tag before adding.
+    """
+    entries = re.split(r"(?=^@)", bibtex, flags=re.MULTILINE)
+    result_parts = []
+
+    for entry in entries:
+        if not entry.strip():
+            result_parts.append(entry)
+            continue
+
+        header_match = re.match(r"@\w+\{(.+?),", entry)
+        if not header_match:
+            result_parts.append(entry)
+            continue
+
+        bibcode = header_match.group(1)
+        tag = "refereed" if bibcode_to_refereed.get(bibcode, False) else "non-refereed"
+
+        # Strip existing refereed/non-refereed from keywords (idempotency)
+        entry = re.sub(
+            r"(keywords\s*=\s*\{[^}]*)\b(?:non-refereed|refereed)\b,?\s*",
+            r"\1",
+            entry,
+        )
+        # Clean trailing/leading commas inside braces
+        entry = re.sub(r",(\s*\})", r"\1", entry)
+        entry = re.sub(r"(\{\s*),", r"\1", entry)
+
+        if re.search(r"^\s*keywords\s*=", entry, re.MULTILINE):
+            # Append to existing keywords
+            entry = re.sub(
+                r"(keywords\s*=\s*\{[^}]*)\}",
+                rf"\1, {tag}" + "}",
+                entry,
+            )
+            # Fix empty keywords edge case: {, tag} -> {tag}
+            entry = re.sub(r"\{\s*,\s*", "{", entry)
+        else:
+            # Insert new keywords field before the entry's closing brace.
+            # Also add a comma to the previous last field line if missing.
+            last_brace = entry.rfind("}")
+            if last_brace > 0:
+                before = entry[:last_brace].rstrip()
+                # Add comma to the last field if it doesn't already have one
+                if before and not before.endswith(","):
+                    before += ","
+                entry = (
+                    before
+                    + f"\n     keywords = {{{tag}}},\n"
+                    + entry[last_brace:]
+                )
+
+        result_parts.append(entry)
+
+    return "".join(result_parts)
+
+
 def clean_mml(bibtex: str) -> str:
     """Replace MathML markup with LaTeX equivalents in BibTeX fields.
 
@@ -80,11 +141,15 @@ def main():
     resp = requests.get(
         f"{ADS_BASE}/search/query",
         headers=headers,
-        params={"q": query, "fl": "bibcode", "rows": 500},
+        params={"q": query, "fl": "bibcode,property", "rows": 500},
     )
     resp.raise_for_status()
     docs = resp.json()["response"]["docs"]
     bibcodes = [doc["bibcode"] for doc in docs]
+    bibcode_to_refereed = {
+        doc["bibcode"]: "REFEREED" in doc.get("property", [])
+        for doc in docs
+    }
 
     if not bibcodes:
         print("WARNING: No papers found for ORCID", ORCID, file=sys.stderr)
@@ -108,13 +173,19 @@ def main():
     # Step 3b: Convert MathML markup to LaTeX
     bibtex = clean_mml(bibtex)
 
+    # Step 3c: Tag refereed/non-refereed keyword
+    bibtex = tag_refereed_keyword(bibtex, bibcode_to_refereed)
+
     # Step 4: Write output
     with open(OUTPUT, "w") as f:
         f.write(bibtex)
 
     # Count entries
     n_entries = len(re.findall(r"^@\w+\{", bibtex, re.MULTILINE))
+    n_refereed = sum(1 for v in bibcode_to_refereed.values() if v)
+    n_not = len(bibcode_to_refereed) - n_refereed
     print(f"Wrote {n_entries} entries to {os.path.basename(OUTPUT)}")
+    print(f"Tagged {n_refereed} refereed and {n_not} non-refereed entries")
 
 
 if __name__ == "__main__":
