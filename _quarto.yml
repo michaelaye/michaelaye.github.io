@@ -31,8 +31,8 @@ execute:
 format:
   html:
     theme:
-      light: flatly
-      dark: darkly
+      light: sandstone
+      dark: solar
     css: styles.css
     toc: true
     highlight-style: atom-one
