@@ -12,3 +12,13 @@ code:not(.sourceCode) {
 [data-bs-theme="dark"] code:not(.sourceCode) {
   background-color: rgba(67, 67, 67, .65);
 }
+
+/* Fix tab readability in dark mode — light theme's .nav-tabs .nav-link
+   sets bg to rgb(248,245,240) which the dark theme doesn't override */
+body.quarto-dark .nav-tabs .nav-link {
+  background-color: transparent !important;
+  color: rgba(255, 255, 255, 0.65) !important;
+}
+body.quarto-dark .nav-tabs .nav-link.active {
+  color: #fff !important;
+}
