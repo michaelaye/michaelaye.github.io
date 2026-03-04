@@ -229,6 +229,24 @@ background-color: null;
 font-style: inherit;">pip</span> install requests</span></code></pre></div></div>
 <p>You’ll need an <a href="https://ui.adsabs.harvard.edu/user/settings/token">ADS API token</a> exported as <code>ADS_API_TOKEN</code>.</p>
 </section>
+<section id="prerequisites-complete-your-orcid-claims-in-ads" class="level2">
+<h2 class="anchored" data-anchor-id="prerequisites-complete-your-orcid-claims-in-ads">Prerequisites: complete your ORCID claims in ADS</h2>
+<p>The script can only fetch papers that ADS has linked to your ORCID. If your claims are incomplete, papers will be silently missing from the output. It’s worth checking this before your first run.</p>
+<ol type="1">
+<li><p><strong>Link your ORCID to ADS.</strong> In <a href="https://ui.adsabs.harvard.edu/user/settings/orcid">ADS user settings</a>, connect your ORCID account if you haven’t already.</p></li>
+<li><p><strong>Claim missing papers.</strong> Search for your publications in ADS. On any paper that isn’t yet linked to your ORCID, click the ORCID icon to claim it. ADS supports three claim sources:</p>
+<ul>
+<li><code>orcid_pub</code> — claimed by the publisher (automatic for some journals)</li>
+<li><code>orcid_user</code> — claimed by you through the ADS interface</li>
+<li><code>orcid_other</code> — claimed through other ORCID-connected services</li>
+</ul>
+<p>The script queries all three sources, so a paper claimed through any of these channels will be included.</p></li>
+<li><p><strong>Check for completeness.</strong> Run this ADS query to see everything currently linked to your ORCID:</p>
+<pre><code>orcid:0000-0002-4088-1928</code></pre>
+<p>Compare the result count against what you expect. Conference abstracts, instrument papers, and older publications are the most common gaps.</p></li>
+</ol>
+<p>Once your claims are complete, the script will pick up everything automatically on every subsequent run.</p>
+</section>
 <section id="the-full-pipeline" class="level2">
 <h2 class="anchored" data-anchor-id="the-full-pipeline">The full pipeline</h2>
 <p>Here’s how all the pieces fit together for an academic Quarto homepage:</p>

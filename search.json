@@ -511,6 +511,13 @@
     "text": "Installation\ngit clone https://github.com/michaelaye/ads-bib-tools.git\npip install requests\nOr grab just the script:\ncurl -O https://raw.githubusercontent.com/michaelaye/ads-bib-tools/main/update_bib.py\npip install requests\nYou’ll need an ADS API token exported as ADS_API_TOKEN."
   },
   {
+    "objectID": "posts/ads-bib-tools/index.html#prerequisites-complete-your-orcid-claims-in-ads",
+    "href": "posts/ads-bib-tools/index.html#prerequisites-complete-your-orcid-claims-in-ads",
+    "title": "ads-bib-tools: Fetch Your Full Publication List from NASA ADS",
+    "section": "Prerequisites: complete your ORCID claims in ADS",
+    "text": "Prerequisites: complete your ORCID claims in ADS\nThe script can only fetch papers that ADS has linked to your ORCID. If your claims are incomplete, papers will be silently missing from the output. It’s worth checking this before your first run.\n\nLink your ORCID to ADS. In ADS user settings, connect your ORCID account if you haven’t already.\nClaim missing papers. Search for your publications in ADS. On any paper that isn’t yet linked to your ORCID, click the ORCID icon to claim it. ADS supports three claim sources:\n\norcid_pub — claimed by the publisher (automatic for some journals)\norcid_user — claimed by you through the ADS interface\norcid_other — claimed through other ORCID-connected services\n\nThe script queries all three sources, so a paper claimed through any of these channels will be included.\nCheck for completeness. Run this ADS query to see everything currently linked to your ORCID:\norcid:0000-0002-4088-1928\nCompare the result count against what you expect. Conference abstracts, instrument papers, and older publications are the most common gaps.\n\nOnce your claims are complete, the script will pick up everything automatically on every subsequent run."
+  },
+  {
     "objectID": "posts/ads-bib-tools/index.html#the-full-pipeline",
     "href": "posts/ads-bib-tools/index.html#the-full-pipeline",
     "title": "ads-bib-tools: Fetch Your Full Publication List from NASA ADS",
