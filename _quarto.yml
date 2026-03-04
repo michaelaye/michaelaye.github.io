@@ -19,6 +19,7 @@ website:
       - talks.qmd
       - projects.qmd
       - bibliography.qmd
+      - about.qmd
     right:
       - icon: github
         href: https://github.com/michaelaye/michaelaye.github.io

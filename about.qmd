@@ -1,0 +1,30 @@
+---
+title: "About"
+title-block-banner: true
+---
+
+## Education
+
+**University of Durham** | Durham, UK
+PhD High Energy Astrophysics | Sept 2000 -- Dec 2004
+
+**Universität Heidelberg** | Heidelberg, Germany
+Diploma in Physics (Astronomy, Particle Physics) | April 1995 -- June 1999
+
+## Experience
+
+**Freie Universität Berlin** | Research Scientist | Juli 2022 -- present
+
+**University of Colorado, Boulder** | Laboratory for Atmospheric and Space Science (LASP) | Research Associate | December 2014 -- June 2022
+
+**University of California, Los Angeles** | Postdoctoral Researcher | August 2012 -- Nov 2014
+
+**Physikalisches Institut Bern** | Assistant Project Manager BepiColombo Laser Altimeter | Feb 2008 -- July 2012
+
+**Max-Planck-Institute for Solar System Research** | Dawn Framing Camera Team | Feb 2005 -- Feb 2008
+
+## Activities
+
+* Guest Associate Editor for FrontiersIn Special Issue [Snakes on a Spaceship](https://www.frontiersin.org/research-topics/33555/snakes-on-a-spaceship-an-overview-of-python-in-space-physics)
+
+* [OpenPlanetary](https://www.openplanetary.org) board member, responsible for Python-related issues

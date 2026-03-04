@@ -1,29 +1,38 @@
 ---
 title: "Planet Four"
 subtitle: "Studying Mars with the help of Citizen Science"
-author: ["Michael Aye", "Ganna Portyankina", "Candice Hansen", "Meg Schwamb", "Tim Michaels", "Chris Lintott", "et al."]
-categories: [mars, citizen science]
-date: 2021-09-07T13:18:21-06:00
+author: ["Michael Aye", "Tom Ihro", "Ganna Portyankina", "Candice Hansen", "Meg Schwamb", "Tim Michaels", "Chris Lintott", "et al."]
+categories: [mars, citizen science, python]
+date: 2026-03-04
 image: featured.png
 ---
-The Red Planet is a unique and dynamic world. 
-Through the power of the Internet and its volunteers, we can explore the surface, climate, and history of Mars with our suite of the Planet Four projects.
+The Red Planet is a unique and dynamic world.
+Through the power of the Internet and its volunteers, we explore the surface, climate, and history of Mars with the Planet Four projects.
 
 It is difficult if not impossible for computer algorithms to accurately map individual polar seasonal fans,
-spot araneiform ('spider') erosion, and identify polygonal ridges. 
-Computers just aren’t good enough to do the job yet, but these features visible from orbit are easily spotted by the human eye.
-Volunteers from around the world have contributed to the Planet Four projects by mapping the seasonal fans, polygonal ridges,
-and araneiforms in Mars Reconnaissance Orbiter imagery.
+spot araneiform (‘spider’) erosion, and identify polygonal ridges.
+These features visible from orbit are easily spotted by the human eye, and volunteers from around the world have contributed by mapping seasonal fans, polygonal ridges, and araneiforms in Mars Reconnaissance Orbiter imagery.
 
-With the help of volunteers, we are discovering new insights into the processes active in the past and present on the Red Planet.
+## p4tools
 
-Join us at [https://planetfour.space](https://planetfour.space) .
+The [p4tools](https://michaelaye.github.io/p4tools/) Python library provides easy access to the Planet Four citizen science catalogs. Install via `pip install p4tools` and get started with a few lines:
 
-[Link to project](https://planetfour.space)
+- Download and cache fan and blotch catalogs automatically via [pooch](https://www.fatiando.org/pooch/)
+- Built-in plotting tools for catalog visualization
+- CLI interface via the `p4` command
 
-[Link to data catalog](https://www.zooniverse.org/projects/mschwamb/planet-four/about/results)
+## Current research
 
-[PDF link](https://paperpile.com/shared/q73Uo6)
+Our latest analysis covers 463 HiRISE observations spanning Mars Years 28--33, studying inter- and intra-annual variability of dark regolith deposits at Mars’ south pole (EGU 2026). 
+The dataset reveals a mean jet deposit ground coverage of 6.89% with high inter-annual repeatability, providing new constraints on seasonal CO2 jet activity.
 
-[Video link](https://www.youtube.com/watch?v=skrk-6UXuV0)
+## Links
+
+- [Planet Four](https://planetfour.space)
+- [Zooniverse results](https://www.zooniverse.org/projects/mschwamb/planet-four/about/results)
+- [p4tools on PyPI](https://pypi.org/project/p4tools/)
+- [p4tools documentation](https://michaelaye.github.io/p4tools/)
+- [GitHub organization](https://github.com/planetfour)
+- [Introduction video](https://www.youtube.com/watch?v=skrk-6UXuV0)
+- [Publications](https://paperpile.com/shared/q73Uo6)
 
