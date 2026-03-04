@@ -89,6 +89,29 @@ pip install requests
 
 You'll need an [ADS API token](https://ui.adsabs.harvard.edu/user/settings/token) exported as `ADS_API_TOKEN`.
 
+## Prerequisites: complete your ORCID claims in ADS
+
+The script can only fetch papers that ADS has linked to your ORCID. If your claims are incomplete, papers will be silently missing from the output. It's worth checking this before your first run.
+
+1. **Link your ORCID to ADS.** In [ADS user settings](https://ui.adsabs.harvard.edu/user/settings/orcid), connect your ORCID account if you haven't already.
+
+2. **Claim missing papers.** Search for your publications in ADS. On any paper that isn't yet linked to your ORCID, click the ORCID icon to claim it. ADS supports three claim sources:
+   - `orcid_pub` — claimed by the publisher (automatic for some journals)
+   - `orcid_user` — claimed by you through the ADS interface
+   - `orcid_other` — claimed through other ORCID-connected services
+
+   The script queries all three sources, so a paper claimed through any of these channels will be included.
+
+3. **Check for completeness.** Run this ADS query to see everything currently linked to your ORCID:
+
+   ```
+   orcid:0000-0002-4088-1928
+   ```
+
+   Compare the result count against what you expect. Conference abstracts, instrument papers, and older publications are the most common gaps.
+
+Once your claims are complete, the script will pick up everything automatically on every subsequent run.
+
 ## The full pipeline
 
 Here's how all the pieces fit together for an academic Quarto homepage:
