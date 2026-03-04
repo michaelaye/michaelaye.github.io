@@ -31,8 +31,10 @@ execute:
 format:
   html:
     theme:
+      # Light (best readability): sandstone, cosmo, litera, flatly, lux, simplex
       light: sandstone
-      dark: solar
+      # Dark (best inline code contrast): darkly, superhero, solar, cyborg
+      dark: superhero
     css: styles.css
     toc: true
     highlight-style: atom-one
