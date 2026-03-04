@@ -10,7 +10,533 @@
 <atom:link href="https://michaelaye.github.io/posts.xml" rel="self" type="application/rss+xml"/>
 <description></description>
 <generator>quarto-1.8.27</generator>
-<lastBuildDate>Tue, 03 Mar 2026 00:00:00 GMT</lastBuildDate>
+<lastBuildDate>Wed, 04 Mar 2026 00:00:00 GMT</lastBuildDate>
+<item>
+  <title>Building an Academic Homepage with Quarto</title>
+  <dc:creator>Michael Aye</dc:creator>
+  <link>https://michaelaye.github.io/posts/homepage-setup/</link>
+  <description><![CDATA[ 
+
+
+
+
+
+
+<p>Most academic homepages are either a bare-bones departmental page that hasn’t been updated since 2018, or an overengineered React app that took a month to build. I wanted something in between: a site that looks professional, is easy to update, and keeps my publication list current without me lifting a finger.</p>
+<p>Here’s how I built it with <a href="https://quarto.org">Quarto</a>, a few custom extensions, and two GitHub Actions workflows.</p>
+<section id="why-quarto" class="level2">
+<h2 class="anchored" data-anchor-id="why-quarto">Why Quarto?</h2>
+<p>Quarto is a scientific publishing system built on Pandoc. It understands YAML front matter, BibTeX, LaTeX math, cross-references, and multiple output formats — all things academics need and generic static site generators don’t handle well out of the box.</p>
+<p>My site uses <code>project: type: website</code> with the <code>trestles</code> about-page template for the homepage. Blog posts, talks (as reveal.js slides), and project pages each live in their own directories and are auto-discovered by Quarto’s listing mechanism. I write content in <code>.qmd</code> or <code>.md</code>, and Quarto renders everything to a static site. The <a href="https://quarto.org/docs/guide/">Quarto documentation</a> is excellent — one of the best I’ve seen for any static site tool — and covers everything from basics to advanced customization.</p>
+<p>The dual light/dark theme uses <code>sandstone</code> (light) and <code>superhero</code> (dark) from Bootswatch, configured in <code>_quarto.yml</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">format</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span></span>
+<span id="cb1-2"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">  </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">html</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span></span>
+<span id="cb1-3"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">    </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">theme</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span></span>
+<span id="cb1-4"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">      </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">light</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> sandstone</span></span>
+<span id="cb1-5"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">      </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">dark</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> superhero</span></span>
+<span id="cb1-6"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">    </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">css</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> styles.css</span></span></code></pre></div></div>
+</section>
+<section id="the-bibliography-pipeline" class="level2">
+<h2 class="anchored" data-anchor-id="the-bibliography-pipeline">The bibliography pipeline</h2>
+<p>My <a href="../../bibliography.html">bibliography page</a> shows every publication I have on NASA ADS, grouped by year, split into refereed and non-refereed tabs, with my name highlighted. And it updates itself every week.</p>
+<p>The pipeline has three pieces:</p>
+<section id="ads-bib-tools-fetch-and-clean" class="level3">
+<h3 class="anchored" data-anchor-id="ads-bib-tools-fetch-and-clean">1. ads-bib-tools — fetch and clean</h3>
+<p><a href="https://github.com/michaelaye/ads-bib-tools">ads-bib-tools</a> is a Python script that queries the NASA ADS API using my ORCID, fetches all linked publications as BibTeX, and cleans them up:</p>
+<ul>
+<li>Strips bulky <code>abstract</code> and <code>file</code> fields</li>
+<li>Converts MathML markup (from publishers like Elsevier) to LaTeX</li>
+<li>Tags each entry with <code>refereed</code> or <code>non-refereed</code> in the BibTeX <code>keywords</code> field</li>
+</ul>
+<p>One command produces a website-ready <code>.bib</code> file. I wrote a <a href="../../posts/ads-bib-tools/">dedicated blog post</a> about this tool.</p>
+</section>
+<section id="highlight-author-bold-your-name" class="level3">
+<h3 class="anchored" data-anchor-id="highlight-author-bold-your-name">2. highlight-author — bold your name</h3>
+<p>The <a href="https://github.com/michaelaye/highlight-author">highlight-author</a> Quarto extension is a Lua filter that bolds a specified author name in the rendered bibliography. Configuration is one line in the document front matter:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb2-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">highlight-author</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Aye"</span></span></code></pre></div></div>
+</section>
+<section id="chronobib-year-groups-and-tabs" class="level3">
+<h3 class="anchored" data-anchor-id="chronobib-year-groups-and-tabs">3. chronobib — year groups and tabs</h3>
+<p>The <a href="https://github.com/michaelaye/chronobib">chronobib</a> extension groups bibliography entries by year and optionally splits them by a keyword. Combined with Quarto’s panel-tabset, this gives me refereed and non-refereed tabs, each with year headers:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb3-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">filters</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span></span>
+<span id="cb3-2"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">  </span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">-</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> michaelaye/highlight-author</span></span>
+<span id="cb3-3"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">  </span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">-</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> michaelaye/chronobib</span></span>
+<span id="cb3-4"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">chronobib</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span></span>
+<span id="cb3-5"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">  </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">split-keyword</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> refereed</span></span></code></pre></div></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb4-1">::: {.panel-tabset}</span>
+<span id="cb4-2"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">## Refereed</span></span>
+<span id="cb4-3"></span>
+<span id="cb4-4">::: {#refs-refereed}</span>
+<span id="cb4-5">:::</span>
+<span id="cb4-6"></span>
+<span id="cb4-7"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">## Non-Refereed</span></span>
+<span id="cb4-8"></span>
+<span id="cb4-9">::: {#refs-nonrefereed}</span>
+<span id="cb4-10">:::</span>
+<span id="cb4-11">:::</span></code></pre></div></div>
+<p>Three tools, each independent, but designed to work together.</p>
+</section>
+</section>
+<section id="automation-with-github-actions" class="level2">
+<h2 class="anchored" data-anchor-id="automation-with-github-actions">Automation with GitHub Actions</h2>
+<p>Two workflows handle everything:</p>
+<section id="publishing" class="level3">
+<h3 class="anchored" data-anchor-id="publishing">Publishing</h3>
+<p>Every push to <code>main</code> triggers the publish workflow. It sets up Quarto, renders the site, and deploys to the <code>gh-pages</code> branch:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb5-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">on</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span></span>
+<span id="cb5-2"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">  </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">push</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span></span>
+<span id="cb5-3"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">    </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">branches</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> main</span></span>
+<span id="cb5-4"></span>
+<span id="cb5-5"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">steps</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span></span>
+<span id="cb5-6"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">  </span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">-</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">uses</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> actions/checkout@v4</span></span>
+<span id="cb5-7"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">  </span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">-</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">uses</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> quarto-dev/quarto-actions/setup@v2</span></span>
+<span id="cb5-8"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">  </span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">-</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">uses</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> quarto-dev/quarto-actions/publish@v2</span></span>
+<span id="cb5-9"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">    </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">with</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span></span>
+<span id="cb5-10"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">      </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">target</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> gh-pages</span></span></code></pre></div></div>
+<p>No manual deploys. Push a new post, and it’s live in a couple of minutes.</p>
+</section>
+<section id="bibliography-updates" class="level3">
+<h3 class="anchored" data-anchor-id="bibliography-updates">Bibliography updates</h3>
+<p>A scheduled workflow runs every Sunday at 6 AM UTC. It checks out the repo, runs <code>update_bib.py</code> to fetch the latest publications from ADS, and commits the updated <code>.bib</code> file if anything changed:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb6-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">on</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span></span>
+<span id="cb6-2"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">  </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">schedule</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span></span>
+<span id="cb6-3"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">    </span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">-</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">cron</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'0 6 * * 0'</span></span>
+<span id="cb6-4"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">  </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">workflow_dispatch</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span></span>
+<span id="cb6-5"></span>
+<span id="cb6-6"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">steps</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span></span>
+<span id="cb6-7"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">  </span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">-</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">uses</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> actions/checkout@v4</span></span>
+<span id="cb6-8"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">  </span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">-</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">uses</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> actions/setup-python@v5</span></span>
+<span id="cb6-9"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">  </span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">-</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">run</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> pip install requests</span></span>
+<span id="cb6-10"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">  </span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">-</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">run</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> python scripts/update_bib.py</span></span>
+<span id="cb6-11"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">    </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">env</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span></span>
+<span id="cb6-12"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">      </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">ADS_API_TOKEN</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> ${{ secrets.ADS_API_TOKEN }}</span></span>
+<span id="cb6-13"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">  - </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">run</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="ch" style="color: #20794D;
+background-color: null;
+font-style: inherit;">|</span></span>
+<span id="cb6-14">      git diff --quiet MyPublications.bib &amp;&amp; exit 0</span>
+<span id="cb6-15">      git config user.name "github-actions[bot]"</span>
+<span id="cb6-16">      git add MyPublications.bib</span>
+<span id="cb6-17">      git commit -m "Update bibliography from NASA ADS"</span>
+<span id="cb6-18">      git push</span></code></pre></div></div>
+<p>Because the push to <code>main</code> triggers the publish workflow, the bibliography commit automatically rebuilds and deploys the site. The result: new publications appear on my homepage without any manual intervention.</p>
+</section>
+</section>
+<section id="will-new-papers-show-up-automatically" class="level2">
+<h2 class="anchored" data-anchor-id="will-new-papers-show-up-automatically">Will new papers show up automatically?</h2>
+<p>Mostly yes, but it depends on how the paper gets linked to your ORCID in ADS.</p>
+<p>ADS tracks ORCID associations from three sources:</p>
+<ul>
+<li><strong><code>orcid_pub</code></strong> — the publisher sends your ORCID to ADS. This happens automatically when you provide your ORCID during manuscript submission, which most major journals now support. New papers published this way will appear without any action on your part.</li>
+<li><strong><code>orcid_user</code></strong> — you manually claim a paper through the ADS interface. Required for older papers or publications where you didn’t provide your ORCID.</li>
+<li><strong><code>orcid_other</code></strong> — claims made through ORCID’s own search-and-link tools or third-party services.</li>
+</ul>
+<p>The script queries all three sources, so anything claimed through any channel gets picked up. In practice: if you consistently provide your ORCID when submitting papers, new publications will flow through automatically. Conference abstracts, older papers, and publications from smaller journals that don’t support ORCID integration will still need a manual claim in ADS.</p>
+<p>My recommendation: check your ADS ORCID query once or twice a year and claim anything that’s missing. The weekly cron job handles the rest.</p>
+</section>
+<section id="talks-as-live-presentations" class="level2">
+<h2 class="anchored" data-anchor-id="talks-as-live-presentations">Talks as live presentations</h2>
+<p>Quarto has native support for <a href="https://revealjs.com/">reveal.js</a> presentations. Each talk lives in its own subdirectory under <code>talks/</code> as an <code>index.qmd</code> with <code>format: revealjs</code> in the front matter.</p>
+<p>The nice thing: when you click a talk from the <a href="../../talks.html">talks listing</a>, it opens directly as a full-screen presentation in the browser — no PDF download, no extra clicks. Visitors can navigate slides with arrow keys, and the talk is a live HTML document with working links, embedded media, and speaker notes.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb7-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">format</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span></span>
+<span id="cb7-2"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">  </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">revealjs</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span></span>
+<span id="cb7-3"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">    </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">theme</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> default</span></span>
+<span id="cb7-4"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">    </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">slide-number</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="ch" style="color: #20794D;
+background-color: null;
+font-style: inherit;">true</span></span>
+<span id="cb7-5"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">    </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">logo</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> fu-logo.svg</span></span>
+<span id="cb7-6"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">    </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">footer</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Conference info"</span></span></code></pre></div></div>
+<p>Because Quarto renders each talk as its own <code>index.html</code>, the listing page links straight to the presentation. This makes conference talks permanently accessible at a stable URL you can put on your CV or share with colleagues.</p>
+</section>
+<section id="other-extensions" class="level2">
+<h2 class="anchored" data-anchor-id="other-extensions">Other extensions</h2>
+<p>Two more extensions round out the setup:</p>
+<ul>
+<li><strong><a href="https://github.com/sellorm/quarto-social-embeds">sellorm/quarto-social-embeds</a></strong> — shortcodes for embedding YouTube, Mastodon, and other social media in posts</li>
+<li><strong><a href="https://github.com/quarto-ext/fontawesome">quarto-ext/fontawesome</a></strong> — Font Awesome icons, used for the Bluesky icon in the navbar</li>
+</ul>
+</section>
+<section id="the-result" class="level2">
+<h2 class="anchored" data-anchor-id="the-result">The result</h2>
+<p>A professional academic homepage that:</p>
+<ul>
+<li>Renders from simple Markdown/YAML files</li>
+<li>Supports blog posts, reveal.js talks, and project pages</li>
+<li>Maintains a complete, auto-updating bibliography</li>
+<li>Deploys automatically on every push</li>
+<li>Costs nothing to host (GitHub Pages)</li>
+</ul>
+<p>All the tools are open source. The <a href="https://github.com/michaelaye/michaelaye.github.io">source code for this site</a> is public if you want to see how it all fits together.</p>
+</section>
+<section id="links" class="level2">
+<h2 class="anchored" data-anchor-id="links">Links</h2>
+<ul>
+<li>Site source: <a href="https://github.com/michaelaye/michaelaye.github.io">michaelaye/michaelaye.github.io</a></li>
+<li>ads-bib-tools: <a href="https://github.com/michaelaye/ads-bib-tools">michaelaye/ads-bib-tools</a></li>
+<li>highlight-author: <a href="https://github.com/michaelaye/highlight-author">michaelaye/highlight-author</a></li>
+<li>chronobib: <a href="https://github.com/michaelaye/chronobib">michaelaye/chronobib</a></li>
+<li>Quarto: <a href="https://quarto.org">quarto.org</a></li>
+</ul>
+
+
+</section>
+
+ ]]></description>
+  <category>quarto</category>
+  <category>academic</category>
+  <category>open-source</category>
+  <category>github-actions</category>
+  <category>bibliography</category>
+  <guid>https://michaelaye.github.io/posts/homepage-setup/</guid>
+  <pubDate>Wed, 04 Mar 2026 00:00:00 GMT</pubDate>
+</item>
 <item>
   <title>ads-bib-tools: Fetch Your Full Publication List from NASA ADS</title>
   <dc:creator>Michael Aye</dc:creator>

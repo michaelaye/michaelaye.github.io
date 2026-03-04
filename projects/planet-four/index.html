@@ -7,13 +7,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Michael Aye">
+<meta name="author" content="Tom Ihro">
 <meta name="author" content="Ganna Portyankina">
 <meta name="author" content="Candice Hansen">
 <meta name="author" content="Meg Schwamb">
 <meta name="author" content="Tim Michaels">
 <meta name="author" content="Chris Lintott">
 <meta name="author" content="et al.">
-<meta name="dcterms.date" content="2021-09-07">
+<meta name="dcterms.date" content="2026-03-04">
 
 <title>Planet Four – Home</title>
 <style>
@@ -295,6 +296,10 @@ ul.task-list li input[type="checkbox"] {
     <a class="nav-link" href="../../bibliography.html"> 
 <span class="menu-text">Bibliography</span></a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item compact">
@@ -323,8 +328,16 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#p4tools" id="toc-p4tools" class="nav-link active" data-scroll-target="#p4tools">p4tools</a></li>
+  <li><a href="#current-research" id="toc-current-research" class="nav-link" data-scroll-target="#current-research">Current research</a></li>
+  <li><a href="#links" id="toc-links" class="nav-link" data-scroll-target="#links">Links</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -337,6 +350,7 @@ ul.task-list li input[type="checkbox"] {
   <div class="quarto-categories">
     <div class="quarto-category">mars</div>
     <div class="quarto-category">citizen science</div>
+    <div class="quarto-category">python</div>
   </div>
   </div>
 
@@ -348,6 +362,7 @@ ul.task-list li input[type="checkbox"] {
     <div class="quarto-title-meta-heading">Authors</div>
     <div class="quarto-title-meta-contents">
              <p>Michael Aye </p>
+             <p>Tom Ihro </p>
              <p>Ganna Portyankina </p>
              <p>Candice Hansen </p>
              <p>Meg Schwamb </p>
@@ -360,7 +375,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 7, 2021</p>
+      <p class="date">March 4, 2026</p>
     </div>
   </div>
   
@@ -372,16 +387,35 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>The Red Planet is a unique and dynamic world. Through the power of the Internet and its volunteers, we can explore the surface, climate, and history of Mars with our suite of the Planet Four projects.</p>
-<p>It is difficult if not impossible for computer algorithms to accurately map individual polar seasonal fans, spot araneiform (‘spider’) erosion, and identify polygonal ridges. Computers just aren’t good enough to do the job yet, but these features visible from orbit are easily spotted by the human eye. Volunteers from around the world have contributed to the Planet Four projects by mapping the seasonal fans, polygonal ridges, and araneiforms in Mars Reconnaissance Orbiter imagery.</p>
-<p>With the help of volunteers, we are discovering new insights into the processes active in the past and present on the Red Planet.</p>
-<p>Join us at <a href="https://planetfour.space">https://planetfour.space</a> .</p>
-<p><a href="https://planetfour.space">Link to project</a></p>
-<p><a href="https://www.zooniverse.org/projects/mschwamb/planet-four/about/results">Link to data catalog</a></p>
-<p><a href="https://paperpile.com/shared/q73Uo6">PDF link</a></p>
-<p><a href="https://www.youtube.com/watch?v=skrk-6UXuV0">Video link</a></p>
+<p>The Red Planet is a unique and dynamic world. Through the power of the Internet and its volunteers, we explore the surface, climate, and history of Mars with the Planet Four projects.</p>
+<p>It is difficult if not impossible for computer algorithms to accurately map individual polar seasonal fans, spot araneiform (‘spider’) erosion, and identify polygonal ridges. These features visible from orbit are easily spotted by the human eye, and volunteers from around the world have contributed by mapping seasonal fans, polygonal ridges, and araneiforms in Mars Reconnaissance Orbiter imagery.</p>
+<section id="p4tools" class="level2">
+<h2 class="anchored" data-anchor-id="p4tools">p4tools</h2>
+<p>The <a href="https://michaelaye.github.io/p4tools/">p4tools</a> Python library provides easy access to the Planet Four citizen science catalogs. Install via <code>pip install p4tools</code> and get started with a few lines:</p>
+<ul>
+<li>Download and cache fan and blotch catalogs automatically via <a href="https://www.fatiando.org/pooch/">pooch</a></li>
+<li>Built-in plotting tools for catalog visualization</li>
+<li>CLI interface via the <code>p4</code> command</li>
+</ul>
+</section>
+<section id="current-research" class="level2">
+<h2 class="anchored" data-anchor-id="current-research">Current research</h2>
+<p>Our latest analysis covers 463 HiRISE observations spanning Mars Years 28–33, studying inter- and intra-annual variability of dark regolith deposits at Mars’ south pole (EGU 2026). The dataset reveals a mean jet deposit ground coverage of 6.89% with high inter-annual repeatability, providing new constraints on seasonal CO2 jet activity.</p>
+</section>
+<section id="links" class="level2">
+<h2 class="anchored" data-anchor-id="links">Links</h2>
+<ul>
+<li><a href="https://planetfour.space">Planet Four</a></li>
+<li><a href="https://www.zooniverse.org/projects/mschwamb/planet-four/about/results">Zooniverse results</a></li>
+<li><a href="https://pypi.org/project/p4tools/">p4tools on PyPI</a></li>
+<li><a href="https://michaelaye.github.io/p4tools/">p4tools documentation</a></li>
+<li><a href="https://github.com/planetfour">GitHub organization</a></li>
+<li><a href="https://www.youtube.com/watch?v=skrk-6UXuV0">Introduction video</a></li>
+<li><a href="https://paperpile.com/shared/q73Uo6">Publications</a></li>
+</ul>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

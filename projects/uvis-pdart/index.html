@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Michael Aye">
-<meta name="dcterms.date" content="2021-09-08">
+<meta name="dcterms.date" content="2026-03-04">
 
 <title>Cassini UVIS Data Product Enhancement – Home</title>
 <style>
@@ -285,6 +285,10 @@ ul.task-list li input[type="checkbox"] {
     <a class="nav-link" href="../../bibliography.html"> 
 <span class="menu-text">Bibliography</span></a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item compact">
@@ -319,8 +323,8 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
   <li><a href="#objectives" id="toc-objectives" class="nav-link active" data-scroll-target="#objectives">Objectives</a></li>
-  <li><a href="#methodology" id="toc-methodology" class="nav-link" data-scroll-target="#methodology">Methodology</a></li>
-  <li><a href="#relevance" id="toc-relevance" class="nav-link" data-scroll-target="#relevance">Relevance</a></li>
+  <li><a href="#approach" id="toc-approach" class="nav-link" data-scroll-target="#approach">Approach</a></li>
+  <li><a href="#current-status" id="toc-current-status" class="nav-link" data-scroll-target="#current-status">Current status</a></li>
   </ul>
 </nav>
     </div>
@@ -351,7 +355,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 8, 2021</p>
+      <p class="date">March 4, 2026</p>
     </div>
   </div>
   
@@ -363,18 +367,29 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>I am the PI of this NASA PDART project. Update: I was the PI of this project until I had to give it up when moving back to Germany. The new PI will be at the <a href="https://www.seti.org/">SETI institute</a>.</p>
+<p>This NASA PDART project upgrades the existing Cassini UVIS data products into a modern, science-ready format. The PI is Matt Tiscareno at the <a href="https://www.seti.org/">SETI Institute</a>; I serve as external consultant and continue to lead most project activities from FU Berlin.</p>
 <section id="objectives" class="level2">
 <h2 class="anchored" data-anchor-id="objectives">Objectives</h2>
-<p>The limited content and inconvenient format of published Cassini Ultraviolet Imaging Spectrograph (UVIS) data products puts a high burden of remaining work tasks on the end user before a scientific investigation can begin. We propose to produce an upgraded data product in a modern format, add all required meta-data to remove the need of time-consuming geometry calculations, and perform a default calibration for the majority of data products. This will realize enormous gains and scientific efficiency in working with UVIS data. The proposed work will spare researchers beyond the UVIS team countless hours dealing with unnecessary technical issues and allow them to concentrate on scientific analysis. This work benefits all aspects of study related to UVIS observations: * stellar and solar occultations of Saturn, * emissions from the Titan atmosphere, * satellite reflectance, * ring spectroscopy, and more.</p>
+<p>The limited content and inconvenient format of published Cassini Ultraviolet Imaging Spectrograph (UVIS) data products puts a high burden on end users before scientific investigation can begin. This project produces upgraded data products in a modern format, adds all required metadata to remove the need for time-consuming geometry calculations, and performs default calibrations for the majority of data products. This benefits all aspects of UVIS science:</p>
+<ul>
+<li>stellar and solar occultations of Saturn,</li>
+<li>emissions from the Titan atmosphere,</li>
+<li>satellite reflectance,</li>
+<li>ring spectroscopy, and more.</li>
+</ul>
 </section>
-<section id="methodology" class="level2">
-<h2 class="anchored" data-anchor-id="methodology">Methodology</h2>
-<p>We propose to create enhanced UVIS data products, based on the datasets available in the PDS, by pre-calculating an expanded set of geometry parameters for each detector readout and applying a default calibration that varies with the observational scenario. This additional geometrical metadata – required for full scientific investigations – will be included with the original instrument data in a PDS4-compatible data product in the FITS format. Furthermore, we plan to merge the search, data management, analysis, and basic plotting into a common programmatic environment (Python and, to some extent, IDL). Procedures in Python and IDL will be provided to work with this product. We will provide basic data plotting routine and their source codes, based on the new data format.</p>
+<section id="approach" class="level2">
+<h2 class="anchored" data-anchor-id="approach">Approach</h2>
+<p>We create enhanced UVIS data products by pre-calculating an expanded set of geometry parameters for each detector readout and applying a default calibration that varies with the observational scenario. The additional metadata is included with the original instrument data in PDS4-compatible FITS files. Python and IDL tools are provided for data access, analysis, and plotting.</p>
 </section>
-<section id="relevance" class="level2">
-<h2 class="anchored" data-anchor-id="relevance">Relevance</h2>
-<p>As requested by the PDART solicitation document, section 1.2, we propose to generate higher-order data products for the UVIS instrument that will be delivered to the PDS, in the new and encouraged PDS4 framework. We also are relevant for section 1.7, as we will develop and deliver software tools and source code for basic visualizations of the new data product, and will store all produced source code at NASA’s PDS Github site.</p>
+<section id="current-status" class="level2">
+<h2 class="anchored" data-anchor-id="current-status">Current status</h2>
+<p>The project is in its third year. Current work focuses on:</p>
+<ul>
+<li>FITS metadata definition and automation</li>
+<li>The UVIS User Guide — comprehensive documentation for working with the enhanced data products</li>
+<li>Calibration pipeline refinement and validation</li>
+</ul>
 
 
 </section>

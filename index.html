@@ -30,6 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-listing/list.min.js"></script>
+<script src="site_libs/quarto-listing/quarto-listing.js"></script>
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -73,7 +75,65 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script>
 
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    const listingTargetEl = window.document.querySelector('#listing-listing .list');
+    if (!listingTargetEl) {
+      // No listing discovered, do not attach.
+      return; 
+    }
+
+    const options = {
+      valueNames: ['listing-title','listing-author','listing-date','listing-image','listing-description',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      
+      searchColumns: ["listing-title","listing-author","listing-date","listing-image","listing-description"],
+    };
+
+    window['quarto-listings'] = window['quarto-listings'] || {};
+    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
+
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  });
+
+  window.addEventListener('hashchange',() => {
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  })
+  </script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="styles.css">
 <meta property="og:title" content="– Home">
@@ -91,7 +151,7 @@ ul.task-list li input[type="checkbox"] {
 <meta name="twitter:card" content="summary_large_image">
 </head>
 
-<body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+<body class="nav-fixed fullcontent quarto-light"><script id="quarto-html-before-body" type="application/javascript">
     const toggleBodyColorMode = (bsSheetEl) => {
       const mode = bsSheetEl.getAttribute("data-mode");
       const bodyEl = window.document.querySelector("body");
@@ -286,6 +346,10 @@ ul.task-list li input[type="checkbox"] {
     <a class="nav-link" href="./bibliography.html"> 
 <span class="menu-text">Bibliography</span></a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item compact">
@@ -314,23 +378,192 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-  <ul>
-  <li><a href="#education" id="toc-education" class="nav-link active" data-scroll-target="#education">Education</a></li>
-  <li><a href="#experience" id="toc-experience" class="nav-link" data-scroll-target="#experience">Experience</a></li>
-  <li><a href="#activities" id="toc-activities" class="nav-link" data-scroll-target="#activities">Activities</a></li>
-  </ul>
-</nav>
-    </div>
+    
 <!-- main -->
-<div class="quarto-about-trestles">
-  <div class="about-entity">
-    <img src="headshot.png" class="about-image
-  rounded " style="width: 20em;">
-<header id="title-block-header" class="quarto-title-block"></header>
-    <div class="about-links">
+<div class="quarto-about-jolla">
+  <img src="headshot.png" class="about-image
+  round " style="height: 15em; width: 15em;">
+ <header id="title-block-header" class="quarto-title-block"></header><main class="content" id="quarto-document-content">
+
+<p>I am a planetary scientist at Freie Universität Berlin, with a focus on Mars polar science, planetary instrumentation and their datasets, Saturn rings, Citizen Science, and complex data analytics, all sprinkled with AI.</p>
+<section id="projects" class="level2">
+<h2 data-anchor-id="projects">Projects</h2>
+
+
+</section>
+<div class="quarto-listing quarto-listing-container-grid" id="listing-listing">
+<div class="list grid quarto-listing-cols-3">
+<div class="g-col-1" data-index="0" data-categories="bWFycyUyQ3JlbW90ZSUyMHNlbnNpbmclMkNpbWFnZSUyMHByb2Nlc3Npbmc=" data-listing-date-sort="1772582400000" data-listing-file-modified-sort="1772621211450" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="145">
+<a href="./projects/koregistration/index.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img loading="lazy" src="./projects/koregistration/featured.png" class="thumbnail-image card-img" style="height: 150px;">
+</p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Image Co-registration
+</h5>
+<div class="card-text listing-description delink">
+When combining orbital images of Mars taken at different times, precise alignment — co-registration — is essential. Small misalignments between images propagate into every…
+</div>
+<div class="card-attribution card-text-small justify">
+<div class="listing-author">
+Michael Aye, Sebastian Walter
+</div>
+<div class="listing-date">
+Mar 4, 2026
+</div>
+</div>
+</div>
+</div></a>
+</div>
+<div class="g-col-1" data-index="1" data-categories="bWFycyUyQ2NpdGl6ZW4lMjBzY2llbmNlJTJDcHl0aG9u" data-listing-date-sort="1772582400000" data-listing-file-modified-sort="1772621211496" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="197">
+<a href="./projects/planet-four/index.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img loading="lazy" src="./projects/planet-four/featured.png" class="thumbnail-image card-img" style="height: 150px;">
+</p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Planet Four
+</h5>
+<div class="card-text listing-description delink">
+The Red Planet is a unique and dynamic world. Through the power of the Internet and its volunteers, we explore the surface, climate, and history of Mars with the Planet Four…
+</div>
+<div class="card-attribution card-text-small justify">
+<div class="listing-author">
+Michael Aye, Tom Ihro, Ganna Portyankina, Candice Hansen, Meg Schwamb, Tim Michaels, Chris Lintott, et al.
+</div>
+<div class="listing-date">
+Mar 4, 2026
+</div>
+</div>
+</div>
+</div></a>
+</div>
+<div class="g-col-1" data-index="2" data-categories="anVwaXRlciUyQ2p1aWNlJTJDaW5zdHJ1bWVudGF0aW9uJTJDcHl0aG9u" data-listing-date-sort="1772582400000" data-listing-file-modified-sort="1772621211434" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="135">
+<a href="./projects/janus-juice/index.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img loading="lazy" src="./projects/janus-juice/featured.png" class="thumbnail-image card-img" style="height: 150px;">
+</p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+JANUS Camera on the JUICE Mission
+</h5>
+<div class="card-text listing-description delink">
+JANUS (Jovis, Amorum ac Natorum Undique Scrutator) is the optical camera system on ESA’s JUICE mission to the Jupiter system. It will image Jupiter’s atmosphere, the…
+</div>
+<div class="card-attribution card-text-small justify">
+<div class="listing-author">
+Michael Aye
+</div>
+<div class="listing-date">
+Mar 4, 2026
+</div>
+</div>
+</div>
+</div></a>
+</div>
+<div class="g-col-1" data-index="3" data-categories="Y2Fzc2luaSUyMHV2aXMlMkNwaQ==" data-listing-date-sort="1772582400000" data-listing-file-modified-sort="1772621211503" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="208">
+<a href="./projects/uvis-pdart/index.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img loading="lazy" src="./projects/uvis-pdart/uvis-aurora.jpg" class="thumbnail-image card-img" style="height: 150px;">
+</p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Cassini UVIS Data Product Enhancement
+</h5>
+<div class="card-text listing-description delink">
+This NASA PDART project upgrades the existing Cassini UVIS data products into a modern, science-ready format. The PI is Matt Tiscareno at the SETI Institute; I serve as…
+</div>
+<div class="card-attribution card-text-small justify">
+<div class="listing-author">
+Michael Aye
+</div>
+<div class="listing-date">
+Mar 4, 2026
+</div>
+</div>
+</div>
+</div></a>
+</div>
+<div class="g-col-1" data-index="4" data-categories="Y28taSUyQ3BkcyUyQ3B5dGhvbg==" data-listing-date-sort="1631077698000" data-listing-file-modified-sort="1772621211496" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="600">
+<a href="./projects/planetary-data-reader/index.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img loading="lazy" src="https://upload.wikimedia.org/wikipedia/commons/1/19/Solar_System_true_color.jpg" class="thumbnail-image card-img" style="height: 150px;">
+</p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Planetary Data Reader
+</h5>
+<div class="card-text listing-description delink">
+I am a Collaborator (Co-I until I left the US) in this exciting project, led by Chase Million of Million Concepts.
+</div>
+<div class="card-attribution card-text-small justify">
+<div class="listing-author">
+Chase Million, Michael St.&nbsp;Clair, Michael Aye
+</div>
+<div class="listing-date">
+Sep 8, 2021
+</div>
+</div>
+</div>
+</div></a>
+</div>
+<div class="g-col-1" data-index="5" data-categories="Y28taSUyQ3NhdHVybiUyMHJpbmdzJTJDY2Fzc2luaSUyMHV2aXMlMkNjYXNzaW5pJTIwaXNz" data-listing-date-sort="1631077679000" data-listing-file-modified-sort="1772621211503" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="622">
+<a href="./projects/saturn-rings/index.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top"><img src="projects/saturn-rings/featured.png" style="height: 150px;"  class="thumbnail-image card-img"/></p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Mesoscale Structures in Saturn’s Rings: Clues to Origin and Evolution
+</h5>
+<div class="card-text listing-description delink">
+I was a funded Co-I on this project led by Joshua Colwell (UCF) until I left the US in 2022.
+</div>
+<div class="card-attribution card-text-small justify">
+<div class="listing-author">
+Joshua Colwell, Michael Aye
+</div>
+<div class="listing-date">
+Sep 8, 2021
+</div>
+</div>
+</div>
+</div></a>
+</div>
+<div class="g-col-1" data-index="6" data-categories="cHl0aG9u" data-listing-date-sort="1631077600000" data-listing-file-modified-sort="1772621211496" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="106">
+<a href="./projects/planetarypy/index.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img loading="lazy" src="./projects/planetarypy/plpy_logo.png" class="thumbnail-image card-img" style="height: 150px;">
+</p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+PlanetaryPy
+</h5>
+<div class="card-text listing-description delink">
+The PlanetaryPy Project is a community effort to develop a core package for planetary science in Python and foster interoperability between Python planetary science…
+</div>
+<div class="card-attribution card-text-small justify">
+<div class="listing-author">
+Michael Aye, Ross Beyer, Andrew Annex, Chase Million
+</div>
+<div class="listing-date">
+Sep 8, 2021
+</div>
+</div>
+</div>
+</div></a>
+</div>
+</div>
+<div class="listing-no-matching d-none">No matching items</div>
+</div></main> 
+  <hr class="about-sep">
+   <div class="about-links">
   <a href="https://mastodon.online/@michaelaye" class="about-link" rel="" target="">
     <i class="bi bi-mastodon"></i>
      <span class="about-link-text">Mastodon</span>
@@ -356,37 +589,6 @@ ul.task-list li input[type="checkbox"] {
      <span class="about-link-text">Google Scholar</span>
   </a>
 </div>
-  </div>
-  <div class="about-contents"><main class="content" id="quarto-document-content">
-
-
-<p>I am a planetary scientist at Freie Universität Berlin, with a focus on Mars polar science and Saturn rings, using Citizen Science and complex data analytics, sprinkled with AI.<br>
-In my spare time I like to spend time with my son, letting him slowly take over all the building of furniture from a well-known blue-yellow-branded furniture company. ;)</p>
-<section id="education" class="level2">
-<h2 data-anchor-id="education">Education</h2>
-<p><strong>University of Durham</strong> | Durham, UK<br>
-PhD High Energy Astrophysics | Sept 2000 – Dec 2004</p>
-<p><strong>Universität Heidelberg</strong> | Heidelberg, Germany<br>
-Diploma in Physics (Astronomy, Particle Physics) | April 1995 – June 1999</p>
-</section>
-<section id="experience" class="level2">
-<h2 data-anchor-id="experience">Experience</h2>
-<p><strong>Freie Universität Berlin</strong> | Research Scientist | Juli 2022 – present</p>
-<p><strong>University of Colorado, Boulder</strong> | Laboratory for Atmospheric and Space Science (LASP) | Research Associate | December 2014 – June 2022</p>
-<p><strong>University of California, Los Angeles</strong> | Postdoctoral Researcher | August 2012 – Nov 2014</p>
-<p><strong>Physikalisches Institut Bern</strong> | Assistant Project Manager BepiColombo Laser Altimeter | Feb 2008 – July 2012</p>
-<p><strong>Max-Planck-Institute for Solar System Research</strong> | Dawn Framing Camera Team | Feb 2005 – Feb 2008</p>
-</section>
-<section id="activities" class="level2">
-<h2 data-anchor-id="activities">Activities</h2>
-<ul>
-<li><p>Guest Associate Editor for FrontiersIn Special Issue <a href="https://www.frontiersin.org/research-topics/33555/snakes-on-a-spaceship-an-overview-of-python-in-space-physics">Snakes on a Spaceship</a></p></li>
-<li><p><a href="https://www.openplanetary.org">OpenPlanetary</a> board member, responsible for Python-related issues</p></li>
-</ul>
-
-
-</section>
-</main></div>
 </div>
  <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

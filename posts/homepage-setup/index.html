@@ -6,9 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2023-03-06">
+<meta name="author" content="Michael Aye">
+<meta name="dcterms.date" content="2026-03-04">
 
-<title>Integrate Zigbee Tuya Thermostats into Home Assistant – Home</title>
+<title>Building an Academic Homepage with Quarto – Home</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -113,15 +114,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <link rel="stylesheet" href="../../styles.css">
-<meta property="og:title" content="Integrate Zigbee Tuya Thermostats into Home Assistant – Home">
-<meta property="og:description" content="How to add unsupported ones to ZHA">
-<meta property="og:image" content="https://michaelaye.github.io/posts/2023-03-06_Tuya_thermostats/data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg==">
+<meta property="og:title" content="Building an Academic Homepage with Quarto – Home">
+<meta property="og:description" content="Auto-updating bibliography, custom extensions, and GitHub Actions — the full stack">
 <meta property="og:site_name" content="Home">
-<meta name="twitter:title" content="Integrate Zigbee Tuya Thermostats into Home Assistant – Home">
-<meta name="twitter:description" content="How to add unsupported ones to ZHA">
-<meta name="twitter:image" content="https://michaelaye.github.io/posts/2023-03-06_Tuya_thermostats/data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg==">
+<meta name="twitter:title" content="Building an Academic Homepage with Quarto – Home">
+<meta name="twitter:description" content="Auto-updating bibliography, custom extensions, and GitHub Actions — the full stack">
 <meta name="twitter:creator" content="@michaelaye">
-<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:card" content="summary">
 </head>
 
 <body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
@@ -351,13 +350,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Integrate Zigbee Tuya Thermostats into Home Assistant</h1>
-            <p class="subtitle lead">How to add unsupported ones to ZHA</p>
+      <h1 class="title">Building an Academic Homepage with Quarto</h1>
+            <p class="subtitle lead">Auto-updating bibliography, custom extensions, and GitHub Actions — the full stack</p>
                                 <div class="quarto-categories">
-                <div class="quarto-category">homeassistant</div>
-                <div class="quarto-category">tuya</div>
-                <div class="quarto-category">thermostats</div>
-                <div class="quarto-category">python</div>
+                <div class="quarto-category">quarto</div>
+                <div class="quarto-category">academic</div>
+                <div class="quarto-category">open-source</div>
+                <div class="quarto-category">github-actions</div>
+                <div class="quarto-category">bibliography</div>
               </div>
                   </div>
   </div>
@@ -368,14 +368,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div>
       <div class="quarto-title-meta-heading">Author</div>
       <div class="quarto-title-meta-contents">
-               <p><a href="https://michaelaye.github.io">Michael Aye</a> <a href="https://orcid.org/0000-0002-4088-1928" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
+               <p>Michael Aye </p>
             </div>
     </div>
       
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">2023-03-06</p>
+        <p class="date">2026-03-04</p>
       </div>
     </div>
     
@@ -391,8 +391,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#disclaimer" id="toc-disclaimer" class="nav-link active" data-scroll-target="#disclaimer">Disclaimer</a></li>
-  <li><a href="#lets-go" id="toc-lets-go" class="nav-link" data-scroll-target="#lets-go">Let’s go!</a></li>
+  <li><a href="#why-quarto" id="toc-why-quarto" class="nav-link active" data-scroll-target="#why-quarto">Why Quarto?</a></li>
+  <li><a href="#the-bibliography-pipeline" id="toc-the-bibliography-pipeline" class="nav-link" data-scroll-target="#the-bibliography-pipeline">The bibliography pipeline</a>
+  <ul class="collapse">
+  <li><a href="#ads-bib-tools-fetch-and-clean" id="toc-ads-bib-tools-fetch-and-clean" class="nav-link" data-scroll-target="#ads-bib-tools-fetch-and-clean">1. ads-bib-tools — fetch and clean</a></li>
+  <li><a href="#highlight-author-bold-your-name" id="toc-highlight-author-bold-your-name" class="nav-link" data-scroll-target="#highlight-author-bold-your-name">2. highlight-author — bold your name</a></li>
+  <li><a href="#chronobib-year-groups-and-tabs" id="toc-chronobib-year-groups-and-tabs" class="nav-link" data-scroll-target="#chronobib-year-groups-and-tabs">3. chronobib — year groups and tabs</a></li>
+  </ul></li>
+  <li><a href="#automation-with-github-actions" id="toc-automation-with-github-actions" class="nav-link" data-scroll-target="#automation-with-github-actions">Automation with GitHub Actions</a>
+  <ul class="collapse">
+  <li><a href="#publishing" id="toc-publishing" class="nav-link" data-scroll-target="#publishing">Publishing</a></li>
+  <li><a href="#bibliography-updates" id="toc-bibliography-updates" class="nav-link" data-scroll-target="#bibliography-updates">Bibliography updates</a></li>
+  </ul></li>
+  <li><a href="#will-new-papers-show-up-automatically" id="toc-will-new-papers-show-up-automatically" class="nav-link" data-scroll-target="#will-new-papers-show-up-automatically">Will new papers show up automatically?</a></li>
+  <li><a href="#talks-as-live-presentations" id="toc-talks-as-live-presentations" class="nav-link" data-scroll-target="#talks-as-live-presentations">Talks as live presentations</a></li>
+  <li><a href="#other-extensions" id="toc-other-extensions" class="nav-link" data-scroll-target="#other-extensions">Other extensions</a></li>
+  <li><a href="#the-result" id="toc-the-result" class="nav-link" data-scroll-target="#the-result">The result</a></li>
+  <li><a href="#links" id="toc-links" class="nav-link" data-scroll-target="#links">Links</a></li>
   </ul>
 </nav>
     </div>
@@ -404,37 +419,156 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<section id="disclaimer" class="level1">
-<h1>Disclaimer</h1>
-<p>Let me start by saying that my only work in this knowledge gathering was the combination of several internet searches. The real genius lies in the group of people creating the below-to-be-installed quirk files to get new devices working in ZHA. I just thought, as it isn’t very straight forward to understand what one needs to do, that I summarize things in this small blog post</p>
+<p>Most academic homepages are either a bare-bones departmental page that hasn’t been updated since 2018, or an overengineered React app that took a month to build. I wanted something in between: a site that looks professional, is easy to update, and keeps my publication list current without me lifting a finger.</p>
+<p>Here’s how I built it with <a href="https://quarto.org">Quarto</a>, a few custom extensions, and two GitHub Actions workflows.</p>
+<section id="why-quarto" class="level2">
+<h2 class="anchored" data-anchor-id="why-quarto">Why Quarto?</h2>
+<p>Quarto is a scientific publishing system built on Pandoc. It understands YAML front matter, BibTeX, LaTeX math, cross-references, and multiple output formats — all things academics need and generic static site generators don’t handle well out of the box.</p>
+<p>My site uses <code>project: type: website</code> with the <code>trestles</code> about-page template for the homepage. Blog posts, talks (as reveal.js slides), and project pages each live in their own directories and are auto-discovered by Quarto’s listing mechanism. I write content in <code>.qmd</code> or <code>.md</code>, and Quarto renders everything to a static site. The <a href="https://quarto.org/docs/guide/">Quarto documentation</a> is excellent — one of the best I’ve seen for any static site tool — and covers everything from basics to advanced customization.</p>
+<p>The dual light/dark theme uses <code>sandstone</code> (light) and <code>superhero</code> (dark) from Bootswatch, configured in <code>_quarto.yml</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span><span class="kw">:</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">html</span><span class="kw">:</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">theme</span><span class="kw">:</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">light</span><span class="kw">:</span><span class="at"> sandstone</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">dark</span><span class="kw">:</span><span class="at"> superhero</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">css</span><span class="kw">:</span><span class="at"> styles.css</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="lets-go" class="level1">
-<h1>Let’s go!</h1>
-<p>I bought some Tuya thermostats on AliExpress after it became clear that Tuya products are well supported now in Home Assistant (HA). And I wanted them to be Zigbee only and not buy another hub from Tuya. There are 2 ways to integrate them, apparently, either with the ZHA Zigbee implementation or via Zigbee2Mqtt. But the latter would require another plugin, which I wanted to avoid for now.</p>
-<p>The thermostats I bought are <a href="https://www.aliexpress.com/item/1005004696707285.html?spm=a2g0o.order_list.order_list_main.4.c38c1802HlKHN3">these</a> and after an initial joining to the ZHA of HA, no usable entities appeared related to the thermostat.</p>
-<p>So I had to search the HA forums for solutions. I learned that for finding solutions to Zigbee issues one needs to search for the manufacturer ID string that is displayed in the ZHA Device info display:</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="./zigbee_info.png" class="img-fluid figure-img"></p>
-<figcaption>Manufacturer string shown after “by”</figcaption>
-</figure>
-</div>
-<p>The manufacturer string is shown after the “by” below the general product ID <code>TS0601</code>, and in my case the manufacturer string is <code>_TZE200_6rdj8dzm</code>.</p>
-<p>Searching for this string one can learn that if a Zigbee product isn’t (fully?) supported yet by ZHA, one can install so called <a href="https://pypi.org/project/zha-quirks/"><code>quirk</code></a> Python files that add the translator dictionaries required for understanding the Zigbee devices’ communication.</p>
-<p>First, one needs to create a quirk folder on your Home Assistant device, in my case that’s a Raspberry 4 running the HA OS, but it shouldn’t matter.</p>
-<p>To manipulate files on my HA install, I use the <code>File Editor</code> Add-on which I can highly recommend. If you decide (again, recommended) to add the <code>File Editor</code> entry to the sidebar, it should look like this when clicking on the folder icon in the upper left of the Add-On:</p>
-<p><img src="file_editor.png" class="img-fluid"></p>
-<p>The second icon at the top offers you to add a new folder. Make sure that you create the new folder in <code>/config</code>, at least that’s what I saw recommendend, maybe it doesn’t matter due to the next step, where we tell HA where the quirks folder is.</p>
-<p>Using the same File Editor we now open the famous <code>/config/configuration.yaml</code> to add the following to it:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">zha</span><span class="kw">:</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">enable_quirks</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">custom_quirks_path</span><span class="kw">:</span><span class="at"> /config/quirks</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>if you create a new folder named <code>quirks</code> in your <code>/config</code> folder.</p>
-<p>Now you put the unzipped Python file from <a href="https://github.com/zigpy/zha-device-handlers/files/10376432/ts0601_trv_me167.py.zip">here</a> into that folder. If you had previously connected the thermostat to ZHA, now is a good time to remove it, as you have to reboot HA anyway to activate the new quirk.</p>
-<p>After a reboot, put the thermostat into pairing mode again and connect it, you should have now several useful entities:</p>
-<p><img src="new_device_info.png" class="img-fluid"></p>
-<p>Looking at the <code>Controls</code> section, the switch called <code>Lock</code> is called <code>Switch</code> at first, but it is for the child lock, so I renamed it to <code>Lock</code>. The 2nd entry <code>Number Temperat...</code> is very handy, it’s a slider for 1 degree offsets to calibrate the measured temperatur of the thermostat, and they gonna need it! Mine was 3 degrees off from an external temp sensor I mounted on top of the thermostat handle.</p>
-<p>Hope it helps!</p>
+<section id="the-bibliography-pipeline" class="level2">
+<h2 class="anchored" data-anchor-id="the-bibliography-pipeline">The bibliography pipeline</h2>
+<p>My <a href="../../bibliography.html">bibliography page</a> shows every publication I have on NASA ADS, grouped by year, split into refereed and non-refereed tabs, with my name highlighted. And it updates itself every week.</p>
+<p>The pipeline has three pieces:</p>
+<section id="ads-bib-tools-fetch-and-clean" class="level3">
+<h3 class="anchored" data-anchor-id="ads-bib-tools-fetch-and-clean">1. ads-bib-tools — fetch and clean</h3>
+<p><a href="https://github.com/michaelaye/ads-bib-tools">ads-bib-tools</a> is a Python script that queries the NASA ADS API using my ORCID, fetches all linked publications as BibTeX, and cleans them up:</p>
+<ul>
+<li>Strips bulky <code>abstract</code> and <code>file</code> fields</li>
+<li>Converts MathML markup (from publishers like Elsevier) to LaTeX</li>
+<li>Tags each entry with <code>refereed</code> or <code>non-refereed</code> in the BibTeX <code>keywords</code> field</li>
+</ul>
+<p>One command produces a website-ready <code>.bib</code> file. I wrote a <a href="../../posts/ads-bib-tools/">dedicated blog post</a> about this tool.</p>
+</section>
+<section id="highlight-author-bold-your-name" class="level3">
+<h3 class="anchored" data-anchor-id="highlight-author-bold-your-name">2. highlight-author — bold your name</h3>
+<p>The <a href="https://github.com/michaelaye/highlight-author">highlight-author</a> Quarto extension is a Lua filter that bolds a specified author name in the rendered bibliography. Configuration is one line in the document front matter:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">highlight-author</span><span class="kw">:</span><span class="at"> </span><span class="st">"Aye"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="chronobib-year-groups-and-tabs" class="level3">
+<h3 class="anchored" data-anchor-id="chronobib-year-groups-and-tabs">3. chronobib — year groups and tabs</h3>
+<p>The <a href="https://github.com/michaelaye/chronobib">chronobib</a> extension groups bibliography entries by year and optionally splits them by a keyword. Combined with Quarto’s panel-tabset, this gives me refereed and non-refereed tabs, each with year headers:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">filters</span><span class="kw">:</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> michaelaye/highlight-author</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> michaelaye/chronobib</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">chronobib</span><span class="kw">:</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">split-keyword</span><span class="kw">:</span><span class="at"> refereed</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>::: {.panel-tabset}</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">## Refereed</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>::: {#refs-refereed}</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="fu">## Non-Refereed</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>::: {#refs-nonrefereed}</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Three tools, each independent, but designed to work together.</p>
+</section>
+</section>
+<section id="automation-with-github-actions" class="level2">
+<h2 class="anchored" data-anchor-id="automation-with-github-actions">Automation with GitHub Actions</h2>
+<p>Two workflows handle everything:</p>
+<section id="publishing" class="level3">
+<h3 class="anchored" data-anchor-id="publishing">Publishing</h3>
+<p>Every push to <code>main</code> triggers the publish workflow. It sets up Quarto, renders the site, and deploys to the <code>gh-pages</code> branch:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">on</span><span class="kw">:</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">push</span><span class="kw">:</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">branches</span><span class="kw">:</span><span class="at"> main</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">steps</span><span class="kw">:</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> actions/checkout@v4</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> quarto-dev/quarto-actions/setup@v2</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> quarto-dev/quarto-actions/publish@v2</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">with</span><span class="kw">:</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">target</span><span class="kw">:</span><span class="at"> gh-pages</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>No manual deploys. Push a new post, and it’s live in a couple of minutes.</p>
+</section>
+<section id="bibliography-updates" class="level3">
+<h3 class="anchored" data-anchor-id="bibliography-updates">Bibliography updates</h3>
+<p>A scheduled workflow runs every Sunday at 6 AM UTC. It checks out the repo, runs <code>update_bib.py</code> to fetch the latest publications from ADS, and commits the updated <code>.bib</code> file if anything changed:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">on</span><span class="kw">:</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">schedule</span><span class="kw">:</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">cron</span><span class="kw">:</span><span class="at"> </span><span class="st">'0 6 * * 0'</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">workflow_dispatch</span><span class="kw">:</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="fu">steps</span><span class="kw">:</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> actions/checkout@v4</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> actions/setup-python@v5</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">run</span><span class="kw">:</span><span class="at"> pip install requests</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">run</span><span class="kw">:</span><span class="at"> python scripts/update_bib.py</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">env</span><span class="kw">:</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">ADS_API_TOKEN</span><span class="kw">:</span><span class="at"> ${{ secrets.ADS_API_TOKEN }}</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="kw">  - </span><span class="fu">run</span><span class="kw">:</span><span class="at"> </span><span class="ch">|</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>      git diff --quiet MyPublications.bib &amp;&amp; exit 0</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>      git config user.name "github-actions[bot]"</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>      git add MyPublications.bib</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>      git commit -m "Update bibliography from NASA ADS"</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>      git push</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Because the push to <code>main</code> triggers the publish workflow, the bibliography commit automatically rebuilds and deploys the site. The result: new publications appear on my homepage without any manual intervention.</p>
+</section>
+</section>
+<section id="will-new-papers-show-up-automatically" class="level2">
+<h2 class="anchored" data-anchor-id="will-new-papers-show-up-automatically">Will new papers show up automatically?</h2>
+<p>Mostly yes, but it depends on how the paper gets linked to your ORCID in ADS.</p>
+<p>ADS tracks ORCID associations from three sources:</p>
+<ul>
+<li><strong><code>orcid_pub</code></strong> — the publisher sends your ORCID to ADS. This happens automatically when you provide your ORCID during manuscript submission, which most major journals now support. New papers published this way will appear without any action on your part.</li>
+<li><strong><code>orcid_user</code></strong> — you manually claim a paper through the ADS interface. Required for older papers or publications where you didn’t provide your ORCID.</li>
+<li><strong><code>orcid_other</code></strong> — claims made through ORCID’s own search-and-link tools or third-party services.</li>
+</ul>
+<p>The script queries all three sources, so anything claimed through any channel gets picked up. In practice: if you consistently provide your ORCID when submitting papers, new publications will flow through automatically. Conference abstracts, older papers, and publications from smaller journals that don’t support ORCID integration will still need a manual claim in ADS.</p>
+<p>My recommendation: check your ADS ORCID query once or twice a year and claim anything that’s missing. The weekly cron job handles the rest.</p>
+</section>
+<section id="talks-as-live-presentations" class="level2">
+<h2 class="anchored" data-anchor-id="talks-as-live-presentations">Talks as live presentations</h2>
+<p>Quarto has native support for <a href="https://revealjs.com/">reveal.js</a> presentations. Each talk lives in its own subdirectory under <code>talks/</code> as an <code>index.qmd</code> with <code>format: revealjs</code> in the front matter.</p>
+<p>The nice thing: when you click a talk from the <a href="../../talks.html">talks listing</a>, it opens directly as a full-screen presentation in the browser — no PDF download, no extra clicks. Visitors can navigate slides with arrow keys, and the talk is a live HTML document with working links, embedded media, and speaker notes.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span><span class="kw">:</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">revealjs</span><span class="kw">:</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">theme</span><span class="kw">:</span><span class="at"> default</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">slide-number</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">logo</span><span class="kw">:</span><span class="at"> fu-logo.svg</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">footer</span><span class="kw">:</span><span class="at"> </span><span class="st">"Conference info"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Because Quarto renders each talk as its own <code>index.html</code>, the listing page links straight to the presentation. This makes conference talks permanently accessible at a stable URL you can put on your CV or share with colleagues.</p>
+</section>
+<section id="other-extensions" class="level2">
+<h2 class="anchored" data-anchor-id="other-extensions">Other extensions</h2>
+<p>Two more extensions round out the setup:</p>
+<ul>
+<li><strong><a href="https://github.com/sellorm/quarto-social-embeds">sellorm/quarto-social-embeds</a></strong> — shortcodes for embedding YouTube, Mastodon, and other social media in posts</li>
+<li><strong><a href="https://github.com/quarto-ext/fontawesome">quarto-ext/fontawesome</a></strong> — Font Awesome icons, used for the Bluesky icon in the navbar</li>
+</ul>
+</section>
+<section id="the-result" class="level2">
+<h2 class="anchored" data-anchor-id="the-result">The result</h2>
+<p>A professional academic homepage that:</p>
+<ul>
+<li>Renders from simple Markdown/YAML files</li>
+<li>Supports blog posts, reveal.js talks, and project pages</li>
+<li>Maintains a complete, auto-updating bibliography</li>
+<li>Deploys automatically on every push</li>
+<li>Costs nothing to host (GitHub Pages)</li>
+</ul>
+<p>All the tools are open source. The <a href="https://github.com/michaelaye/michaelaye.github.io">source code for this site</a> is public if you want to see how it all fits together.</p>
+</section>
+<section id="links" class="level2">
+<h2 class="anchored" data-anchor-id="links">Links</h2>
+<ul>
+<li>Site source: <a href="https://github.com/michaelaye/michaelaye.github.io">michaelaye/michaelaye.github.io</a></li>
+<li>ads-bib-tools: <a href="https://github.com/michaelaye/ads-bib-tools">michaelaye/ads-bib-tools</a></li>
+<li>highlight-author: <a href="https://github.com/michaelaye/highlight-author">michaelaye/highlight-author</a></li>
+<li>chronobib: <a href="https://github.com/michaelaye/chronobib">michaelaye/chronobib</a></li>
+<li>Quarto: <a href="https://quarto.org">quarto.org</a></li>
+</ul>
 
 
 </section>
