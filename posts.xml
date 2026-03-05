@@ -10,7 +10,280 @@
 <atom:link href="https://michaelaye.github.io/posts.xml" rel="self" type="application/rss+xml"/>
 <description></description>
 <generator>quarto-1.8.27</generator>
-<lastBuildDate>Wed, 04 Mar 2026 00:00:00 GMT</lastBuildDate>
+<lastBuildDate>Thu, 05 Mar 2026 00:00:00 GMT</lastBuildDate>
+<item>
+  <title>Using GitHub Releases as a Free Data CDN for Browser-Based Science Apps</title>
+  <dc:creator>Michael Aye</dc:creator>
+  <link>https://michaelaye.github.io/posts/github-releases-as-data-cdn/</link>
+  <description><![CDATA[ 
+
+
+
+
+
+
+<section id="the-problem" class="level2">
+<h2 class="anchored" data-anchor-id="the-problem">The Problem</h2>
+<p>You’ve built an interactive data exploration app that runs entirely in the browser using <a href="https://pyodide.org/">Pyodide</a> or <a href="https://shiny.posit.co/py/docs/shinylive.html">Shinylive</a> — no server needed. But where do you put the data?</p>
+<p>Your options for static hosting (GitHub Pages, university web servers) are designed for HTML/JS/CSS, not for serving hundreds of megabytes of scientific data. And setting up a proper backend just to serve files defeats the purpose of a serverless app.</p>
+</section>
+<section id="github-releases-accidental-cdn" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="github-releases-accidental-cdn">GitHub Releases: Accidental CDN</h2>
+<p>When you create a <a href="https://docs.github.com/en/repositories/releasing-projects-on-github/about-releases">GitHub Release</a>, you can attach binary files up to <strong>2 GiB each</strong>, with up to 1,000 assets per release and — crucially — <strong>no limit on total size or bandwidth</strong>.<sup>1</sup> These “release assets” are served via GitHub’s global CDN.</p>
+<div class="no-row-height column-margin column-container"><div id="fn1"><p><sup>1</sup>&nbsp;GitHub Docs: <a href="https://docs.github.com/en/repositories/releasing-projects-on-github/about-releases">About releases</a> — “Each file included in a release must be under 2 GiB. There is no limit on the total size of a release, nor bandwidth usage.”</p></div></div><p>The key insight: <strong>releases don’t have to be for software versioning.</strong> You can use them purely as a free, fast file hosting service for datasets.</p>
+<section id="how-it-works" class="level3">
+<h3 class="anchored" data-anchor-id="how-it-works">How it works</h3>
+<ol type="1">
+<li>Create a repository (e.g., <code>your-username/my-project-data</code>)</li>
+<li>Create a release tagged something like <code>data-v1</code></li>
+<li>Upload your data files as release assets</li>
+<li>Each file gets a permanent, public URL:</li>
+</ol>
+<pre><code>https://github.com/&lt;user&gt;/&lt;repo&gt;/releases/download/&lt;tag&gt;/&lt;filename&gt;</code></pre>
+</section>
+<section id="why-this-beats-other-options" class="level3 page-columns page-full">
+<h3 class="anchored" data-anchor-id="why-this-beats-other-options">Why this beats other options</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Approach</th>
+<th>Max file size</th>
+<th>Cost</th>
+<th>Speed</th>
+<th>Versioning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Files in git repo</td>
+<td>100 MiB<sup>2</sup></td>
+<td>Free</td>
+<td>Slow (cloned every time)</td>
+<td>Yes but bloats repo</td>
+</tr>
+<tr class="even">
+<td>Git LFS</td>
+<td>2 GiB</td>
+<td>10 GiB free storage + bandwidth<sup>3</sup></td>
+<td>Medium</td>
+<td>Yes</td>
+</tr>
+<tr class="odd">
+<td><strong>Release assets</strong></td>
+<td><strong>2 GiB</strong></td>
+<td><strong>Free, no bandwidth limit</strong></td>
+<td><strong>Fast (CDN)</strong></td>
+<td><strong>Yes (tags)</strong></td>
+</tr>
+<tr class="even">
+<td>S3/GCS</td>
+<td>Unlimited</td>
+<td>Paid</td>
+<td>Fast</td>
+<td>Manual</td>
+</tr>
+</tbody>
+</table>
+<div class="no-row-height column-margin column-container"><div id="fn2"><p><sup>2</sup>&nbsp;GitHub Docs: <a href="https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-large-files-on-github">About large files on GitHub</a> — “GitHub blocks files larger than 100 MiB.” Repositories are recommended to stay under 1 GB, strongly under 5 GB.</p></div><div id="fn3"><p><sup>3</sup>&nbsp;GitHub Docs: <a href="https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-storage-and-bandwidth-usage">About storage and bandwidth usage</a> — GitHub Free and Pro accounts get 10 GiB each for LFS storage and bandwidth per month.</p></div></div><p>Release assets don’t count against your repository size and don’t affect <code>git clone</code> performance. You can have multiple releases, each with up to 1,000 files.</p>
+</section>
+</section>
+<section id="fetching-data-from-pyodideshinylive" class="level2">
+<h2 class="anchored" data-anchor-id="fetching-data-from-pyodideshinylive">Fetching Data from Pyodide/Shinylive</h2>
+<p>A Pyodide app running in the browser can fetch release assets directly — GitHub serves them with permissive CORS headers:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> pyodide.http <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> pyfetch</span>
+<span id="cb2-2"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> pandas <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">as</span> pd</span>
+<span id="cb2-3"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> io <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> BytesIO</span>
+<span id="cb2-4"></span>
+<span id="cb2-5"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Fetch a Parquet file from a GitHub release</span></span>
+<span id="cb2-6">url <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> (</span>
+<span id="cb2-7">    <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"https://github.com/your-username/my-project-data"</span></span>
+<span id="cb2-8">    <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"/releases/download/data-v1/observations.parquet"</span></span>
+<span id="cb2-9">)</span>
+<span id="cb2-10">response <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">await</span> pyfetch(url)</span>
+<span id="cb2-11"><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">buffer</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">await</span> response.<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">bytes</span>()</span>
+<span id="cb2-12">df <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> pd.read_parquet(BytesIO(<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">buffer</span>))</span></code></pre></div></div>
+</section>
+<section id="practical-pattern-tiled-data-loading" class="level2">
+<h2 class="anchored" data-anchor-id="practical-pattern-tiled-data-loading">Practical Pattern: Tiled Data Loading</h2>
+<p>For large datasets, don’t serve one monolithic file. Instead, tile your data and fetch only what the user needs:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">async</span> <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">def</span> load_tile(x, y, base_url):</span>
+<span id="cb3-2">    <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">"""Load a single DEM tile on demand."""</span></span>
+<span id="cb3-3">    url <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">f"</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span>base_url<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">/tile_</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span>x<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">_</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span>y<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">.parquet"</span></span>
+<span id="cb3-4">    response <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">await</span> pyfetch(url)</span>
+<span id="cb3-5">    <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">buffer</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">await</span> response.<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">bytes</span>()</span>
+<span id="cb3-6">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">return</span> pd.read_parquet(BytesIO(<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">buffer</span>))</span>
+<span id="cb3-7"></span>
+<span id="cb3-8"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># User clicks on region → fetch only that tile</span></span>
+<span id="cb3-9">tile <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">await</span> load_tile(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">3</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">7</span>, release_url)</span></code></pre></div></div>
+<p>This way, a 2 GB dataset split into 256 tiles means each interaction only downloads ~8 MB.</p>
+</section>
+<section id="uploading-release-assets" class="level2">
+<h2 class="anchored" data-anchor-id="uploading-release-assets">Uploading Release Assets</h2>
+<section id="via-the-web-ui" class="level3">
+<h3 class="anchored" data-anchor-id="via-the-web-ui">Via the web UI</h3>
+<p>Go to your repo → Releases → Draft a new release → attach files by drag and drop.</p>
+</section>
+<section id="via-the-github-cli" class="level3">
+<h3 class="anchored" data-anchor-id="via-the-github-cli">Via the GitHub CLI</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Create a release and upload files in one step</span></span>
+<span id="cb4-2"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">gh</span> release create data-v1 <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">\</span></span>
+<span id="cb4-3">  tile_<span class="pp" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">*</span>.parquet <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">\</span></span>
+<span id="cb4-4">  metadata.json <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">\</span></span>
+<span id="cb4-5">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">--repo</span> your-username/my-project-data <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">\</span></span>
+<span id="cb4-6">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">--title</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Dataset v1"</span> <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">\</span></span>
+<span id="cb4-7">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">--notes</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Initial DEM tile dataset"</span></span></code></pre></div></div>
+<p>To update data, create a new release (<code>data-v2</code>) — old URLs keep working.</p>
+</section>
+</section>
+<section id="when-to-use-something-else" class="level2">
+<h2 class="anchored" data-anchor-id="when-to-use-something-else">When to Use Something Else</h2>
+<ul>
+<li><strong>Files &gt; 2 GiB</strong>: Use cloud object storage (S3, GCS) or split into chunks</li>
+<li><strong>Private data</strong>: Release assets on public repos are public; use private repos with token-based access or a different hosting solution</li>
+<li><strong>High-frequency updates</strong>: Releases are for versioned snapshots, not databases that change every minute</li>
+<li><strong>Streaming/real-time data</strong>: You need a real backend</li>
+</ul>
+</section>
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">Summary</h2>
+<p>For the common case of “I have some scientific datasets (tens of MB to low GB) and want to serve them to a browser-based Python app” — GitHub release assets are hard to beat. Free, fast, versioned, no infrastructure, and your Pyodide/Shinylive app can fetch them directly.</p>
+
+
+</section>
+
+
+ ]]></description>
+  <category>python</category>
+  <category>web</category>
+  <category>data</category>
+  <category>shinylive</category>
+  <guid>https://michaelaye.github.io/posts/github-releases-as-data-cdn/</guid>
+  <pubDate>Thu, 05 Mar 2026 00:00:00 GMT</pubDate>
+</item>
 <item>
   <title>Building an Academic Homepage with Quarto</title>
   <dc:creator>Michael Aye</dc:creator>

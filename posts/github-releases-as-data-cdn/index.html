@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Michael Aye">
+<meta name="dcterms.date" content="2026-03-05">
 
-<title>Projects – Home</title>
+<title>Using GitHub Releases as a Free Data CDN for Browser-Based Science Apps – Home</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,35 +22,68 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-2a367172f4fe7d9182ebf8e09f85cb4e.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-7fb59815a1c41eec7c034637f0c35ff0.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-2a367172f4fe7d9182ebf8e09f85cb4e.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-594fa03c2ed41059f0f795f8ebf8dbab.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-a7a20eff8dc953c9ae95afc705469394.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-594fa03c2ed41059f0f795f8ebf8dbab.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/quarto-contrib/fontawesome6-6.7.2/all.min.css" rel="stylesheet">
-<link href="site_libs/quarto-contrib/fontawesome6-6.7.2/latex-fontsize.css" rel="stylesheet">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-2a367172f4fe7d9182ebf8e09f85cb4e.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-7fb59815a1c41eec7c034637f0c35ff0.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-2a367172f4fe7d9182ebf8e09f85cb4e.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-594fa03c2ed41059f0f795f8ebf8dbab.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-a7a20eff8dc953c9ae95afc705469394.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-594fa03c2ed41059f0f795f8ebf8dbab.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/quarto-contrib/fontawesome6-6.7.2/all.min.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/fontawesome6-6.7.2/latex-fontsize.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -76,78 +111,16 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
 
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
 
-    const options = {
-      valueNames: ['listing-title','listing-author','listing-date','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-title","listing-author","listing-date","listing-image","listing-description","listing-categories"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
-
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
-
-<link rel="stylesheet" href="styles.css">
-<meta property="og:title" content="Projects – Home">
-<meta property="og:image" content="https://michaelaye.github.io/projects/koregistration/featured.png">
+<link rel="stylesheet" href="../../styles.css">
+<meta property="og:title" content="Using GitHub Releases as a Free Data CDN for Browser-Based Science Apps – Home">
+<meta property="og:description" content="Serve large datasets to Pyodide/Shinylive apps without any infrastructure">
 <meta property="og:site_name" content="Home">
-<meta property="og:image:height" content="800">
-<meta property="og:image:width" content="1000">
-<meta name="twitter:title" content="Projects – Home">
-<meta name="twitter:image" content="https://michaelaye.github.io/projects/koregistration/featured.png">
+<meta name="twitter:title" content="Using GitHub Releases as a Free Data CDN for Browser-Based Science Apps – Home">
+<meta name="twitter:description" content="Serve large datasets to Pyodide/Shinylive apps without any infrastructure">
 <meta name="twitter:creator" content="@michaelaye">
-<meta name="twitter:image-height" content="800">
-<meta name="twitter:image-width" content="1000">
-<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:card" content="summary">
 </head>
 
 <body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
@@ -319,7 +292,7 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Home</span>
     </a>
   </div>
@@ -330,23 +303,23 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./posts.html"> 
+    <a class="nav-link" href="../../posts.html"> 
 <span class="menu-text">Blog</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./talks.html"> 
+    <a class="nav-link" href="../../talks.html"> 
 <span class="menu-text">Talks</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./projects.html" aria-current="page"> 
+    <a class="nav-link" href="../../projects.html"> 
 <span class="menu-text">Projects</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./bibliography.html"> 
+    <a class="nav-link" href="../../bibliography.html"> 
 <span class="menu-text">Bibliography</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
+    <a class="nav-link" href="../../about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
 </ul>
@@ -376,270 +349,204 @@ window.Quarto = {
 <!-- content -->
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-page-left">
-      <h1 class="title">Projects</h1>
-                      </div>
+    <div class="quarto-title column-body">
+      <h1 class="title">Using GitHub Releases as a Free Data CDN for Browser-Based Science Apps</h1>
+            <p class="subtitle lead">Serve large datasets to Pyodide/Shinylive apps without any infrastructure</p>
+                                <div class="quarto-categories">
+                <div class="quarto-category">python</div>
+                <div class="quarto-category">web</div>
+                <div class="quarto-category">data</div>
+                <div class="quarto-category">shinylive</div>
+              </div>
+                  </div>
   </div>
     
   
-  <div class="quarto-title-meta column-page-left">
+  <div class="quarto-title-meta">
 
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Michael Aye </p>
+            </div>
+    </div>
       
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">2026-03-05</p>
+      </div>
+    </div>
     
       
     </div>
     
   
-  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(7)</span></div><div class="category" data-category="Y2Fzc2luaSUyMGlzcw==">cassini iss <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Y2Fzc2luaSUyMHV2aXM=">cassini uvis <span class="quarto-category-count">(2)</span></div><div class="category" data-category="Y2l0aXplbiUyMHNjaWVuY2U=">citizen science <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Y28taQ==">co-i <span class="quarto-category-count">(2)</span></div><div class="category" data-category="aW1hZ2UlMjBwcm9jZXNzaW5n">image processing <span class="quarto-category-count">(1)</span></div><div class="category" data-category="aW5zdHJ1bWVudGF0aW9u">instrumentation <span class="quarto-category-count">(1)</span></div><div class="category" data-category="anVpY2U=">juice <span class="quarto-category-count">(1)</span></div><div class="category" data-category="anVwaXRlcg==">jupiter <span class="quarto-category-count">(1)</span></div><div class="category" data-category="bWFycw==">mars <span class="quarto-category-count">(2)</span></div><div class="category" data-category="cGRz">pds <span class="quarto-category-count">(1)</span></div><div class="category" data-category="cGk=">pi <span class="quarto-category-count">(1)</span></div><div class="category" data-category="cHl0aG9u">python <span class="quarto-category-count">(4)</span></div><div class="category" data-category="cmVtb3RlJTIwc2Vuc2luZw==">remote sensing <span class="quarto-category-count">(1)</span></div><div class="category" data-category="c2F0dXJuJTIwcmluZ3M=">saturn rings <span class="quarto-category-count">(1)</span></div></div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#the-problem" id="toc-the-problem" class="nav-link active" data-scroll-target="#the-problem">The Problem</a></li>
+  <li><a href="#github-releases-accidental-cdn" id="toc-github-releases-accidental-cdn" class="nav-link" data-scroll-target="#github-releases-accidental-cdn">GitHub Releases: Accidental CDN</a>
+  <ul class="collapse">
+  <li><a href="#how-it-works" id="toc-how-it-works" class="nav-link" data-scroll-target="#how-it-works">How it works</a></li>
+  <li><a href="#why-this-beats-other-options" id="toc-why-this-beats-other-options" class="nav-link" data-scroll-target="#why-this-beats-other-options">Why this beats other options</a></li>
+  </ul></li>
+  <li><a href="#fetching-data-from-pyodideshinylive" id="toc-fetching-data-from-pyodideshinylive" class="nav-link" data-scroll-target="#fetching-data-from-pyodideshinylive">Fetching Data from Pyodide/Shinylive</a></li>
+  <li><a href="#practical-pattern-tiled-data-loading" id="toc-practical-pattern-tiled-data-loading" class="nav-link" data-scroll-target="#practical-pattern-tiled-data-loading">Practical Pattern: Tiled Data Loading</a></li>
+  <li><a href="#uploading-release-assets" id="toc-uploading-release-assets" class="nav-link" data-scroll-target="#uploading-release-assets">Uploading Release Assets</a>
+  <ul class="collapse">
+  <li><a href="#via-the-web-ui" id="toc-via-the-web-ui" class="nav-link" data-scroll-target="#via-the-web-ui">Via the web UI</a></li>
+  <li><a href="#via-the-github-cli" id="toc-via-the-github-cli" class="nav-link" data-scroll-target="#via-the-github-cli">Via the GitHub CLI</a></li>
+  </ul></li>
+  <li><a href="#when-to-use-something-else" id="toc-when-to-use-something-else" class="nav-link" data-scroll-target="#when-to-use-something-else">When to Use Something Else</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
-<main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
+<main class="content quarto-banner-title-block page-columns page-full" id="quarto-document-content">
 
 
 
 
 
 
+<section id="the-problem" class="level2">
+<h2 class="anchored" data-anchor-id="the-problem">The Problem</h2>
+<p>You’ve built an interactive data exploration app that runs entirely in the browser using <a href="https://pyodide.org/">Pyodide</a> or <a href="https://shiny.posit.co/py/docs/shinylive.html">Shinylive</a> — no server needed. But where do you put the data?</p>
+<p>Your options for static hosting (GitHub Pages, university web servers) are designed for HTML/JS/CSS, not for serving hundreds of megabytes of scientific data. And setting up a proper backend just to serve files defeats the purpose of a serverless app.</p>
+</section>
+<section id="github-releases-accidental-cdn" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="github-releases-accidental-cdn">GitHub Releases: Accidental CDN</h2>
+<p>When you create a <a href="https://docs.github.com/en/repositories/releasing-projects-on-github/about-releases">GitHub Release</a>, you can attach binary files up to <strong>2 GiB each</strong>, with up to 1,000 assets per release and — crucially — <strong>no limit on total size or bandwidth</strong>.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> These “release assets” are served via GitHub’s global CDN.</p>
+<div class="no-row-height column-margin column-container"><div id="fn1"><p><sup>1</sup>&nbsp;GitHub Docs: <a href="https://docs.github.com/en/repositories/releasing-projects-on-github/about-releases">About releases</a> — “Each file included in a release must be under 2 GiB. There is no limit on the total size of a release, nor bandwidth usage.”</p></div></div><p>The key insight: <strong>releases don’t have to be for software versioning.</strong> You can use them purely as a free, fast file hosting service for datasets.</p>
+<section id="how-it-works" class="level3">
+<h3 class="anchored" data-anchor-id="how-it-works">How it works</h3>
+<ol type="1">
+<li>Create a repository (e.g., <code>your-username/my-project-data</code>)</li>
+<li>Create a release tagged something like <code>data-v1</code></li>
+<li>Upload your data files as release assets</li>
+<li>Each file gets a permanent, public URL:</li>
+</ol>
+<pre><code>https://github.com/&lt;user&gt;/&lt;repo&gt;/releases/download/&lt;tag&gt;/&lt;filename&gt;</code></pre>
+</section>
+<section id="why-this-beats-other-options" class="level3 page-columns page-full">
+<h3 class="anchored" data-anchor-id="why-this-beats-other-options">Why this beats other options</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Approach</th>
+<th>Max file size</th>
+<th>Cost</th>
+<th>Speed</th>
+<th>Versioning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Files in git repo</td>
+<td>100 MiB<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></td>
+<td>Free</td>
+<td>Slow (cloned every time)</td>
+<td>Yes but bloats repo</td>
+</tr>
+<tr class="even">
+<td>Git LFS</td>
+<td>2 GiB</td>
+<td>10 GiB free storage + bandwidth<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></td>
+<td>Medium</td>
+<td>Yes</td>
+</tr>
+<tr class="odd">
+<td><strong>Release assets</strong></td>
+<td><strong>2 GiB</strong></td>
+<td><strong>Free, no bandwidth limit</strong></td>
+<td><strong>Fast (CDN)</strong></td>
+<td><strong>Yes (tags)</strong></td>
+</tr>
+<tr class="even">
+<td>S3/GCS</td>
+<td>Unlimited</td>
+<td>Paid</td>
+<td>Fast</td>
+<td>Manual</td>
+</tr>
+</tbody>
+</table>
+<div class="no-row-height column-margin column-container"><div id="fn2"><p><sup>2</sup>&nbsp;GitHub Docs: <a href="https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-large-files-on-github">About large files on GitHub</a> — “GitHub blocks files larger than 100 MiB.” Repositories are recommended to stay under 1 GB, strongly under 5 GB.</p></div><div id="fn3"><p><sup>3</sup>&nbsp;GitHub Docs: <a href="https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-storage-and-bandwidth-usage">About storage and bandwidth usage</a> — GitHub Free and Pro accounts get 10 GiB each for LFS storage and bandwidth per month.</p></div></div><p>Release assets don’t count against your repository size and don’t affect <code>git clone</code> performance. You can have multiple releases, each with up to 1,000 files.</p>
+</section>
+</section>
+<section id="fetching-data-from-pyodideshinylive" class="level2">
+<h2 class="anchored" data-anchor-id="fetching-data-from-pyodideshinylive">Fetching Data from Pyodide/Shinylive</h2>
+<p>A Pyodide app running in the browser can fetch release assets directly — GitHub serves them with permissive CORS headers:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pyodide.http <span class="im">import</span> pyfetch</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> io <span class="im">import</span> BytesIO</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Fetch a Parquet file from a GitHub release</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> (</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"https://github.com/your-username/my-project-data"</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"/releases/download/data-v1/observations.parquet"</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> <span class="cf">await</span> pyfetch(url)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="bu">buffer</span> <span class="op">=</span> <span class="cf">await</span> response.<span class="bu">bytes</span>()</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_parquet(BytesIO(<span class="bu">buffer</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="practical-pattern-tiled-data-loading" class="level2">
+<h2 class="anchored" data-anchor-id="practical-pattern-tiled-data-loading">Practical Pattern: Tiled Data Loading</h2>
+<p>For large datasets, don’t serve one monolithic file. Instead, tile your data and fetch only what the user needs:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="cf">async</span> <span class="kw">def</span> load_tile(x, y, base_url):</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Load a single DEM tile on demand."""</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    url <span class="op">=</span> <span class="ss">f"</span><span class="sc">{</span>base_url<span class="sc">}</span><span class="ss">/tile_</span><span class="sc">{</span>x<span class="sc">}</span><span class="ss">_</span><span class="sc">{</span>y<span class="sc">}</span><span class="ss">.parquet"</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    response <span class="op">=</span> <span class="cf">await</span> pyfetch(url)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">buffer</span> <span class="op">=</span> <span class="cf">await</span> response.<span class="bu">bytes</span>()</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> pd.read_parquet(BytesIO(<span class="bu">buffer</span>))</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co"># User clicks on region → fetch only that tile</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>tile <span class="op">=</span> <span class="cf">await</span> load_tile(<span class="dv">3</span>, <span class="dv">7</span>, release_url)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This way, a 2 GB dataset split into 256 tiles means each interaction only downloads ~8 MB.</p>
+</section>
+<section id="uploading-release-assets" class="level2">
+<h2 class="anchored" data-anchor-id="uploading-release-assets">Uploading Release Assets</h2>
+<section id="via-the-web-ui" class="level3">
+<h3 class="anchored" data-anchor-id="via-the-web-ui">Via the web UI</h3>
+<p>Go to your repo → Releases → Draft a new release → attach files by drag and drop.</p>
+</section>
+<section id="via-the-github-cli" class="level3">
+<h3 class="anchored" data-anchor-id="via-the-github-cli">Via the GitHub CLI</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a release and upload files in one step</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">gh</span> release create data-v1 <span class="dt">\</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  tile_<span class="pp">*</span>.parquet <span class="dt">\</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  metadata.json <span class="dt">\</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--repo</span> your-username/my-project-data <span class="dt">\</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--title</span> <span class="st">"Dataset v1"</span> <span class="dt">\</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">--notes</span> <span class="st">"Initial DEM tile dataset"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>To update data, create a new release (<code>data-v2</code>) — old URLs keep working.</p>
+</section>
+</section>
+<section id="when-to-use-something-else" class="level2">
+<h2 class="anchored" data-anchor-id="when-to-use-something-else">When to Use Something Else</h2>
+<ul>
+<li><strong>Files &gt; 2 GiB</strong>: Use cloud object storage (S3, GCS) or split into chunks</li>
+<li><strong>Private data</strong>: Release assets on public repos are public; use private repos with token-based access or a different hosting solution</li>
+<li><strong>High-frequency updates</strong>: Releases are for versioned snapshots, not databases that change every minute</li>
+<li><strong>Streaming/real-time data</strong>: You need a real backend</li>
+</ul>
+</section>
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">Summary</h2>
+<p>For the common case of “I have some scientific datasets (tens of MB to low GB) and want to serve them to a browser-based Python app” — GitHub release assets are hard to beat. Free, fast, versioned, no infrastructure, and your Pyodide/Shinylive app can fetch them directly.</p>
 
 
+</section>
 
 
-<div class="quarto-listing quarto-listing-container-grid" id="listing-listing">
-<div class="list grid quarto-listing-cols-3">
-<div class="g-col-1" data-index="0" data-categories="bWFycyUyQ3JlbW90ZSUyMHNlbnNpbmclMkNpbWFnZSUyMHByb2Nlc3Npbmc=" data-listing-date-sort="1772582400000" data-listing-file-modified-sort="1772749251820" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="145">
-<a href="./projects/koregistration/index.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img loading="lazy" src="./projects/koregistration/featured.png" class="thumbnail-image card-img" style="height: 150px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Image Co-registration
-</h5>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('bWFycw=='); return false;">mars</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('cmVtb3RlJTIwc2Vuc2luZw=='); return false;">remote sensing</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('aW1hZ2UlMjBwcm9jZXNzaW5n'); return false;">image processing</div>
-
-</div>
-<div class="card-text listing-description delink">
-When combining orbital images of Mars taken at different times, precise alignment — co-registration — is essential. Small misalignments between images propagate into every…
-</div>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-Michael Aye, Sebastian Walter
-</div>
-<div class="listing-date">
-2026-03-04
-</div>
-</div>
-</div>
-</div></a>
-</div>
-<div class="g-col-1" data-index="1" data-categories="bWFycyUyQ2NpdGl6ZW4lMjBzY2llbmNlJTJDcHl0aG9u" data-listing-date-sort="1772582400000" data-listing-file-modified-sort="1772749251866" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="197">
-<a href="./projects/planet-four/index.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img loading="lazy" src="./projects/planet-four/featured.png" class="thumbnail-image card-img" style="height: 150px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Planet Four
-</h5>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('bWFycw=='); return false;">mars</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('Y2l0aXplbiUyMHNjaWVuY2U='); return false;">citizen science</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('cHl0aG9u'); return false;">python</div>
-
-</div>
-<div class="card-text listing-description delink">
-The Red Planet is a unique and dynamic world. Through the power of the Internet and its volunteers, we explore the surface, climate, and history of Mars with the Planet Four…
-</div>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-Michael Aye, Tom Ihro, Ganna Portyankina, Candice Hansen, Meg Schwamb, Tim Michaels, Chris Lintott, et al.
-</div>
-<div class="listing-date">
-2026-03-04
-</div>
-</div>
-</div>
-</div></a>
-</div>
-<div class="g-col-1" data-index="2" data-categories="anVwaXRlciUyQ2p1aWNlJTJDaW5zdHJ1bWVudGF0aW9uJTJDcHl0aG9u" data-listing-date-sort="1772582400000" data-listing-file-modified-sort="1772749251804" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="135">
-<a href="./projects/janus-juice/index.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img loading="lazy" src="./projects/janus-juice/featured.png" class="thumbnail-image card-img" style="height: 150px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-JANUS Camera on the JUICE Mission
-</h5>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('anVwaXRlcg=='); return false;">jupiter</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('anVpY2U='); return false;">juice</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('aW5zdHJ1bWVudGF0aW9u'); return false;">instrumentation</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('cHl0aG9u'); return false;">python</div>
-
-</div>
-<div class="card-text listing-description delink">
-JANUS (Jovis, Amorum ac Natorum Undique Scrutator) is the optical camera system on ESA’s JUICE mission to the Jupiter system. It will image Jupiter’s atmosphere, the…
-</div>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-Michael Aye
-</div>
-<div class="listing-date">
-2026-03-04
-</div>
-</div>
-</div>
-</div></a>
-</div>
-<div class="g-col-1" data-index="3" data-categories="Y2Fzc2luaSUyMHV2aXMlMkNwaQ==" data-listing-date-sort="1772582400000" data-listing-file-modified-sort="1772749251873" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="208">
-<a href="./projects/uvis-pdart/index.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img loading="lazy" src="./projects/uvis-pdart/uvis-aurora.jpg" class="thumbnail-image card-img" style="height: 150px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Cassini UVIS Data Product Enhancement
-</h5>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('Y2Fzc2luaSUyMHV2aXM='); return false;">cassini uvis</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('cGk='); return false;">pi</div>
-
-</div>
-<div class="card-text listing-description delink">
-This NASA PDART project upgrades the existing Cassini UVIS data products into a modern, science-ready format. The PI is Matt Tiscareno at the SETI Institute; I serve as…
-</div>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-Michael Aye
-</div>
-<div class="listing-date">
-2026-03-04
-</div>
-</div>
-</div>
-</div></a>
-</div>
-<div class="g-col-1" data-index="4" data-categories="Y28taSUyQ3BkcyUyQ3B5dGhvbg==" data-listing-date-sort="1631077698000" data-listing-file-modified-sort="1772749251866" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="600">
-<a href="./projects/planetary-data-reader/index.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img loading="lazy" src="https://upload.wikimedia.org/wikipedia/commons/1/19/Solar_System_true_color.jpg" class="thumbnail-image card-img" style="height: 150px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Planetary Data Reader
-</h5>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('Y28taQ=='); return false;">co-i</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('cGRz'); return false;">pds</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('cHl0aG9u'); return false;">python</div>
-
-</div>
-<div class="card-text listing-description delink">
-I am a Collaborator (Co-I until I left the US) in this exciting project, led by Chase Million of Million Concepts.
-</div>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-Chase Million, Michael St.&nbsp;Clair, Michael Aye
-</div>
-<div class="listing-date">
-2021-09-08
-</div>
-</div>
-</div>
-</div></a>
-</div>
-<div class="g-col-1" data-index="5" data-categories="Y28taSUyQ3NhdHVybiUyMHJpbmdzJTJDY2Fzc2luaSUyMHV2aXMlMkNjYXNzaW5pJTIwaXNz" data-listing-date-sort="1631077679000" data-listing-file-modified-sort="1772749251873" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="622">
-<a href="./projects/saturn-rings/index.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top"><img src="projects/saturn-rings/featured.png" style="height: 150px;"  class="thumbnail-image card-img"/></p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Mesoscale Structures in Saturn’s Rings: Clues to Origin and Evolution
-</h5>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('Y28taQ=='); return false;">co-i</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('c2F0dXJuJTIwcmluZ3M='); return false;">saturn rings</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('Y2Fzc2luaSUyMHV2aXM='); return false;">cassini uvis</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('Y2Fzc2luaSUyMGlzcw=='); return false;">cassini iss</div>
-
-</div>
-<div class="card-text listing-description delink">
-I was a funded Co-I on this project led by Joshua Colwell (UCF) until I left the US in 2022.
-</div>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-Joshua Colwell, Michael Aye
-</div>
-<div class="listing-date">
-2021-09-08
-</div>
-</div>
-</div>
-</div></a>
-</div>
-<div class="g-col-1" data-index="6" data-categories="cHl0aG9u" data-listing-date-sort="1631077600000" data-listing-file-modified-sort="1772749251866" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="106">
-<a href="./projects/planetarypy/index.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img loading="lazy" src="./projects/planetarypy/plpy_logo.png" class="thumbnail-image card-img" style="height: 150px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-PlanetaryPy
-</h5>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('cHl0aG9u'); return false;">python</div>
-
-</div>
-<div class="card-text listing-description delink">
-The PlanetaryPy Project is a community effort to develop a core package for planetary science in Python and foster interoperability between Python planetary science…
-</div>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-Michael Aye, Ross Beyer, Andrew Annex, Chase Million
-</div>
-<div class="listing-date">
-2021-09-08
-</div>
-</div>
-</div>
-</div></a>
-</div>
-</div>
-<div class="listing-no-matching d-none">No matching items</div>
-</div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right
