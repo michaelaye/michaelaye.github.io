@@ -1,0 +1,117 @@
+---
+title: "Using GitHub Releases as a Free Data CDN for Browser-Based Science Apps"
+subtitle: "Serve large datasets to Pyodide/Shinylive apps without any infrastructure"
+summary: "GitHub release assets provide free, fast, globally distributed hosting for scientific datasets — perfect for feeding in-browser Python apps that fetch data on demand."
+author: "Michael Aye"
+categories: [python, web, data, shinylive]
+date: 2026-03-05
+reference-location: margin
+---
+
+## The Problem
+
+You've built an interactive data exploration app that runs entirely in the browser using [Pyodide](https://pyodide.org/) or [Shinylive](https://shiny.posit.co/py/docs/shinylive.html) — no server needed. But where do you put the data?
+
+Your options for static hosting (GitHub Pages, university web servers) are designed for HTML/JS/CSS, not for serving hundreds of megabytes of scientific data. And setting up a proper backend just to serve files defeats the purpose of a serverless app.
+
+## GitHub Releases: Accidental CDN
+
+When you create a [GitHub Release](https://docs.github.com/en/repositories/releasing-projects-on-github/about-releases), you can attach binary files up to **2 GiB each**, with up to 1,000 assets per release and — crucially — **no limit on total size or bandwidth**.[^release-limits] These "release assets" are served via GitHub's global CDN.
+
+[^release-limits]: GitHub Docs: [About releases](https://docs.github.com/en/repositories/releasing-projects-on-github/about-releases) — "Each file included in a release must be under 2 GiB. There is no limit on the total size of a release, nor bandwidth usage."
+
+The key insight: **releases don't have to be for software versioning.** You can use them purely as a free, fast file hosting service for datasets.
+
+### How it works
+
+1. Create a repository (e.g., `your-username/my-project-data`)
+2. Create a release tagged something like `data-v1`
+3. Upload your data files as release assets
+4. Each file gets a permanent, public URL:
+
+```
+https://github.com/<user>/<repo>/releases/download/<tag>/<filename>
+```
+
+### Why this beats other options
+
+| Approach | Max file size | Cost | Speed | Versioning |
+|----------|--------------|------|-------|------------|
+| Files in git repo | 100 MiB[^repo-limit] | Free | Slow (cloned every time) | Yes but bloats repo |
+| Git LFS | 2 GiB | 10 GiB free storage + bandwidth[^lfs-limit] | Medium | Yes |
+| **Release assets** | **2 GiB** | **Free, no bandwidth limit** | **Fast (CDN)** | **Yes (tags)** |
+| S3/GCS | Unlimited | Paid | Fast | Manual |
+
+[^repo-limit]: GitHub Docs: [About large files on GitHub](https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-large-files-on-github) — "GitHub blocks files larger than 100 MiB." Repositories are recommended to stay under 1 GB, strongly under 5 GB.
+
+[^lfs-limit]: GitHub Docs: [About storage and bandwidth usage](https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-storage-and-bandwidth-usage) — GitHub Free and Pro accounts get 10 GiB each for LFS storage and bandwidth per month.
+
+Release assets don't count against your repository size and don't affect `git clone` performance. You can have multiple releases, each with up to 1,000 files.
+
+## Fetching Data from Pyodide/Shinylive
+
+A Pyodide app running in the browser can fetch release assets directly — GitHub serves them with permissive CORS headers:
+
+```python
+from pyodide.http import pyfetch
+import pandas as pd
+from io import BytesIO
+
+# Fetch a Parquet file from a GitHub release
+url = (
+    "https://github.com/your-username/my-project-data"
+    "/releases/download/data-v1/observations.parquet"
+)
+response = await pyfetch(url)
+buffer = await response.bytes()
+df = pd.read_parquet(BytesIO(buffer))
+```
+
+## Practical Pattern: Tiled Data Loading
+
+For large datasets, don't serve one monolithic file. Instead, tile your data and fetch only what the user needs:
+
+```python
+async def load_tile(x, y, base_url):
+    """Load a single DEM tile on demand."""
+    url = f"{base_url}/tile_{x}_{y}.parquet"
+    response = await pyfetch(url)
+    buffer = await response.bytes()
+    return pd.read_parquet(BytesIO(buffer))
+
+# User clicks on region → fetch only that tile
+tile = await load_tile(3, 7, release_url)
+```
+
+This way, a 2 GB dataset split into 256 tiles means each interaction only downloads ~8 MB.
+
+## Uploading Release Assets
+
+### Via the web UI
+
+Go to your repo → Releases → Draft a new release → attach files by drag and drop.
+
+### Via the GitHub CLI
+
+```bash
+# Create a release and upload files in one step
+gh release create data-v1 \
+  tile_*.parquet \
+  metadata.json \
+  --repo your-username/my-project-data \
+  --title "Dataset v1" \
+  --notes "Initial DEM tile dataset"
+```
+
+To update data, create a new release (`data-v2`) — old URLs keep working.
+
+## When to Use Something Else
+
+- **Files > 2 GiB**: Use cloud object storage (S3, GCS) or split into chunks
+- **Private data**: Release assets on public repos are public; use private repos with token-based access or a different hosting solution
+- **High-frequency updates**: Releases are for versioned snapshots, not databases that change every minute
+- **Streaming/real-time data**: You need a real backend
+
+## Summary
+
+For the common case of "I have some scientific datasets (tens of MB to low GB) and want to serve them to a browser-based Python app" — GitHub release assets are hard to beat. Free, fast, versioned, no infrastructure, and your Pyodide/Shinylive app can fetch them directly.
