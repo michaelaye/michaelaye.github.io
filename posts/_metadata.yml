@@ -8,3 +8,16 @@ freeze: true
 title-block-banner: true
 
 date-format: "YYYY-MM-DD"
+
+comments:
+  giscus:
+    repo: michaelaye/michaelaye.github.io
+    repo-id: "MDEwOlJlcG9zaXRvcnk0MDM3NDU2OTE="
+    category: Announcements
+    category-id: "DIC_kwDOGBCrm84Cis9n"
+    mapping: pathname
+    reactions-enabled: true
+    loading: lazy
+    theme:
+      light: light
+      dark: dark_dimmed
