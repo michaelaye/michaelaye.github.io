@@ -378,6 +378,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       </div>
     </div>
     
+      <div>
+      <div class="quarto-title-meta-heading">Modified</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date-modified">2026-03-06</p>
+      </div>
+    </div>
       
     </div>
     
@@ -398,6 +404,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#fetching-data-from-pyodideshinylive" id="toc-fetching-data-from-pyodideshinylive" class="nav-link" data-scroll-target="#fetching-data-from-pyodideshinylive">Fetching Data from Pyodide/Shinylive</a></li>
   <li><a href="#practical-pattern-tiled-data-loading" id="toc-practical-pattern-tiled-data-loading" class="nav-link" data-scroll-target="#practical-pattern-tiled-data-loading">Practical Pattern: Tiled Data Loading</a></li>
+  <li><a href="#http-range-requests-and-cloud-optimized-formats" id="toc-http-range-requests-and-cloud-optimized-formats" class="nav-link" data-scroll-target="#http-range-requests-and-cloud-optimized-formats">HTTP Range Requests and Cloud-Optimized Formats</a>
+  <ul class="collapse">
+  <li><a href="#reading-a-cog-directly-from-a-release-asset" id="toc-reading-a-cog-directly-from-a-release-asset" class="nav-link" data-scroll-target="#reading-a-cog-directly-from-a-release-asset">Reading a COG directly from a release asset</a></li>
+  <li><a href="#byte-range-fetch-with-plain-python" id="toc-byte-range-fetch-with-plain-python" class="nav-link" data-scroll-target="#byte-range-fetch-with-plain-python">Byte-range fetch with plain Python</a></li>
+  </ul></li>
   <li><a href="#uploading-release-assets" id="toc-uploading-release-assets" class="nav-link" data-scroll-target="#uploading-release-assets">Uploading Release Assets</a>
   <ul class="collapse">
   <li><a href="#via-the-web-ui" id="toc-via-the-web-ui" class="nav-link" data-scroll-target="#via-the-web-ui">Via the web UI</a></li>
@@ -511,6 +522,41 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>tile <span class="op">=</span> <span class="cf">await</span> load_tile(<span class="dv">3</span>, <span class="dv">7</span>, release_url)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>This way, a 2 GB dataset split into 256 tiles means each interaction only downloads ~8 MB.</p>
 </section>
+<section id="http-range-requests-and-cloud-optimized-formats" class="level2">
+<h2 class="anchored" data-anchor-id="http-range-requests-and-cloud-optimized-formats">HTTP Range Requests and Cloud-Optimized Formats</h2>
+<p>As Mario D’Amore pointed out, HTTP range requests and COG work as well. GitHub’s CDN supports <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Range_requests">HTTP Range requests</a>, meaning you can read <em>partial</em> data from a file without downloading the whole thing. This is particularly powerful with formats designed for partial reads, like <a href="https://www.cogeo.org/">Cloud Optimized GeoTIFF (COG)</a>.</p>
+<section id="reading-a-cog-directly-from-a-release-asset" class="level3">
+<h3 class="anchored" data-anchor-id="reading-a-cog-directly-from-a-release-asset">Reading a COG directly from a release asset</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> rioxarray</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> (</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"https://github.com/your-username/my-project-data"</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"/releases/download/data-v1/dem.tif"</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co"># rioxarray/rasterio use GDAL's vsicurl under the hood,</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co"># which issues HTTP range requests to read only the needed tiles</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>ds <span class="op">=</span> rioxarray.open_rasterio(url)</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Read just a spatial subset — only the relevant byte ranges are fetched</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>subset <span class="op">=</span> ds.sel(x<span class="op">=</span><span class="bu">slice</span>(<span class="dv">100</span>, <span class="dv">200</span>), y<span class="op">=</span><span class="bu">slice</span>(<span class="dv">300</span>, <span class="dv">400</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="byte-range-fetch-with-plain-python" class="level3">
+<h3 class="anchored" data-anchor-id="byte-range-fetch-with-plain-python">Byte-range fetch with plain Python</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> httpx</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> (</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"https://github.com/your-username/my-project-data"</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"/releases/download/data-v1/large_dataset.parquet"</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Fetch only the first 1 KiB (e.g., to read a Parquet footer or file header)</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>resp <span class="op">=</span> httpx.get(url, headers<span class="op">=</span>{<span class="st">"Range"</span>: <span class="st">"bytes=0-1023"</span>})</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(resp.status_code)  <span class="co"># 206 Partial Content</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>header_bytes <span class="op">=</span> resp.content</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This means you don’t necessarily need to pre-tile your data. If your dataset is stored as a COG or another range-friendly format, clients can request just the spatial or spectral subset they need — GitHub’s CDN handles the rest.</p>
+</section>
+</section>
 <section id="uploading-release-assets" class="level2">
 <h2 class="anchored" data-anchor-id="uploading-release-assets">Uploading Release Assets</h2>
 <section id="via-the-web-ui" class="level3">
@@ -519,13 +565,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="via-the-github-cli" class="level3">
 <h3 class="anchored" data-anchor-id="via-the-github-cli">Via the GitHub CLI</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a release and upload files in one step</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">gh</span> release create data-v1 <span class="dt">\</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  tile_<span class="pp">*</span>.parquet <span class="dt">\</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  metadata.json <span class="dt">\</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--repo</span> your-username/my-project-data <span class="dt">\</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--title</span> <span class="st">"Dataset v1"</span> <span class="dt">\</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">--notes</span> <span class="st">"Initial DEM tile dataset"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a release and upload files in one step</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">gh</span> release create data-v1 <span class="dt">\</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  tile_<span class="pp">*</span>.parquet <span class="dt">\</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  metadata.json <span class="dt">\</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--repo</span> your-username/my-project-data <span class="dt">\</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--title</span> <span class="st">"Dataset v1"</span> <span class="dt">\</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">--notes</span> <span class="st">"Initial DEM tile dataset"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>To update data, create a new release (<code>data-v2</code>) — old URLs keep working.</p>
 </section>
 </section>

@@ -910,6 +910,13 @@
     "text": "Practical Pattern: Tiled Data Loading\nFor large datasets, don’t serve one monolithic file. Instead, tile your data and fetch only what the user needs:\nasync def load_tile(x, y, base_url):\n    \"\"\"Load a single DEM tile on demand.\"\"\"\n    url = f\"{base_url}/tile_{x}_{y}.parquet\"\n    response = await pyfetch(url)\n    buffer = await response.bytes()\n    return pd.read_parquet(BytesIO(buffer))\n\n# User clicks on region → fetch only that tile\ntile = await load_tile(3, 7, release_url)\nThis way, a 2 GB dataset split into 256 tiles means each interaction only downloads ~8 MB."
   },
   {
+    "objectID": "posts/github-releases-as-data-cdn/index.html#http-range-requests-and-cloud-optimized-formats",
+    "href": "posts/github-releases-as-data-cdn/index.html#http-range-requests-and-cloud-optimized-formats",
+    "title": "Using GitHub Releases as a Free Data CDN for Browser-Based Science Apps",
+    "section": "HTTP Range Requests and Cloud-Optimized Formats",
+    "text": "HTTP Range Requests and Cloud-Optimized Formats\nAs Mario D’Amore pointed out, HTTP range requests and COG work as well. GitHub’s CDN supports HTTP Range requests, meaning you can read partial data from a file without downloading the whole thing. This is particularly powerful with formats designed for partial reads, like Cloud Optimized GeoTIFF (COG).\n\nReading a COG directly from a release asset\nimport rioxarray\n\nurl = (\n    \"https://github.com/your-username/my-project-data\"\n    \"/releases/download/data-v1/dem.tif\"\n)\n\n# rioxarray/rasterio use GDAL's vsicurl under the hood,\n# which issues HTTP range requests to read only the needed tiles\nds = rioxarray.open_rasterio(url)\n\n# Read just a spatial subset — only the relevant byte ranges are fetched\nsubset = ds.sel(x=slice(100, 200), y=slice(300, 400))\n\n\nByte-range fetch with plain Python\nimport httpx\n\nurl = (\n    \"https://github.com/your-username/my-project-data\"\n    \"/releases/download/data-v1/large_dataset.parquet\"\n)\n\n# Fetch only the first 1 KiB (e.g., to read a Parquet footer or file header)\nresp = httpx.get(url, headers={\"Range\": \"bytes=0-1023\"})\nprint(resp.status_code)  # 206 Partial Content\nheader_bytes = resp.content\nThis means you don’t necessarily need to pre-tile your data. If your dataset is stored as a COG or another range-friendly format, clients can request just the spatial or spectral subset they need — GitHub’s CDN handles the rest."
+  },
+  {
     "objectID": "posts/github-releases-as-data-cdn/index.html#uploading-release-assets",
     "href": "posts/github-releases-as-data-cdn/index.html#uploading-release-assets",
     "title": "Using GitHub Releases as a Free Data CDN for Browser-Based Science Apps",

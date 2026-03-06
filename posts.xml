@@ -215,6 +215,99 @@ background-color: null;
 font-style: inherit;">7</span>, release_url)</span></code></pre></div></div>
 <p>This way, a 2 GB dataset split into 256 tiles means each interaction only downloads ~8 MB.</p>
 </section>
+<section id="http-range-requests-and-cloud-optimized-formats" class="level2">
+<h2 class="anchored" data-anchor-id="http-range-requests-and-cloud-optimized-formats">HTTP Range Requests and Cloud-Optimized Formats</h2>
+<p>As Mario D’Amore pointed out, HTTP range requests and COG work as well. GitHub’s CDN supports <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Range_requests">HTTP Range requests</a>, meaning you can read <em>partial</em> data from a file without downloading the whole thing. This is particularly powerful with formats designed for partial reads, like <a href="https://www.cogeo.org/">Cloud Optimized GeoTIFF (COG)</a>.</p>
+<section id="reading-a-cog-directly-from-a-release-asset" class="level3">
+<h3 class="anchored" data-anchor-id="reading-a-cog-directly-from-a-release-asset">Reading a COG directly from a release asset</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> rioxarray</span>
+<span id="cb4-2"></span>
+<span id="cb4-3">url <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> (</span>
+<span id="cb4-4">    <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"https://github.com/your-username/my-project-data"</span></span>
+<span id="cb4-5">    <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"/releases/download/data-v1/dem.tif"</span></span>
+<span id="cb4-6">)</span>
+<span id="cb4-7"></span>
+<span id="cb4-8"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># rioxarray/rasterio use GDAL's vsicurl under the hood,</span></span>
+<span id="cb4-9"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># which issues HTTP range requests to read only the needed tiles</span></span>
+<span id="cb4-10">ds <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> rioxarray.open_rasterio(url)</span>
+<span id="cb4-11"></span>
+<span id="cb4-12"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Read just a spatial subset — only the relevant byte ranges are fetched</span></span>
+<span id="cb4-13">subset <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> ds.sel(x<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">slice</span>(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">100</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">200</span>), y<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">slice</span>(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">300</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">400</span>))</span></code></pre></div></div>
+</section>
+<section id="byte-range-fetch-with-plain-python" class="level3">
+<h3 class="anchored" data-anchor-id="byte-range-fetch-with-plain-python">Byte-range fetch with plain Python</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> httpx</span>
+<span id="cb5-2"></span>
+<span id="cb5-3">url <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> (</span>
+<span id="cb5-4">    <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"https://github.com/your-username/my-project-data"</span></span>
+<span id="cb5-5">    <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"/releases/download/data-v1/large_dataset.parquet"</span></span>
+<span id="cb5-6">)</span>
+<span id="cb5-7"></span>
+<span id="cb5-8"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Fetch only the first 1 KiB (e.g., to read a Parquet footer or file header)</span></span>
+<span id="cb5-9">resp <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> httpx.get(url, headers<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>{<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Range"</span>: <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"bytes=0-1023"</span>})</span>
+<span id="cb5-10"><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">print</span>(resp.status_code)  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># 206 Partial Content</span></span>
+<span id="cb5-11">header_bytes <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> resp.content</span></code></pre></div></div>
+<p>This means you don’t necessarily need to pre-tile your data. If your dataset is stored as a COG or another range-friendly format, clients can request just the spatial or spectral subset they need — GitHub’s CDN handles the rest.</p>
+</section>
+</section>
 <section id="uploading-release-assets" class="level2">
 <h2 class="anchored" data-anchor-id="uploading-release-assets">Uploading Release Assets</h2>
 <section id="via-the-web-ui" class="level3">
@@ -223,35 +316,35 @@ font-style: inherit;">7</span>, release_url)</span></code></pre></div></div>
 </section>
 <section id="via-the-github-cli" class="level3">
 <h3 class="anchored" data-anchor-id="via-the-github-cli">Via the GitHub CLI</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><span class="co" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Create a release and upload files in one step</span></span>
-<span id="cb4-2"><span class="ex" style="color: null;
+<span id="cb6-2"><span class="ex" style="color: null;
 background-color: null;
 font-style: inherit;">gh</span> release create data-v1 <span class="dt" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">\</span></span>
-<span id="cb4-3">  tile_<span class="pp" style="color: #AD0000;
+<span id="cb6-3">  tile_<span class="pp" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">*</span>.parquet <span class="dt" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">\</span></span>
-<span id="cb4-4">  metadata.json <span class="dt" style="color: #AD0000;
+<span id="cb6-4">  metadata.json <span class="dt" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">\</span></span>
-<span id="cb4-5">  <span class="at" style="color: #657422;
+<span id="cb6-5">  <span class="at" style="color: #657422;
 background-color: null;
 font-style: inherit;">--repo</span> your-username/my-project-data <span class="dt" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">\</span></span>
-<span id="cb4-6">  <span class="at" style="color: #657422;
+<span id="cb6-6">  <span class="at" style="color: #657422;
 background-color: null;
 font-style: inherit;">--title</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"Dataset v1"</span> <span class="dt" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">\</span></span>
-<span id="cb4-7">  <span class="at" style="color: #657422;
+<span id="cb6-7">  <span class="at" style="color: #657422;
 background-color: null;
 font-style: inherit;">--notes</span> <span class="st" style="color: #20794D;
 background-color: null;
