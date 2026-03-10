@@ -10,7 +10,174 @@
 <atom:link href="https://michaelaye.github.io/posts.xml" rel="self" type="application/rss+xml"/>
 <description></description>
 <generator>quarto-1.8.27</generator>
-<lastBuildDate>Thu, 05 Mar 2026 00:00:00 GMT</lastBuildDate>
+<lastBuildDate>Tue, 10 Mar 2026 00:00:00 GMT</lastBuildDate>
+<item>
+  <title>Lessons from Matching Two Mars Images with ISIS</title>
+  <link>https://michaelaye.github.io/posts/2026-03-10_isis-two-image-matching/</link>
+  <description><![CDATA[ 
+
+
+
+
+
+
+<p>When you need to align two overlapping satellite images of Mars to sub-pixel accuracy, the USGS ISIS photogrammetry suite is the standard toolkit. It has been used to process imagery from nearly every planetary mission for decades. But the minimal case — two images, no ground control — turns out to have its own peculiar set of challenges that I hadn’t fully appreciated until I spent a day working through them empirically.</p>
+<p>This post collects the surprising things I learned while matching a pair of MRO Context Camera (CTX) images using the ISIS <code>autoseed</code> / <code>pointreg</code> / <code>jigsaw</code> pipeline.</p>
+<section id="the-setup" class="level2">
+<h2 class="anchored" data-anchor-id="the-setup">The setup</h2>
+<p>Two CTX images (K05_055343 and V05_082075) overlap in a region of Mars where no HRSC ortho-image is available — an “HRSC gap.” Our project’s primary objective is to coregister CTX against new HRSC Level 5 ortho-images, which provide ~12.5 m/pixel absolute reference — far better than the traditional MOLA baseline at ~463 m/pixel. In the gaps, we could fall back to MOLA, but we’d prefer to chain CTX images across the gap, anchored at both ends by images that were already matched against HRSC using our main coregistration pipeline. This means the gap interior inherits the HRSC geometric accuracy without ever touching MOLA.</p>
+<p>To build that chain, we coregister overlapping CTX images against each other using tie points in detector (Level 1) space, then bundle-adjust to correct the camera pointing. The images are 6 m/pixel push-broom strips, roughly 30 km wide and 100 km long, overlapping by about 30 km in the cross-track direction.</p>
+<div id="fig-footprints" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-footprints-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="images/footprints_overview.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure&nbsp;1: Footprint overview of the two CTX images. K05_055343 and V05_082075 overlap extensively in the cross-track direction."><img src="https://michaelaye.github.io/posts/2026-03-10_isis-two-image-matching/images/footprints_overview.png" class="img-fluid figure-img"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-footprints-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Footprint overview of the two CTX images. K05_055343 and V05_082075 overlap extensively in the cross-track direction.
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="surprise-1-default-parameters-are-terrible" class="level2">
+<h2 class="anchored" data-anchor-id="surprise-1-default-parameters-are-terrible">Surprise 1: Default parameters are terrible</h2>
+<p>ISIS ships with conservative defaults for <code>pointreg</code>, and they produce disappointing results on CTX data. With the out-of-the-box configuration (tolerance=0.65, pattern chip 21x21 pixels, search chip 61x61), only <strong>39.6%</strong> of seed points register successfully. All failures are <code>FitChipToleranceNotMet</code> — the correlation peak simply doesn’t reach the acceptance threshold.</p>
+<p>A systematic sweep of 30 configurations revealed that the <strong>pattern chip size is the key parameter</strong>. Increasing it from 21x21 to 51x51 pixels captures more terrain texture, giving the correlator a much stronger signal. Combined with lowering the tolerance to 0.3, registration jumps to <strong>97.7%</strong> — from 169 to 417 out of 427 seed points.</p>
+<p>This aligns with findings from <span class="citation" data-cites="robbins2020revised">Robbins et al. (2020)</span>, who used multiple pattern and search chip sizes when building a global CTX control network. They note that “smaller chips run more quickly… but they cannot match larger patterns” while “larger chips take more computer time, but they tend to better match larger features,” with an example configuration of 50×50 pattern chips and 150×150 search chips — remarkably close to our empirically derived 51×101 optimum.</p>
+<p>The search chip size, meanwhile, barely matters. Varying it from 41 to 101 pixels at a fixed pattern size produces identical results. The pointing offsets between these two images are small enough that even the smallest search window finds the match.</p>
+</section>
+<section id="surprise-2-more-points-better-quality-not-worse" class="level2">
+<h2 class="anchored" data-anchor-id="surprise-2-more-points-better-quality-not-worse">Surprise 2: More points = better quality, not worse</h2>
+<p>The natural concern with aggressive parameters is that you’re accepting garbage — false matches that will poison the bundle adjustment. But validating each pointreg configuration through jigsaw told the opposite story.</p>
+<p>Sigma0 (the RMS reprojection residual) actually <em>decreases</em> with larger pattern chips:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Pattern chip</th>
+<th>Registered</th>
+<th>sigma0</th>
+<th>Rejected</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>21x21</td>
+<td>387</td>
+<td>2.705</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>31x31</td>
+<td>406</td>
+<td>0.711</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>41x41</td>
+<td>414</td>
+<td>0.587</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>51x51</td>
+<td>417</td>
+<td>0.529</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>Zero rejections across the board. Every single registered point is geometrically consistent. Larger templates don’t produce more false matches — they produce <em>better</em> matches, because there’s more terrain structure to correlate against.</p>
+</section>
+<section id="surprise-3-twist-will-wreck-your-two-image-solution" class="level2">
+<h2 class="anchored" data-anchor-id="surprise-3-twist-will-wreck-your-two-image-solution">Surprise 3: Twist will wreck your two-image solution</h2>
+<p>Jigsaw’s <code>twist</code> parameter controls whether it solves for camera roll. With a well-connected network of many images, this is usually fine. With two images, it’s catastrophic.</p>
+<p>Enabling twist with <code>camsolve=velocities</code> sends sigma0 to 1,007 (from 0.529). With <code>camsolve=accelerations</code>, it explodes to 2,071,095. The system simply doesn’t have enough geometric constraints to determine roll from a single overlap region.</p>
+<p>The winning configuration: <code>camsolve=accelerations, spsolve=none, twist=no</code>. This gives sigma0 = 0.468, converging in 4 iterations. Disabling twist actually <em>frees up</em> degrees of freedom for higher-order pointing corrections that the data can support.</p>
+<p>Similarly, any <code>spsolve</code> setting other than <code>none</code> causes jigsaw to hang indefinitely. Spacecraft position solving needs 3+ images.</p>
+</section>
+<section id="surprise-4-free-networks-drift-by-kilometers" class="level2">
+<h2 class="anchored" data-anchor-id="surprise-4-free-networks-drift-by-kilometers">Surprise 4: Free networks drift by kilometers</h2>
+<p>This was the most disorienting discovery. After a successful bundle adjustment (sigma0 = 0.468, zero rejected points), the adjusted ground coordinates had shifted by an average of <strong>2.6 km</strong> from their apriori positions. Some points moved over 8 km.</p>
+<p>This isn’t a bug. Without ground control points, the bundle adjustment is a “free network” — it can translate and rotate the entire solution without changing the residuals. Jigsaw optimizes <em>relative</em> alignment between the two images, but absolute positioning on the planet is unconstrained.</p>
+<p>What made this especially confusing: the drift is <strong>non-uniform</strong>. It’s not a simple rigid shift. At the top of the image strip, the latitude offset is about 2,300 m; at the bottom, it’s 7,300 m. This is because <code>camsolve=accelerations</code> allows the pointing correction to vary along the flight path, and without an absolute reference, that variation is absorbed into the ground point positions.</p>
+</section>
+<section id="useful-fact-the-adjusted-coordinates-are-your-best-qa-tool" class="level2">
+<h2 class="anchored" data-anchor-id="useful-fact-the-adjusted-coordinates-are-your-best-qa-tool">Useful fact: The adjusted coordinates are your best QA tool</h2>
+<p>The control network stores two coordinate sets per tie point: <em>apriori</em> (from the original SPICE pointing) and <em>adjusted</em> (from the bundle solution). The adjusted coordinates are the <strong>precise intersection point</strong> of both cameras’ corrected lines of sight — they map exactly to the correct terrain in the post-jigsaw Level 2 images.</p>
+<p>This makes them ideal for verifying that jigsaw worked. Extract cutouts from both images at the adjusted coordinates: if the terrain matches, the bundle adjustment succeeded. Extract cutouts at the apriori coordinates: the terrain <em>won’t</em> match, because that’s the pointing error you just corrected.</p>
+<p>One subtlety that initially confused me: jigsaw corrects <em>both</em> images’ pointing, not just one. So the same map coordinate points to different terrain in the before-jigsaw and after-jigsaw versions of the same image. This isn’t imprecision — it’s simply both cameras being shifted to their corrected positions.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In principle, you could fix one image’s camera parameters in jigsaw and only solve for the other, making the “before” and “after” images identical for the fixed image. This would place all pointing correction on the second image.</p>
+</div>
+</div>
+</section>
+<section id="the-beforeafter-visualization" class="level2">
+<h2 class="anchored" data-anchor-id="the-beforeafter-visualization">The before/after visualization</h2>
+<p>The clearest way to verify that jigsaw worked is a simple 4-panel comparison:</p>
+<ol type="1">
+<li><strong>Before</strong> (apriori coordinates): extract cutouts from both images at the original tie point location. The terrain doesn’t match — this is the pointing error.</li>
+<li><strong>After</strong> (adjusted coordinates): extract cutouts from both images at the bundle-adjusted location. The terrain matches — the pointing has been corrected.</li>
+</ol>
+<div id="fig-beforeafter" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-beforeafter-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="images/beforeafter.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Figure&nbsp;2: Before/after terrain alignment at three random tie points. Left two columns show K05 and V05 at apriori (pre-jigsaw) coordinates — note the different terrain around the red crosses. Right two columns show both images at adjusted coordinates — identical terrain features, confirming the bundle adjustment worked."><img src="https://michaelaye.github.io/posts/2026-03-10_isis-two-image-matching/images/beforeafter.png" class="img-fluid figure-img"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-beforeafter-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Before/after terrain alignment at three random tie points. Left two columns show K05 and V05 at apriori (pre-jigsaw) coordinates — note the different terrain around the red crosses. Right two columns show both images at adjusted coordinates — identical terrain features, confirming the bundle adjustment worked.
+</figcaption>
+</figure>
+</div>
+<p>One practical detail: K05 and V05 have different photometric properties (different acquisition times, sun angles), so per-image percentile stretching makes them look very different even when showing the same terrain. Per-cutout z-score normalization (subtract mean, divide by standard deviation) with a shared display range removes this offset while preserving texture contrast.</p>
+</section>
+<section id="cross-correlation-on-mars-is-treacherous" class="level2">
+<h2 class="anchored" data-anchor-id="cross-correlation-on-mars-is-treacherous">Cross-correlation on Mars is treacherous</h2>
+<p>Before landing on the simple adjusted-coordinate approach, I tried using cross-correlation to find matching terrain between the before and after images. This was a dead end for two reasons:</p>
+<ol type="1">
+<li><p><strong>Mars terrain is repetitive.</strong> Craters, ridges, and aeolian features repeat at similar scales across large areas. With a search window of several hundred pixels, the correlator happily locks onto the wrong crater — one that looks nearly identical to the target but is kilometers away.</p></li>
+<li><p><strong>The pointing correction is non-uniform.</strong> There is no single rigid shift between the before and after images. The correction varies spatially along the flight path, so any template-matching approach needs a different search center for each location.</p></li>
+</ol>
+<p>The solution, if you insist on cross-correlation, is to center the search on the adjusted coordinates with a small radius (~300 pixels). But at that point, you’re barely refining anything — the adjusted coordinates are already correct.</p>
+</section>
+<section id="takeaways-for-two-image-isis-matching" class="level2">
+<h2 class="anchored" data-anchor-id="takeaways-for-two-image-isis-matching">Takeaways for two-image ISIS matching</h2>
+<ol type="1">
+<li><strong>Increase the pattern chip.</strong> The default 21x21 is too small for CTX. 51x51 with tolerance 0.3 gives 97.7% registration and the best sigma0.</li>
+<li><strong>Disable twist.</strong> With only 2 images, <code>twist=no</code> is mandatory. <code>camsolve=accelerations, spsolve=none</code> is the sweet spot.</li>
+<li><strong>Expect large absolute drift</strong> in the free network solution. This is normal and does not indicate poor quality.</li>
+<li><strong>Trust the adjusted coordinates.</strong> They are the exact bundle solution, not an approximation. Use them directly for QA visualization.</li>
+<li><strong>Run the full pipeline consistently.</strong> spiceinit, cam2map, jigsaw (update=True), cam2map again. Mixing data from different processing stages produces mysterious coordinate mismatches.</li>
+</ol>
+<p>These findings are specific to the two-image case. With larger networks (3+ images), twist may become viable, spsolve should be tested, and the free network drift will be reduced (though not eliminated without ground control).</p>
+<hr>
+<p><em>This work is funded by the Federal Ministry of Research, Technology and Space (BMFTR) through the German Space Agency at DLR on the basis of a resolution of the German Bundestag (Funding code: 50 OO 2204).</em></p>
+
+
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0">
+<div id="ref-robbins2020revised" class="csl-entry">
+Robbins, Stuart J., Joy D. Riggs, Brian P. Weaver, Edward B. Bierhaus, Clark R. Chapman, Michelle R. Kirchoff, Kelsi N. Singer, and Lisa R. Gaddis. 2020. <span>“Revised Recommended Methods for Analyzing Crater Size-Frequency Distributions.”</span> <em>Meteoritics &amp; Planetary Science</em> 55 (4): 891–931. <a href="https://doi.org/10.1111/maps.13287">https://doi.org/10.1111/maps.13287</a>.
+</div>
+</div></section></div> ]]></description>
+  <category>mars</category>
+  <category>ctx</category>
+  <category>isis</category>
+  <category>photogrammetry</category>
+  <category>coregistration</category>
+  <guid>https://michaelaye.github.io/posts/2026-03-10_isis-two-image-matching/</guid>
+  <pubDate>Tue, 10 Mar 2026 00:00:00 GMT</pubDate>
+  <media:content url="https://michaelaye.github.io/posts/2026-03-10_isis-two-image-matching/images/beforeafter.png" medium="image" type="image/png" height="113" width="144"/>
+</item>
 <item>
   <title>Using GitHub Releases as a Free Data CDN for Browser-Based Science Apps</title>
   <dc:creator>Michael Aye</dc:creator>
@@ -1751,7 +1918,7 @@ font-style: inherit;">;</span></span>
 <p>So I had to search the HA forums for solutions. I learned that for finding solutions to Zigbee issues one needs to search for the manufacturer ID string that is displayed in the ZHA Device info display:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://michaelaye.github.io/posts/2023-03-06_Tuya_thermostats/zigbee_info.png" class="img-fluid figure-img"></p>
+<p><a href="./zigbee_info.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Manufacturer string shown after “by”"><img src="https://michaelaye.github.io/posts/2023-03-06_Tuya_thermostats/zigbee_info.png" class="img-fluid figure-img" alt="Manufacturer string shown after “by”"></a></p>
 <figcaption>Manufacturer string shown after “by”</figcaption>
 </figure>
 </div>
@@ -1759,7 +1926,7 @@ font-style: inherit;">;</span></span>
 <p>Searching for this string one can learn that if a Zigbee product isn’t (fully?) supported yet by ZHA, one can install so called <a href="https://pypi.org/project/zha-quirks/"><code>quirk</code></a> Python files that add the translator dictionaries required for understanding the Zigbee devices’ communication.</p>
 <p>First, one needs to create a quirk folder on your Home Assistant device, in my case that’s a Raspberry 4 running the HA OS, but it shouldn’t matter.</p>
 <p>To manipulate files on my HA install, I use the <code>File Editor</code> Add-on which I can highly recommend. If you decide (again, recommended) to add the <code>File Editor</code> entry to the sidebar, it should look like this when clicking on the folder icon in the upper left of the Add-On:</p>
-<p><img src="https://michaelaye.github.io/posts/2023-03-06_Tuya_thermostats/file_editor.png" class="img-fluid"></p>
+<p><a href="file_editor.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="https://michaelaye.github.io/posts/2023-03-06_Tuya_thermostats/file_editor.png" class="img-fluid"></a></p>
 <p>The second icon at the top offers you to add a new folder. Make sure that you create the new folder in <code>/config</code>, at least that’s what I saw recommendend, maybe it doesn’t matter due to the next step, where we tell HA where the quirks folder is.</p>
 <p>Using the same File Editor we now open the famous <code>/config/configuration.yaml</code> to add the following to it:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><span class="fu" style="color: #4758AB;
@@ -1793,7 +1960,7 @@ font-style: inherit;"> /config/quirks</span></span></code></pre></div></div>
 <p>if you create a new folder named <code>quirks</code> in your <code>/config</code> folder.</p>
 <p>Now you put the unzipped Python file from <a href="https://github.com/zigpy/zha-device-handlers/files/10376432/ts0601_trv_me167.py.zip">here</a> into that folder. If you had previously connected the thermostat to ZHA, now is a good time to remove it, as you have to reboot HA anyway to activate the new quirk.</p>
 <p>After a reboot, put the thermostat into pairing mode again and connect it, you should have now several useful entities:</p>
-<p><img src="https://michaelaye.github.io/posts/2023-03-06_Tuya_thermostats/new_device_info.png" class="img-fluid"></p>
+<p><a href="new_device_info.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="https://michaelaye.github.io/posts/2023-03-06_Tuya_thermostats/new_device_info.png" class="img-fluid"></a></p>
 <p>Looking at the <code>Controls</code> section, the switch called <code>Lock</code> is called <code>Switch</code> at first, but it is for the child lock, so I renamed it to <code>Lock</code>. The 2nd entry <code>Number Temperat...</code> is very handy, it’s a slider for 1 degree offsets to calibrate the measured temperatur of the thermostat, and they gonna need it! Mine was 3 degrees off from an external temp sensor I mounted on top of the thermostat handle.</p>
 <p>Hope it helps!</p>
 
@@ -2119,7 +2286,7 @@ for i in range(100):
 <pre><code>&lt;matplotlib.axes.AxesSubplot at 0x115ac1e90&gt;</code></pre>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://michaelaye.github.io/posts/fan-creation/20140805_fan_creation_25_1.png" class="img-fluid figure-img"></p>
+<p><a href="./20140805_fan_creation_25_1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="png"><img src="https://michaelaye.github.io/posts/fan-creation/20140805_fan_creation_25_1.png" class="img-fluid figure-img" alt="png"></a></p>
 <figcaption>png</figcaption>
 </figure>
 </div>
@@ -2136,7 +2303,7 @@ pd.Series(angles,index=times).plot()</code></pre>
 <pre><code>&lt;matplotlib.axes.AxesSubplot at 0x1162d1590&gt;</code></pre>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://michaelaye.github.io/posts/fan-creation/20140805_fan_creation_27_1.png" class="img-fluid figure-img"></p>
+<p><a href="./20140805_fan_creation_27_1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="png"><img src="https://michaelaye.github.io/posts/fan-creation/20140805_fan_creation_27_1.png" class="img-fluid figure-img" alt="png"></a></p>
 <figcaption>png</figcaption>
 </figure>
 </div>

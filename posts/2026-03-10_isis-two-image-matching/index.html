@@ -6,10 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Michael Aye">
-<meta name="dcterms.date" content="2014-08-05">
+<meta name="dcterms.date" content="2026-03-10">
 
-<title>Fan Creation – Home</title>
+<title>Lessons from Matching Two Mars Images with ISIS – Home</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,7 +21,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -80,51 +99,20 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="../../styles.css">
-<meta property="og:title" content="Fan Creation – Home">
-<meta property="og:description" content="">
-<meta property="og:image" content="https://michaelaye.github.io/posts/fan-creation/20140805_fan_creation_25_1.png">
+<meta property="og:title" content="Lessons from Matching Two Mars Images with ISIS – Home">
+<meta property="og:description" content="What happens when bundle adjustment meets repetitive terrain, free networks, and 6-meter pixels">
+<meta property="og:image" content="https://michaelaye.github.io/posts/2026-03-10_isis-two-image-matching/images/beforeafter.png">
 <meta property="og:site_name" content="Home">
-<meta property="og:image:alt" content="png">
-<meta property="og:image:height" content="998">
-<meta property="og:image:width" content="1237">
-<meta name="twitter:title" content="Fan Creation – Home">
-<meta name="twitter:description" content="">
-<meta name="twitter:image" content="https://michaelaye.github.io/posts/fan-creation/20140805_fan_creation_25_1.png">
+<meta property="og:image:height" content="1771">
+<meta property="og:image:width" content="2264">
+<meta name="twitter:title" content="Lessons from Matching Two Mars Images with ISIS – Home">
+<meta name="twitter:description" content="What happens when bundle adjustment meets repetitive terrain, free networks, and 6-meter pixels">
+<meta name="twitter:image" content="https://michaelaye.github.io/posts/2026-03-10_isis-two-image-matching/images/beforeafter.png">
 <meta name="twitter:creator" content="@michaelaye">
-<meta name="twitter:image:alt" content="png">
-<meta name="twitter:image-height" content="998">
-<meta name="twitter:image-width" content="1237">
+<meta name="twitter:image-height" content="1771">
+<meta name="twitter:image-width" content="2264">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 
@@ -355,9 +343,14 @@ window.Quarto = {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Fan Creation</h1>
+      <h1 class="title">Lessons from Matching Two Mars Images with ISIS</h1>
+            <p class="subtitle lead">What happens when bundle adjustment meets repetitive terrain, free networks, and 6-meter pixels</p>
                                 <div class="quarto-categories">
-                <div class="quarto-category">planet four</div>
+                <div class="quarto-category">mars</div>
+                <div class="quarto-category">ctx</div>
+                <div class="quarto-category">isis</div>
+                <div class="quarto-category">photogrammetry</div>
+                <div class="quarto-category">coregistration</div>
               </div>
                   </div>
   </div>
@@ -368,14 +361,14 @@ window.Quarto = {
       <div>
       <div class="quarto-title-meta-heading">Author</div>
       <div class="quarto-title-meta-contents">
-               <p>Michael Aye </p>
+               <p><a href="https://michaelaye.github.io">Michael Aye</a> <a href="https://orcid.org/0000-0002-4088-1928" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
             </div>
     </div>
       
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">2014-08-05</p>
+        <p class="date">2026-03-10</p>
       </div>
     </div>
     
@@ -391,11 +384,15 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#the-sun-is-back" id="toc-the-sun-is-back" class="nav-link active" data-scroll-target="#the-sun-is-back">The sun is back!</a>
-  <ul class="collapse">
-  <li><a href="#disclaimer" id="toc-disclaimer" class="nav-link" data-scroll-target="#disclaimer">Disclaimer</a></li>
-  <li><a href="#intro" id="toc-intro" class="nav-link" data-scroll-target="#intro">Intro</a></li>
-  </ul></li>
+  <li><a href="#the-setup" id="toc-the-setup" class="nav-link active" data-scroll-target="#the-setup">The setup</a></li>
+  <li><a href="#surprise-1-default-parameters-are-terrible" id="toc-surprise-1-default-parameters-are-terrible" class="nav-link" data-scroll-target="#surprise-1-default-parameters-are-terrible">Surprise 1: Default parameters are terrible</a></li>
+  <li><a href="#surprise-2-more-points-better-quality-not-worse" id="toc-surprise-2-more-points-better-quality-not-worse" class="nav-link" data-scroll-target="#surprise-2-more-points-better-quality-not-worse">Surprise 2: More points = better quality, not worse</a></li>
+  <li><a href="#surprise-3-twist-will-wreck-your-two-image-solution" id="toc-surprise-3-twist-will-wreck-your-two-image-solution" class="nav-link" data-scroll-target="#surprise-3-twist-will-wreck-your-two-image-solution">Surprise 3: Twist will wreck your two-image solution</a></li>
+  <li><a href="#surprise-4-free-networks-drift-by-kilometers" id="toc-surprise-4-free-networks-drift-by-kilometers" class="nav-link" data-scroll-target="#surprise-4-free-networks-drift-by-kilometers">Surprise 4: Free networks drift by kilometers</a></li>
+  <li><a href="#useful-fact-the-adjusted-coordinates-are-your-best-qa-tool" id="toc-useful-fact-the-adjusted-coordinates-are-your-best-qa-tool" class="nav-link" data-scroll-target="#useful-fact-the-adjusted-coordinates-are-your-best-qa-tool">Useful fact: The adjusted coordinates are your best QA tool</a></li>
+  <li><a href="#the-beforeafter-visualization" id="toc-the-beforeafter-visualization" class="nav-link" data-scroll-target="#the-beforeafter-visualization">The before/after visualization</a></li>
+  <li><a href="#cross-correlation-on-mars-is-treacherous" id="toc-cross-correlation-on-mars-is-treacherous" class="nav-link" data-scroll-target="#cross-correlation-on-mars-is-treacherous">Cross-correlation on Mars is treacherous</a></li>
+  <li><a href="#takeaways-for-two-image-isis-matching" id="toc-takeaways-for-two-image-isis-matching" class="nav-link" data-scroll-target="#takeaways-for-two-image-isis-matching">Takeaways for two-image ISIS matching</a></li>
   </ul>
 </nav>
     </div>
@@ -407,92 +404,154 @@ window.Quarto = {
 
 
 
-<section id="the-sun-is-back" class="level1">
-<h1>The sun is back!</h1>
-<section id="disclaimer" class="level3">
-<h3 class="anchored" data-anchor-id="disclaimer">Disclaimer</h3>
-<p>I wrote this blog post 2 weeks ago, but I wanted to show the IPython notebook in its full glory, so I got delayed posting this until I finally had finished my Blogger blog transition to a static website blogging system that supports the display of IPython notebooks. So, the excitement that hopefully still transpires, is not as fresh, but nonetheless: <em>Mars is right now producing fans every day somewhere!</em> I updated all times below to have more relevant data to show.</p>
-</section>
-<section id="intro" class="level2">
-<h2 class="anchored" data-anchor-id="intro">Intro</h2>
-<p>I realised today that we are so close to the official beginning of Martian southern spring, I wondered if the sun already is up over Inca City. Here is how I go about finding out what’s currently going on there, using tools that I have written over the years.</p>
-<p>First I make my main library for this, <code>kmaspice</code>, available to me.</p>
-<pre><code>from pymars import kmaspice</code></pre>
-<p>Now I will create an object that knows how to deal with Martian times and illuminations.</p>
-<pre><code>inca = kmaspice.MarsSpicer()</code></pre>
-<p>I saved some predefined places and their locations into the code, so that I don’t need to remember the coordinates all the time. So let’s justify the variable name by actually setting it on top of Inca City: <!-- TEASER_END --></p>
-<pre><code>inca.goto('inca')</code></pre>
-<p>By default, when I don’t provide a time, the time is set to the current time. In the UTC timezone, that is:</p>
-<pre><code>inca.time.isoformat()</code></pre>
-<pre><code>'2014-08-05T13:47:44.441759'</code></pre>
-<p>To double-check how close we are to spring time in the southern hemisphere on Mars, I need to look at a value called <span class="math inline">\(L_s\)</span> (L sub s), which is the solar longitude.</p>
-<p>This value measures the time of the seasons on Mars as its angular position during its trip around the sun. And southern spring was defined to be at <span class="math inline">\(L_s = 180^\circ\)</span>.</p>
-<pre><code>round(inca.l_s, 1)</code></pre>
-<pre><code>173.2</code></pre>
-<p>So, we are pretty close to spring then. But do we already have sunlight in Inca? We should remember that we are in polar areas, where we have darkness for half a year, just like on Earth. Let’s have a look what is the local time in Inca:</p>
-<pre><code>inca.local_soltime</code></pre>
-<pre><code>(22, 27, 23, '22:27:23', '10:27:23 P.M.')</code></pre>
-<p>(The output provides me with 3 different formats for the same, just in case I need that)</p>
-<p>Right, that’s in the night, so that most likely means that the sun is below the horizon, right?</p>
-<p>Solar angles are measured from the local normal direction, with the sun directly over head being defined as 0. Which means the horizon is at 90 degrees.</p>
-<p>I am calling up on a value with the name <code>dsolar</code> which is my shortcut for solar angle in degrees.</p>
-<pre><code>round(inca.illum_angles.dsolar, 1)</code></pre>
-<pre><code>100.5</code></pre>
-<p>So, this value of 100 means the sun is below the horizon. But it is local night, so we would expect that!</p>
-<p>Now comes the magic, let’s just advance the time by a couple of hours, usually the sun is highest around local noon, so let’s aim for that. I don’t need to be precise now, so I go just 14 hours forward in time. Then I will have another look at the sun’s angle.</p>
-<pre><code>inca.advance_time_by(14*3600)
-round(inca.illum_angles.dsolar)</code></pre>
-<pre><code>84.0</code></pre>
-<p>Oh yes! This is just 6 degrees above the horizon, the sun is lurking over it just a tiny bit. But all you people that work so hard in helping us out know what this means, right? <strong>Where there is sun, there is energy.</strong> And this energy can be used to sublime CO2 gas and create the wonderful fans we are studying. Let’s make this a bit prettier with a bit more insight. First, let’s go back the 14 hours again.</p>
-<pre><code>inca.advance_time_by(-14*3600)</code></pre>
-<p>Now, I will create a loop with 100 elements, and check and write down the time each 10 minutes (= 600 seconds). I save the resulting numbers in 2 new arrays to have it easier to plot things over time later.</p>
-<pre><code>times = []
-angles = []
-
-for i in range(100):
-    inca.advance_time_by(600)
-    times.append(inca.local_soltime[3])
-    angles.append(inca.illum_angles.dsolar)</code></pre>
-<p>I’m now importing the pandas library, an amazing toolbox to deal with time-series data. Especially, the plots automatically get nicely formatted time-axes, which is always a pain with plotting.</p>
-<pre><code>import pandas as pd</code></pre>
-<pre><code>data = pd.Series(angles, index=times)</code></pre>
-<p>I need to switch this notebook to show plots inside this notebook and not outside as an extra window, which is my default:</p>
-<pre><code>%pylab inline</code></pre>
-<pre><code>Populating the interactive namespace from numpy and matplotlib</code></pre>
-<pre><code>data.plot()</code></pre>
-<pre><code>&lt;matplotlib.axes.AxesSubplot at 0x115ac1e90&gt;</code></pre>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="./20140805_fan_creation_25_1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="png"><img src="./20140805_fan_creation_25_1.png" class="img-fluid figure-img" alt="png"></a></p>
-<figcaption>png</figcaption>
+<p>When you need to align two overlapping satellite images of Mars to sub-pixel accuracy, the USGS ISIS photogrammetry suite is the standard toolkit. It has been used to process imagery from nearly every planetary mission for decades. But the minimal case — two images, no ground control — turns out to have its own peculiar set of challenges that I hadn’t fully appreciated until I spent a day working through them empirically.</p>
+<p>This post collects the surprising things I learned while matching a pair of MRO Context Camera (CTX) images using the ISIS <code>autoseed</code> / <code>pointreg</code> / <code>jigsaw</code> pipeline.</p>
+<section id="the-setup" class="level2">
+<h2 class="anchored" data-anchor-id="the-setup">The setup</h2>
+<p>Two CTX images (K05_055343 and V05_082075) overlap in a region of Mars where no HRSC ortho-image is available — an “HRSC gap.” Our project’s primary objective is to coregister CTX against new HRSC Level 5 ortho-images, which provide ~12.5 m/pixel absolute reference — far better than the traditional MOLA baseline at ~463 m/pixel. In the gaps, we could fall back to MOLA, but we’d prefer to chain CTX images across the gap, anchored at both ends by images that were already matched against HRSC using our main coregistration pipeline. This means the gap interior inherits the HRSC geometric accuracy without ever touching MOLA.</p>
+<p>To build that chain, we coregister overlapping CTX images against each other using tie points in detector (Level 1) space, then bundle-adjust to correct the camera pointing. The images are 6 m/pixel push-broom strips, roughly 30 km wide and 100 km long, overlapping by about 30 km in the cross-track direction.</p>
+<div id="fig-footprints" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-footprints-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="images/footprints_overview.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure&nbsp;1: Footprint overview of the two CTX images. K05_055343 and V05_082075 overlap extensively in the cross-track direction."><img src="images/footprints_overview.png" class="img-fluid figure-img"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-footprints-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Footprint overview of the two CTX images. K05_055343 and V05_082075 overlap extensively in the cross-track direction.
+</figcaption>
 </figure>
 </div>
-<p>Here we see how the sun’s angle is developing over time. As expected we see a minimum (i.e.&nbsp;highest sun over horizon) right around noon. ###Do you hear the CO2 ice crackling?? ;) I find it amazing to know that in approx. 8 hours some of our beloved fans are being created!</p>
-<p>Next I wondered how long we already have the sun lurking over the horizon. For this I now will go backwards in 10 minute steps, but this time I take 4000 steps to cover more time. I then immediately plot the results:</p>
-<pre><code>times = []
-angles = []
-
-for i in range(4000):
-    inca.advance_time_by(-600)
-    times.append(inca.time)
-    angles.append(inca.illum_angles.dsolar)
-pd.Series(angles,index=times).plot()</code></pre>
-<pre><code>&lt;matplotlib.axes.AxesSubplot at 0x1162d1590&gt;</code></pre>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="./20140805_fan_creation_27_1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="png"><img src="./20140805_fan_creation_27_1.png" class="img-fluid figure-img" alt="png"></a></p>
-<figcaption>png</figcaption>
+</section>
+<section id="surprise-1-default-parameters-are-terrible" class="level2">
+<h2 class="anchored" data-anchor-id="surprise-1-default-parameters-are-terrible">Surprise 1: Default parameters are terrible</h2>
+<p>ISIS ships with conservative defaults for <code>pointreg</code>, and they produce disappointing results on CTX data. With the out-of-the-box configuration (tolerance=0.65, pattern chip 21x21 pixels, search chip 61x61), only <strong>39.6%</strong> of seed points register successfully. All failures are <code>FitChipToleranceNotMet</code> — the correlation peak simply doesn’t reach the acceptance threshold.</p>
+<p>A systematic sweep of 30 configurations revealed that the <strong>pattern chip size is the key parameter</strong>. Increasing it from 21x21 to 51x51 pixels captures more terrain texture, giving the correlator a much stronger signal. Combined with lowering the tolerance to 0.3, registration jumps to <strong>97.7%</strong> — from 169 to 417 out of 427 seed points.</p>
+<p>This aligns with findings from <span class="citation" data-cites="robbins2020revised">Robbins et al. (<a href="#ref-robbins2020revised" role="doc-biblioref">2020</a>)</span>, who used multiple pattern and search chip sizes when building a global CTX control network. They note that “smaller chips run more quickly… but they cannot match larger patterns” while “larger chips take more computer time, but they tend to better match larger features,” with an example configuration of 50×50 pattern chips and 150×150 search chips — remarkably close to our empirically derived 51×101 optimum.</p>
+<p>The search chip size, meanwhile, barely matters. Varying it from 41 to 101 pixels at a fixed pattern size produces identical results. The pointing offsets between these two images are small enough that even the smallest search window finds the match.</p>
+</section>
+<section id="surprise-2-more-points-better-quality-not-worse" class="level2">
+<h2 class="anchored" data-anchor-id="surprise-2-more-points-better-quality-not-worse">Surprise 2: More points = better quality, not worse</h2>
+<p>The natural concern with aggressive parameters is that you’re accepting garbage — false matches that will poison the bundle adjustment. But validating each pointreg configuration through jigsaw told the opposite story.</p>
+<p>Sigma0 (the RMS reprojection residual) actually <em>decreases</em> with larger pattern chips:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Pattern chip</th>
+<th>Registered</th>
+<th>sigma0</th>
+<th>Rejected</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>21x21</td>
+<td>387</td>
+<td>2.705</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>31x31</td>
+<td>406</td>
+<td>0.711</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>41x41</td>
+<td>414</td>
+<td>0.587</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>51x51</td>
+<td>417</td>
+<td>0.529</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>Zero rejections across the board. Every single registered point is geometrically consistent. Larger templates don’t produce more false matches — they produce <em>better</em> matches, because there’s more terrain structure to correlate against.</p>
+</section>
+<section id="surprise-3-twist-will-wreck-your-two-image-solution" class="level2">
+<h2 class="anchored" data-anchor-id="surprise-3-twist-will-wreck-your-two-image-solution">Surprise 3: Twist will wreck your two-image solution</h2>
+<p>Jigsaw’s <code>twist</code> parameter controls whether it solves for camera roll. With a well-connected network of many images, this is usually fine. With two images, it’s catastrophic.</p>
+<p>Enabling twist with <code>camsolve=velocities</code> sends sigma0 to 1,007 (from 0.529). With <code>camsolve=accelerations</code>, it explodes to 2,071,095. The system simply doesn’t have enough geometric constraints to determine roll from a single overlap region.</p>
+<p>The winning configuration: <code>camsolve=accelerations, spsolve=none, twist=no</code>. This gives sigma0 = 0.468, converging in 4 iterations. Disabling twist actually <em>frees up</em> degrees of freedom for higher-order pointing corrections that the data can support.</p>
+<p>Similarly, any <code>spsolve</code> setting other than <code>none</code> causes jigsaw to hang indefinitely. Spacecraft position solving needs 3+ images.</p>
+</section>
+<section id="surprise-4-free-networks-drift-by-kilometers" class="level2">
+<h2 class="anchored" data-anchor-id="surprise-4-free-networks-drift-by-kilometers">Surprise 4: Free networks drift by kilometers</h2>
+<p>This was the most disorienting discovery. After a successful bundle adjustment (sigma0 = 0.468, zero rejected points), the adjusted ground coordinates had shifted by an average of <strong>2.6 km</strong> from their apriori positions. Some points moved over 8 km.</p>
+<p>This isn’t a bug. Without ground control points, the bundle adjustment is a “free network” — it can translate and rotate the entire solution without changing the residuals. Jigsaw optimizes <em>relative</em> alignment between the two images, but absolute positioning on the planet is unconstrained.</p>
+<p>What made this especially confusing: the drift is <strong>non-uniform</strong>. It’s not a simple rigid shift. At the top of the image strip, the latitude offset is about 2,300 m; at the bottom, it’s 7,300 m. This is because <code>camsolve=accelerations</code> allows the pointing correction to vary along the flight path, and without an absolute reference, that variation is absorbed into the ground point positions.</p>
+</section>
+<section id="useful-fact-the-adjusted-coordinates-are-your-best-qa-tool" class="level2">
+<h2 class="anchored" data-anchor-id="useful-fact-the-adjusted-coordinates-are-your-best-qa-tool">Useful fact: The adjusted coordinates are your best QA tool</h2>
+<p>The control network stores two coordinate sets per tie point: <em>apriori</em> (from the original SPICE pointing) and <em>adjusted</em> (from the bundle solution). The adjusted coordinates are the <strong>precise intersection point</strong> of both cameras’ corrected lines of sight — they map exactly to the correct terrain in the post-jigsaw Level 2 images.</p>
+<p>This makes them ideal for verifying that jigsaw worked. Extract cutouts from both images at the adjusted coordinates: if the terrain matches, the bundle adjustment succeeded. Extract cutouts at the apriori coordinates: the terrain <em>won’t</em> match, because that’s the pointing error you just corrected.</p>
+<p>One subtlety that initially confused me: jigsaw corrects <em>both</em> images’ pointing, not just one. So the same map coordinate points to different terrain in the before-jigsaw and after-jigsaw versions of the same image. This isn’t imprecision — it’s simply both cameras being shifted to their corrected positions.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In principle, you could fix one image’s camera parameters in jigsaw and only solve for the other, making the “before” and “after” images identical for the fixed image. This would place all pointing correction on the second image.</p>
+</div>
+</div>
+</section>
+<section id="the-beforeafter-visualization" class="level2">
+<h2 class="anchored" data-anchor-id="the-beforeafter-visualization">The before/after visualization</h2>
+<p>The clearest way to verify that jigsaw worked is a simple 4-panel comparison:</p>
+<ol type="1">
+<li><strong>Before</strong> (apriori coordinates): extract cutouts from both images at the original tie point location. The terrain doesn’t match — this is the pointing error.</li>
+<li><strong>After</strong> (adjusted coordinates): extract cutouts from both images at the bundle-adjusted location. The terrain matches — the pointing has been corrected.</li>
+</ol>
+<div id="fig-beforeafter" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-beforeafter-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="images/beforeafter.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Figure&nbsp;2: Before/after terrain alignment at three random tie points. Left two columns show K05 and V05 at apriori (pre-jigsaw) coordinates — note the different terrain around the red crosses. Right two columns show both images at adjusted coordinates — identical terrain features, confirming the bundle adjustment worked."><img src="images/beforeafter.png" class="img-fluid figure-img"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-beforeafter-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Before/after terrain alignment at three random tie points. Left two columns show K05 and V05 at apriori (pre-jigsaw) coordinates — note the different terrain around the red crosses. Right two columns show both images at adjusted coordinates — identical terrain features, confirming the bundle adjustment worked.
+</figcaption>
 </figure>
 </div>
-<p>Interesting! Now we can see that around July 14th, the sun for the first time was below an inclination angle of 90, meaning that’s the first day of this season when it lurked over the horizon.</p>
-<p>So for 3 weeks now, the available energy is slowly building up CO2 gas underneath the CO2 ice cover that is everywhere. I could bet that at some place with weak thin ice, already the first fans are popping up. Unfortunately, the light conditions at local times of 2-4 PM, when our favorite camera HiRISE is flying over these places, were still so bad then, that we did not plan any images at that time.</p>
-<p>But from now on it’s possible and we have indeed new observations planned. And YOU can choose which one the HiRISE team will focus on get ready for public release, just vote here: http://www.planetfour.org/vote/</p>
+<p>One practical detail: K05 and V05 have different photometric properties (different acquisition times, sun angles), so per-image percentile stretching makes them look very different even when showing the same terrain. Per-cutout z-score normalization (subtract mean, divide by standard deviation) with a shared display range removes this offset while preserving texture contrast.</p>
+</section>
+<section id="cross-correlation-on-mars-is-treacherous" class="level2">
+<h2 class="anchored" data-anchor-id="cross-correlation-on-mars-is-treacherous">Cross-correlation on Mars is treacherous</h2>
+<p>Before landing on the simple adjusted-coordinate approach, I tried using cross-correlation to find matching terrain between the before and after images. This was a dead end for two reasons:</p>
+<ol type="1">
+<li><p><strong>Mars terrain is repetitive.</strong> Craters, ridges, and aeolian features repeat at similar scales across large areas. With a search window of several hundred pixels, the correlator happily locks onto the wrong crater — one that looks nearly identical to the target but is kilometers away.</p></li>
+<li><p><strong>The pointing correction is non-uniform.</strong> There is no single rigid shift between the before and after images. The correction varies spatially along the flight path, so any template-matching approach needs a different search center for each location.</p></li>
+</ol>
+<p>The solution, if you insist on cross-correlation, is to center the search on the adjusted coordinates with a small radius (~300 pixels). But at that point, you’re barely refining anything — the adjusted coordinates are already correct.</p>
+</section>
+<section id="takeaways-for-two-image-isis-matching" class="level2">
+<h2 class="anchored" data-anchor-id="takeaways-for-two-image-isis-matching">Takeaways for two-image ISIS matching</h2>
+<ol type="1">
+<li><strong>Increase the pattern chip.</strong> The default 21x21 is too small for CTX. 51x51 with tolerance 0.3 gives 97.7% registration and the best sigma0.</li>
+<li><strong>Disable twist.</strong> With only 2 images, <code>twist=no</code> is mandatory. <code>camsolve=accelerations, spsolve=none</code> is the sweet spot.</li>
+<li><strong>Expect large absolute drift</strong> in the free network solution. This is normal and does not indicate poor quality.</li>
+<li><strong>Trust the adjusted coordinates.</strong> They are the exact bundle solution, not an approximation. Use them directly for QA visualization.</li>
+<li><strong>Run the full pipeline consistently.</strong> spiceinit, cam2map, jigsaw (update=True), cam2map again. Mixing data from different processing stages produces mysterious coordinate mismatches.</li>
+</ol>
+<p>These findings are specific to the two-image case. With larger networks (3+ images), twist may become viable, spsolve should be tested, and the free network drift will be reduced (though not eliminated without ground control).</p>
+<hr>
+<p><em>This work is funded by the Federal Ministry of Research, Technology and Space (BMFTR) through the German Space Agency at DLR on the basis of a resolution of the German Bundestag (Funding code: 50 OO 2204).</em></p>
+
 
 
 </section>
-</section>
 
-</main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-robbins2020revised" class="csl-entry" role="listitem">
+Robbins, Stuart J., Joy D. Riggs, Brian P. Weaver, Edward B. Bierhaus, Clark R. Chapman, Michelle R. Kirchoff, Kelsi N. Singer, and Lisa R. Gaddis. 2020. <span>“Revised Recommended Methods for Analyzing Crater Size-Frequency Distributions.”</span> <em>Meteoritics &amp; Planetary Science</em> 55 (4): 891–931. <a href="https://doi.org/10.1111/maps.13287">https://doi.org/10.1111/maps.13287</a>.
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right
