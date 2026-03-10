@@ -38,6 +38,7 @@ format:
       dark: superhero
     css: styles.css
     toc: true
+    lightbox: true
     highlight-style: atom-one
     link-external-icon: false
     link-external-newwindow: true
