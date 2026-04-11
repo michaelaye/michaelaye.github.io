@@ -9,8 +9,67 @@
 <link>https://michaelaye.github.io/posts.html</link>
 <atom:link href="https://michaelaye.github.io/posts.xml" rel="self" type="application/rss+xml"/>
 <description></description>
-<generator>quarto-1.8.27</generator>
-<lastBuildDate>Tue, 10 Mar 2026 00:00:00 GMT</lastBuildDate>
+<generator>quarto-1.9.37</generator>
+<lastBuildDate>Sun, 12 Apr 2026 00:00:00 GMT</lastBuildDate>
+<item>
+  <title>Finding the Equal-Commute Zone Between Two Workplaces</title>
+  <link>https://michaelaye.github.io/posts/2026-04-12_equal-commute/</link>
+  <description><![CDATA[ 
+
+
+
+
+
+
+<p>When two people in a household work in different parts of a city, picking where to live is an optimization problem the usual house-hunting tools don’t solve. Single-origin isochrones are everywhere — “20 minutes from this address” — but the thing I actually wanted to see was the set of neighborhoods where <em>both</em> commutes come out roughly equal. So I wrote it.</p>
+<p>The approach is straightforward:</p>
+<ol type="1">
+<li>Lay down a regular grid over the city’s bounding box</li>
+<li>Ask <a href="https://openrouteservice.org/">OpenRouteService</a> (ORS) for driving time from every grid point to each workplace</li>
+<li>Compute the scalar field <code>t_A − t_B</code>, extract the zero contour, and draw a ±5 min tolerance band on either side</li>
+<li>Fill the rest of the map with a red↔︎blue gradient so you can also see <em>who</em> is faster by how much in the regions that aren’t fair game</li>
+</ol>
+<p>Inside the decision zone, a second viridis colormap shows the actual commute time, so you can distinguish a 20-min equal-commute spot from a 40-min one. On top, toggleable OSM overlays show kitas, schools, restaurants, cafes, and supermarkets. Clicking a POI marker pops up driving, cycling, and walking times to pinned addresses of interest.</p>
+<div id="fig-map" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-map-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="images/map.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure&nbsp;1: The equal-commute zone between Adlershof and Lankwitz in Berlin, with POI overlays and the ±5 min decision band colored by commute time."><img src="https://michaelaye.github.io/posts/2026-04-12_equal-commute/images/map.png" class="img-fluid figure-img"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-map-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: The equal-commute zone between Adlershof and Lankwitz in Berlin, with POI overlays and the ±5 min decision band colored by commute time.
+</figcaption>
+</figure>
+</div>
+<section id="gotchas-worth-writing-down" class="level2">
+<h2 class="anchored" data-anchor-id="gotchas-worth-writing-down">Gotchas worth writing down</h2>
+<p><strong>ORS snapping will lie to you.</strong> When you send a grid point that lands in a lake, a forest, or a military airfield, ORS doesn’t return NaN — it silently snaps the point to the nearest routable road, possibly kilometers away, and returns the travel time <em>from there</em>. The result is phantom contours wrapping around Rangsdorfer See. The fix is to set <code>resolve_locations: true</code> in the matrix request, read the returned <code>snapped_distance</code> per source, and drop any grid point that got snapped more than ~400 m. In Berlin this removes ~13% of the grid.</p>
+<p><strong>Water is still worth masking explicitly.</strong> Even after the snap filter, a pass through the OSM <code>natural=water</code> polygons via Overpass catches everything that slipped through (floating pontoons, narrow canals, edge cases) and makes the logic obvious.</p>
+<p><strong>Linear interpolation &gt; cubic.</strong> <code>scipy.interpolate.griddata</code> with <code>method="cubic"</code> overshoots near sparse data and conjures up small closed contours that look like artifacts because they are. Switching to <code>linear</code> and tagging fine-grid cells too far from any valid source as no-data gives a cleaner picture of where you have reliable data and where you don’t. Forests and airfields become visible gaps — which is exactly what they should be.</p>
+<p><strong>Cache everything.</strong> First run is ~30s of ORS matrix calls, plus Overpass POIs and water polygons. Every subsequent run is seconds because all the expensive bits land in <code>.npz</code> / <code>.json</code> files fingerprinted by the config. Refusing to cache empty results (which happens when Overpass mirrors fall over) saves a lot of “why is my map blank” debugging.</p>
+</section>
+<section id="links" class="level2">
+<h2 class="anchored" data-anchor-id="links">Links</h2>
+<p>The code is on GitHub and citable via Zenodo:</p>
+<ul>
+<li>Repo: <a href="https://github.com/michaelaye/equal-commute">github.com/michaelaye/equal-commute</a></li>
+<li>DOI: <a href="https://doi.org/10.5281/zenodo.19520780">10.5281/zenodo.19520780</a></li>
+<li>License: MIT</li>
+</ul>
+<p>It’s Berlin-specific in the default config, but the only things pinning it to one city are the bounding box and the two workplace coordinates. If you have the same problem in Munich or Paris, edit six lines.</p>
+
+
+</section>
+
+ ]]></description>
+  <category>python</category>
+  <category>geospatial</category>
+  <category>openrouteservice</category>
+  <category>openstreetmap</category>
+  <category>folium</category>
+  <guid>https://michaelaye.github.io/posts/2026-04-12_equal-commute/</guid>
+  <pubDate>Sun, 12 Apr 2026 00:00:00 GMT</pubDate>
+  <media:content url="https://michaelaye.github.io/posts/2026-04-12_equal-commute/images/map.png" medium="image" type="image/png" height="121" width="144"/>
+</item>
 <item>
   <title>Lessons from Matching Two Mars Images with ISIS</title>
   <link>https://michaelaye.github.io/posts/2026-03-10_isis-two-image-matching/</link>
@@ -164,9 +223,9 @@ Figure&nbsp;2: Before/after terrain alignment at three random tie points. Left t
 
 </section>
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0">
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent">
 <div id="ref-robbins2020revised" class="csl-entry">
-Robbins, Stuart J., Joy D. Riggs, Brian P. Weaver, Edward B. Bierhaus, Clark R. Chapman, Michelle R. Kirchoff, Kelsi N. Singer, and Lisa R. Gaddis. 2020. <span>“Revised Recommended Methods for Analyzing Crater Size-Frequency Distributions.”</span> <em>Meteoritics &amp; Planetary Science</em> 55 (4): 891–931. <a href="https://doi.org/10.1111/maps.13287">https://doi.org/10.1111/maps.13287</a>.
+Robbins, Stuart J., Joy D. Riggs, Brian P. Weaver, et al. 2020. <span>“Revised Recommended Methods for Analyzing Crater Size-Frequency Distributions.”</span> <em>Meteoritics &amp; Planetary Science</em> 55 (4): 891–931. <a href="https://doi.org/10.1111/maps.13287">https://doi.org/10.1111/maps.13287</a>.
 </div>
 </div></section></div> ]]></description>
   <category>mars</category>
@@ -1339,129 +1398,6 @@ font-style: inherit;">pip</span> install requests</span></code></pre></div></div
   <pubDate>Tue, 03 Mar 2026 00:00:00 GMT</pubDate>
 </item>
 <item>
-  <title>Why rioxarray 0.21 Won’t Install with xarray 2026</title>
-  <dc:creator>Michael Aye</dc:creator>
-  <link>https://michaelaye.github.io/posts/rioxarray-xarray-version-pin/</link>
-  <description><![CDATA[ 
-
-
-
-
-
-
-<p>If you’ve recently tried to install <code>rioxarray</code> alongside a current <code>xarray</code>, you’ve likely hit something like this:</p>
-<pre><code>ERROR: Cannot install rioxarray==0.21.0 because these package versions have conflicting dependencies.
-    rioxarray 0.21.0 depends on xarray&lt;2025.12,&gt;=2024.7.0</code></pre>
-<p>Your perfectly fine <code>xarray 2026.1</code> is being rejected. What happened?</p>
-<section id="the-dependency-change" class="level2">
-<h2 class="anchored" data-anchor-id="the-dependency-change">The dependency change</h2>
-<p>Comparing the two releases on PyPI:</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th></th>
-<th>rioxarray 0.20.0 (Oct 2025)</th>
-<th>rioxarray 0.21.0 (Jan 2026)</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>xarray constraint</td>
-<td><code>&gt;=2024.7.0</code></td>
-<td><code>&gt;=2024.7.0,&lt;2025.12</code></td>
-</tr>
-</tbody>
-</table>
-<p>That <code>&lt;2025.12</code> upper bound is new, and it’s what blocks all of xarray 2026.x.</p>
-</section>
-<section id="the-root-cause-xarray-2025.12.0" class="level2">
-<h2 class="anchored" data-anchor-id="the-root-cause-xarray-2025.12.0">The root cause: xarray 2025.12.0</h2>
-<p>xarray 2025.12.0 shipped <a href="https://github.com/pydata/xarray/pull/10948">PR #10948</a>, which changed how <code>LazilyIndexedArray</code> handles slice normalization. The intent was to fix <a href="https://github.com/pydata/xarray/issues/10941">#10941</a>, but it introduced a regression with negative-step slices (<a href="https://github.com/pydata/xarray/issues/11000">#11000</a>):</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="im" style="color: #00769E;
-background-color: null;
-font-style: inherit;">from</span> xarray.core.indexing <span class="im" style="color: #00769E;
-background-color: null;
-font-style: inherit;">import</span> normalize_indexer, _decompose_slice</span>
-<span id="cb2-2"></span>
-<span id="cb2-3"><span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;"># This now breaks:</span></span>
-<span id="cb2-4">_decompose_slice(normalize_indexer(<span class="bu" style="color: null;
-background-color: null;
-font-style: inherit;">slice</span>(<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">-</span><span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">1</span>, <span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">None</span>, <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">-</span><span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">1</span>), <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">8</span>), <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">8</span>)</span>
-<span id="cb2-5"><span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;"># IndexError: range object index out of range</span></span></code></pre></div></div>
-<p>The problem: <code>slice.indices(8)</code> on a reverse slice returns <code>(7, -1, -1)</code> — a negative stop — which gets misinterpreted as a relative-from-end index rather than an absolute bound.</p>
-<p>rioxarray hits this code path in raster operations that involve axis flipping (e.g., north-to-south for certain CRS transforms), so this broke real workflows.</p>
-</section>
-<section id="the-pin" class="level2">
-<h2 class="anchored" data-anchor-id="the-pin">The pin</h2>
-<p>The rioxarray maintainer added the pin in <a href="https://github.com/corteva/rioxarray/pull/881">PR #881</a> (December 2025) to protect users from the broken xarray release. Reasonable decision at the time — but the constraint <code>&lt;2025.12</code> is too broad. It blocks xarray 2026.1+, which contains the fix (<a href="https://github.com/pydata/xarray/pull/11044">PR #11044</a>).</p>
-<p>The resulting user pain is tracked in <a href="https://github.com/corteva/rioxarray/issues/902">rioxarray #902</a>.</p>
-</section>
-<section id="workarounds-right-now" class="level2">
-<h2 class="anchored" data-anchor-id="workarounds-right-now">Workarounds (right now)</h2>
-<p><strong>Option 1: Pin xarray to the last pre-regression version</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><span class="ex" style="color: null;
-background-color: null;
-font-style: inherit;">pip</span> install <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"rioxarray==0.21.0"</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"xarray&gt;=2024.7.0,&lt;2025.12"</span></span></code></pre></div></div>
-<p>The last compatible version is xarray 2025.11.x. This is the safe, stable path.</p>
-<p><strong>Option 2: Install rioxarray from the dev branch</strong></p>
-<p><a href="https://github.com/corteva/rioxarray/pull/907">PR #907</a> relaxes the pin to <code>xarray&gt;=2026.2</code>:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><span class="ex" style="color: null;
-background-color: null;
-font-style: inherit;">pip</span> install git+https://github.com/corteva/rioxarray.git</span></code></pre></div></div>
-<p>Only do this if you’re comfortable running unreleased code.</p>
-<p><strong>Option 3: Wait for rioxarray 0.22.0</strong></p>
-<p>The fix is merged and will ship in the next release.</p>
-</section>
-<section id="timeline" class="level2">
-<h2 class="anchored" data-anchor-id="timeline">Timeline</h2>
-<pre><code>2025-11    xarray PR#10948 — fix lazy slice normalization
-2025-11    xarray 2025.12.0 released with the "fix"
-2025-12    xarray #11000 — regression discovered
-2025-12    rioxarray PR#881 — pin xarray&lt;2025.12
-2026-01    xarray PR#11044 — actual fix merged
-2026-01    rioxarray 0.21.0 released (with the pin)
-2026-02    rioxarray #902 — users report 2026.x conflict
-2026-??    rioxarray 0.22.0 — pin relaxed to &gt;=2026.2</code></pre>
-</section>
-<section id="takeaway" class="level2">
-<h2 class="anchored" data-anchor-id="takeaway">Takeaway</h2>
-<p>This is a textbook example of how a well-intentioned upper-bound version pin can outlive its usefulness. The pin was correct when xarray 2025.12 was the only version with the bug, but it wasn’t updated when xarray shipped the fix. If you maintain a library, consider pinning to specific broken versions (<code>!=2025.12.0</code>) rather than open-ended upper bounds (<code>&lt;2025.12</code>) — it’s more surgical and won’t block future fixes.</p>
-
-
-</section>
-
- ]]></description>
-  <category>python</category>
-  <category>geospatial</category>
-  <category>xarray</category>
-  <category>rioxarray</category>
-  <category>debugging</category>
-  <guid>https://michaelaye.github.io/posts/rioxarray-xarray-version-pin/</guid>
-  <pubDate>Mon, 02 Mar 2026 00:00:00 GMT</pubDate>
-</item>
-<item>
   <title>chronobib: Group Your Quarto Bibliography by Year</title>
   <dc:creator>Michael Aye</dc:creator>
   <link>https://michaelaye.github.io/posts/chronobib-quarto-extension/</link>
@@ -1656,6 +1592,129 @@ font-style: inherit;">"Aye"</span></span></code></pre></div></div>
   <category>bibliography</category>
   <category>open-source</category>
   <guid>https://michaelaye.github.io/posts/chronobib-quarto-extension/</guid>
+  <pubDate>Mon, 02 Mar 2026 00:00:00 GMT</pubDate>
+</item>
+<item>
+  <title>Why rioxarray 0.21 Won’t Install with xarray 2026</title>
+  <dc:creator>Michael Aye</dc:creator>
+  <link>https://michaelaye.github.io/posts/rioxarray-xarray-version-pin/</link>
+  <description><![CDATA[ 
+
+
+
+
+
+
+<p>If you’ve recently tried to install <code>rioxarray</code> alongside a current <code>xarray</code>, you’ve likely hit something like this:</p>
+<pre><code>ERROR: Cannot install rioxarray==0.21.0 because these package versions have conflicting dependencies.
+    rioxarray 0.21.0 depends on xarray&lt;2025.12,&gt;=2024.7.0</code></pre>
+<p>Your perfectly fine <code>xarray 2026.1</code> is being rejected. What happened?</p>
+<section id="the-dependency-change" class="level2">
+<h2 class="anchored" data-anchor-id="the-dependency-change">The dependency change</h2>
+<p>Comparing the two releases on PyPI:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th></th>
+<th>rioxarray 0.20.0 (Oct 2025)</th>
+<th>rioxarray 0.21.0 (Jan 2026)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>xarray constraint</td>
+<td><code>&gt;=2024.7.0</code></td>
+<td><code>&gt;=2024.7.0,&lt;2025.12</code></td>
+</tr>
+</tbody>
+</table>
+<p>That <code>&lt;2025.12</code> upper bound is new, and it’s what blocks all of xarray 2026.x.</p>
+</section>
+<section id="the-root-cause-xarray-2025.12.0" class="level2">
+<h2 class="anchored" data-anchor-id="the-root-cause-xarray-2025.12.0">The root cause: xarray 2025.12.0</h2>
+<p>xarray 2025.12.0 shipped <a href="https://github.com/pydata/xarray/pull/10948">PR #10948</a>, which changed how <code>LazilyIndexedArray</code> handles slice normalization. The intent was to fix <a href="https://github.com/pydata/xarray/issues/10941">#10941</a>, but it introduced a regression with negative-step slices (<a href="https://github.com/pydata/xarray/issues/11000">#11000</a>):</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> xarray.core.indexing <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> normalize_indexer, _decompose_slice</span>
+<span id="cb2-2"></span>
+<span id="cb2-3"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># This now breaks:</span></span>
+<span id="cb2-4">_decompose_slice(normalize_indexer(<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">slice</span>(<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>, <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">None</span>, <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>), <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">8</span>), <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">8</span>)</span>
+<span id="cb2-5"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># IndexError: range object index out of range</span></span></code></pre></div></div>
+<p>The problem: <code>slice.indices(8)</code> on a reverse slice returns <code>(7, -1, -1)</code> — a negative stop — which gets misinterpreted as a relative-from-end index rather than an absolute bound.</p>
+<p>rioxarray hits this code path in raster operations that involve axis flipping (e.g., north-to-south for certain CRS transforms), so this broke real workflows.</p>
+</section>
+<section id="the-pin" class="level2">
+<h2 class="anchored" data-anchor-id="the-pin">The pin</h2>
+<p>The rioxarray maintainer added the pin in <a href="https://github.com/corteva/rioxarray/pull/881">PR #881</a> (December 2025) to protect users from the broken xarray release. Reasonable decision at the time — but the constraint <code>&lt;2025.12</code> is too broad. It blocks xarray 2026.1+, which contains the fix (<a href="https://github.com/pydata/xarray/pull/11044">PR #11044</a>).</p>
+<p>The resulting user pain is tracked in <a href="https://github.com/corteva/rioxarray/issues/902">rioxarray #902</a>.</p>
+</section>
+<section id="workarounds-right-now" class="level2">
+<h2 class="anchored" data-anchor-id="workarounds-right-now">Workarounds (right now)</h2>
+<p><strong>Option 1: Pin xarray to the last pre-regression version</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">pip</span> install <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"rioxarray==0.21.0"</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"xarray&gt;=2024.7.0,&lt;2025.12"</span></span></code></pre></div></div>
+<p>The last compatible version is xarray 2025.11.x. This is the safe, stable path.</p>
+<p><strong>Option 2: Install rioxarray from the dev branch</strong></p>
+<p><a href="https://github.com/corteva/rioxarray/pull/907">PR #907</a> relaxes the pin to <code>xarray&gt;=2026.2</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">pip</span> install git+https://github.com/corteva/rioxarray.git</span></code></pre></div></div>
+<p>Only do this if you’re comfortable running unreleased code.</p>
+<p><strong>Option 3: Wait for rioxarray 0.22.0</strong></p>
+<p>The fix is merged and will ship in the next release.</p>
+</section>
+<section id="timeline" class="level2">
+<h2 class="anchored" data-anchor-id="timeline">Timeline</h2>
+<pre><code>2025-11    xarray PR#10948 — fix lazy slice normalization
+2025-11    xarray 2025.12.0 released with the "fix"
+2025-12    xarray #11000 — regression discovered
+2025-12    rioxarray PR#881 — pin xarray&lt;2025.12
+2026-01    xarray PR#11044 — actual fix merged
+2026-01    rioxarray 0.21.0 released (with the pin)
+2026-02    rioxarray #902 — users report 2026.x conflict
+2026-??    rioxarray 0.22.0 — pin relaxed to &gt;=2026.2</code></pre>
+</section>
+<section id="takeaway" class="level2">
+<h2 class="anchored" data-anchor-id="takeaway">Takeaway</h2>
+<p>This is a textbook example of how a well-intentioned upper-bound version pin can outlive its usefulness. The pin was correct when xarray 2025.12 was the only version with the bug, but it wasn’t updated when xarray shipped the fix. If you maintain a library, consider pinning to specific broken versions (<code>!=2025.12.0</code>) rather than open-ended upper bounds (<code>&lt;2025.12</code>) — it’s more surgical and won’t block future fixes.</p>
+
+
+</section>
+
+ ]]></description>
+  <category>python</category>
+  <category>geospatial</category>
+  <category>xarray</category>
+  <category>rioxarray</category>
+  <category>debugging</category>
+  <guid>https://michaelaye.github.io/posts/rioxarray-xarray-version-pin/</guid>
   <pubDate>Mon, 02 Mar 2026 00:00:00 GMT</pubDate>
 </item>
 <item>

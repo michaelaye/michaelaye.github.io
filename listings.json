@@ -5,8 +5,8 @@
       "/talks/2026-dgp-planet-four/index.html",
       "/talks/2024-ipda-data-talk/index.html",
       "/talks/2024-epsc-op-data-cafe/index.html",
-      "/talks/2022-fub-seminar/presentation/index.html",
       "/talks/2022-fub-seminar/index.html",
+      "/talks/2022-fub-seminar/presentation/index.html",
       "/talks/2021-pdw-planetarypy/index.html",
       "/talks/2021-conda-workshop-kharkiv/index.html",
       "/talks/2021-diviner-kharkiv-talk/index.html",
@@ -15,24 +15,12 @@
     ]
   },
   {
-    "listing": "/index.html",
-    "items": [
-      "/projects/koregistration/index.html",
-      "/projects/planet-four/index.html",
-      "/projects/janus-juice/index.html",
-      "/projects/uvis-pdart/index.html",
-      "/projects/planetary-data-reader/index.html",
-      "/projects/saturn-rings/index.html",
-      "/projects/planetarypy/index.html"
-    ]
-  },
-  {
     "listing": "/projects.html",
     "items": [
+      "/projects/uvis-pdart/index.html",
+      "/projects/janus-juice/index.html",
       "/projects/koregistration/index.html",
       "/projects/planet-four/index.html",
-      "/projects/janus-juice/index.html",
-      "/projects/uvis-pdart/index.html",
       "/projects/planetary-data-reader/index.html",
       "/projects/saturn-rings/index.html",
       "/projects/planetarypy/index.html"
@@ -41,12 +29,13 @@
   {
     "listing": "/posts.html",
     "items": [
+      "/posts/2026-04-12_equal-commute/index.html",
       "/posts/2026-03-10_isis-two-image-matching/index.html",
       "/posts/github-releases-as-data-cdn/index.html",
       "/posts/homepage-setup/index.html",
       "/posts/ads-bib-tools/index.html",
-      "/posts/rioxarray-xarray-version-pin/index.html",
       "/posts/chronobib-quarto-extension/index.html",
+      "/posts/rioxarray-xarray-version-pin/index.html",
       "/posts/highlight-author-quarto-extension/index.html",
       "/posts/2023-03-06_Tuya_thermostats/index.html",
       "/posts/minimal-conda-setup-instructions/index.html",
@@ -54,6 +43,18 @@
       "/posts/mamba-is-the-new-conda/index.html",
       "/posts/fan-creation/index.html",
       "/posts/matplotlib-ticklabel-formats/index.html"
+    ]
+  },
+  {
+    "listing": "/index.html",
+    "items": [
+      "/projects/uvis-pdart/index.html",
+      "/projects/janus-juice/index.html",
+      "/projects/koregistration/index.html",
+      "/projects/planet-four/index.html",
+      "/projects/planetary-data-reader/index.html",
+      "/projects/saturn-rings/index.html",
+      "/projects/planetarypy/index.html"
     ]
   }
 ]
