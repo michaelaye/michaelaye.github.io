@@ -15,20 +15,9 @@
     ]
   },
   {
-    "listing": "/projects.html",
-    "items": [
-      "/projects/uvis-pdart/index.html",
-      "/projects/janus-juice/index.html",
-      "/projects/koregistration/index.html",
-      "/projects/planet-four/index.html",
-      "/projects/planetary-data-reader/index.html",
-      "/projects/saturn-rings/index.html",
-      "/projects/planetarypy/index.html"
-    ]
-  },
-  {
     "listing": "/posts.html",
     "items": [
+      "/posts/2026-05-12_spice-kernel-db-redteam/index.html",
       "/posts/2026-04-12_equal-commute/index.html",
       "/posts/2026-03-10_isis-two-image-matching/index.html",
       "/posts/github-releases-as-data-cdn/index.html",
@@ -43,6 +32,18 @@
       "/posts/mamba-is-the-new-conda/index.html",
       "/posts/fan-creation/index.html",
       "/posts/matplotlib-ticklabel-formats/index.html"
+    ]
+  },
+  {
+    "listing": "/projects.html",
+    "items": [
+      "/projects/uvis-pdart/index.html",
+      "/projects/janus-juice/index.html",
+      "/projects/koregistration/index.html",
+      "/projects/planet-four/index.html",
+      "/projects/planetary-data-reader/index.html",
+      "/projects/saturn-rings/index.html",
+      "/projects/planetarypy/index.html"
     ]
   },
   {

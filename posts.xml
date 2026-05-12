@@ -10,7 +10,96 @@
 <atom:link href="https://michaelaye.github.io/posts.xml" rel="self" type="application/rss+xml"/>
 <description></description>
 <generator>quarto-1.9.37</generator>
-<lastBuildDate>Sun, 12 Apr 2026 00:00:00 GMT</lastBuildDate>
+<lastBuildDate>Tue, 12 May 2026 00:00:00 GMT</lastBuildDate>
+<item>
+  <title>Red-teaming spice-kernel-db: Even SPICE kernels expose attack surfaces</title>
+  <link>https://michaelaye.github.io/posts/2026-05-12_spice-kernel-db-redteam/</link>
+  <description><![CDATA[ 
+
+
+
+
+
+
+<p><a href="https://github.com/michaelaye/spice-kernel-db"><code>spice-kernel-db</code></a> is the content-aware SPICE kernel database I use to keep track of which kernels live where across missions. Today it went from 0.12.0 to 0.13.4 in five releases. The headline change was a parallel-agent adversarial review of the architecture — the kind of review where you ask “if this code were hostile to me, what’s the worst it could do?” — and the answer turned out to be more interesting than I expected.</p>
+<section id="a-write-anywhere-primitive-hiding-in-a-metakernel" class="level2">
+<h2 class="anchored" data-anchor-id="a-write-anywhere-primitive-hiding-in-a-metakernel">A write-anywhere primitive hiding in a metakernel</h2>
+<p>A SPICE metakernel (<code>.tm</code>) declares <code>PATH_VALUES</code> and <code>PATH_SYMBOLS</code> so that <code>KERNELS_TO_LOAD</code> entries like <code>$KERNELS/spk/de440.bsp</code> resolve to real files. <code>spice-kernel-db get</code> fetches the metakernel, then materializes the kernels it references — either by downloading them or, when the content is already in the DB under a different name, by symlinking the file into the expected location.</p>
+<p>The bug: that “expected location” was computed as <code>download_dir / mission / relpath</code>, where <code>relpath</code> came verbatim from the metakernel’s <code>PATH_VALUES</code>. A metakernel containing <code>$KERNELS = '../../../../home/user/.ssh'</code> would happily get a symlink named <code>authorized_keys</code> planted there, pointing at whatever bytes the attacker controlled. NAIF metakernels are trusted, but “trusted upstream mirror that anyone can put a file on” is not the same as “trusted.” The fix is a <code>_safe_join</code> helper that resolves the candidate against the download root and refuses the entire <code>get</code> on any escape. The same helper now backs <code>rewrite_metakernel</code>, which had its own traversal check that was almost — but not quite — correct.</p>
+</section>
+<section id="the-hash-verification-gate-that-wasnt" class="level2">
+<h2 class="anchored" data-anchor-id="the-hash-verification-gate-that-wasnt">The hash-verification gate that wasn’t</h2>
+<p><code>_link_existing_kernels</code> looked up the expected sha256 by the <em>requested</em> filename. The documented fallback in <code>resolve_kernel</code> — “<code>jup365.bsp</code> ↔︎ <code>jup365_19900101_20500101.bsp</code>” — meant the hash lookup returned NULL whenever resolution went through path-suffix matching, and NULL means “no check.” Different content, same hash gate, silently permitted. Now the hash is keyed by the <em>resolved local path</em> joined through <code>locations.abs_path</code>; a missing row is a hard skip with a warning instead of a silent pass. Hashes are also computed during the download itself (streaming sha256) rather than re-hashed from disk afterwards, closing the TOCTOU window and making future manifest-based verification trivial.</p>
+</section>
+<section id="naifesa-rotate-kernels-out-from-under-you" class="level2">
+<h2 class="anchored" data-anchor-id="naifesa-rotate-kernels-out-from-under-you">NAIF/ESA rotate kernels out from under you</h2>
+<p>The other half of the day was about a class of bug I hadn’t anticipated: NAIF and ESA periodically moves old versioned metakernel snapshots into <code>former_versions/</code>, making their original URLs permanently 403/404/410. Calling <code>update</code> on a stale entry then crashes with an opaque <code>urllib.error.HTTPError</code>. The fix is its own little story:</p>
+<ol type="1">
+<li><strong>0.13.1</strong> introduces a <code>MetakernelUnreachableError</code> (exit code 2, distinct from generic lookup failures) and a <code>prune --metakernels</code> command that HEAD-probes every registered metakernel and reports the dead ones. Crucially, transient errors (timeouts, DNS, 5xx) are <em>never</em> treated as dead — leaving a stale row in place is always safer than deleting on a network blip.</li>
+<li><strong>0.13.2</strong> ships a fix that was immediately revealed by trying to use 0.13.1 in the wild: <code>prune --metakernels</code> filtered the registry by <code>WHERE source_url IS NOT NULL</code>, which silently skipped every metakernel that had been <em>scanned</em> in from a local tree (the common case — <code>scan_directory</code> doesn’t know a URL). It now derives a probe URL from <code>mission.mk_dir_url + filename</code> and reports rows with neither as “no probeable URL” rather than ignoring them.</li>
+<li><strong>0.13.3</strong> adds <code>prune --orphan-symlinks</code>. After you prune a dead metakernel, the symlinks that <em>pointed</em> at its files survive as junk because they were never tracked in <code>locations</code>. The new mode walks each mission’s download tree and unlinks the dangling ones.</li>
+<li><strong>0.13.4</strong> fixes a display bug where alias rows — created in 0.12.0 when the picker groups versioned snapshots under a base name like <code>juice_crema_5_2.tm</code> → <code>juice_crema_5_2_v470_20260415_001.tm</code> — reported <code>n_kernels=0</code> in <code>list_metakernels</code> because the entries were stored under the resolved target path while the alias row used the symlink path. Aliases now inherit the target’s entry count and are annotated <code>↳ identical to &lt;target&gt;</code>.</li>
+</ol>
+</section>
+<section id="a-new-verify-command" class="level2">
+<h2 class="anchored" data-anchor-id="a-new-verify-command">A new <code>verify</code> command</h2>
+<p><code>spice-kernel-db verify [&lt;mk&gt;]</code> deeply cross-checks a metakernel against the DB: file traversal, dangling symlinks, size mismatch, sha256 (with <code>--deep</code>), ambiguous resolution, and <code>PATH_VALUES</code> validity. <code>--strict</code> exits non-zero on any non-OK finding, <code>--json</code> emits machine-readable output. After the audit closed eight P0s and six P1s I needed a way to say “and the DB on this machine is actually fine,” and <code>verify</code> is that.</p>
+</section>
+<section id="the-unglamorous-part" class="level2">
+<h2 class="anchored" data-anchor-id="the-unglamorous-part">The unglamorous part</h2>
+<p>Two of the five releases were almost entirely about catching up documentation that should have shipped with 0.13.0 in the first place (<code>verify</code> and <code>prune</code> both landed without <code>docs/cli.qmd</code> entries). I codified the rule in <code>CLAUDE.md</code>: every user-visible change — new CLI command, new flag, new public method, new error class, new exit code — lands its documentation in the same commit. Not the same PR. The same commit. The repo had drifted from this before and the half-life of “I’ll fix the docs tomorrow” turned out to be measured in months, not days.</p>
+</section>
+<section id="numbers" class="level2">
+<h2 class="anchored" data-anchor-id="numbers">Numbers</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 40%">
+<col style="width: 59%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Release</th>
+<th>What landed</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0.13.0</td>
+<td>8 P0 + 6 P1 audit findings closed, <code>verify</code> command, streaming sha256, mission canonicalisation, atomic file writes</td>
+</tr>
+<tr class="even">
+<td>0.13.1</td>
+<td><code>MetakernelUnreachableError</code>, <code>prune --metakernels</code>, docs catch-up</td>
+</tr>
+<tr class="odd">
+<td>0.13.2</td>
+<td><code>prune --metakernels</code> finds scanned-in rows</td>
+</tr>
+<tr class="even">
+<td>0.13.3</td>
+<td><code>prune --orphan-symlinks</code></td>
+</tr>
+<tr class="odd">
+<td>0.13.4</td>
+<td><code>list_metakernels</code> is alias-aware</td>
+</tr>
+</tbody>
+</table>
+<p>Test suite: 161 → 232. Full audit, data-migration notes, and the still-deferred per-metakernel dedup opt-out discussion are in <code>Plans/2026-05-12-redteam-findings.md</code> in the repo.</p>
+<p>The lesson I keep relearning: the audit doesn’t end when you close the findings. It ends when the first user runs the fix on their own machine and the next bug falls out. Three of today’s five releases came from that.</p>
+
+
+</section>
+
+ ]]></description>
+  <category>python</category>
+  <category>spice</category>
+  <category>planetary</category>
+  <category>security</category>
+  <category>duckdb</category>
+  <guid>https://michaelaye.github.io/posts/2026-05-12_spice-kernel-db-redteam/</guid>
+  <pubDate>Tue, 12 May 2026 00:00:00 GMT</pubDate>
+</item>
 <item>
   <title>Finding the Equal-Commute Zone Between Two Workplaces</title>
   <link>https://michaelaye.github.io/posts/2026-04-12_equal-commute/</link>

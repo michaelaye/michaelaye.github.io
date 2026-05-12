@@ -231,207 +231,452 @@
     "text": "Links\n\nSite source: michaelaye/michaelaye.github.io\nads-bib-tools: michaelaye/ads-bib-tools\nhighlight-author: michaelaye/highlight-author\nchronobib: michaelaye/chronobib\nQuarto: quarto.org"
   },
   {
-    "objectID": "posts/matplotlib-ticklabel-formats/index.html",
-    "href": "posts/matplotlib-ticklabel-formats/index.html",
-    "title": "Matplotlib Ticklabel Formats",
+    "objectID": "posts/2026-03-10_isis-two-image-matching/index.html",
+    "href": "posts/2026-03-10_isis-two-image-matching/index.html",
+    "title": "Lessons from Matching Two Mars Images with ISIS",
     "section": "",
-    "text": "If you are a heavy matplotlib user, you are bound to have seen the funny offset numbers in the top left of the plot window:\n\nThey are obviously there to help the viewer focus on the level where the numbers are really changing, removing the area where there’s no change happening.\nBut I am claiming that due to pattern recognition, there are quite a few cases where this confuses more than it helps. In this example I (and the people in my team) are used to see 5-digit numbers and it takes quite some time to figure out here, that these are indeed 5-digit numbers.\nTherefore I researched how to switch this behavior off.\nFirst, one imports the ScalarFormatter class from the matplotlib.ticker module:\n\nfrom matplotlib.ticker import ScalarFormatter\n\nThen, one creates a formatter object with the use of offset numbers switched off:\n\ny_formatter = ScalarFormatter(useOffset=False)\n\nFinally, you apply it to an axis object that you either receive via the fig.subplot() command, via plt.gca() (acronym for Get Current Axis) or you catch it when it is being returned after a plot command:\n\nax.yaxis.set_major_formatter(y_formatter)\n\nThere you go, hope this helps someone.\nHere is the stackoverflow issue that helped me to find the solution.\nUpdate (2013-10-20) :\nAn easier way is to catch the axis object from the plot command and apply the following command:\n\nax.ticklabel_format(useOffset=False)\n\nI initiated a github issue to have this included in matplotlib, which has been responded already with a solution, so this will be configurable in the future, yay!\nUpdate 2, same day:\nWeird, I thought I had the above shortcut working at some time, now it doesn’t. If anyone knows the circumstance under this can work and can not, please comment."
+    "text": "When you need to align two overlapping satellite images of Mars to sub-pixel accuracy, the USGS ISIS photogrammetry suite is the standard toolkit. It has been used to process imagery from nearly every planetary mission for decades. But the minimal case — two images, no ground control — turns out to have its own peculiar set of challenges that I hadn’t fully appreciated until I spent a day working through them empirically.\nThis post collects the surprising things I learned while matching a pair of MRO Context Camera (CTX) images using the ISIS autoseed / pointreg / jigsaw pipeline."
   },
   {
-    "objectID": "projects.html",
-    "href": "projects.html",
-    "title": "Projects",
-    "section": "",
-    "text": "Cassini UVIS Data Product Enhancement\n\n\n\ncassini uvis\n\npi\n\n\n\n\n\n\n\nMichael Aye\n\n\n2026-03-04\n\n\n\n\n\n\n\n\n\n\n\n\n\nJANUS Camera on the JUICE Mission\n\n\n\njupiter\n\njuice\n\ninstrumentation\n\npython\n\n\n\n\n\n\n\nMichael Aye\n\n\n2026-03-04\n\n\n\n\n\n\n\n\n\n\n\n\n\nImage Co-registration\n\n\n\nmars\n\nremote sensing\n\nimage processing\n\n\n\n\n\n\n\nMichael Aye, Sebastian Walter\n\n\n2026-03-04\n\n\n\n\n\n\n\n\n\n\n\n\n\nPlanet Four\n\n\n\nmars\n\ncitizen science\n\npython\n\n\n\n\n\n\n\nMichael Aye, Tom Ihro, Ganna Portyankina, Candice Hansen, Meg Schwamb, Tim Michaels, Chris Lintott, et al.\n\n\n2026-03-04\n\n\n\n\n\n\n\n\n\n\n\n\n\nPlanetary Data Reader\n\n\n\nco-i\n\npds\n\npython\n\n\n\n\n\n\n\nChase Million, Michael St. Clair, Michael Aye\n\n\n2021-09-08\n\n\n\n\n\n\n\n\n\n\n\nMesoscale Structures in Saturn’s Rings: Clues to Origin and Evolution\n\n\n\nco-i\n\nsaturn rings\n\ncassini uvis\n\ncassini iss\n\n\n\n\n\n\n\nJoshua Colwell, Michael Aye\n\n\n2021-09-08\n\n\n\n\n\n\n\n\n\n\n\n\n\nPlanetaryPy\n\n\n\npython\n\n\n\n\n\n\n\nMichael Aye, Ross Beyer, Andrew Annex, Chase Million\n\n\n2021-09-08\n\n\n\n\n\n\nNo matching items"
+    "objectID": "posts/2026-03-10_isis-two-image-matching/index.html#the-setup",
+    "href": "posts/2026-03-10_isis-two-image-matching/index.html#the-setup",
+    "title": "Lessons from Matching Two Mars Images with ISIS",
+    "section": "The setup",
+    "text": "The setup\nTwo CTX images (K05_055343 and V05_082075) overlap in a region of Mars where no HRSC ortho-image is available — an “HRSC gap.” Our project’s primary objective is to coregister CTX against new HRSC Level 5 ortho-images, which provide ~12.5 m/pixel absolute reference — far better than the traditional MOLA baseline at ~463 m/pixel. In the gaps, we could fall back to MOLA, but we’d prefer to chain CTX images across the gap, anchored at both ends by images that were already matched against HRSC using our main coregistration pipeline. This means the gap interior inherits the HRSC geometric accuracy without ever touching MOLA.\nTo build that chain, we coregister overlapping CTX images against each other using tie points in detector (Level 1) space, then bundle-adjust to correct the camera pointing. The images are 6 m/pixel push-broom strips, roughly 30 km wide and 100 km long, overlapping by about 30 km in the cross-track direction.\n\n\n\n\n\n\nFigure 1: Footprint overview of the two CTX images. K05_055343 and V05_082075 overlap extensively in the cross-track direction."
   },
   {
-    "objectID": "talks/2021-pdw-planetarypy/index.html#summary",
-    "href": "talks/2021-pdw-planetarypy/index.html#summary",
-    "title": "The PlanetaryPy Project",
+    "objectID": "posts/2026-03-10_isis-two-image-matching/index.html#surprise-1-default-parameters-are-terrible",
+    "href": "posts/2026-03-10_isis-two-image-matching/index.html#surprise-1-default-parameters-are-terrible",
+    "title": "Lessons from Matching Two Mars Images with ISIS",
+    "section": "Surprise 1: Default parameters are terrible",
+    "text": "Surprise 1: Default parameters are terrible\nISIS ships with conservative defaults for pointreg, and they produce disappointing results on CTX data. With the out-of-the-box configuration (tolerance=0.65, pattern chip 21x21 pixels, search chip 61x61), only 39.6% of seed points register successfully. All failures are FitChipToleranceNotMet — the correlation peak simply doesn’t reach the acceptance threshold.\nA systematic sweep of 30 configurations revealed that the pattern chip size is the key parameter. Increasing it from 21x21 to 51x51 pixels captures more terrain texture, giving the correlator a much stronger signal. Combined with lowering the tolerance to 0.3, registration jumps to 97.7% — from 169 to 417 out of 427 seed points.\nThis aligns with findings from Robbins et al. (2020), who used multiple pattern and search chip sizes when building a global CTX control network. They note that “smaller chips run more quickly… but they cannot match larger patterns” while “larger chips take more computer time, but they tend to better match larger features,” with an example configuration of 50×50 pattern chips and 150×150 search chips — remarkably close to our empirically derived 51×101 optimum.\nThe search chip size, meanwhile, barely matters. Varying it from 41 to 101 pixels at a fixed pattern size produces identical results. The pointing offsets between these two images are small enough that even the smallest search window finds the match."
+  },
+  {
+    "objectID": "posts/2026-03-10_isis-two-image-matching/index.html#surprise-2-more-points-better-quality-not-worse",
+    "href": "posts/2026-03-10_isis-two-image-matching/index.html#surprise-2-more-points-better-quality-not-worse",
+    "title": "Lessons from Matching Two Mars Images with ISIS",
+    "section": "Surprise 2: More points = better quality, not worse",
+    "text": "Surprise 2: More points = better quality, not worse\nThe natural concern with aggressive parameters is that you’re accepting garbage — false matches that will poison the bundle adjustment. But validating each pointreg configuration through jigsaw told the opposite story.\nSigma0 (the RMS reprojection residual) actually decreases with larger pattern chips:\n\n\n\nPattern chip\nRegistered\nsigma0\nRejected\n\n\n\n\n21x21\n387\n2.705\n0\n\n\n31x31\n406\n0.711\n0\n\n\n41x41\n414\n0.587\n0\n\n\n51x51\n417\n0.529\n0\n\n\n\nZero rejections across the board. Every single registered point is geometrically consistent. Larger templates don’t produce more false matches — they produce better matches, because there’s more terrain structure to correlate against."
+  },
+  {
+    "objectID": "posts/2026-03-10_isis-two-image-matching/index.html#surprise-3-twist-will-wreck-your-two-image-solution",
+    "href": "posts/2026-03-10_isis-two-image-matching/index.html#surprise-3-twist-will-wreck-your-two-image-solution",
+    "title": "Lessons from Matching Two Mars Images with ISIS",
+    "section": "Surprise 3: Twist will wreck your two-image solution",
+    "text": "Surprise 3: Twist will wreck your two-image solution\nJigsaw’s twist parameter controls whether it solves for camera roll. With a well-connected network of many images, this is usually fine. With two images, it’s catastrophic.\nEnabling twist with camsolve=velocities sends sigma0 to 1,007 (from 0.529). With camsolve=accelerations, it explodes to 2,071,095. The system simply doesn’t have enough geometric constraints to determine roll from a single overlap region.\nThe winning configuration: camsolve=accelerations, spsolve=none, twist=no. This gives sigma0 = 0.468, converging in 4 iterations. Disabling twist actually frees up degrees of freedom for higher-order pointing corrections that the data can support.\nSimilarly, any spsolve setting other than none causes jigsaw to hang indefinitely. Spacecraft position solving needs 3+ images."
+  },
+  {
+    "objectID": "posts/2026-03-10_isis-two-image-matching/index.html#surprise-4-free-networks-drift-by-kilometers",
+    "href": "posts/2026-03-10_isis-two-image-matching/index.html#surprise-4-free-networks-drift-by-kilometers",
+    "title": "Lessons from Matching Two Mars Images with ISIS",
+    "section": "Surprise 4: Free networks drift by kilometers",
+    "text": "Surprise 4: Free networks drift by kilometers\nThis was the most disorienting discovery. After a successful bundle adjustment (sigma0 = 0.468, zero rejected points), the adjusted ground coordinates had shifted by an average of 2.6 km from their apriori positions. Some points moved over 8 km.\nThis isn’t a bug. Without ground control points, the bundle adjustment is a “free network” — it can translate and rotate the entire solution without changing the residuals. Jigsaw optimizes relative alignment between the two images, but absolute positioning on the planet is unconstrained.\nWhat made this especially confusing: the drift is non-uniform. It’s not a simple rigid shift. At the top of the image strip, the latitude offset is about 2,300 m; at the bottom, it’s 7,300 m. This is because camsolve=accelerations allows the pointing correction to vary along the flight path, and without an absolute reference, that variation is absorbed into the ground point positions."
+  },
+  {
+    "objectID": "posts/2026-03-10_isis-two-image-matching/index.html#useful-fact-the-adjusted-coordinates-are-your-best-qa-tool",
+    "href": "posts/2026-03-10_isis-two-image-matching/index.html#useful-fact-the-adjusted-coordinates-are-your-best-qa-tool",
+    "title": "Lessons from Matching Two Mars Images with ISIS",
+    "section": "Useful fact: The adjusted coordinates are your best QA tool",
+    "text": "Useful fact: The adjusted coordinates are your best QA tool\nThe control network stores two coordinate sets per tie point: apriori (from the original SPICE pointing) and adjusted (from the bundle solution). The adjusted coordinates are the precise intersection point of both cameras’ corrected lines of sight — they map exactly to the correct terrain in the post-jigsaw Level 2 images.\nThis makes them ideal for verifying that jigsaw worked. Extract cutouts from both images at the adjusted coordinates: if the terrain matches, the bundle adjustment succeeded. Extract cutouts at the apriori coordinates: the terrain won’t match, because that’s the pointing error you just corrected.\nOne subtlety that initially confused me: jigsaw corrects both images’ pointing, not just one. So the same map coordinate points to different terrain in the before-jigsaw and after-jigsaw versions of the same image. This isn’t imprecision — it’s simply both cameras being shifted to their corrected positions.\n\n\n\n\n\n\nNote\n\n\n\nIn principle, you could fix one image’s camera parameters in jigsaw and only solve for the other, making the “before” and “after” images identical for the fixed image. This would place all pointing correction on the second image."
+  },
+  {
+    "objectID": "posts/2026-03-10_isis-two-image-matching/index.html#the-beforeafter-visualization",
+    "href": "posts/2026-03-10_isis-two-image-matching/index.html#the-beforeafter-visualization",
+    "title": "Lessons from Matching Two Mars Images with ISIS",
+    "section": "The before/after visualization",
+    "text": "The before/after visualization\nThe clearest way to verify that jigsaw worked is a simple 4-panel comparison:\n\nBefore (apriori coordinates): extract cutouts from both images at the original tie point location. The terrain doesn’t match — this is the pointing error.\nAfter (adjusted coordinates): extract cutouts from both images at the bundle-adjusted location. The terrain matches — the pointing has been corrected.\n\n\n\n\n\n\n\nFigure 2: Before/after terrain alignment at three random tie points. Left two columns show K05 and V05 at apriori (pre-jigsaw) coordinates — note the different terrain around the red crosses. Right two columns show both images at adjusted coordinates — identical terrain features, confirming the bundle adjustment worked.\n\n\n\nOne practical detail: K05 and V05 have different photometric properties (different acquisition times, sun angles), so per-image percentile stretching makes them look very different even when showing the same terrain. Per-cutout z-score normalization (subtract mean, divide by standard deviation) with a shared display range removes this offset while preserving texture contrast."
+  },
+  {
+    "objectID": "posts/2026-03-10_isis-two-image-matching/index.html#cross-correlation-on-mars-is-treacherous",
+    "href": "posts/2026-03-10_isis-two-image-matching/index.html#cross-correlation-on-mars-is-treacherous",
+    "title": "Lessons from Matching Two Mars Images with ISIS",
+    "section": "Cross-correlation on Mars is treacherous",
+    "text": "Cross-correlation on Mars is treacherous\nBefore landing on the simple adjusted-coordinate approach, I tried using cross-correlation to find matching terrain between the before and after images. This was a dead end for two reasons:\n\nMars terrain is repetitive. Craters, ridges, and aeolian features repeat at similar scales across large areas. With a search window of several hundred pixels, the correlator happily locks onto the wrong crater — one that looks nearly identical to the target but is kilometers away.\nThe pointing correction is non-uniform. There is no single rigid shift between the before and after images. The correction varies spatially along the flight path, so any template-matching approach needs a different search center for each location.\n\nThe solution, if you insist on cross-correlation, is to center the search on the adjusted coordinates with a small radius (~300 pixels). But at that point, you’re barely refining anything — the adjusted coordinates are already correct."
+  },
+  {
+    "objectID": "posts/2026-03-10_isis-two-image-matching/index.html#takeaways-for-two-image-isis-matching",
+    "href": "posts/2026-03-10_isis-two-image-matching/index.html#takeaways-for-two-image-isis-matching",
+    "title": "Lessons from Matching Two Mars Images with ISIS",
+    "section": "Takeaways for two-image ISIS matching",
+    "text": "Takeaways for two-image ISIS matching\n\nIncrease the pattern chip. The default 21x21 is too small for CTX. 51x51 with tolerance 0.3 gives 97.7% registration and the best sigma0.\nDisable twist. With only 2 images, twist=no is mandatory. camsolve=accelerations, spsolve=none is the sweet spot.\nExpect large absolute drift in the free network solution. This is normal and does not indicate poor quality.\nTrust the adjusted coordinates. They are the exact bundle solution, not an approximation. Use them directly for QA visualization.\nRun the full pipeline consistently. spiceinit, cam2map, jigsaw (update=True), cam2map again. Mixing data from different processing stages produces mysterious coordinate mismatches.\n\nThese findings are specific to the two-image case. With larger networks (3+ images), twist may become viable, spsolve should be tested, and the free network drift will be reduced (though not eliminated without ground control).\n\nThis work is funded by the Federal Ministry of Research, Technology and Space (BMFTR) through the German Space Agency at DLR on the basis of a resolution of the German Bundestag (Funding code: 50 OO 2204)."
+  },
+  {
+    "objectID": "posts/github-releases-as-data-cdn/index.html",
+    "href": "posts/github-releases-as-data-cdn/index.html",
+    "title": "Using GitHub Releases as a Free Data CDN for Browser-Based Science Apps",
+    "section": "",
+    "text": "You’ve built an interactive data exploration app that runs entirely in the browser using Pyodide or Shinylive — no server needed. But where do you put the data?\nYour options for static hosting (GitHub Pages, university web servers) are designed for HTML/JS/CSS, not for serving hundreds of megabytes of scientific data. And setting up a proper backend just to serve files defeats the purpose of a serverless app."
+  },
+  {
+    "objectID": "posts/github-releases-as-data-cdn/index.html#the-problem",
+    "href": "posts/github-releases-as-data-cdn/index.html#the-problem",
+    "title": "Using GitHub Releases as a Free Data CDN for Browser-Based Science Apps",
+    "section": "",
+    "text": "You’ve built an interactive data exploration app that runs entirely in the browser using Pyodide or Shinylive — no server needed. But where do you put the data?\nYour options for static hosting (GitHub Pages, university web servers) are designed for HTML/JS/CSS, not for serving hundreds of megabytes of scientific data. And setting up a proper backend just to serve files defeats the purpose of a serverless app."
+  },
+  {
+    "objectID": "posts/github-releases-as-data-cdn/index.html#github-releases-accidental-cdn",
+    "href": "posts/github-releases-as-data-cdn/index.html#github-releases-accidental-cdn",
+    "title": "Using GitHub Releases as a Free Data CDN for Browser-Based Science Apps",
+    "section": "GitHub Releases: Accidental CDN",
+    "text": "GitHub Releases: Accidental CDN\nWhen you create a GitHub Release, you can attach binary files up to 2 GiB each, with up to 1,000 assets per release and — crucially — no limit on total size or bandwidth.1 These “release assets” are served via GitHub’s global CDN.\n1 GitHub Docs: About releases — “Each file included in a release must be under 2 GiB. There is no limit on the total size of a release, nor bandwidth usage.”The key insight: releases don’t have to be for software versioning. You can use them purely as a free, fast file hosting service for datasets.\n\nHow it works\n\nCreate a repository (e.g., your-username/my-project-data)\nCreate a release tagged something like data-v1\nUpload your data files as release assets\nEach file gets a permanent, public URL:\n\nhttps://github.com/&lt;user&gt;/&lt;repo&gt;/releases/download/&lt;tag&gt;/&lt;filename&gt;\n\n\nWhy this beats other options\n\n\n\nApproach\nMax file size\nCost\nSpeed\nVersioning\n\n\n\n\nFiles in git repo\n100 MiB2\nFree\nSlow (cloned every time)\nYes but bloats repo\n\n\nGit LFS\n2 GiB\n10 GiB free storage + bandwidth3\nMedium\nYes\n\n\nRelease assets\n2 GiB\nFree, no bandwidth limit\nFast (CDN)\nYes (tags)\n\n\nS3/GCS\nUnlimited\nPaid\nFast\nManual\n\n\n\n2 GitHub Docs: About large files on GitHub — “GitHub blocks files larger than 100 MiB.” Repositories are recommended to stay under 1 GB, strongly under 5 GB.3 GitHub Docs: About storage and bandwidth usage — GitHub Free and Pro accounts get 10 GiB each for LFS storage and bandwidth per month.Release assets don’t count against your repository size and don’t affect git clone performance. You can have multiple releases, each with up to 1,000 files."
+  },
+  {
+    "objectID": "posts/github-releases-as-data-cdn/index.html#fetching-data-from-pyodideshinylive",
+    "href": "posts/github-releases-as-data-cdn/index.html#fetching-data-from-pyodideshinylive",
+    "title": "Using GitHub Releases as a Free Data CDN for Browser-Based Science Apps",
+    "section": "Fetching Data from Pyodide/Shinylive",
+    "text": "Fetching Data from Pyodide/Shinylive\nA Pyodide app running in the browser can fetch release assets directly — GitHub serves them with permissive CORS headers:\nfrom pyodide.http import pyfetch\nimport pandas as pd\nfrom io import BytesIO\n\n# Fetch a Parquet file from a GitHub release\nurl = (\n    \"https://github.com/your-username/my-project-data\"\n    \"/releases/download/data-v1/observations.parquet\"\n)\nresponse = await pyfetch(url)\nbuffer = await response.bytes()\ndf = pd.read_parquet(BytesIO(buffer))"
+  },
+  {
+    "objectID": "posts/github-releases-as-data-cdn/index.html#practical-pattern-tiled-data-loading",
+    "href": "posts/github-releases-as-data-cdn/index.html#practical-pattern-tiled-data-loading",
+    "title": "Using GitHub Releases as a Free Data CDN for Browser-Based Science Apps",
+    "section": "Practical Pattern: Tiled Data Loading",
+    "text": "Practical Pattern: Tiled Data Loading\nFor large datasets, don’t serve one monolithic file. Instead, tile your data and fetch only what the user needs:\nasync def load_tile(x, y, base_url):\n    \"\"\"Load a single DEM tile on demand.\"\"\"\n    url = f\"{base_url}/tile_{x}_{y}.parquet\"\n    response = await pyfetch(url)\n    buffer = await response.bytes()\n    return pd.read_parquet(BytesIO(buffer))\n\n# User clicks on region → fetch only that tile\ntile = await load_tile(3, 7, release_url)\nThis way, a 2 GB dataset split into 256 tiles means each interaction only downloads ~8 MB."
+  },
+  {
+    "objectID": "posts/github-releases-as-data-cdn/index.html#http-range-requests-and-cloud-optimized-formats",
+    "href": "posts/github-releases-as-data-cdn/index.html#http-range-requests-and-cloud-optimized-formats",
+    "title": "Using GitHub Releases as a Free Data CDN for Browser-Based Science Apps",
+    "section": "HTTP Range Requests and Cloud-Optimized Formats",
+    "text": "HTTP Range Requests and Cloud-Optimized Formats\nAs Mario D’Amore pointed out, HTTP range requests and COG work as well. GitHub’s CDN supports HTTP Range requests, meaning you can read partial data from a file without downloading the whole thing. This is particularly powerful with formats designed for partial reads, like Cloud Optimized GeoTIFF (COG).\n\nReading a COG directly from a release asset\nimport rioxarray\n\nurl = (\n    \"https://github.com/your-username/my-project-data\"\n    \"/releases/download/data-v1/dem.tif\"\n)\n\n# rioxarray/rasterio use GDAL's vsicurl under the hood,\n# which issues HTTP range requests to read only the needed tiles\nds = rioxarray.open_rasterio(url)\n\n# Read just a spatial subset — only the relevant byte ranges are fetched\nsubset = ds.sel(x=slice(100, 200), y=slice(300, 400))\n\n\nByte-range fetch with plain Python\nimport httpx\n\nurl = (\n    \"https://github.com/your-username/my-project-data\"\n    \"/releases/download/data-v1/large_dataset.parquet\"\n)\n\n# Fetch only the first 1 KiB (e.g., to read a Parquet footer or file header)\nresp = httpx.get(url, headers={\"Range\": \"bytes=0-1023\"})\nprint(resp.status_code)  # 206 Partial Content\nheader_bytes = resp.content\nThis means you don’t necessarily need to pre-tile your data. If your dataset is stored as a COG or another range-friendly format, clients can request just the spatial or spectral subset they need — GitHub’s CDN handles the rest."
+  },
+  {
+    "objectID": "posts/github-releases-as-data-cdn/index.html#uploading-release-assets",
+    "href": "posts/github-releases-as-data-cdn/index.html#uploading-release-assets",
+    "title": "Using GitHub Releases as a Free Data CDN for Browser-Based Science Apps",
+    "section": "Uploading Release Assets",
+    "text": "Uploading Release Assets\n\nVia the web UI\nGo to your repo → Releases → Draft a new release → attach files by drag and drop.\n\n\nVia the GitHub CLI\n# Create a release and upload files in one step\ngh release create data-v1 \\\n  tile_*.parquet \\\n  metadata.json \\\n  --repo your-username/my-project-data \\\n  --title \"Dataset v1\" \\\n  --notes \"Initial DEM tile dataset\"\nTo update data, create a new release (data-v2) — old URLs keep working."
+  },
+  {
+    "objectID": "posts/github-releases-as-data-cdn/index.html#when-to-use-something-else",
+    "href": "posts/github-releases-as-data-cdn/index.html#when-to-use-something-else",
+    "title": "Using GitHub Releases as a Free Data CDN for Browser-Based Science Apps",
+    "section": "When to Use Something Else",
+    "text": "When to Use Something Else\n\nFiles &gt; 2 GiB: Use cloud object storage (S3, GCS) or split into chunks\nPrivate data: Release assets on public repos are public; use private repos with token-based access or a different hosting solution\nHigh-frequency updates: Releases are for versioned snapshots, not databases that change every minute\nStreaming/real-time data: You need a real backend"
+  },
+  {
+    "objectID": "posts/github-releases-as-data-cdn/index.html#summary",
+    "href": "posts/github-releases-as-data-cdn/index.html#summary",
+    "title": "Using GitHub Releases as a Free Data CDN for Browser-Based Science Apps",
     "section": "Summary",
-    "text": "Summary\nThe PlanetaryPy Project is a community effort to develop a core package for planetary science in Python and foster interoperability between Python planetary science packages.\nThe PlanetaryPy Technical Committee (TC) is the governing body for the PlanetaryPy Project. All of their work is done in the open via the TC GitHub repo. To learn more about what the TC is, how it operates, or to get involved, you can read its Charter (see paragraph below). The PlanetaryPy TC has regular meetings to which all are welcome to attend. The meeting agendas for upcoming meetings, and notes from previous meetings can be found in the TC’s GitHub repo.\nConference Program\nSlides\nProject URL\nAbstract PDF\nPresentation Video"
+    "text": "Summary\nFor the common case of “I have some scientific datasets (tens of MB to low GB) and want to serve them to a browser-based Python app” — GitHub release assets are hard to beat. Free, fast, versioned, no infrastructure, and your Pyodide/Shinylive app can fetch them directly."
   },
   {
-    "objectID": "scripts/orcid-claiming-worksheet.html",
-    "href": "scripts/orcid-claiming-worksheet.html",
-    "title": "ORCID Claiming Worksheet",
-    "section": "",
-    "text": "Go to ui.adsabs.harvard.edu and log in\nClick the ORCID icon in the top nav bar → authorize ADS via OAuth\nGo to ORCID settings → fill in your affiliation and all name variations (K.-M. Aye, Klaus-Michael Aye, K. M. Aye, KM Aye, etc.)\nToggle ORCID mode on (ORCID button in nav bar)\nSearch for papers below → check boxes → click Claim in the ORCID Bulk Actions sidebar\nClaims index within ~24 hours → your orcid:0000-0002-4088-1928 query will pick them up\n\nBulk claiming is supported — select multiple results and claim in one action.\n\n\n\n\nThese are published papers/abstracts that should be on ADS. Search by title or first author + year, then claim.\n\n\n\n\n\n\n\n\n\n\n\n\n#\nYear\nTitle\nSearch hint\nStatus\n\n\n\n\n1\n2021\nThe PlanetaryPy Project\nauthor:\"Aye\" year:2021 PlanetaryPy\n[ ]\n\n\n2\n2019\nSetting Up a New VENus IMage Analysis Package Called VENIM\nauthor:\"Aye\" year:2019 VENIM\n[ ]\n\n\n3\n2018\nMachine Learning in Planetary Science: Introductions and Applications I Posters\nauthor:\"Aye\" year:2018 \"Machine Learning\"\n[ ]\n\n\n4\n2001\nObservations of PKS 2155-304 by the University of Durham Mark 6 telescope\nauthor:\"Aye\" year:2001 PKS\n[ ]\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n#\nYear\nTitle\nSearch hint\nStatus\n\n\n\n\n5\n2022\nIrregular polygonal ridge networks in ancient Noachian terrain on Mars\nauthor:\"Khuller\" year:2022 polygonal\n[ ]\n\n\n6\n2022\nPlanet four: A neural network’s search for polar spring-time fans on Mars\nauthor:\"McDonnell\" year:2022 \"Planet Four\"\n[ ]\n\n\n7\n2021\nSpring near-surface winds in the southern polar regions of Mars\nauthor:\"Portyankina\" year:2021 winds\n[ ]\n\n\n8\n2021\nThe Planetary Software Organization and Open Source Software Governance\nauthor:\"Mapel\" year:2021 \"Planetary Software\"\n[ ]\n\n\n9\n2021\nThe Planetary Data Reader (pdr)\nauthor:\"Million\" year:2021 \"Planetary Data Reader\"\n[ ]\n\n\n10\n2021\nAndrewAnnex/SpiceyPy: SpiceyPy 4.0.1\nauthor:\"Annex\" SpiceyPy 4.0.1\n[ ]\n\n\n11\n2020\nDynamic Seasons on Mars — Polar Images and Investigations\nauthor:\"Hansen\" year:2020 \"Dynamic Seasons\"\n[ ]\n\n\n12\n2020\nSolar-System-Wide Significance of Mars Polar Science\nauthor:\"Guzewich\" OR author:\"Smith\" year:2020 \"Mars Polar Science\"\n[ ]\n\n\n13\n2017\nPresent-day erosion of Martian polar terrain by the seasonal CO2 jets\nauthor:\"Portyankina\" year:2017 erosion CO2\n[ ]\n\n\n14\n2017\nPlanet Four: Terrains — Discovery of araneiforms outside SPLD\nauthor:\"Schwamb\" year:2017 araneiforms\n[ ]\n\n\n15\n2013\nMars Polar Science V\nauthor:\"Pommerol\" year:2013 \"Mars Polar Science\"\n[ ]\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n#\nYear\nTitle\nSearch hint\nStatus\n\n\n\n\n16\n2022\nStudying polar CO2 jet eruptions and the state of the lower martian atmosphere\nauthor:\"Portyankina\" year:2022 CO2 jet\n[ ]\n\n\n17\n2021\nAirglow Emissions on Venus: Spatial and Temporal Evolution at 1.27 µm\nauthor:\"Vierling\" year:2021 airglow\n[ ]\n\n\n18\n2021\nSmall-Scale Structure in the Core of Saturn’s B Ring\nauthor:\"Colwell\" year:2021 \"B Ring\"\n[ ]\n\n\n19\n2021\nSmall-scale azimuthal structure in Saturn’s rings\nauthor:\"Jerousek\" year:2021 azimuthal\n[ ]\n\n\n20\n2021\nIrregular Structure in the Core of Saturn’s B Ring\nauthor:\"Colwell\" year:2021 irregular\n[ ]\n\n\n21\n2021\nComparing model-derived and imagery-derived wind directions\nauthor:\"Portyankina\" year:2021 wind directions\n[ ]\n\n\n22\n2020\nSand, Wind, and Ices on Mars\nauthor:\"Portyankina\" year:2020 sand wind\n[ ]\n\n\n23\n2020\nMachine Learning for Planetary Science II\nauthor:\"Kerner\" year:2020 \"Machine Learning\"\n[ ]\n\n\n24\n2020\nMapping Seasonal and Diurnal Temperatures with LRO Diviner\nauthor:\"Williams\" year:2020 Diviner\n[ ]\n\n\n25\n2020\nVenus Cloud Tracking Methods for Akatsuki\nauthor:\"Vierling\" year:2020 Venus cloud\n[ ]\n\n\n26\n2020\nMesoscale structures in Saturn’s rings from UVIS\nauthor:\"Jerousek\" year:2020 mesoscale\n[ ]\n\n\n27\n2020\nDerived South Polar Martian Winds Interpreted Using Mesoscale Modeling\nauthor:\"Portyankina\" year:2020 mesoscale\n[ ]\n\n\n28\n2020\nInfluence of small-scale topography on seasonal activity\nauthor:\"Drake\" year:2020 topography\n[ ]\n\n\n29\n2020\nTemporally and azimuthally averaged mesoscale structures in Saturn’s rings\nauthor:\"Jerousek\" year:2020 temporally\n[ ]\n\n\n30\n2020\nEvolution of Nightside Features from Deconvolved Akatsuki\nauthor:\"Young\" year:2020 Akatsuki\n[ ]\n\n\n31\n2019\nPlanet Four: CO2 jets formed by basal sublimation\nauthor:\"Badri\" year:2019 \"Planet Four\"\n[ ]\n\n\n32\n2019\nMachine Learning for Planetary Science Posters\nauthor:\"Kerner\" year:2019 \"Machine Learning\"\n[ ]\n\n\n33\n2017\nPlanet Four: Terrains-Araneiform in the South Polar Region\nauthor:\"Hansen\" year:2017 araneiform\n[ ]\n\n\n34\n2017\nRise of Machine Learning: Salvation for Planetary Science\nauthor:\"Helbert\" year:2017 \"Machine Learning\"\n[ ]\n\n\n35\n2016\nPlanet Four: Terrains-Pointing the Highest Resolution Camera\nauthor:\"Schwamb\" year:2016 \"Planet Four\"\n[ ]\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n#\nYear\nTitle\nSearch hint\nStatus\n\n\n\n\n36\n2005\nResolving the Extragalactic Background Light with gamma-ray spectra\nauthor:\"Aharonian\" year:2005 extragalactic background\n[ ]\n\n\n37\n2005\nSerendipitous discovery of HESS J1303-631\nauthor:\"Aharonian\" year:2005 J1303\n[ ]\n\n\n38\n2005\nGalactic structure, stellar clusters and populations\nauthor:\"Aharonian\" year:2005 \"stellar clusters\"\n[ ]\n\n\n39\n2005\nDiscovery of VHE gamma-ray emission from LS 5039\nauthor:\"Aharonian\" year:2005 \"LS 5039\"\n[ ]\n\n\n\n\n\n\n\n\nThese are entries ADS will likely never return. Keep them in a separate file that gets merged into the final bibliography.\n\n\n\n\n\n\n\n\n\n\n#\nYear\nCitation Key\nTitle\nWhy not on ADS\n\n\n\n\n1\n2005\naye2005effects\nThe effects of atmosphere conditions on gamma-ray astronomy\nPhD thesis\n\n\n2\n2018\nportyankina2018co2\nCO2-Driven Geomorphological Processes: Landscape Evolution\nBook chapter (incollection)\n\n\n3\n2014\naye2014merged\nMerged Rosetta NAVCAM images\nMisc/informal publication\n\n\n4\n2017\nprockter2017value\nThe Value of Participating Scientist Programs to NASA’s PSDiv\nWhite paper (misc)\n\n\n5\n2005\nlatham2005ray\nGamma-Ray Generation in Microquasars\nConference paper, truncated title — may be findable on ADS\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n#\nCitation Key\nIssue\n\n\n\n\n1\naye2001jl\nNot a real entry — “title” is just co-author names\n\n\n2\nseftonlro\nMissing year field\n\n\n3\ngyalaylro\nMissing year field\n\n\n4\nazari2021machine\nMissing year field\n\n\n5\nsmith2021solar\nDuplicate of guzewich2020solar (same paper, different first author/year)\n\n\n\n\n\n\n\nOnce you’ve claimed papers on ADS (allow 24 hours for indexing), re-run:\nenv ADS_API_TOKEN=your_token python scripts/update_bib.py\nThe newly claimed papers should now appear. Compare entry counts to verify."
+    "objectID": "talks/2026-dgp-planet-four/index.html#science-case",
+    "href": "talks/2026-dgp-planet-four/index.html#science-case",
+    "title": "Planet Four: Inter- and Intra-annual Variability of Dark Regolith on Ice Coverage at the Martian South Polar Region",
+    "section": "Science case",
+    "text": "Science case"
   },
   {
-    "objectID": "scripts/orcid-claiming-worksheet.html#how-to-claim-papers-on-ads",
-    "href": "scripts/orcid-claiming-worksheet.html#how-to-claim-papers-on-ads",
-    "title": "ORCID Claiming Worksheet",
-    "section": "",
-    "text": "Go to ui.adsabs.harvard.edu and log in\nClick the ORCID icon in the top nav bar → authorize ADS via OAuth\nGo to ORCID settings → fill in your affiliation and all name variations (K.-M. Aye, Klaus-Michael Aye, K. M. Aye, KM Aye, etc.)\nToggle ORCID mode on (ORCID button in nav bar)\nSearch for papers below → check boxes → click Claim in the ORCID Bulk Actions sidebar\nClaims index within ~24 hours → your orcid:0000-0002-4088-1928 query will pick them up\n\nBulk claiming is supported — select multiple results and claim in one action."
+    "objectID": "talks/2026-dgp-planet-four/index.html#science-case-1",
+    "href": "talks/2026-dgp-planet-four/index.html#science-case-1",
+    "title": "Planet Four: Inter- and Intra-annual Variability of Dark Regolith on Ice Coverage at the Martian South Polar Region",
+    "section": "Science case",
+    "text": "Science case"
   },
   {
-    "objectID": "scripts/orcid-claiming-worksheet.html#category-a-claimable-on-ads-search-check-claim",
-    "href": "scripts/orcid-claiming-worksheet.html#category-a-claimable-on-ads-search-check-claim",
-    "title": "ORCID Claiming Worksheet",
-    "section": "",
-    "text": "These are published papers/abstracts that should be on ADS. Search by title or first author + year, then claim.\n\n\n\n\n\n\n\n\n\n\n\n\n#\nYear\nTitle\nSearch hint\nStatus\n\n\n\n\n1\n2021\nThe PlanetaryPy Project\nauthor:\"Aye\" year:2021 PlanetaryPy\n[ ]\n\n\n2\n2019\nSetting Up a New VENus IMage Analysis Package Called VENIM\nauthor:\"Aye\" year:2019 VENIM\n[ ]\n\n\n3\n2018\nMachine Learning in Planetary Science: Introductions and Applications I Posters\nauthor:\"Aye\" year:2018 \"Machine Learning\"\n[ ]\n\n\n4\n2001\nObservations of PKS 2155-304 by the University of Durham Mark 6 telescope\nauthor:\"Aye\" year:2001 PKS\n[ ]\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n#\nYear\nTitle\nSearch hint\nStatus\n\n\n\n\n5\n2022\nIrregular polygonal ridge networks in ancient Noachian terrain on Mars\nauthor:\"Khuller\" year:2022 polygonal\n[ ]\n\n\n6\n2022\nPlanet four: A neural network’s search for polar spring-time fans on Mars\nauthor:\"McDonnell\" year:2022 \"Planet Four\"\n[ ]\n\n\n7\n2021\nSpring near-surface winds in the southern polar regions of Mars\nauthor:\"Portyankina\" year:2021 winds\n[ ]\n\n\n8\n2021\nThe Planetary Software Organization and Open Source Software Governance\nauthor:\"Mapel\" year:2021 \"Planetary Software\"\n[ ]\n\n\n9\n2021\nThe Planetary Data Reader (pdr)\nauthor:\"Million\" year:2021 \"Planetary Data Reader\"\n[ ]\n\n\n10\n2021\nAndrewAnnex/SpiceyPy: SpiceyPy 4.0.1\nauthor:\"Annex\" SpiceyPy 4.0.1\n[ ]\n\n\n11\n2020\nDynamic Seasons on Mars — Polar Images and Investigations\nauthor:\"Hansen\" year:2020 \"Dynamic Seasons\"\n[ ]\n\n\n12\n2020\nSolar-System-Wide Significance of Mars Polar Science\nauthor:\"Guzewich\" OR author:\"Smith\" year:2020 \"Mars Polar Science\"\n[ ]\n\n\n13\n2017\nPresent-day erosion of Martian polar terrain by the seasonal CO2 jets\nauthor:\"Portyankina\" year:2017 erosion CO2\n[ ]\n\n\n14\n2017\nPlanet Four: Terrains — Discovery of araneiforms outside SPLD\nauthor:\"Schwamb\" year:2017 araneiforms\n[ ]\n\n\n15\n2013\nMars Polar Science V\nauthor:\"Pommerol\" year:2013 \"Mars Polar Science\"\n[ ]\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n#\nYear\nTitle\nSearch hint\nStatus\n\n\n\n\n16\n2022\nStudying polar CO2 jet eruptions and the state of the lower martian atmosphere\nauthor:\"Portyankina\" year:2022 CO2 jet\n[ ]\n\n\n17\n2021\nAirglow Emissions on Venus: Spatial and Temporal Evolution at 1.27 µm\nauthor:\"Vierling\" year:2021 airglow\n[ ]\n\n\n18\n2021\nSmall-Scale Structure in the Core of Saturn’s B Ring\nauthor:\"Colwell\" year:2021 \"B Ring\"\n[ ]\n\n\n19\n2021\nSmall-scale azimuthal structure in Saturn’s rings\nauthor:\"Jerousek\" year:2021 azimuthal\n[ ]\n\n\n20\n2021\nIrregular Structure in the Core of Saturn’s B Ring\nauthor:\"Colwell\" year:2021 irregular\n[ ]\n\n\n21\n2021\nComparing model-derived and imagery-derived wind directions\nauthor:\"Portyankina\" year:2021 wind directions\n[ ]\n\n\n22\n2020\nSand, Wind, and Ices on Mars\nauthor:\"Portyankina\" year:2020 sand wind\n[ ]\n\n\n23\n2020\nMachine Learning for Planetary Science II\nauthor:\"Kerner\" year:2020 \"Machine Learning\"\n[ ]\n\n\n24\n2020\nMapping Seasonal and Diurnal Temperatures with LRO Diviner\nauthor:\"Williams\" year:2020 Diviner\n[ ]\n\n\n25\n2020\nVenus Cloud Tracking Methods for Akatsuki\nauthor:\"Vierling\" year:2020 Venus cloud\n[ ]\n\n\n26\n2020\nMesoscale structures in Saturn’s rings from UVIS\nauthor:\"Jerousek\" year:2020 mesoscale\n[ ]\n\n\n27\n2020\nDerived South Polar Martian Winds Interpreted Using Mesoscale Modeling\nauthor:\"Portyankina\" year:2020 mesoscale\n[ ]\n\n\n28\n2020\nInfluence of small-scale topography on seasonal activity\nauthor:\"Drake\" year:2020 topography\n[ ]\n\n\n29\n2020\nTemporally and azimuthally averaged mesoscale structures in Saturn’s rings\nauthor:\"Jerousek\" year:2020 temporally\n[ ]\n\n\n30\n2020\nEvolution of Nightside Features from Deconvolved Akatsuki\nauthor:\"Young\" year:2020 Akatsuki\n[ ]\n\n\n31\n2019\nPlanet Four: CO2 jets formed by basal sublimation\nauthor:\"Badri\" year:2019 \"Planet Four\"\n[ ]\n\n\n32\n2019\nMachine Learning for Planetary Science Posters\nauthor:\"Kerner\" year:2019 \"Machine Learning\"\n[ ]\n\n\n33\n2017\nPlanet Four: Terrains-Araneiform in the South Polar Region\nauthor:\"Hansen\" year:2017 araneiform\n[ ]\n\n\n34\n2017\nRise of Machine Learning: Salvation for Planetary Science\nauthor:\"Helbert\" year:2017 \"Machine Learning\"\n[ ]\n\n\n35\n2016\nPlanet Four: Terrains-Pointing the Highest Resolution Camera\nauthor:\"Schwamb\" year:2016 \"Planet Four\"\n[ ]\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n#\nYear\nTitle\nSearch hint\nStatus\n\n\n\n\n36\n2005\nResolving the Extragalactic Background Light with gamma-ray spectra\nauthor:\"Aharonian\" year:2005 extragalactic background\n[ ]\n\n\n37\n2005\nSerendipitous discovery of HESS J1303-631\nauthor:\"Aharonian\" year:2005 J1303\n[ ]\n\n\n38\n2005\nGalactic structure, stellar clusters and populations\nauthor:\"Aharonian\" year:2005 \"stellar clusters\"\n[ ]\n\n\n39\n2005\nDiscovery of VHE gamma-ray emission from LS 5039\nauthor:\"Aharonian\" year:2005 \"LS 5039\"\n[ ]"
+    "objectID": "talks/2026-dgp-planet-four/index.html#science-case-temporal",
+    "href": "talks/2026-dgp-planet-four/index.html#science-case-temporal",
+    "title": "Planet Four: Inter- and Intra-annual Variability of Dark Regolith on Ice Coverage at the Martian South Polar Region",
+    "section": "Science case temporal",
+    "text": "Science case temporal"
   },
   {
-    "objectID": "scripts/orcid-claiming-worksheet.html#category-b-not-on-ads-add-to-manual_extras.bib",
-    "href": "scripts/orcid-claiming-worksheet.html#category-b-not-on-ads-add-to-manual_extras.bib",
-    "title": "ORCID Claiming Worksheet",
-    "section": "",
-    "text": "These are entries ADS will likely never return. Keep them in a separate file that gets merged into the final bibliography.\n\n\n\n\n\n\n\n\n\n\n#\nYear\nCitation Key\nTitle\nWhy not on ADS\n\n\n\n\n1\n2005\naye2005effects\nThe effects of atmosphere conditions on gamma-ray astronomy\nPhD thesis\n\n\n2\n2018\nportyankina2018co2\nCO2-Driven Geomorphological Processes: Landscape Evolution\nBook chapter (incollection)\n\n\n3\n2014\naye2014merged\nMerged Rosetta NAVCAM images\nMisc/informal publication\n\n\n4\n2017\nprockter2017value\nThe Value of Participating Scientist Programs to NASA’s PSDiv\nWhite paper (misc)\n\n\n5\n2005\nlatham2005ray\nGamma-Ray Generation in Microquasars\nConference paper, truncated title — may be findable on ADS"
+    "objectID": "talks/2026-dgp-planet-four/index.html#science-case-kieffer-model",
+    "href": "talks/2026-dgp-planet-four/index.html#science-case-kieffer-model",
+    "title": "Planet Four: Inter- and Intra-annual Variability of Dark Regolith on Ice Coverage at the Martian South Polar Region",
+    "section": "Science case: Kieffer model",
+    "text": "Science case: Kieffer model\n\n\nJet deposits are aligned by prevalent winds at the time!\nMapping these features enables the first large area knowledge of prevailing winds on Mars!\n\non intra-seasonal timescales, not only over many years."
   },
   {
-    "objectID": "scripts/orcid-claiming-worksheet.html#category-c-clean-up-remove-from-old-bib",
-    "href": "scripts/orcid-claiming-worksheet.html#category-c-clean-up-remove-from-old-bib",
-    "title": "ORCID Claiming Worksheet",
-    "section": "",
-    "text": "#\nCitation Key\nIssue\n\n\n\n\n1\naye2001jl\nNot a real entry — “title” is just co-author names\n\n\n2\nseftonlro\nMissing year field\n\n\n3\ngyalaylro\nMissing year field\n\n\n4\nazari2021machine\nMissing year field\n\n\n5\nsmith2021solar\nDuplicate of guzewich2020solar (same paper, different first author/year)"
+    "objectID": "talks/2026-dgp-planet-four/index.html#active-areas-around-south-pole",
+    "href": "talks/2026-dgp-planet-four/index.html#active-areas-around-south-pole",
+    "title": "Planet Four: Inter- and Intra-annual Variability of Dark Regolith on Ice Coverage at the Martian South Polar Region",
+    "section": "Active areas around south pole",
+    "text": "Active areas around south pole\n\n\nSeasonal campaigns at most of these areas!\n\n-&gt; Lots of huge HiRISE image data"
   },
   {
-    "objectID": "scripts/orcid-claiming-worksheet.html#after-claiming",
-    "href": "scripts/orcid-claiming-worksheet.html#after-claiming",
-    "title": "ORCID Claiming Worksheet",
-    "section": "",
-    "text": "Once you’ve claimed papers on ADS (allow 24 hours for indexing), re-run:\nenv ADS_API_TOKEN=your_token python scripts/update_bib.py\nThe newly claimed papers should now appear. Compare entry counts to verify."
+    "objectID": "talks/2026-dgp-planet-four/index.html#input-data",
+    "href": "talks/2026-dgp-planet-four/index.html#input-data",
+    "title": "Planet Four: Inter- and Intra-annual Variability of Dark Regolith on Ice Coverage at the Martian South Polar Region",
+    "section": "Input data",
+    "text": "Input data\n\n221 HiRISE images from MY 29/30\n\nnew catalog: 469 studied images from MY 28-33 (6 years of data)\n\nsplit up into over 30,000 image screen-sized tiles\n\nnow over 64,000 tiles\n\nTiles are being “anonymized”, to prevent bias\nThe data input and reduction pipelines need to track everything"
   },
   {
-    "objectID": "projects/planetary-data-reader/index.html",
-    "href": "projects/planetary-data-reader/index.html",
-    "title": "Planetary Data Reader",
-    "section": "",
-    "text": "I am a Collaborator (Co-I until I left the US) in this exciting project, led by Chase Million of Million Concepts."
+    "objectID": "talks/2026-dgp-planet-four/index.html#interface",
+    "href": "talks/2026-dgp-planet-four/index.html#interface",
+    "title": "Planet Four: Inter- and Intra-annual Variability of Dark Regolith on Ice Coverage at the Martian South Polar Region",
+    "section": "Interface",
+    "text": "Interface"
   },
   {
-    "objectID": "projects/planetary-data-reader/index.html#goals-and-objectives",
-    "href": "projects/planetary-data-reader/index.html#goals-and-objectives",
-    "title": "Planetary Data Reader",
-    "section": "Goals and objectives",
-    "text": "Goals and objectives\nThis project will create an open source, Python-based tool capable of reading the vast majority of data (including tables and images) and metadata formats currently archived by the PDS, as well as some formats common in planetary science research workflows but not typically archived in PDS (e.g. ISIS cube, JP2, GeoTiff). It will offer users a consistent, easily-understandable interface that works the same way for all data formats. For instance, a simple command like read(filename) will return a Python object that can immediately be used in research workflows or easily converted to other formats using pre-existing tools.\nThis tool solves a well-known pain point for planetary data users: simply figuring out how to access data, especially data archived under PDS3, which often have inconsistent or bespoke formats. PDS is in the process of migrating archives to the stricter PDS4 standard, but the timeline for this migration is uncertain, and it is unlikely to be completed before 2025. The tool developed under this project provides a stopgap solution and also supplements the migration effort in two important ways. First, reading PDS3 data formats is one limit on a swift and efficient data migration, so this tool will streamline that effort. Second, because this tool will treat PDS3 and PDS4 data identically from the end-user perspective, it will future-proof research workflows from the migration."
+    "objectID": "talks/2026-dgp-planet-four/index.html#interface-return",
+    "href": "talks/2026-dgp-planet-four/index.html#interface-return",
+    "title": "Planet Four: Inter- and Intra-annual Variability of Dark Regolith on Ice Coverage at the Martian South Polar Region",
+    "section": "Interface return",
+    "text": "Interface return\n\nDifficulty: What (contrast) defines the “end” of a surface feature?Minimum of 30 different volunteers per image tile!\n=&gt; quite slow progress"
   },
   {
-    "objectID": "projects/planetary-data-reader/index.html#approach-and-methodology",
-    "href": "projects/planetary-data-reader/index.html#approach-and-methodology",
-    "title": "Planetary Data Reader",
-    "section": "Approach and methodology",
-    "text": "Approach and methodology\nThis effort will build on proof-of-concept work already undertaken by this team. The majority of data archived under PDS3 (including .DAT and .IMG files) use a bitwise structured format sometimes referred to as the “PDS3 format.” It is not dissimilar from the FITS file format, but suffers from a much looser definition, leading to difficulties reading these files. The major issues in PDS3 that we have identified are (1) inconsistent mapping between specified data types and byte-size / order, (2) complex files containing multiple or mixed data types, and (3) file format definitions that are not stored in standard locations. We have prototyped solutions to these three issues, and the work plan will involve fully developing and testing those solutions. Other issues arise less frequently (e.g. one-off “bad” files, unique formats) and will be dealt with case-by-case.\nSeveral Python tools exist for reading subsets of planetary data. They include pds4_tools, PVL, Plio, Python wrappers for GDAL and fitsio, Pysis, and SpiceyPy, astropy. These will be reused when appropriate, with input and output syntax / behavior wrapped to provide consistent experience across data types.\nA thorough testing suite will also be developed which, in addition to more targeted approaches, will scrape PDS data holdings in a systematic way to verify expected behavior and identify issues requiring additional development. The resulting tool will be released under a permissive license and made publicly available on the PI’s institutional webspace and the NASA PSD Github. It will be made available for easy installation through pip and conda and also submitted as an affiliate package to the PlanetaryPy project."
+    "objectID": "talks/2026-dgp-planet-four/index.html#reduction-pipeline",
+    "href": "talks/2026-dgp-planet-four/index.html#reduction-pipeline",
+    "title": "Planet Four: Inter- and Intra-annual Variability of Dark Regolith on Ice Coverage at the Martian South Polar Region",
+    "section": "Reduction pipeline",
+    "text": "Reduction pipeline\n\nClockwise from upper left: 1) Raw, 2) Fan markings, 3) Blotch markings, 4) Blotch reduction, 5) Fan reduction, 6) catalog entry with 50% majority vote"
   },
   {
-    "objectID": "projects/planetary-data-reader/index.html#scope-and-relevance",
-    "href": "projects/planetary-data-reader/index.html#scope-and-relevance",
-    "title": "Planetary Data Reader",
-    "section": "Scope and relevance",
-    "text": "Scope and relevance\nThe proposed work will “develop and disseminate software tools that facilitate the use of existing datasets or that would enable or enhance future science investigations of interest to the Planetary Science Division” and is therefore a Software Tool Development and Validation task per section 1.7 of the solicitation. The proposed work does not include a “science investigation” or application of t hese tools except as necessary to validate their performance. It is therefore within scope of and appropriate for PDART.\nLink to project\nPDF link\nListing picture source"
+    "objectID": "talks/2026-dgp-planet-four/index.html#catalog-entries",
+    "href": "talks/2026-dgp-planet-four/index.html#catalog-entries",
+    "title": "Planet Four: Inter- and Intra-annual Variability of Dark Regolith on Ice Coverage at the Martian South Polar Region",
+    "section": "Catalog entries",
+    "text": "Catalog entries"
   },
   {
-    "objectID": "projects/saturn-rings/index.html",
-    "href": "projects/saturn-rings/index.html",
-    "title": "Mesoscale Structures in Saturn’s Rings: Clues to Origin and Evolution",
-    "section": "",
-    "text": "I was a funded Co-I on this project led by Joshua Colwell (UCF) until I left the US in 2022.\nMy task was to analyze Cassini ISS images of the Saturn rings like shown above, project them into the ring-cylindrical coordinate system so that one can do statistics along the ring azimuth. After subtracting the dominant background density wave signal one can produce statistical statements about potential clumping changes over the Saturn ring radius, using robust median absolute deviation statistics."
+    "objectID": "talks/2026-dgp-planet-four/index.html#results",
+    "href": "talks/2026-dgp-planet-four/index.html#results",
+    "title": "Planet Four: Inter- and Intra-annual Variability of Dark Regolith on Ice Coverage at the Martian South Polar Region",
+    "section": "Results",
+    "text": "Results\n\nOver 40,000 citizens have contributed\n\nMost only once\nCore team of approx 10-20 volunteers did most of the work\n\nnow over 690,000 geo-located objects in catalog\navailable at zenodo “Planet Four Data Catalog” and via Python library “p4tools”"
   },
   {
-    "objectID": "projects/saturn-rings/index.html#project-summary",
-    "href": "projects/saturn-rings/index.html#project-summary",
-    "title": "Mesoscale Structures in Saturn’s Rings: Clues to Origin and Evolution",
-    "section": "Project summary",
-    "text": "Project summary\nWe propose to apply a variety of image processing techniques to observations of Saturn’s rings made by the Cassini Imaging Science Subsystem (ISS) and the Ultraviolet Imaging Spectrograph (UVIS) to investigate a previously unexpected aspect of Saturn’s rings: non-axisymmetric mesoscale structures that are larger than individual particles or self-gravitating clumps of particles and smaller than regular structures such as ringlets, density waves, and bending waves.\nISS images of the C ring reveal unexpected texture indicating structures spanning about 1 km in ring radius and several tens of km in the azimuthal direction. The nature and amount of this texture in the images varies across the C ring. Similar texture is seen in the outer portion of the B ring as well as within density waves in the A ring. UVIS observed a series of special stellar occultations that had very low velocities in the local ring particle frame (“particle tracking occultations”). These provide uniquely high resolution for non-axisymmetric structures.\nUVIS also observed many occultations of binary stars where the two stars’ separation distances projected in the ring plane span 10’s of m to a few km. These occultations are ideally suited for studying mesoscale structures. By analyzing changes in the auto-correlation of the occultation light curve we can measure changes in ring optical depth at a given ring plane radius since the two stellar components cross that radial position at different longitudes. The combination of multiple UVIS occultations at different viewing geometries, both in ring elevation and azimuth, make it possible to study not only the sizes and distribution of mesoscale structures but also their three-dimensional shapes.\nWe will incorporate analysis of the higher order moments of the UVIS stellar occultations as well as carry out N-body simulations of the rings using a well-tested collisional and self-gravitating model developed by Co-I Lewis. We will forward model the rings and reproduce the textured structure seen in ISS images as well as occultation signals of non-axisymmetric structures. We will test the effects of particle density, particle size distribution, and local embedded perturbers (giant boulders or miniature moonlets) to understand the conditions required for formation of these structures that likely include both large-scale aggregates or density enhancements as well as azimuthally-limited gaps or holes in the rings.\nWe will compare these results with observations made across the ring system including “straw” in density waves in the A ring and various streaky texture identified in images across the main rings. We will compare the simulations with particle-tracking occultations throughout the main rings to better understand the differences in ring particle properties across the system. Comparisons of both occultation data and high-resolution imaging data with simulations will show the effects of particle properties, distance from Saturn, local ring surface mass density, and effects of gravitational perturbations from external satellites and embedded moonlets.\nWe will search for evidence of secular changes in these structures to better understand the evolution of the system. Results from our analysis will constrain long-term evolutionary models of the viscous spreading of the rings as well as ring erosion and pollution models. The results of this research will thus help us address fundamental questions about the origin of the rings, such as whether the different main ring regions have a common or separate origin."
+    "objectID": "talks/2026-dgp-planet-four/index.html#what-can-be-done-with-it",
+    "href": "talks/2026-dgp-planet-four/index.html#what-can-be-done-with-it",
+    "title": "Planet Four: Inter- and Intra-annual Variability of Dark Regolith on Ice Coverage at the Martian South Polar Region",
+    "section": "What can be done with it?",
+    "text": "What can be done with it?\n\n\nPortyankina et al. (2022) “Planet Four: Derived South Polar Martian Winds Interpreted Using Mesoscale Modeling”"
   },
   {
-    "objectID": "projects/janus-juice/index.html",
-    "href": "projects/janus-juice/index.html",
-    "title": "JANUS Camera on the JUICE Mission",
-    "section": "",
-    "text": "JANUS (Jovis, Amorum ac Natorum Undique Scrutator) is the optical camera system on ESA’s JUICE mission to the Jupiter system. It will image Jupiter’s atmosphere, the Galilean moons — particularly Ganymede, Europa, and Callisto — and the broader Jovian environment at visible and near-infrared wavelengths.\nMy work on JANUS focuses on radiometric calibration, exposure time calculation, and signal-to-noise analysis. I developed the janus-nbexposure Python package for computing expected signal levels and optimal exposure times across JANUS observing scenarios, accounting for detector characteristics, optical throughput, and target radiance — including reflected Jupiter-shine on the icy moons.\nThis work supports observation planning and helps ensure that JANUS achieves its science objectives within the instrument’s operational constraints. Funded by the German Federal Ministry of Education and Research (BMBF) through DLR (grant 50QJ2404)."
+    "objectID": "talks/2026-dgp-planet-four/index.html#covered-surface-interests",
+    "href": "talks/2026-dgp-planet-four/index.html#covered-surface-interests",
+    "title": "Planet Four: Inter- and Intra-annual Variability of Dark Regolith on Ice Coverage at the Martian South Polar Region",
+    "section": "Covered surface interests",
+    "text": "Covered surface interests\n\nSeasonal CO2 ice is quite bright\nSo, how much is covered by dark regolith?\n-&gt; energy balance of the surface and lower atmosphere\nPrevious work estimated 20-30% coverage, but only for a few locations and times"
   },
   {
-    "objectID": "projects/janus-juice/index.html#links",
-    "href": "projects/janus-juice/index.html#links",
-    "title": "JANUS Camera on the JUICE Mission",
-    "section": "Links",
-    "text": "Links\n\njanus-nbexposure — Exposure calculation package\nJUICE mission (ESA)"
+    "objectID": "talks/2026-dgp-planet-four/index.html#surface-coverage-across-years",
+    "href": "talks/2026-dgp-planet-four/index.html#surface-coverage-across-years",
+    "title": "Planet Four: Inter- and Intra-annual Variability of Dark Regolith on Ice Coverage at the Martian South Polar Region",
+    "section": "Surface coverage across years",
+    "text": "Surface coverage across years"
   },
   {
-    "objectID": "projects/uvis-pdart/index.html",
-    "href": "projects/uvis-pdart/index.html",
-    "title": "Cassini UVIS Data Product Enhancement",
-    "section": "",
-    "text": "This NASA PDART project upgrades the existing Cassini UVIS data products into a modern, science-ready format. The PI is Matt Tiscareno at the SETI Institute; I serve as external consultant and continue to lead most project activities from FU Berlin."
+    "objectID": "talks/2026-dgp-planet-four/index.html#relationship-to-global-dust-storms",
+    "href": "talks/2026-dgp-planet-four/index.html#relationship-to-global-dust-storms",
+    "title": "Planet Four: Inter- and Intra-annual Variability of Dark Regolith on Ice Coverage at the Martian South Polar Region",
+    "section": "Relationship to global dust storms?",
+    "text": "Relationship to global dust storms?"
   },
   {
-    "objectID": "projects/uvis-pdart/index.html#objectives",
-    "href": "projects/uvis-pdart/index.html#objectives",
-    "title": "Cassini UVIS Data Product Enhancement",
-    "section": "Objectives",
-    "text": "Objectives\nThe limited content and inconvenient format of published Cassini Ultraviolet Imaging Spectrograph (UVIS) data products puts a high burden on end users before scientific investigation can begin. This project produces upgraded data products in a modern format, adds all required metadata to remove the need for time-consuming geometry calculations, and performs default calibrations for the majority of data products. This benefits all aspects of UVIS science:\n\nstellar and solar occultations of Saturn,\nemissions from the Titan atmosphere,\nsatellite reflectance,\nring spectroscopy, and more."
+    "objectID": "talks/2026-dgp-planet-four/index.html#intra-seasonal-variability",
+    "href": "talks/2026-dgp-planet-four/index.html#intra-seasonal-variability",
+    "title": "Planet Four: Inter- and Intra-annual Variability of Dark Regolith on Ice Coverage at the Martian South Polar Region",
+    "section": "Intra-seasonal variability",
+    "text": "Intra-seasonal variability"
   },
   {
-    "objectID": "projects/uvis-pdart/index.html#approach",
-    "href": "projects/uvis-pdart/index.html#approach",
-    "title": "Cassini UVIS Data Product Enhancement",
-    "section": "Approach",
-    "text": "Approach\nWe create enhanced UVIS data products by pre-calculating an expanded set of geometry parameters for each detector readout and applying a default calibration that varies with the observational scenario. The additional metadata is included with the original instrument data in PDS4-compatible FITS files. Python and IDL tools are provided for data access, analysis, and plotting."
+    "objectID": "talks/2026-dgp-planet-four/index.html#fan-lengths",
+    "href": "talks/2026-dgp-planet-four/index.html#fan-lengths",
+    "title": "Planet Four: Inter- and Intra-annual Variability of Dark Regolith on Ice Coverage at the Martian South Polar Region",
+    "section": "Fan lengths",
+    "text": "Fan lengths\nCombo of jet and wind strengths"
   },
   {
-    "objectID": "projects/uvis-pdart/index.html#current-status",
-    "href": "projects/uvis-pdart/index.html#current-status",
-    "title": "Cassini UVIS Data Product Enhancement",
-    "section": "Current status",
-    "text": "Current status\nThe project is in its third year. Current work focuses on:\n\nFITS metadata definition and automation\nThe UVIS User Guide — comprehensive documentation for working with the enhanced data products\nCalibration pipeline refinement and validation"
+    "objectID": "talks/2024-ipda-data-talk/index.html#who-am-i",
+    "href": "talks/2024-ipda-data-talk/index.html#who-am-i",
+    "title": "Is it easy enough to get to planetary data?",
+    "section": "Who am I?",
+    "text": "Who am I?\n\nCoding-inclined planetary scientist\n\nWorked on: Dawn, Cassini, BepiColombo, LRO, MRO, MEX\nWorked as/on:Ground ops, Onboard software, Project Manager, Calibration, Data analyst\n\nFighter for open-source, open-data, open-science\n\nIf I can’t reproduce with public data and public code:\n\n-&gt; at best smelly.\n\n\nWorked at: MPS, UBe, UCLA(JPL/NASA), LASP(CU), Freie Uni Berlin.\n\n\n\nYou can find this talk and other resources on https://michaelaye.github.io/"
   },
   {
-    "objectID": "projects/koregistration/index.html",
-    "href": "projects/koregistration/index.html",
-    "title": "Image Co-registration",
-    "section": "",
-    "text": "When combining orbital images of Mars taken at different times, precise alignment — co-registration — is essential. Small misalignments between images propagate into every downstream product: mosaics, digital terrain models, and change detection maps all suffer.\nTraditional co-registration workflows for CTX (Context Camera) images from Mars Reconnaissance Orbiter rely on manual tie-point generation — a tedious, time-consuming process that doesn’t scale. This project develops an automatic co-registration pipeline using modern image processing techniques that eliminates the need for manual tie-points entirely, producing well-aligned image stacks ready for downstream analysis.\nThis is a collaborative project with Sebastian Walter as the lead at Freie Universität Berlin, funded by the German Federal Ministry of Education and Research (BMBF) through DLR (grant 50 OO 2204)."
+    "objectID": "talks/2024-ipda-data-talk/index.html#disclaimer",
+    "href": "talks/2024-ipda-data-talk/index.html#disclaimer",
+    "title": "Is it easy enough to get to planetary data?",
+    "section": "Disclaimer",
+    "text": "Disclaimer\n\nI understand: an archiving budget and a “make things easy for the user”-budget aren’t the same numbers, propably not even close.\n\nAnd I appreciate that most stakeholders are formally paid only for archiving.\n\nAlso, sometimes things are not working because an instrument team isn’t delivering what is needed."
   },
   {
-    "objectID": "projects/koregistration/index.html#outputs",
-    "href": "projects/koregistration/index.html#outputs",
-    "title": "Image Co-registration",
-    "section": "Outputs",
-    "text": "Outputs\n\nEGU 2023 poster\nLPSC 54 (2023) abstract\nWalter et al. (2024), “Mars Reconnaissance Orbiter Context Camera Updated In-Flight Calibration,” Earth and Space Science 11(2). DOI: 10.1029/2023EA003491"
+    "objectID": "talks/2024-ipda-data-talk/index.html#what-are-the-most-prevalent-types-of-data-searches",
+    "href": "talks/2024-ipda-data-talk/index.html#what-are-the-most-prevalent-types-of-data-searches",
+    "title": "Is it easy enough to get to planetary data?",
+    "section": "What are the most prevalent types of data searches?",
+    "text": "What are the most prevalent types of data searches?\nThis is really a question I have, do we have data on this?\nCandidates, IMHO:\n\nby product / observation ID\nby coordinates (space or time)\nby observation geometry / illumination conditions\nbrowsing (I’m really wondering how much this is done with an archive interface)"
   },
   {
-    "objectID": "projects/planet-four/index.html",
-    "href": "projects/planet-four/index.html",
-    "title": "Planet Four",
-    "section": "",
-    "text": "The Red Planet is a unique and dynamic world. Through the power of the Internet and its volunteers, we explore the surface, climate, and history of Mars with the Planet Four projects.\nIt is difficult if not impossible for computer algorithms to accurately map individual polar seasonal fans, spot araneiform (‘spider’) erosion, and identify polygonal ridges. These features visible from orbit are easily spotted by the human eye, and volunteers from around the world have contributed by mapping seasonal fans, polygonal ridges, and araneiforms in Mars Reconnaissance Orbiter imagery."
+    "objectID": "talks/2024-ipda-data-talk/index.html#one-of-my-perfect-use-cases",
+    "href": "talks/2024-ipda-data-talk/index.html#one-of-my-perfect-use-cases",
+    "title": "Is it easy enough to get to planetary data?",
+    "section": "One of my perfect use cases",
+    "text": "One of my perfect use cases\n\nRead a paper using Cassini ISS\nsee a product ID N1454725799\nuse an API to download the data\n\nfor example:\n\nfrom planetarypy.ciss import ISS\niss = ISS(\"N1454725799\")\niss.download_calib()"
   },
   {
-    "objectID": "projects/planet-four/index.html#p4tools",
-    "href": "projects/planet-four/index.html#p4tools",
-    "title": "Planet Four",
-    "section": "p4tools",
-    "text": "p4tools\nThe p4tools Python library provides easy access to the Planet Four citizen science catalogs. Install via pip install p4tools and get started with a few lines:\n\nDownload and cache fan and blotch catalogs automatically via pooch\nBuilt-in plotting tools for catalog visualization\nCLI interface via the p4 command"
+    "objectID": "talks/2024-ipda-data-talk/index.html#testing-for-a-set-of-data-search-types",
+    "href": "talks/2024-ipda-data-talk/index.html#testing-for-a-set-of-data-search-types",
+    "title": "Is it easy enough to get to planetary data?",
+    "section": "Testing for a set of data search types",
+    "text": "Testing for a set of data search types\n\nBy product / observation ID (Is there a difference sometimes?)\n\nHRSC PID h6980_0000 (taken from a paper)\nCassini ISS N1454725799\n\nBy coordinates (space or time)\nBrowsing"
   },
   {
-    "objectID": "projects/planet-four/index.html#current-research",
-    "href": "projects/planet-four/index.html#current-research",
-    "title": "Planet Four",
-    "section": "Current research",
-    "text": "Current research\nOur latest analysis covers 463 HiRISE observations spanning Mars Years 28–33, studying inter- and intra-annual variability of dark regolith deposits at Mars’ south pole (EGU 2026). The dataset reveals a mean jet deposit ground coverage of 6.89% with high inter-annual repeatability, providing new constraints on seasonal CO2 jet activity."
+    "objectID": "talks/2024-ipda-data-talk/index.html#psa-hrsc",
+    "href": "talks/2024-ipda-data-talk/index.html#psa-hrsc",
+    "title": "Is it easy enough to get to planetary data?",
+    "section": "PSA (HRSC)",
+    "text": "PSA (HRSC)"
   },
   {
-    "objectID": "projects/planet-four/index.html#links",
-    "href": "projects/planet-four/index.html#links",
-    "title": "Planet Four",
-    "section": "Links",
-    "text": "Links\n\nPlanet Four\nZooniverse results\np4tools on PyPI\np4tools documentation\nGitHub organization\nIntroduction video\nPublications"
+    "objectID": "talks/2024-ipda-data-talk/index.html#psa-continued",
+    "href": "talks/2024-ipda-data-talk/index.html#psa-continued",
+    "title": "Is it easy enough to get to planetary data?",
+    "section": "PSA continued",
+    "text": "PSA continued\n\ngoogled “ESA PSA”\n\ngoogling “PSA HRSC” not working, “PSA HRSC data” better, but not direct\n\nvery quick to filter for one instrument or mission (1 entry/click)\nproduct ID filter is not shown immediately, distinction “Basic/Advanced” a bit small.\ntried to use “Observation ID” to find “h6980_0000” using\n\nh6980_0000\nh6980_0000*\n“h6980_0000”\nnothing worked.\n\nchose random other product for D/L testing, worked very smoothly. (zip)"
   },
   {
-    "objectID": "projects/planetarypy/index.html",
-    "href": "projects/planetarypy/index.html",
-    "title": "PlanetaryPy",
-    "section": "",
-    "text": "The PlanetaryPy Project is a community effort to develop a core package for planetary science in Python and foster interoperability between Python planetary science packages. The PlanetaryPy Technical Committee (TC) is the governing body for the PlanetaryPy Project. All of their work is done in the open via the TC GitHub repo.\nTo learn more about what the TC is, how it operates, or to get involved, you can read its Charter. The PlanetaryPy TC has regular meetings to which all are welcome to attend. The meeting agendas for upcoming meetings, and notes from previous meetings can be found in the TC’s GitHub repo.\nProject link\nLink to Github repo\nLink to slides\nVideo link"
+    "objectID": "talks/2024-ipda-data-talk/index.html#geosciences-ode-hrsc",
+    "href": "talks/2024-ipda-data-talk/index.html#geosciences-ode-hrsc",
+    "title": "Is it easy enough to get to planetary data?",
+    "section": "Geosciences / ODE (HRSC)",
+    "text": "Geosciences / ODE (HRSC)\n\ngoogled “pds hrsc data”, 1st hit\nwelcome view also tough to parse"
   },
   {
-    "objectID": "posts.html",
-    "href": "posts.html",
-    "title": "Blog posts",
-    "section": "",
-    "text": "Finding the Equal-Commute Zone Between Two Workplaces\n\n\nA small tool for the two-body problem of picking where to live\n\n\n\npython\n\ngeospatial\n\nopenrouteservice\n\nopenstreetmap\n\nfolium\n\n\n\n\n\n\n\n\n\n2026-04-12\n\n\n\n\n\n\n\n\n\n\n\n\nLessons from Matching Two Mars Images with ISIS\n\n\nWhat happens when bundle adjustment meets repetitive terrain, free networks, and 6-meter pixels\n\n\n\nmars\n\nctx\n\nisis\n\nphotogrammetry\n\ncoregistration\n\n\n\n\n\n\n\n\n\n2026-03-10\n\n\n\n\n\n\n\n\n\n\n\n\nUsing GitHub Releases as a Free Data CDN for Browser-Based Science Apps\n\n\nServe large datasets to Pyodide/Shinylive apps without any infrastructure\n\n\n\npython\n\nweb\n\ndata\n\nshinylive\n\n\n\n\n\n\n\n\n\n2026-03-05\n\n\n\n\n\n\n\n\n\n\n\n\nBuilding an Academic Homepage with Quarto\n\n\nAuto-updating bibliography, custom extensions, and GitHub Actions — the full stack\n\n\n\nquarto\n\nacademic\n\nopen-source\n\ngithub-actions\n\nbibliography\n\n\n\n\n\n\n\n\n\n2026-03-04\n\n\n\n\n\n\n\n\n\n\n\n\nads-bib-tools: Fetch Your Full Publication List from NASA ADS\n\n\nORCID-based bibliography management for Quarto and static sites\n\n\n\npython\n\nquarto\n\nacademic\n\nbibliography\n\nopen-source\n\nnasa-ads\n\n\n\n\n\n\n\n\n\n2026-03-03\n\n\n\n\n\n\n\n\n\n\n\n\nchronobib: Group Your Quarto Bibliography by Year\n\n\nA companion to highlight-author for academic publication pages\n\n\n\nquarto\n\nacademic\n\nbibliography\n\nopen-source\n\n\n\n\n\n\n\n\n\n2026-03-02\n\n\n\n\n\n\n\n\n\n\n\n\nWhy rioxarray 0.21 Won’t Install with xarray 2026\n\n\nTracing a version pin from a slice indexing regression\n\n\n\npython\n\ngeospatial\n\nxarray\n\nrioxarray\n\ndebugging\n\n\n\n\n\n\n\n\n\n2026-03-02\n\n\n\n\n\n\n\n\n\n\n\n\nhighlight-author: A Quarto Extension to Highlight Your Name in Bibliographies\n\n\nBecause every CV, grant proposal, and publication page needs it\n\n\n\nquarto\n\nacademic\n\nbibliography\n\nopen-source\n\n\n\n\n\n\n\n\n\n2026-03-02\n\n\n\n\n\n\n\n\n\n\n\n\nIntegrate Zigbee Tuya Thermostats into Home Assistant\n\n\nHow to add unsupported ones to ZHA\n\n\n\nhomeassistant\n\ntuya\n\nthermostats\n\npython\n\n\n\n\n\n\n\n\n\n2023-03-06\n\n\n\n\n\n\n\n\n\n\n\n\nMinimal Conda Setup Instructions\n\n\n\n\n\n\npython\n\nconda\n\nmamba\n\nsoftware management\n\n\n\n\n\n\n\n\n\n2021-10-15\n\n\n\n\n\n\n\n\n\n\n\n\nTesting your internet speed regularly\n\n\nUse crontab and a bit of Python to store speedtest results in a CSV.\n\n\n\nhacking\n\npython\n\n\n\n\n\n\n\n\n\n2021-09-22\n\n\n\n\n\n\n\n\n\n\n\n\nMamba is the new Conda\n\n\n\n\n\n\nconda\n\nmamba\n\nsoftware management\n\n\n\n\n\n\n\n\n\n2021-09-10\n\n\n\n\n\n\n\n\n\n\n\n\nFan Creation\n\n\n\n\n\n\nplanet four\n\n\n\n\n\n\n\n\n\n2014-08-05\n\n\n\n\n\n\n\n\n\n\n\n\nMatplotlib Ticklabel Formats\n\n\n\n\n\n\nplotting\n\nmatplotlib\n\n\n\n\n\n\n\n\n\n2013-09-03\n\n\n\n\n\nNo matching items"
+    "objectID": "talks/2024-ipda-data-talk/index.html#ode-continued",
+    "href": "talks/2024-ipda-data-talk/index.html#ode-continued",
+    "title": "Is it easy enough to get to planetary data?",
+    "section": "ODE continued",
+    "text": "ODE continued\n\npicking “Mars Orbital Data Explorer”\nbecause i heard about, otherwise very tough\ndata product search\nEsa’s Mars Express\nHRSC\ncalibrated data (simply choosing HRSC not possible?)\nfilter by product ID\n“h6980_0000*” gives 9 results\nView results in table"
+  },
+  {
+    "objectID": "talks/2024-ipda-data-talk/index.html#mars-ode",
+    "href": "talks/2024-ipda-data-talk/index.html#mars-ode",
+    "title": "Is it easy enough to get to planetary data?",
+    "section": "Mars ODE",
+    "text": "Mars ODE"
+  },
+  {
+    "objectID": "talks/2024-ipda-data-talk/index.html#rings-node",
+    "href": "talks/2024-ipda-data-talk/index.html#rings-node",
+    "title": "Is it easy enough to get to planetary data?",
+    "section": "Rings Node",
+    "text": "Rings Node\n\ngoogled “pds rings node”\nclicked on OPUS (guided well by one of 1st sentences)"
+  },
+  {
+    "objectID": "talks/2024-ipda-data-talk/index.html#rings-node-continued",
+    "href": "talks/2024-ipda-data-talk/index.html#rings-node-continued",
+    "title": "Is it easy enough to get to planetary data?",
+    "section": "Rings Node continued",
+    "text": "Rings Node continued\n\ncassini iss\nPDS constraints (not that easy to realize but i guess “guessable”)\nPDS3 Product ID\nN1454725799\nBrowse results (not too easy to realize)"
+  },
+  {
+    "objectID": "talks/2024-ipda-data-talk/index.html#rings-node-continued-results-page",
+    "href": "talks/2024-ipda-data-talk/index.html#rings-node-continued-results-page",
+    "title": "Is it easy enough to get to planetary data?",
+    "section": "Rings Node continued (results page)",
+    "text": "Rings Node continued (results page)\n\nclicked on 1 results\npreview shown\npressing spacebar to enter it to shopping cart got spinning wheel\n\n\nbut cart got filled\n\n\ngo to cart\nchoose from download options"
+  },
+  {
+    "objectID": "talks/2024-ipda-data-talk/index.html#atmosphere-node",
+    "href": "talks/2024-ipda-data-talk/index.html#atmosphere-node",
+    "title": "Is it easy enough to get to planetary data?",
+    "section": "Atmosphere Node",
+    "text": "Atmosphere Node\n\ngoogled “pds atmospheres”"
+  },
+  {
+    "objectID": "talks/2024-ipda-data-talk/index.html#atmosphere-cont.",
+    "href": "talks/2024-ipda-data-talk/index.html#atmosphere-cont.",
+    "title": "Is it easy enough to get to planetary data?",
+    "section": "Atmosphere cont.",
+    "text": "Atmosphere cont.\n\nCassini Archive\nISS\nFind info on PDS Image Atlas (the search engine)\npick mission\npick insterument\nfind/enter PDS Archive Constraints (again, weirdly named?)\none result shown\nclicking gives promising buttons\nchoosing “Full Product” starts to stream binary code into the browser, WTH??\n\neven worse, right-click -&gt; save as does not work with the button."
+  },
+  {
+    "objectID": "talks/2024-ipda-data-talk/index.html#atlas-download-options",
+    "href": "talks/2024-ipda-data-talk/index.html#atlas-download-options",
+    "title": "Is it easy enough to get to planetary data?",
+    "section": "Atlas download options",
+    "text": "Atlas download options"
+  },
+  {
+    "objectID": "talks/2024-ipda-data-talk/index.html#ode-hrsc",
+    "href": "talks/2024-ipda-data-talk/index.html#ode-hrsc",
+    "title": "Is it easy enough to get to planetary data?",
+    "section": "ODE (HRSC)",
+    "text": "ODE (HRSC)\nLat -85, -80,\nLon 10, 20\ngives 509 results and no issues."
+  },
+  {
+    "objectID": "talks/2024-ipda-data-talk/index.html#psa-hrsc-1",
+    "href": "talks/2024-ipda-data-talk/index.html#psa-hrsc-1",
+    "title": "Is it easy enough to get to planetary data?",
+    "section": "PSA (HRSC)",
+    "text": "PSA (HRSC)\nSame coordinates as ODE.\nGives error message:\n\nplease select a target with an available map"
+  },
+  {
+    "objectID": "talks/2024-ipda-data-talk/index.html#upcoming",
+    "href": "talks/2024-ipda-data-talk/index.html#upcoming",
+    "title": "Is it easy enough to get to planetary data?",
+    "section": "Upcoming",
+    "text": "Upcoming\n\nWant to try to add VESPA / EPN-TAP to the table\nAdd it to planetarypy"
+  },
+  {
+    "objectID": "talks/2024-epsc-op-data-cafe/index.html#practically-speaking",
+    "href": "talks/2024-epsc-op-data-cafe/index.html#practically-speaking",
+    "title": "OpenPlanetary Data Cafe and Friends",
+    "section": "Practically speaking",
+    "text": "Practically speaking\nWe are\n\na Slack forum (possibly changing soon-ish)\nan open discussion forum\n\npublicly searchable\nhttps://openplanetary.discourse.group/)"
+  },
+  {
+    "objectID": "talks/2024-epsc-op-data-cafe/index.html#our-mission",
+    "href": "talks/2024-epsc-op-data-cafe/index.html#our-mission",
+    "title": "OpenPlanetary Data Cafe and Friends",
+    "section": "Our Mission",
+    "text": "Our Mission\nOur mission is\n\nto promote and facilitate the open practice of planetary science and data analysis for professionals and amateurs\nby organizing events and conducting collaborative projects aimed at creating scientific, technical and educational resources, tools and data accessible to all.\n\ne.g. monthly OP Virtual Lunch talks"
+  },
+  {
+    "objectID": "talks/2024-epsc-op-data-cafe/index.html#our-story",
+    "href": "talks/2024-epsc-op-data-cafe/index.html#our-story",
+    "title": "OpenPlanetary Data Cafe and Friends",
+    "section": "OUR STORY",
+    "text": "OUR STORY\n\nstarted back in 2015 from an initial participants effort to stay connected and share information related to and beyond the ESA’s first Planetary GIS Workshop.\ncontinued during the 2nd USGS Planetary Data Workshop, and aggregated more people.\nIn 2018, established non-profit organisation, to provide a legal framework to sustainably fund our community framework, projects and activities, and better serve the planetary science community as a whole."
+  },
+  {
+    "objectID": "talks/2024-epsc-op-data-cafe/index.html#people",
+    "href": "talks/2024-epsc-op-data-cafe/index.html#people",
+    "title": "OpenPlanetary Data Cafe and Friends",
+    "section": "People",
+    "text": "People\n\nco-founded by presiden Nicolas Manaud and US chttps://www.planetarymapping.eu/ounter-part Chase Million (https://www.openplanetary.org/about)\nwe have a board of directors with shared responsibilities\nSlack channel has &gt; 800 members from all over the world\nyou can find many planetary scientists, planetary data experts, software developers, directly involved in the tools you use every day"
+  },
+  {
+    "objectID": "talks/2024-epsc-op-data-cafe/index.html#gmap-course",
+    "href": "talks/2024-epsc-op-data-cafe/index.html#gmap-course",
+    "title": "OpenPlanetary Data Cafe and Friends",
+    "section": "GMAP course",
+    "text": "GMAP course\n\nA regular growth event is the Planetary Geologic Mapping Winter School of the GMAP organization by Angelo Rossi and others\nhttps://www.planetarymapping.eu/\n\nLots of resources for planetary geologic mapping to find there!"
+  },
+  {
+    "objectID": "talks/2024-epsc-op-data-cafe/index.html#covered-topics-by-op-members-in-slack-and-discourse-forum",
+    "href": "talks/2024-epsc-op-data-cafe/index.html#covered-topics-by-op-members-in-slack-and-discourse-forum",
+    "title": "OpenPlanetary Data Cafe and Friends",
+    "section": "Covered topics by OP members in Slack and Discourse Forum",
+    "text": "Covered topics by OP members in Slack and Discourse Forum\n\nchannels for PDS, PSA, ISIS, GDAL, PlanetaryPython, SPICE, conda, mapping, jupyter, machine-learning, cloud, docker, QGIS, and more.\nfolks directly involved in the tools you use every day: GDAL, ISIS, PDS, SPICE, PSA, ASP, PlanetaryPython, etc."
+  },
+  {
+    "objectID": "talks/2024-epsc-op-data-cafe/index.html#forum",
+    "href": "talks/2024-epsc-op-data-cafe/index.html#forum",
+    "title": "OpenPlanetary Data Cafe and Friends",
+    "section": "Forum",
+    "text": "Forum\n\nto preserve and make searchable / findable discussions of general interest to the community:\nhttps://openplanetary.discourse.group/"
+  },
+  {
+    "objectID": "talks/2024-epsc-op-data-cafe/index.html#software-virtual-environments",
+    "href": "talks/2024-epsc-op-data-cafe/index.html#software-virtual-environments",
+    "title": "OpenPlanetary Data Cafe and Friends",
+    "section": "Software virtual environments",
+    "text": "Software virtual environments\n\nDespite some challenges and learning curves, many people recommend conda environments as the most sustainable way to manage software dependencies in our field of science.\nDon’t listen to your IT departments, when they say, you can do everything without conda. (convince them otherwise ;) )\n\nGDAL still today is the dealbreaker, requires more work than really necessary.\nThere are a few other libraries that have similar issues."
+  },
+  {
+    "objectID": "talks/2024-epsc-op-data-cafe/index.html#planetary-python",
+    "href": "talks/2024-epsc-op-data-cafe/index.html#planetary-python",
+    "title": "OpenPlanetary Data Cafe and Friends",
+    "section": "Planetary Python",
+    "text": "Planetary Python\n\nWe are an organization as well:\n\nhttps://planetarypy.org/\nWe have code of conduct, regular technical meetings, trying to establish a core package for standard tasks in planetary python.\n\nI have a large-ish chaotic package, that is being transferred to the organization, piece-by-piece, in a peer-review fashion.\nslowly growing community package: https://github.com/planetarypy/planetarypy\nDemo\nShow SPICE and Index functionality"
   },
   {
     "objectID": "talks/2022-fub-seminar/presentation/index.html#political-answer-quotes-eu-horizon-monthly-focus",
@@ -616,452 +861,256 @@
     "text": "Conclusions 2\n\nOverall good match with models but discrepancies exist\nHope to derive jet eruption times"
   },
   {
-    "objectID": "talks/2024-epsc-op-data-cafe/index.html#practically-speaking",
-    "href": "talks/2024-epsc-op-data-cafe/index.html#practically-speaking",
-    "title": "OpenPlanetary Data Cafe and Friends",
-    "section": "Practically speaking",
-    "text": "Practically speaking\nWe are\n\na Slack forum (possibly changing soon-ish)\nan open discussion forum\n\npublicly searchable\nhttps://openplanetary.discourse.group/)"
-  },
-  {
-    "objectID": "talks/2024-epsc-op-data-cafe/index.html#our-mission",
-    "href": "talks/2024-epsc-op-data-cafe/index.html#our-mission",
-    "title": "OpenPlanetary Data Cafe and Friends",
-    "section": "Our Mission",
-    "text": "Our Mission\nOur mission is\n\nto promote and facilitate the open practice of planetary science and data analysis for professionals and amateurs\nby organizing events and conducting collaborative projects aimed at creating scientific, technical and educational resources, tools and data accessible to all.\n\ne.g. monthly OP Virtual Lunch talks"
-  },
-  {
-    "objectID": "talks/2024-epsc-op-data-cafe/index.html#our-story",
-    "href": "talks/2024-epsc-op-data-cafe/index.html#our-story",
-    "title": "OpenPlanetary Data Cafe and Friends",
-    "section": "OUR STORY",
-    "text": "OUR STORY\n\nstarted back in 2015 from an initial participants effort to stay connected and share information related to and beyond the ESA’s first Planetary GIS Workshop.\ncontinued during the 2nd USGS Planetary Data Workshop, and aggregated more people.\nIn 2018, established non-profit organisation, to provide a legal framework to sustainably fund our community framework, projects and activities, and better serve the planetary science community as a whole."
-  },
-  {
-    "objectID": "talks/2024-epsc-op-data-cafe/index.html#people",
-    "href": "talks/2024-epsc-op-data-cafe/index.html#people",
-    "title": "OpenPlanetary Data Cafe and Friends",
-    "section": "People",
-    "text": "People\n\nco-founded by presiden Nicolas Manaud and US chttps://www.planetarymapping.eu/ounter-part Chase Million (https://www.openplanetary.org/about)\nwe have a board of directors with shared responsibilities\nSlack channel has &gt; 800 members from all over the world\nyou can find many planetary scientists, planetary data experts, software developers, directly involved in the tools you use every day"
-  },
-  {
-    "objectID": "talks/2024-epsc-op-data-cafe/index.html#gmap-course",
-    "href": "talks/2024-epsc-op-data-cafe/index.html#gmap-course",
-    "title": "OpenPlanetary Data Cafe and Friends",
-    "section": "GMAP course",
-    "text": "GMAP course\n\nA regular growth event is the Planetary Geologic Mapping Winter School of the GMAP organization by Angelo Rossi and others\nhttps://www.planetarymapping.eu/\n\nLots of resources for planetary geologic mapping to find there!"
-  },
-  {
-    "objectID": "talks/2024-epsc-op-data-cafe/index.html#covered-topics-by-op-members-in-slack-and-discourse-forum",
-    "href": "talks/2024-epsc-op-data-cafe/index.html#covered-topics-by-op-members-in-slack-and-discourse-forum",
-    "title": "OpenPlanetary Data Cafe and Friends",
-    "section": "Covered topics by OP members in Slack and Discourse Forum",
-    "text": "Covered topics by OP members in Slack and Discourse Forum\n\nchannels for PDS, PSA, ISIS, GDAL, PlanetaryPython, SPICE, conda, mapping, jupyter, machine-learning, cloud, docker, QGIS, and more.\nfolks directly involved in the tools you use every day: GDAL, ISIS, PDS, SPICE, PSA, ASP, PlanetaryPython, etc."
-  },
-  {
-    "objectID": "talks/2024-epsc-op-data-cafe/index.html#forum",
-    "href": "talks/2024-epsc-op-data-cafe/index.html#forum",
-    "title": "OpenPlanetary Data Cafe and Friends",
-    "section": "Forum",
-    "text": "Forum\n\nto preserve and make searchable / findable discussions of general interest to the community:\nhttps://openplanetary.discourse.group/"
-  },
-  {
-    "objectID": "talks/2024-epsc-op-data-cafe/index.html#software-virtual-environments",
-    "href": "talks/2024-epsc-op-data-cafe/index.html#software-virtual-environments",
-    "title": "OpenPlanetary Data Cafe and Friends",
-    "section": "Software virtual environments",
-    "text": "Software virtual environments\n\nDespite some challenges and learning curves, many people recommend conda environments as the most sustainable way to manage software dependencies in our field of science.\nDon’t listen to your IT departments, when they say, you can do everything without conda. (convince them otherwise ;) )\n\nGDAL still today is the dealbreaker, requires more work than really necessary.\nThere are a few other libraries that have similar issues."
-  },
-  {
-    "objectID": "talks/2024-epsc-op-data-cafe/index.html#planetary-python",
-    "href": "talks/2024-epsc-op-data-cafe/index.html#planetary-python",
-    "title": "OpenPlanetary Data Cafe and Friends",
-    "section": "Planetary Python",
-    "text": "Planetary Python\n\nWe are an organization as well:\n\nhttps://planetarypy.org/\nWe have code of conduct, regular technical meetings, trying to establish a core package for standard tasks in planetary python.\n\nI have a large-ish chaotic package, that is being transferred to the organization, piece-by-piece, in a peer-review fashion.\nslowly growing community package: https://github.com/planetarypy/planetarypy\nDemo\nShow SPICE and Index functionality"
-  },
-  {
-    "objectID": "talks/2024-ipda-data-talk/index.html#who-am-i",
-    "href": "talks/2024-ipda-data-talk/index.html#who-am-i",
-    "title": "Is it easy enough to get to planetary data?",
-    "section": "Who am I?",
-    "text": "Who am I?\n\nCoding-inclined planetary scientist\n\nWorked on: Dawn, Cassini, BepiColombo, LRO, MRO, MEX\nWorked as/on:Ground ops, Onboard software, Project Manager, Calibration, Data analyst\n\nFighter for open-source, open-data, open-science\n\nIf I can’t reproduce with public data and public code:\n\n-&gt; at best smelly.\n\n\nWorked at: MPS, UBe, UCLA(JPL/NASA), LASP(CU), Freie Uni Berlin.\n\n\n\nYou can find this talk and other resources on https://michaelaye.github.io/"
-  },
-  {
-    "objectID": "talks/2024-ipda-data-talk/index.html#disclaimer",
-    "href": "talks/2024-ipda-data-talk/index.html#disclaimer",
-    "title": "Is it easy enough to get to planetary data?",
-    "section": "Disclaimer",
-    "text": "Disclaimer\n\nI understand: an archiving budget and a “make things easy for the user”-budget aren’t the same numbers, propably not even close.\n\nAnd I appreciate that most stakeholders are formally paid only for archiving.\n\nAlso, sometimes things are not working because an instrument team isn’t delivering what is needed."
-  },
-  {
-    "objectID": "talks/2024-ipda-data-talk/index.html#what-are-the-most-prevalent-types-of-data-searches",
-    "href": "talks/2024-ipda-data-talk/index.html#what-are-the-most-prevalent-types-of-data-searches",
-    "title": "Is it easy enough to get to planetary data?",
-    "section": "What are the most prevalent types of data searches?",
-    "text": "What are the most prevalent types of data searches?\nThis is really a question I have, do we have data on this?\nCandidates, IMHO:\n\nby product / observation ID\nby coordinates (space or time)\nby observation geometry / illumination conditions\nbrowsing (I’m really wondering how much this is done with an archive interface)"
-  },
-  {
-    "objectID": "talks/2024-ipda-data-talk/index.html#one-of-my-perfect-use-cases",
-    "href": "talks/2024-ipda-data-talk/index.html#one-of-my-perfect-use-cases",
-    "title": "Is it easy enough to get to planetary data?",
-    "section": "One of my perfect use cases",
-    "text": "One of my perfect use cases\n\nRead a paper using Cassini ISS\nsee a product ID N1454725799\nuse an API to download the data\n\nfor example:\n\nfrom planetarypy.ciss import ISS\niss = ISS(\"N1454725799\")\niss.download_calib()"
-  },
-  {
-    "objectID": "talks/2024-ipda-data-talk/index.html#testing-for-a-set-of-data-search-types",
-    "href": "talks/2024-ipda-data-talk/index.html#testing-for-a-set-of-data-search-types",
-    "title": "Is it easy enough to get to planetary data?",
-    "section": "Testing for a set of data search types",
-    "text": "Testing for a set of data search types\n\nBy product / observation ID (Is there a difference sometimes?)\n\nHRSC PID h6980_0000 (taken from a paper)\nCassini ISS N1454725799\n\nBy coordinates (space or time)\nBrowsing"
-  },
-  {
-    "objectID": "talks/2024-ipda-data-talk/index.html#psa-hrsc",
-    "href": "talks/2024-ipda-data-talk/index.html#psa-hrsc",
-    "title": "Is it easy enough to get to planetary data?",
-    "section": "PSA (HRSC)",
-    "text": "PSA (HRSC)"
-  },
-  {
-    "objectID": "talks/2024-ipda-data-talk/index.html#psa-continued",
-    "href": "talks/2024-ipda-data-talk/index.html#psa-continued",
-    "title": "Is it easy enough to get to planetary data?",
-    "section": "PSA continued",
-    "text": "PSA continued\n\ngoogled “ESA PSA”\n\ngoogling “PSA HRSC” not working, “PSA HRSC data” better, but not direct\n\nvery quick to filter for one instrument or mission (1 entry/click)\nproduct ID filter is not shown immediately, distinction “Basic/Advanced” a bit small.\ntried to use “Observation ID” to find “h6980_0000” using\n\nh6980_0000\nh6980_0000*\n“h6980_0000”\nnothing worked.\n\nchose random other product for D/L testing, worked very smoothly. (zip)"
-  },
-  {
-    "objectID": "talks/2024-ipda-data-talk/index.html#geosciences-ode-hrsc",
-    "href": "talks/2024-ipda-data-talk/index.html#geosciences-ode-hrsc",
-    "title": "Is it easy enough to get to planetary data?",
-    "section": "Geosciences / ODE (HRSC)",
-    "text": "Geosciences / ODE (HRSC)\n\ngoogled “pds hrsc data”, 1st hit\nwelcome view also tough to parse"
-  },
-  {
-    "objectID": "talks/2024-ipda-data-talk/index.html#ode-continued",
-    "href": "talks/2024-ipda-data-talk/index.html#ode-continued",
-    "title": "Is it easy enough to get to planetary data?",
-    "section": "ODE continued",
-    "text": "ODE continued\n\npicking “Mars Orbital Data Explorer”\nbecause i heard about, otherwise very tough\ndata product search\nEsa’s Mars Express\nHRSC\ncalibrated data (simply choosing HRSC not possible?)\nfilter by product ID\n“h6980_0000*” gives 9 results\nView results in table"
-  },
-  {
-    "objectID": "talks/2024-ipda-data-talk/index.html#mars-ode",
-    "href": "talks/2024-ipda-data-talk/index.html#mars-ode",
-    "title": "Is it easy enough to get to planetary data?",
-    "section": "Mars ODE",
-    "text": "Mars ODE"
-  },
-  {
-    "objectID": "talks/2024-ipda-data-talk/index.html#rings-node",
-    "href": "talks/2024-ipda-data-talk/index.html#rings-node",
-    "title": "Is it easy enough to get to planetary data?",
-    "section": "Rings Node",
-    "text": "Rings Node\n\ngoogled “pds rings node”\nclicked on OPUS (guided well by one of 1st sentences)"
-  },
-  {
-    "objectID": "talks/2024-ipda-data-talk/index.html#rings-node-continued",
-    "href": "talks/2024-ipda-data-talk/index.html#rings-node-continued",
-    "title": "Is it easy enough to get to planetary data?",
-    "section": "Rings Node continued",
-    "text": "Rings Node continued\n\ncassini iss\nPDS constraints (not that easy to realize but i guess “guessable”)\nPDS3 Product ID\nN1454725799\nBrowse results (not too easy to realize)"
-  },
-  {
-    "objectID": "talks/2024-ipda-data-talk/index.html#rings-node-continued-results-page",
-    "href": "talks/2024-ipda-data-talk/index.html#rings-node-continued-results-page",
-    "title": "Is it easy enough to get to planetary data?",
-    "section": "Rings Node continued (results page)",
-    "text": "Rings Node continued (results page)\n\nclicked on 1 results\npreview shown\npressing spacebar to enter it to shopping cart got spinning wheel\n\n\nbut cart got filled\n\n\ngo to cart\nchoose from download options"
-  },
-  {
-    "objectID": "talks/2024-ipda-data-talk/index.html#atmosphere-node",
-    "href": "talks/2024-ipda-data-talk/index.html#atmosphere-node",
-    "title": "Is it easy enough to get to planetary data?",
-    "section": "Atmosphere Node",
-    "text": "Atmosphere Node\n\ngoogled “pds atmospheres”"
-  },
-  {
-    "objectID": "talks/2024-ipda-data-talk/index.html#atmosphere-cont.",
-    "href": "talks/2024-ipda-data-talk/index.html#atmosphere-cont.",
-    "title": "Is it easy enough to get to planetary data?",
-    "section": "Atmosphere cont.",
-    "text": "Atmosphere cont.\n\nCassini Archive\nISS\nFind info on PDS Image Atlas (the search engine)\npick mission\npick insterument\nfind/enter PDS Archive Constraints (again, weirdly named?)\none result shown\nclicking gives promising buttons\nchoosing “Full Product” starts to stream binary code into the browser, WTH??\n\neven worse, right-click -&gt; save as does not work with the button."
-  },
-  {
-    "objectID": "talks/2024-ipda-data-talk/index.html#atlas-download-options",
-    "href": "talks/2024-ipda-data-talk/index.html#atlas-download-options",
-    "title": "Is it easy enough to get to planetary data?",
-    "section": "Atlas download options",
-    "text": "Atlas download options"
-  },
-  {
-    "objectID": "talks/2024-ipda-data-talk/index.html#ode-hrsc",
-    "href": "talks/2024-ipda-data-talk/index.html#ode-hrsc",
-    "title": "Is it easy enough to get to planetary data?",
-    "section": "ODE (HRSC)",
-    "text": "ODE (HRSC)\nLat -85, -80,\nLon 10, 20\ngives 509 results and no issues."
-  },
-  {
-    "objectID": "talks/2024-ipda-data-talk/index.html#psa-hrsc-1",
-    "href": "talks/2024-ipda-data-talk/index.html#psa-hrsc-1",
-    "title": "Is it easy enough to get to planetary data?",
-    "section": "PSA (HRSC)",
-    "text": "PSA (HRSC)\nSame coordinates as ODE.\nGives error message:\n\nplease select a target with an available map"
-  },
-  {
-    "objectID": "talks/2024-ipda-data-talk/index.html#upcoming",
-    "href": "talks/2024-ipda-data-talk/index.html#upcoming",
-    "title": "Is it easy enough to get to planetary data?",
-    "section": "Upcoming",
-    "text": "Upcoming\n\nWant to try to add VESPA / EPN-TAP to the table\nAdd it to planetarypy"
-  },
-  {
-    "objectID": "talks/2026-dgp-planet-four/index.html#science-case",
-    "href": "talks/2026-dgp-planet-four/index.html#science-case",
-    "title": "Planet Four: Inter- and Intra-annual Variability of Dark Regolith on Ice Coverage at the Martian South Polar Region",
-    "section": "Science case",
-    "text": "Science case"
-  },
-  {
-    "objectID": "talks/2026-dgp-planet-four/index.html#science-case-1",
-    "href": "talks/2026-dgp-planet-four/index.html#science-case-1",
-    "title": "Planet Four: Inter- and Intra-annual Variability of Dark Regolith on Ice Coverage at the Martian South Polar Region",
-    "section": "Science case",
-    "text": "Science case"
-  },
-  {
-    "objectID": "talks/2026-dgp-planet-four/index.html#science-case-temporal",
-    "href": "talks/2026-dgp-planet-four/index.html#science-case-temporal",
-    "title": "Planet Four: Inter- and Intra-annual Variability of Dark Regolith on Ice Coverage at the Martian South Polar Region",
-    "section": "Science case temporal",
-    "text": "Science case temporal"
-  },
-  {
-    "objectID": "talks/2026-dgp-planet-four/index.html#science-case-kieffer-model",
-    "href": "talks/2026-dgp-planet-four/index.html#science-case-kieffer-model",
-    "title": "Planet Four: Inter- and Intra-annual Variability of Dark Regolith on Ice Coverage at the Martian South Polar Region",
-    "section": "Science case: Kieffer model",
-    "text": "Science case: Kieffer model\n\n\nJet deposits are aligned by prevalent winds at the time!\nMapping these features enables the first large area knowledge of prevailing winds on Mars!\n\non intra-seasonal timescales, not only over many years."
-  },
-  {
-    "objectID": "talks/2026-dgp-planet-four/index.html#active-areas-around-south-pole",
-    "href": "talks/2026-dgp-planet-four/index.html#active-areas-around-south-pole",
-    "title": "Planet Four: Inter- and Intra-annual Variability of Dark Regolith on Ice Coverage at the Martian South Polar Region",
-    "section": "Active areas around south pole",
-    "text": "Active areas around south pole\n\n\nSeasonal campaigns at most of these areas!\n\n-&gt; Lots of huge HiRISE image data"
-  },
-  {
-    "objectID": "talks/2026-dgp-planet-four/index.html#input-data",
-    "href": "talks/2026-dgp-planet-four/index.html#input-data",
-    "title": "Planet Four: Inter- and Intra-annual Variability of Dark Regolith on Ice Coverage at the Martian South Polar Region",
-    "section": "Input data",
-    "text": "Input data\n\n221 HiRISE images from MY 29/30\n\nnew catalog: 469 studied images from MY 28-33 (6 years of data)\n\nsplit up into over 30,000 image screen-sized tiles\n\nnow over 64,000 tiles\n\nTiles are being “anonymized”, to prevent bias\nThe data input and reduction pipelines need to track everything"
-  },
-  {
-    "objectID": "talks/2026-dgp-planet-four/index.html#interface",
-    "href": "talks/2026-dgp-planet-four/index.html#interface",
-    "title": "Planet Four: Inter- and Intra-annual Variability of Dark Regolith on Ice Coverage at the Martian South Polar Region",
-    "section": "Interface",
-    "text": "Interface"
-  },
-  {
-    "objectID": "talks/2026-dgp-planet-four/index.html#interface-return",
-    "href": "talks/2026-dgp-planet-four/index.html#interface-return",
-    "title": "Planet Four: Inter- and Intra-annual Variability of Dark Regolith on Ice Coverage at the Martian South Polar Region",
-    "section": "Interface return",
-    "text": "Interface return\n\nDifficulty: What (contrast) defines the “end” of a surface feature?Minimum of 30 different volunteers per image tile!\n=&gt; quite slow progress"
-  },
-  {
-    "objectID": "talks/2026-dgp-planet-four/index.html#reduction-pipeline",
-    "href": "talks/2026-dgp-planet-four/index.html#reduction-pipeline",
-    "title": "Planet Four: Inter- and Intra-annual Variability of Dark Regolith on Ice Coverage at the Martian South Polar Region",
-    "section": "Reduction pipeline",
-    "text": "Reduction pipeline\n\nClockwise from upper left: 1) Raw, 2) Fan markings, 3) Blotch markings, 4) Blotch reduction, 5) Fan reduction, 6) catalog entry with 50% majority vote"
-  },
-  {
-    "objectID": "talks/2026-dgp-planet-four/index.html#catalog-entries",
-    "href": "talks/2026-dgp-planet-four/index.html#catalog-entries",
-    "title": "Planet Four: Inter- and Intra-annual Variability of Dark Regolith on Ice Coverage at the Martian South Polar Region",
-    "section": "Catalog entries",
-    "text": "Catalog entries"
-  },
-  {
-    "objectID": "talks/2026-dgp-planet-four/index.html#results",
-    "href": "talks/2026-dgp-planet-four/index.html#results",
-    "title": "Planet Four: Inter- and Intra-annual Variability of Dark Regolith on Ice Coverage at the Martian South Polar Region",
-    "section": "Results",
-    "text": "Results\n\nOver 40,000 citizens have contributed\n\nMost only once\nCore team of approx 10-20 volunteers did most of the work\n\nnow over 690,000 geo-located objects in catalog\navailable at zenodo “Planet Four Data Catalog” and via Python library “p4tools”"
-  },
-  {
-    "objectID": "talks/2026-dgp-planet-four/index.html#what-can-be-done-with-it",
-    "href": "talks/2026-dgp-planet-four/index.html#what-can-be-done-with-it",
-    "title": "Planet Four: Inter- and Intra-annual Variability of Dark Regolith on Ice Coverage at the Martian South Polar Region",
-    "section": "What can be done with it?",
-    "text": "What can be done with it?\n\n\nPortyankina et al. (2022) “Planet Four: Derived South Polar Martian Winds Interpreted Using Mesoscale Modeling”"
-  },
-  {
-    "objectID": "talks/2026-dgp-planet-four/index.html#covered-surface-interests",
-    "href": "talks/2026-dgp-planet-four/index.html#covered-surface-interests",
-    "title": "Planet Four: Inter- and Intra-annual Variability of Dark Regolith on Ice Coverage at the Martian South Polar Region",
-    "section": "Covered surface interests",
-    "text": "Covered surface interests\n\nSeasonal CO2 ice is quite bright\nSo, how much is covered by dark regolith?\n-&gt; energy balance of the surface and lower atmosphere\nPrevious work estimated 20-30% coverage, but only for a few locations and times"
-  },
-  {
-    "objectID": "talks/2026-dgp-planet-four/index.html#surface-coverage-across-years",
-    "href": "talks/2026-dgp-planet-four/index.html#surface-coverage-across-years",
-    "title": "Planet Four: Inter- and Intra-annual Variability of Dark Regolith on Ice Coverage at the Martian South Polar Region",
-    "section": "Surface coverage across years",
-    "text": "Surface coverage across years"
-  },
-  {
-    "objectID": "talks/2026-dgp-planet-four/index.html#relationship-to-global-dust-storms",
-    "href": "talks/2026-dgp-planet-four/index.html#relationship-to-global-dust-storms",
-    "title": "Planet Four: Inter- and Intra-annual Variability of Dark Regolith on Ice Coverage at the Martian South Polar Region",
-    "section": "Relationship to global dust storms?",
-    "text": "Relationship to global dust storms?"
-  },
-  {
-    "objectID": "talks/2026-dgp-planet-four/index.html#intra-seasonal-variability",
-    "href": "talks/2026-dgp-planet-four/index.html#intra-seasonal-variability",
-    "title": "Planet Four: Inter- and Intra-annual Variability of Dark Regolith on Ice Coverage at the Martian South Polar Region",
-    "section": "Intra-seasonal variability",
-    "text": "Intra-seasonal variability"
-  },
-  {
-    "objectID": "talks/2026-dgp-planet-four/index.html#fan-lengths",
-    "href": "talks/2026-dgp-planet-four/index.html#fan-lengths",
-    "title": "Planet Four: Inter- and Intra-annual Variability of Dark Regolith on Ice Coverage at the Martian South Polar Region",
-    "section": "Fan lengths",
-    "text": "Fan lengths\nCombo of jet and wind strengths"
-  },
-  {
-    "objectID": "posts/github-releases-as-data-cdn/index.html",
-    "href": "posts/github-releases-as-data-cdn/index.html",
-    "title": "Using GitHub Releases as a Free Data CDN for Browser-Based Science Apps",
+    "objectID": "posts.html",
+    "href": "posts.html",
+    "title": "Blog posts",
     "section": "",
-    "text": "You’ve built an interactive data exploration app that runs entirely in the browser using Pyodide or Shinylive — no server needed. But where do you put the data?\nYour options for static hosting (GitHub Pages, university web servers) are designed for HTML/JS/CSS, not for serving hundreds of megabytes of scientific data. And setting up a proper backend just to serve files defeats the purpose of a serverless app."
+    "text": "Red-teaming spice-kernel-db: Even SPICE kernels expose attack surfaces\n\n\nA path-traversal primitive, a new verify command, and learning to prune what NAIF/ESA rotate out\n\n\n\npython\n\nspice\n\nplanetary\n\nsecurity\n\nduckdb\n\n\n\n\n\n\n\n\n\n2026-05-12\n\n\n\n\n\n\n\n\n\n\n\n\nFinding the Equal-Commute Zone Between Two Workplaces\n\n\nA small tool for the two-body problem of picking where to live\n\n\n\npython\n\ngeospatial\n\nopenrouteservice\n\nopenstreetmap\n\nfolium\n\n\n\n\n\n\n\n\n\n2026-04-12\n\n\n\n\n\n\n\n\n\n\n\n\nLessons from Matching Two Mars Images with ISIS\n\n\nWhat happens when bundle adjustment meets repetitive terrain, free networks, and 6-meter pixels\n\n\n\nmars\n\nctx\n\nisis\n\nphotogrammetry\n\ncoregistration\n\n\n\n\n\n\n\n\n\n2026-03-10\n\n\n\n\n\n\n\n\n\n\n\n\nUsing GitHub Releases as a Free Data CDN for Browser-Based Science Apps\n\n\nServe large datasets to Pyodide/Shinylive apps without any infrastructure\n\n\n\npython\n\nweb\n\ndata\n\nshinylive\n\n\n\n\n\n\n\n\n\n2026-03-05\n\n\n\n\n\n\n\n\n\n\n\n\nBuilding an Academic Homepage with Quarto\n\n\nAuto-updating bibliography, custom extensions, and GitHub Actions — the full stack\n\n\n\nquarto\n\nacademic\n\nopen-source\n\ngithub-actions\n\nbibliography\n\n\n\n\n\n\n\n\n\n2026-03-04\n\n\n\n\n\n\n\n\n\n\n\n\nads-bib-tools: Fetch Your Full Publication List from NASA ADS\n\n\nORCID-based bibliography management for Quarto and static sites\n\n\n\npython\n\nquarto\n\nacademic\n\nbibliography\n\nopen-source\n\nnasa-ads\n\n\n\n\n\n\n\n\n\n2026-03-03\n\n\n\n\n\n\n\n\n\n\n\n\nchronobib: Group Your Quarto Bibliography by Year\n\n\nA companion to highlight-author for academic publication pages\n\n\n\nquarto\n\nacademic\n\nbibliography\n\nopen-source\n\n\n\n\n\n\n\n\n\n2026-03-02\n\n\n\n\n\n\n\n\n\n\n\n\nWhy rioxarray 0.21 Won’t Install with xarray 2026\n\n\nTracing a version pin from a slice indexing regression\n\n\n\npython\n\ngeospatial\n\nxarray\n\nrioxarray\n\ndebugging\n\n\n\n\n\n\n\n\n\n2026-03-02\n\n\n\n\n\n\n\n\n\n\n\n\nhighlight-author: A Quarto Extension to Highlight Your Name in Bibliographies\n\n\nBecause every CV, grant proposal, and publication page needs it\n\n\n\nquarto\n\nacademic\n\nbibliography\n\nopen-source\n\n\n\n\n\n\n\n\n\n2026-03-02\n\n\n\n\n\n\n\n\n\n\n\n\nIntegrate Zigbee Tuya Thermostats into Home Assistant\n\n\nHow to add unsupported ones to ZHA\n\n\n\nhomeassistant\n\ntuya\n\nthermostats\n\npython\n\n\n\n\n\n\n\n\n\n2023-03-06\n\n\n\n\n\n\n\n\n\n\n\n\nMinimal Conda Setup Instructions\n\n\n\n\n\n\npython\n\nconda\n\nmamba\n\nsoftware management\n\n\n\n\n\n\n\n\n\n2021-10-15\n\n\n\n\n\n\n\n\n\n\n\n\nTesting your internet speed regularly\n\n\nUse crontab and a bit of Python to store speedtest results in a CSV.\n\n\n\nhacking\n\npython\n\n\n\n\n\n\n\n\n\n2021-09-22\n\n\n\n\n\n\n\n\n\n\n\n\nMamba is the new Conda\n\n\n\n\n\n\nconda\n\nmamba\n\nsoftware management\n\n\n\n\n\n\n\n\n\n2021-09-10\n\n\n\n\n\n\n\n\n\n\n\n\nFan Creation\n\n\n\n\n\n\nplanet four\n\n\n\n\n\n\n\n\n\n2014-08-05\n\n\n\n\n\n\n\n\n\n\n\n\nMatplotlib Ticklabel Formats\n\n\n\n\n\n\nplotting\n\nmatplotlib\n\n\n\n\n\n\n\n\n\n2013-09-03\n\n\n\n\n\nNo matching items"
   },
   {
-    "objectID": "posts/github-releases-as-data-cdn/index.html#the-problem",
-    "href": "posts/github-releases-as-data-cdn/index.html#the-problem",
-    "title": "Using GitHub Releases as a Free Data CDN for Browser-Based Science Apps",
+    "objectID": "projects/planetarypy/index.html",
+    "href": "projects/planetarypy/index.html",
+    "title": "PlanetaryPy",
     "section": "",
-    "text": "You’ve built an interactive data exploration app that runs entirely in the browser using Pyodide or Shinylive — no server needed. But where do you put the data?\nYour options for static hosting (GitHub Pages, university web servers) are designed for HTML/JS/CSS, not for serving hundreds of megabytes of scientific data. And setting up a proper backend just to serve files defeats the purpose of a serverless app."
+    "text": "The PlanetaryPy Project is a community effort to develop a core package for planetary science in Python and foster interoperability between Python planetary science packages. The PlanetaryPy Technical Committee (TC) is the governing body for the PlanetaryPy Project. All of their work is done in the open via the TC GitHub repo.\nTo learn more about what the TC is, how it operates, or to get involved, you can read its Charter. The PlanetaryPy TC has regular meetings to which all are welcome to attend. The meeting agendas for upcoming meetings, and notes from previous meetings can be found in the TC’s GitHub repo.\nProject link\nLink to Github repo\nLink to slides\nVideo link"
   },
   {
-    "objectID": "posts/github-releases-as-data-cdn/index.html#github-releases-accidental-cdn",
-    "href": "posts/github-releases-as-data-cdn/index.html#github-releases-accidental-cdn",
-    "title": "Using GitHub Releases as a Free Data CDN for Browser-Based Science Apps",
-    "section": "GitHub Releases: Accidental CDN",
-    "text": "GitHub Releases: Accidental CDN\nWhen you create a GitHub Release, you can attach binary files up to 2 GiB each, with up to 1,000 assets per release and — crucially — no limit on total size or bandwidth.1 These “release assets” are served via GitHub’s global CDN.\n1 GitHub Docs: About releases — “Each file included in a release must be under 2 GiB. There is no limit on the total size of a release, nor bandwidth usage.”The key insight: releases don’t have to be for software versioning. You can use them purely as a free, fast file hosting service for datasets.\n\nHow it works\n\nCreate a repository (e.g., your-username/my-project-data)\nCreate a release tagged something like data-v1\nUpload your data files as release assets\nEach file gets a permanent, public URL:\n\nhttps://github.com/&lt;user&gt;/&lt;repo&gt;/releases/download/&lt;tag&gt;/&lt;filename&gt;\n\n\nWhy this beats other options\n\n\n\nApproach\nMax file size\nCost\nSpeed\nVersioning\n\n\n\n\nFiles in git repo\n100 MiB2\nFree\nSlow (cloned every time)\nYes but bloats repo\n\n\nGit LFS\n2 GiB\n10 GiB free storage + bandwidth3\nMedium\nYes\n\n\nRelease assets\n2 GiB\nFree, no bandwidth limit\nFast (CDN)\nYes (tags)\n\n\nS3/GCS\nUnlimited\nPaid\nFast\nManual\n\n\n\n2 GitHub Docs: About large files on GitHub — “GitHub blocks files larger than 100 MiB.” Repositories are recommended to stay under 1 GB, strongly under 5 GB.3 GitHub Docs: About storage and bandwidth usage — GitHub Free and Pro accounts get 10 GiB each for LFS storage and bandwidth per month.Release assets don’t count against your repository size and don’t affect git clone performance. You can have multiple releases, each with up to 1,000 files."
+    "objectID": "projects/planet-four/index.html",
+    "href": "projects/planet-four/index.html",
+    "title": "Planet Four",
+    "section": "",
+    "text": "The Red Planet is a unique and dynamic world. Through the power of the Internet and its volunteers, we explore the surface, climate, and history of Mars with the Planet Four projects.\nIt is difficult if not impossible for computer algorithms to accurately map individual polar seasonal fans, spot araneiform (‘spider’) erosion, and identify polygonal ridges. These features visible from orbit are easily spotted by the human eye, and volunteers from around the world have contributed by mapping seasonal fans, polygonal ridges, and araneiforms in Mars Reconnaissance Orbiter imagery."
   },
   {
-    "objectID": "posts/github-releases-as-data-cdn/index.html#fetching-data-from-pyodideshinylive",
-    "href": "posts/github-releases-as-data-cdn/index.html#fetching-data-from-pyodideshinylive",
-    "title": "Using GitHub Releases as a Free Data CDN for Browser-Based Science Apps",
-    "section": "Fetching Data from Pyodide/Shinylive",
-    "text": "Fetching Data from Pyodide/Shinylive\nA Pyodide app running in the browser can fetch release assets directly — GitHub serves them with permissive CORS headers:\nfrom pyodide.http import pyfetch\nimport pandas as pd\nfrom io import BytesIO\n\n# Fetch a Parquet file from a GitHub release\nurl = (\n    \"https://github.com/your-username/my-project-data\"\n    \"/releases/download/data-v1/observations.parquet\"\n)\nresponse = await pyfetch(url)\nbuffer = await response.bytes()\ndf = pd.read_parquet(BytesIO(buffer))"
+    "objectID": "projects/planet-four/index.html#p4tools",
+    "href": "projects/planet-four/index.html#p4tools",
+    "title": "Planet Four",
+    "section": "p4tools",
+    "text": "p4tools\nThe p4tools Python library provides easy access to the Planet Four citizen science catalogs. Install via pip install p4tools and get started with a few lines:\n\nDownload and cache fan and blotch catalogs automatically via pooch\nBuilt-in plotting tools for catalog visualization\nCLI interface via the p4 command"
   },
   {
-    "objectID": "posts/github-releases-as-data-cdn/index.html#practical-pattern-tiled-data-loading",
-    "href": "posts/github-releases-as-data-cdn/index.html#practical-pattern-tiled-data-loading",
-    "title": "Using GitHub Releases as a Free Data CDN for Browser-Based Science Apps",
-    "section": "Practical Pattern: Tiled Data Loading",
-    "text": "Practical Pattern: Tiled Data Loading\nFor large datasets, don’t serve one monolithic file. Instead, tile your data and fetch only what the user needs:\nasync def load_tile(x, y, base_url):\n    \"\"\"Load a single DEM tile on demand.\"\"\"\n    url = f\"{base_url}/tile_{x}_{y}.parquet\"\n    response = await pyfetch(url)\n    buffer = await response.bytes()\n    return pd.read_parquet(BytesIO(buffer))\n\n# User clicks on region → fetch only that tile\ntile = await load_tile(3, 7, release_url)\nThis way, a 2 GB dataset split into 256 tiles means each interaction only downloads ~8 MB."
+    "objectID": "projects/planet-four/index.html#current-research",
+    "href": "projects/planet-four/index.html#current-research",
+    "title": "Planet Four",
+    "section": "Current research",
+    "text": "Current research\nOur latest analysis covers 463 HiRISE observations spanning Mars Years 28–33, studying inter- and intra-annual variability of dark regolith deposits at Mars’ south pole (EGU 2026). The dataset reveals a mean jet deposit ground coverage of 6.89% with high inter-annual repeatability, providing new constraints on seasonal CO2 jet activity."
   },
   {
-    "objectID": "posts/github-releases-as-data-cdn/index.html#http-range-requests-and-cloud-optimized-formats",
-    "href": "posts/github-releases-as-data-cdn/index.html#http-range-requests-and-cloud-optimized-formats",
-    "title": "Using GitHub Releases as a Free Data CDN for Browser-Based Science Apps",
-    "section": "HTTP Range Requests and Cloud-Optimized Formats",
-    "text": "HTTP Range Requests and Cloud-Optimized Formats\nAs Mario D’Amore pointed out, HTTP range requests and COG work as well. GitHub’s CDN supports HTTP Range requests, meaning you can read partial data from a file without downloading the whole thing. This is particularly powerful with formats designed for partial reads, like Cloud Optimized GeoTIFF (COG).\n\nReading a COG directly from a release asset\nimport rioxarray\n\nurl = (\n    \"https://github.com/your-username/my-project-data\"\n    \"/releases/download/data-v1/dem.tif\"\n)\n\n# rioxarray/rasterio use GDAL's vsicurl under the hood,\n# which issues HTTP range requests to read only the needed tiles\nds = rioxarray.open_rasterio(url)\n\n# Read just a spatial subset — only the relevant byte ranges are fetched\nsubset = ds.sel(x=slice(100, 200), y=slice(300, 400))\n\n\nByte-range fetch with plain Python\nimport httpx\n\nurl = (\n    \"https://github.com/your-username/my-project-data\"\n    \"/releases/download/data-v1/large_dataset.parquet\"\n)\n\n# Fetch only the first 1 KiB (e.g., to read a Parquet footer or file header)\nresp = httpx.get(url, headers={\"Range\": \"bytes=0-1023\"})\nprint(resp.status_code)  # 206 Partial Content\nheader_bytes = resp.content\nThis means you don’t necessarily need to pre-tile your data. If your dataset is stored as a COG or another range-friendly format, clients can request just the spatial or spectral subset they need — GitHub’s CDN handles the rest."
+    "objectID": "projects/planet-four/index.html#links",
+    "href": "projects/planet-four/index.html#links",
+    "title": "Planet Four",
+    "section": "Links",
+    "text": "Links\n\nPlanet Four\nZooniverse results\np4tools on PyPI\np4tools documentation\nGitHub organization\nIntroduction video\nPublications"
   },
   {
-    "objectID": "posts/github-releases-as-data-cdn/index.html#uploading-release-assets",
-    "href": "posts/github-releases-as-data-cdn/index.html#uploading-release-assets",
-    "title": "Using GitHub Releases as a Free Data CDN for Browser-Based Science Apps",
-    "section": "Uploading Release Assets",
-    "text": "Uploading Release Assets\n\nVia the web UI\nGo to your repo → Releases → Draft a new release → attach files by drag and drop.\n\n\nVia the GitHub CLI\n# Create a release and upload files in one step\ngh release create data-v1 \\\n  tile_*.parquet \\\n  metadata.json \\\n  --repo your-username/my-project-data \\\n  --title \"Dataset v1\" \\\n  --notes \"Initial DEM tile dataset\"\nTo update data, create a new release (data-v2) — old URLs keep working."
+    "objectID": "projects/koregistration/index.html",
+    "href": "projects/koregistration/index.html",
+    "title": "Image Co-registration",
+    "section": "",
+    "text": "When combining orbital images of Mars taken at different times, precise alignment — co-registration — is essential. Small misalignments between images propagate into every downstream product: mosaics, digital terrain models, and change detection maps all suffer.\nTraditional co-registration workflows for CTX (Context Camera) images from Mars Reconnaissance Orbiter rely on manual tie-point generation — a tedious, time-consuming process that doesn’t scale. This project develops an automatic co-registration pipeline using modern image processing techniques that eliminates the need for manual tie-points entirely, producing well-aligned image stacks ready for downstream analysis.\nThis is a collaborative project with Sebastian Walter as the lead at Freie Universität Berlin, funded by the German Federal Ministry of Education and Research (BMBF) through DLR (grant 50 OO 2204)."
   },
   {
-    "objectID": "posts/github-releases-as-data-cdn/index.html#when-to-use-something-else",
-    "href": "posts/github-releases-as-data-cdn/index.html#when-to-use-something-else",
-    "title": "Using GitHub Releases as a Free Data CDN for Browser-Based Science Apps",
-    "section": "When to Use Something Else",
-    "text": "When to Use Something Else\n\nFiles &gt; 2 GiB: Use cloud object storage (S3, GCS) or split into chunks\nPrivate data: Release assets on public repos are public; use private repos with token-based access or a different hosting solution\nHigh-frequency updates: Releases are for versioned snapshots, not databases that change every minute\nStreaming/real-time data: You need a real backend"
+    "objectID": "projects/koregistration/index.html#outputs",
+    "href": "projects/koregistration/index.html#outputs",
+    "title": "Image Co-registration",
+    "section": "Outputs",
+    "text": "Outputs\n\nEGU 2023 poster\nLPSC 54 (2023) abstract\nWalter et al. (2024), “Mars Reconnaissance Orbiter Context Camera Updated In-Flight Calibration,” Earth and Space Science 11(2). DOI: 10.1029/2023EA003491"
   },
   {
-    "objectID": "posts/github-releases-as-data-cdn/index.html#summary",
-    "href": "posts/github-releases-as-data-cdn/index.html#summary",
-    "title": "Using GitHub Releases as a Free Data CDN for Browser-Based Science Apps",
+    "objectID": "projects/uvis-pdart/index.html",
+    "href": "projects/uvis-pdart/index.html",
+    "title": "Cassini UVIS Data Product Enhancement",
+    "section": "",
+    "text": "This NASA PDART project upgrades the existing Cassini UVIS data products into a modern, science-ready format. The PI is Matt Tiscareno at the SETI Institute; I serve as external consultant and continue to lead most project activities from FU Berlin."
+  },
+  {
+    "objectID": "projects/uvis-pdart/index.html#objectives",
+    "href": "projects/uvis-pdart/index.html#objectives",
+    "title": "Cassini UVIS Data Product Enhancement",
+    "section": "Objectives",
+    "text": "Objectives\nThe limited content and inconvenient format of published Cassini Ultraviolet Imaging Spectrograph (UVIS) data products puts a high burden on end users before scientific investigation can begin. This project produces upgraded data products in a modern format, adds all required metadata to remove the need for time-consuming geometry calculations, and performs default calibrations for the majority of data products. This benefits all aspects of UVIS science:\n\nstellar and solar occultations of Saturn,\nemissions from the Titan atmosphere,\nsatellite reflectance,\nring spectroscopy, and more."
+  },
+  {
+    "objectID": "projects/uvis-pdart/index.html#approach",
+    "href": "projects/uvis-pdart/index.html#approach",
+    "title": "Cassini UVIS Data Product Enhancement",
+    "section": "Approach",
+    "text": "Approach\nWe create enhanced UVIS data products by pre-calculating an expanded set of geometry parameters for each detector readout and applying a default calibration that varies with the observational scenario. The additional metadata is included with the original instrument data in PDS4-compatible FITS files. Python and IDL tools are provided for data access, analysis, and plotting."
+  },
+  {
+    "objectID": "projects/uvis-pdart/index.html#current-status",
+    "href": "projects/uvis-pdart/index.html#current-status",
+    "title": "Cassini UVIS Data Product Enhancement",
+    "section": "Current status",
+    "text": "Current status\nThe project is in its third year. Current work focuses on:\n\nFITS metadata definition and automation\nThe UVIS User Guide — comprehensive documentation for working with the enhanced data products\nCalibration pipeline refinement and validation"
+  },
+  {
+    "objectID": "projects/janus-juice/index.html",
+    "href": "projects/janus-juice/index.html",
+    "title": "JANUS Camera on the JUICE Mission",
+    "section": "",
+    "text": "JANUS (Jovis, Amorum ac Natorum Undique Scrutator) is the optical camera system on ESA’s JUICE mission to the Jupiter system. It will image Jupiter’s atmosphere, the Galilean moons — particularly Ganymede, Europa, and Callisto — and the broader Jovian environment at visible and near-infrared wavelengths.\nMy work on JANUS focuses on radiometric calibration, exposure time calculation, and signal-to-noise analysis. I developed the janus-nbexposure Python package for computing expected signal levels and optimal exposure times across JANUS observing scenarios, accounting for detector characteristics, optical throughput, and target radiance — including reflected Jupiter-shine on the icy moons.\nThis work supports observation planning and helps ensure that JANUS achieves its science objectives within the instrument’s operational constraints. Funded by the German Federal Ministry of Education and Research (BMBF) through DLR (grant 50QJ2404)."
+  },
+  {
+    "objectID": "projects/janus-juice/index.html#links",
+    "href": "projects/janus-juice/index.html#links",
+    "title": "JANUS Camera on the JUICE Mission",
+    "section": "Links",
+    "text": "Links\n\njanus-nbexposure — Exposure calculation package\nJUICE mission (ESA)"
+  },
+  {
+    "objectID": "projects/saturn-rings/index.html",
+    "href": "projects/saturn-rings/index.html",
+    "title": "Mesoscale Structures in Saturn’s Rings: Clues to Origin and Evolution",
+    "section": "",
+    "text": "I was a funded Co-I on this project led by Joshua Colwell (UCF) until I left the US in 2022.\nMy task was to analyze Cassini ISS images of the Saturn rings like shown above, project them into the ring-cylindrical coordinate system so that one can do statistics along the ring azimuth. After subtracting the dominant background density wave signal one can produce statistical statements about potential clumping changes over the Saturn ring radius, using robust median absolute deviation statistics."
+  },
+  {
+    "objectID": "projects/saturn-rings/index.html#project-summary",
+    "href": "projects/saturn-rings/index.html#project-summary",
+    "title": "Mesoscale Structures in Saturn’s Rings: Clues to Origin and Evolution",
+    "section": "Project summary",
+    "text": "Project summary\nWe propose to apply a variety of image processing techniques to observations of Saturn’s rings made by the Cassini Imaging Science Subsystem (ISS) and the Ultraviolet Imaging Spectrograph (UVIS) to investigate a previously unexpected aspect of Saturn’s rings: non-axisymmetric mesoscale structures that are larger than individual particles or self-gravitating clumps of particles and smaller than regular structures such as ringlets, density waves, and bending waves.\nISS images of the C ring reveal unexpected texture indicating structures spanning about 1 km in ring radius and several tens of km in the azimuthal direction. The nature and amount of this texture in the images varies across the C ring. Similar texture is seen in the outer portion of the B ring as well as within density waves in the A ring. UVIS observed a series of special stellar occultations that had very low velocities in the local ring particle frame (“particle tracking occultations”). These provide uniquely high resolution for non-axisymmetric structures.\nUVIS also observed many occultations of binary stars where the two stars’ separation distances projected in the ring plane span 10’s of m to a few km. These occultations are ideally suited for studying mesoscale structures. By analyzing changes in the auto-correlation of the occultation light curve we can measure changes in ring optical depth at a given ring plane radius since the two stellar components cross that radial position at different longitudes. The combination of multiple UVIS occultations at different viewing geometries, both in ring elevation and azimuth, make it possible to study not only the sizes and distribution of mesoscale structures but also their three-dimensional shapes.\nWe will incorporate analysis of the higher order moments of the UVIS stellar occultations as well as carry out N-body simulations of the rings using a well-tested collisional and self-gravitating model developed by Co-I Lewis. We will forward model the rings and reproduce the textured structure seen in ISS images as well as occultation signals of non-axisymmetric structures. We will test the effects of particle density, particle size distribution, and local embedded perturbers (giant boulders or miniature moonlets) to understand the conditions required for formation of these structures that likely include both large-scale aggregates or density enhancements as well as azimuthally-limited gaps or holes in the rings.\nWe will compare these results with observations made across the ring system including “straw” in density waves in the A ring and various streaky texture identified in images across the main rings. We will compare the simulations with particle-tracking occultations throughout the main rings to better understand the differences in ring particle properties across the system. Comparisons of both occultation data and high-resolution imaging data with simulations will show the effects of particle properties, distance from Saturn, local ring surface mass density, and effects of gravitational perturbations from external satellites and embedded moonlets.\nWe will search for evidence of secular changes in these structures to better understand the evolution of the system. Results from our analysis will constrain long-term evolutionary models of the viscous spreading of the rings as well as ring erosion and pollution models. The results of this research will thus help us address fundamental questions about the origin of the rings, such as whether the different main ring regions have a common or separate origin."
+  },
+  {
+    "objectID": "projects/planetary-data-reader/index.html",
+    "href": "projects/planetary-data-reader/index.html",
+    "title": "Planetary Data Reader",
+    "section": "",
+    "text": "I am a Collaborator (Co-I until I left the US) in this exciting project, led by Chase Million of Million Concepts."
+  },
+  {
+    "objectID": "projects/planetary-data-reader/index.html#goals-and-objectives",
+    "href": "projects/planetary-data-reader/index.html#goals-and-objectives",
+    "title": "Planetary Data Reader",
+    "section": "Goals and objectives",
+    "text": "Goals and objectives\nThis project will create an open source, Python-based tool capable of reading the vast majority of data (including tables and images) and metadata formats currently archived by the PDS, as well as some formats common in planetary science research workflows but not typically archived in PDS (e.g. ISIS cube, JP2, GeoTiff). It will offer users a consistent, easily-understandable interface that works the same way for all data formats. For instance, a simple command like read(filename) will return a Python object that can immediately be used in research workflows or easily converted to other formats using pre-existing tools.\nThis tool solves a well-known pain point for planetary data users: simply figuring out how to access data, especially data archived under PDS3, which often have inconsistent or bespoke formats. PDS is in the process of migrating archives to the stricter PDS4 standard, but the timeline for this migration is uncertain, and it is unlikely to be completed before 2025. The tool developed under this project provides a stopgap solution and also supplements the migration effort in two important ways. First, reading PDS3 data formats is one limit on a swift and efficient data migration, so this tool will streamline that effort. Second, because this tool will treat PDS3 and PDS4 data identically from the end-user perspective, it will future-proof research workflows from the migration."
+  },
+  {
+    "objectID": "projects/planetary-data-reader/index.html#approach-and-methodology",
+    "href": "projects/planetary-data-reader/index.html#approach-and-methodology",
+    "title": "Planetary Data Reader",
+    "section": "Approach and methodology",
+    "text": "Approach and methodology\nThis effort will build on proof-of-concept work already undertaken by this team. The majority of data archived under PDS3 (including .DAT and .IMG files) use a bitwise structured format sometimes referred to as the “PDS3 format.” It is not dissimilar from the FITS file format, but suffers from a much looser definition, leading to difficulties reading these files. The major issues in PDS3 that we have identified are (1) inconsistent mapping between specified data types and byte-size / order, (2) complex files containing multiple or mixed data types, and (3) file format definitions that are not stored in standard locations. We have prototyped solutions to these three issues, and the work plan will involve fully developing and testing those solutions. Other issues arise less frequently (e.g. one-off “bad” files, unique formats) and will be dealt with case-by-case.\nSeveral Python tools exist for reading subsets of planetary data. They include pds4_tools, PVL, Plio, Python wrappers for GDAL and fitsio, Pysis, and SpiceyPy, astropy. These will be reused when appropriate, with input and output syntax / behavior wrapped to provide consistent experience across data types.\nA thorough testing suite will also be developed which, in addition to more targeted approaches, will scrape PDS data holdings in a systematic way to verify expected behavior and identify issues requiring additional development. The resulting tool will be released under a permissive license and made publicly available on the PI’s institutional webspace and the NASA PSD Github. It will be made available for easy installation through pip and conda and also submitted as an affiliate package to the PlanetaryPy project."
+  },
+  {
+    "objectID": "projects/planetary-data-reader/index.html#scope-and-relevance",
+    "href": "projects/planetary-data-reader/index.html#scope-and-relevance",
+    "title": "Planetary Data Reader",
+    "section": "Scope and relevance",
+    "text": "Scope and relevance\nThe proposed work will “develop and disseminate software tools that facilitate the use of existing datasets or that would enable or enhance future science investigations of interest to the Planetary Science Division” and is therefore a Software Tool Development and Validation task per section 1.7 of the solicitation. The proposed work does not include a “science investigation” or application of t hese tools except as necessary to validate their performance. It is therefore within scope of and appropriate for PDART.\nLink to project\nPDF link\nListing picture source"
+  },
+  {
+    "objectID": "scripts/orcid-claiming-worksheet.html",
+    "href": "scripts/orcid-claiming-worksheet.html",
+    "title": "ORCID Claiming Worksheet",
+    "section": "",
+    "text": "Go to ui.adsabs.harvard.edu and log in\nClick the ORCID icon in the top nav bar → authorize ADS via OAuth\nGo to ORCID settings → fill in your affiliation and all name variations (K.-M. Aye, Klaus-Michael Aye, K. M. Aye, KM Aye, etc.)\nToggle ORCID mode on (ORCID button in nav bar)\nSearch for papers below → check boxes → click Claim in the ORCID Bulk Actions sidebar\nClaims index within ~24 hours → your orcid:0000-0002-4088-1928 query will pick them up\n\nBulk claiming is supported — select multiple results and claim in one action.\n\n\n\n\nThese are published papers/abstracts that should be on ADS. Search by title or first author + year, then claim.\n\n\n\n\n\n\n\n\n\n\n\n\n#\nYear\nTitle\nSearch hint\nStatus\n\n\n\n\n1\n2021\nThe PlanetaryPy Project\nauthor:\"Aye\" year:2021 PlanetaryPy\n[ ]\n\n\n2\n2019\nSetting Up a New VENus IMage Analysis Package Called VENIM\nauthor:\"Aye\" year:2019 VENIM\n[ ]\n\n\n3\n2018\nMachine Learning in Planetary Science: Introductions and Applications I Posters\nauthor:\"Aye\" year:2018 \"Machine Learning\"\n[ ]\n\n\n4\n2001\nObservations of PKS 2155-304 by the University of Durham Mark 6 telescope\nauthor:\"Aye\" year:2001 PKS\n[ ]\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n#\nYear\nTitle\nSearch hint\nStatus\n\n\n\n\n5\n2022\nIrregular polygonal ridge networks in ancient Noachian terrain on Mars\nauthor:\"Khuller\" year:2022 polygonal\n[ ]\n\n\n6\n2022\nPlanet four: A neural network’s search for polar spring-time fans on Mars\nauthor:\"McDonnell\" year:2022 \"Planet Four\"\n[ ]\n\n\n7\n2021\nSpring near-surface winds in the southern polar regions of Mars\nauthor:\"Portyankina\" year:2021 winds\n[ ]\n\n\n8\n2021\nThe Planetary Software Organization and Open Source Software Governance\nauthor:\"Mapel\" year:2021 \"Planetary Software\"\n[ ]\n\n\n9\n2021\nThe Planetary Data Reader (pdr)\nauthor:\"Million\" year:2021 \"Planetary Data Reader\"\n[ ]\n\n\n10\n2021\nAndrewAnnex/SpiceyPy: SpiceyPy 4.0.1\nauthor:\"Annex\" SpiceyPy 4.0.1\n[ ]\n\n\n11\n2020\nDynamic Seasons on Mars — Polar Images and Investigations\nauthor:\"Hansen\" year:2020 \"Dynamic Seasons\"\n[ ]\n\n\n12\n2020\nSolar-System-Wide Significance of Mars Polar Science\nauthor:\"Guzewich\" OR author:\"Smith\" year:2020 \"Mars Polar Science\"\n[ ]\n\n\n13\n2017\nPresent-day erosion of Martian polar terrain by the seasonal CO2 jets\nauthor:\"Portyankina\" year:2017 erosion CO2\n[ ]\n\n\n14\n2017\nPlanet Four: Terrains — Discovery of araneiforms outside SPLD\nauthor:\"Schwamb\" year:2017 araneiforms\n[ ]\n\n\n15\n2013\nMars Polar Science V\nauthor:\"Pommerol\" year:2013 \"Mars Polar Science\"\n[ ]\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n#\nYear\nTitle\nSearch hint\nStatus\n\n\n\n\n16\n2022\nStudying polar CO2 jet eruptions and the state of the lower martian atmosphere\nauthor:\"Portyankina\" year:2022 CO2 jet\n[ ]\n\n\n17\n2021\nAirglow Emissions on Venus: Spatial and Temporal Evolution at 1.27 µm\nauthor:\"Vierling\" year:2021 airglow\n[ ]\n\n\n18\n2021\nSmall-Scale Structure in the Core of Saturn’s B Ring\nauthor:\"Colwell\" year:2021 \"B Ring\"\n[ ]\n\n\n19\n2021\nSmall-scale azimuthal structure in Saturn’s rings\nauthor:\"Jerousek\" year:2021 azimuthal\n[ ]\n\n\n20\n2021\nIrregular Structure in the Core of Saturn’s B Ring\nauthor:\"Colwell\" year:2021 irregular\n[ ]\n\n\n21\n2021\nComparing model-derived and imagery-derived wind directions\nauthor:\"Portyankina\" year:2021 wind directions\n[ ]\n\n\n22\n2020\nSand, Wind, and Ices on Mars\nauthor:\"Portyankina\" year:2020 sand wind\n[ ]\n\n\n23\n2020\nMachine Learning for Planetary Science II\nauthor:\"Kerner\" year:2020 \"Machine Learning\"\n[ ]\n\n\n24\n2020\nMapping Seasonal and Diurnal Temperatures with LRO Diviner\nauthor:\"Williams\" year:2020 Diviner\n[ ]\n\n\n25\n2020\nVenus Cloud Tracking Methods for Akatsuki\nauthor:\"Vierling\" year:2020 Venus cloud\n[ ]\n\n\n26\n2020\nMesoscale structures in Saturn’s rings from UVIS\nauthor:\"Jerousek\" year:2020 mesoscale\n[ ]\n\n\n27\n2020\nDerived South Polar Martian Winds Interpreted Using Mesoscale Modeling\nauthor:\"Portyankina\" year:2020 mesoscale\n[ ]\n\n\n28\n2020\nInfluence of small-scale topography on seasonal activity\nauthor:\"Drake\" year:2020 topography\n[ ]\n\n\n29\n2020\nTemporally and azimuthally averaged mesoscale structures in Saturn’s rings\nauthor:\"Jerousek\" year:2020 temporally\n[ ]\n\n\n30\n2020\nEvolution of Nightside Features from Deconvolved Akatsuki\nauthor:\"Young\" year:2020 Akatsuki\n[ ]\n\n\n31\n2019\nPlanet Four: CO2 jets formed by basal sublimation\nauthor:\"Badri\" year:2019 \"Planet Four\"\n[ ]\n\n\n32\n2019\nMachine Learning for Planetary Science Posters\nauthor:\"Kerner\" year:2019 \"Machine Learning\"\n[ ]\n\n\n33\n2017\nPlanet Four: Terrains-Araneiform in the South Polar Region\nauthor:\"Hansen\" year:2017 araneiform\n[ ]\n\n\n34\n2017\nRise of Machine Learning: Salvation for Planetary Science\nauthor:\"Helbert\" year:2017 \"Machine Learning\"\n[ ]\n\n\n35\n2016\nPlanet Four: Terrains-Pointing the Highest Resolution Camera\nauthor:\"Schwamb\" year:2016 \"Planet Four\"\n[ ]\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n#\nYear\nTitle\nSearch hint\nStatus\n\n\n\n\n36\n2005\nResolving the Extragalactic Background Light with gamma-ray spectra\nauthor:\"Aharonian\" year:2005 extragalactic background\n[ ]\n\n\n37\n2005\nSerendipitous discovery of HESS J1303-631\nauthor:\"Aharonian\" year:2005 J1303\n[ ]\n\n\n38\n2005\nGalactic structure, stellar clusters and populations\nauthor:\"Aharonian\" year:2005 \"stellar clusters\"\n[ ]\n\n\n39\n2005\nDiscovery of VHE gamma-ray emission from LS 5039\nauthor:\"Aharonian\" year:2005 \"LS 5039\"\n[ ]\n\n\n\n\n\n\n\n\nThese are entries ADS will likely never return. Keep them in a separate file that gets merged into the final bibliography.\n\n\n\n\n\n\n\n\n\n\n#\nYear\nCitation Key\nTitle\nWhy not on ADS\n\n\n\n\n1\n2005\naye2005effects\nThe effects of atmosphere conditions on gamma-ray astronomy\nPhD thesis\n\n\n2\n2018\nportyankina2018co2\nCO2-Driven Geomorphological Processes: Landscape Evolution\nBook chapter (incollection)\n\n\n3\n2014\naye2014merged\nMerged Rosetta NAVCAM images\nMisc/informal publication\n\n\n4\n2017\nprockter2017value\nThe Value of Participating Scientist Programs to NASA’s PSDiv\nWhite paper (misc)\n\n\n5\n2005\nlatham2005ray\nGamma-Ray Generation in Microquasars\nConference paper, truncated title — may be findable on ADS\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n#\nCitation Key\nIssue\n\n\n\n\n1\naye2001jl\nNot a real entry — “title” is just co-author names\n\n\n2\nseftonlro\nMissing year field\n\n\n3\ngyalaylro\nMissing year field\n\n\n4\nazari2021machine\nMissing year field\n\n\n5\nsmith2021solar\nDuplicate of guzewich2020solar (same paper, different first author/year)\n\n\n\n\n\n\n\nOnce you’ve claimed papers on ADS (allow 24 hours for indexing), re-run:\nenv ADS_API_TOKEN=your_token python scripts/update_bib.py\nThe newly claimed papers should now appear. Compare entry counts to verify."
+  },
+  {
+    "objectID": "scripts/orcid-claiming-worksheet.html#how-to-claim-papers-on-ads",
+    "href": "scripts/orcid-claiming-worksheet.html#how-to-claim-papers-on-ads",
+    "title": "ORCID Claiming Worksheet",
+    "section": "",
+    "text": "Go to ui.adsabs.harvard.edu and log in\nClick the ORCID icon in the top nav bar → authorize ADS via OAuth\nGo to ORCID settings → fill in your affiliation and all name variations (K.-M. Aye, Klaus-Michael Aye, K. M. Aye, KM Aye, etc.)\nToggle ORCID mode on (ORCID button in nav bar)\nSearch for papers below → check boxes → click Claim in the ORCID Bulk Actions sidebar\nClaims index within ~24 hours → your orcid:0000-0002-4088-1928 query will pick them up\n\nBulk claiming is supported — select multiple results and claim in one action."
+  },
+  {
+    "objectID": "scripts/orcid-claiming-worksheet.html#category-a-claimable-on-ads-search-check-claim",
+    "href": "scripts/orcid-claiming-worksheet.html#category-a-claimable-on-ads-search-check-claim",
+    "title": "ORCID Claiming Worksheet",
+    "section": "",
+    "text": "These are published papers/abstracts that should be on ADS. Search by title or first author + year, then claim.\n\n\n\n\n\n\n\n\n\n\n\n\n#\nYear\nTitle\nSearch hint\nStatus\n\n\n\n\n1\n2021\nThe PlanetaryPy Project\nauthor:\"Aye\" year:2021 PlanetaryPy\n[ ]\n\n\n2\n2019\nSetting Up a New VENus IMage Analysis Package Called VENIM\nauthor:\"Aye\" year:2019 VENIM\n[ ]\n\n\n3\n2018\nMachine Learning in Planetary Science: Introductions and Applications I Posters\nauthor:\"Aye\" year:2018 \"Machine Learning\"\n[ ]\n\n\n4\n2001\nObservations of PKS 2155-304 by the University of Durham Mark 6 telescope\nauthor:\"Aye\" year:2001 PKS\n[ ]\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n#\nYear\nTitle\nSearch hint\nStatus\n\n\n\n\n5\n2022\nIrregular polygonal ridge networks in ancient Noachian terrain on Mars\nauthor:\"Khuller\" year:2022 polygonal\n[ ]\n\n\n6\n2022\nPlanet four: A neural network’s search for polar spring-time fans on Mars\nauthor:\"McDonnell\" year:2022 \"Planet Four\"\n[ ]\n\n\n7\n2021\nSpring near-surface winds in the southern polar regions of Mars\nauthor:\"Portyankina\" year:2021 winds\n[ ]\n\n\n8\n2021\nThe Planetary Software Organization and Open Source Software Governance\nauthor:\"Mapel\" year:2021 \"Planetary Software\"\n[ ]\n\n\n9\n2021\nThe Planetary Data Reader (pdr)\nauthor:\"Million\" year:2021 \"Planetary Data Reader\"\n[ ]\n\n\n10\n2021\nAndrewAnnex/SpiceyPy: SpiceyPy 4.0.1\nauthor:\"Annex\" SpiceyPy 4.0.1\n[ ]\n\n\n11\n2020\nDynamic Seasons on Mars — Polar Images and Investigations\nauthor:\"Hansen\" year:2020 \"Dynamic Seasons\"\n[ ]\n\n\n12\n2020\nSolar-System-Wide Significance of Mars Polar Science\nauthor:\"Guzewich\" OR author:\"Smith\" year:2020 \"Mars Polar Science\"\n[ ]\n\n\n13\n2017\nPresent-day erosion of Martian polar terrain by the seasonal CO2 jets\nauthor:\"Portyankina\" year:2017 erosion CO2\n[ ]\n\n\n14\n2017\nPlanet Four: Terrains — Discovery of araneiforms outside SPLD\nauthor:\"Schwamb\" year:2017 araneiforms\n[ ]\n\n\n15\n2013\nMars Polar Science V\nauthor:\"Pommerol\" year:2013 \"Mars Polar Science\"\n[ ]\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n#\nYear\nTitle\nSearch hint\nStatus\n\n\n\n\n16\n2022\nStudying polar CO2 jet eruptions and the state of the lower martian atmosphere\nauthor:\"Portyankina\" year:2022 CO2 jet\n[ ]\n\n\n17\n2021\nAirglow Emissions on Venus: Spatial and Temporal Evolution at 1.27 µm\nauthor:\"Vierling\" year:2021 airglow\n[ ]\n\n\n18\n2021\nSmall-Scale Structure in the Core of Saturn’s B Ring\nauthor:\"Colwell\" year:2021 \"B Ring\"\n[ ]\n\n\n19\n2021\nSmall-scale azimuthal structure in Saturn’s rings\nauthor:\"Jerousek\" year:2021 azimuthal\n[ ]\n\n\n20\n2021\nIrregular Structure in the Core of Saturn’s B Ring\nauthor:\"Colwell\" year:2021 irregular\n[ ]\n\n\n21\n2021\nComparing model-derived and imagery-derived wind directions\nauthor:\"Portyankina\" year:2021 wind directions\n[ ]\n\n\n22\n2020\nSand, Wind, and Ices on Mars\nauthor:\"Portyankina\" year:2020 sand wind\n[ ]\n\n\n23\n2020\nMachine Learning for Planetary Science II\nauthor:\"Kerner\" year:2020 \"Machine Learning\"\n[ ]\n\n\n24\n2020\nMapping Seasonal and Diurnal Temperatures with LRO Diviner\nauthor:\"Williams\" year:2020 Diviner\n[ ]\n\n\n25\n2020\nVenus Cloud Tracking Methods for Akatsuki\nauthor:\"Vierling\" year:2020 Venus cloud\n[ ]\n\n\n26\n2020\nMesoscale structures in Saturn’s rings from UVIS\nauthor:\"Jerousek\" year:2020 mesoscale\n[ ]\n\n\n27\n2020\nDerived South Polar Martian Winds Interpreted Using Mesoscale Modeling\nauthor:\"Portyankina\" year:2020 mesoscale\n[ ]\n\n\n28\n2020\nInfluence of small-scale topography on seasonal activity\nauthor:\"Drake\" year:2020 topography\n[ ]\n\n\n29\n2020\nTemporally and azimuthally averaged mesoscale structures in Saturn’s rings\nauthor:\"Jerousek\" year:2020 temporally\n[ ]\n\n\n30\n2020\nEvolution of Nightside Features from Deconvolved Akatsuki\nauthor:\"Young\" year:2020 Akatsuki\n[ ]\n\n\n31\n2019\nPlanet Four: CO2 jets formed by basal sublimation\nauthor:\"Badri\" year:2019 \"Planet Four\"\n[ ]\n\n\n32\n2019\nMachine Learning for Planetary Science Posters\nauthor:\"Kerner\" year:2019 \"Machine Learning\"\n[ ]\n\n\n33\n2017\nPlanet Four: Terrains-Araneiform in the South Polar Region\nauthor:\"Hansen\" year:2017 araneiform\n[ ]\n\n\n34\n2017\nRise of Machine Learning: Salvation for Planetary Science\nauthor:\"Helbert\" year:2017 \"Machine Learning\"\n[ ]\n\n\n35\n2016\nPlanet Four: Terrains-Pointing the Highest Resolution Camera\nauthor:\"Schwamb\" year:2016 \"Planet Four\"\n[ ]\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n#\nYear\nTitle\nSearch hint\nStatus\n\n\n\n\n36\n2005\nResolving the Extragalactic Background Light with gamma-ray spectra\nauthor:\"Aharonian\" year:2005 extragalactic background\n[ ]\n\n\n37\n2005\nSerendipitous discovery of HESS J1303-631\nauthor:\"Aharonian\" year:2005 J1303\n[ ]\n\n\n38\n2005\nGalactic structure, stellar clusters and populations\nauthor:\"Aharonian\" year:2005 \"stellar clusters\"\n[ ]\n\n\n39\n2005\nDiscovery of VHE gamma-ray emission from LS 5039\nauthor:\"Aharonian\" year:2005 \"LS 5039\"\n[ ]"
+  },
+  {
+    "objectID": "scripts/orcid-claiming-worksheet.html#category-b-not-on-ads-add-to-manual_extras.bib",
+    "href": "scripts/orcid-claiming-worksheet.html#category-b-not-on-ads-add-to-manual_extras.bib",
+    "title": "ORCID Claiming Worksheet",
+    "section": "",
+    "text": "These are entries ADS will likely never return. Keep them in a separate file that gets merged into the final bibliography.\n\n\n\n\n\n\n\n\n\n\n#\nYear\nCitation Key\nTitle\nWhy not on ADS\n\n\n\n\n1\n2005\naye2005effects\nThe effects of atmosphere conditions on gamma-ray astronomy\nPhD thesis\n\n\n2\n2018\nportyankina2018co2\nCO2-Driven Geomorphological Processes: Landscape Evolution\nBook chapter (incollection)\n\n\n3\n2014\naye2014merged\nMerged Rosetta NAVCAM images\nMisc/informal publication\n\n\n4\n2017\nprockter2017value\nThe Value of Participating Scientist Programs to NASA’s PSDiv\nWhite paper (misc)\n\n\n5\n2005\nlatham2005ray\nGamma-Ray Generation in Microquasars\nConference paper, truncated title — may be findable on ADS"
+  },
+  {
+    "objectID": "scripts/orcid-claiming-worksheet.html#category-c-clean-up-remove-from-old-bib",
+    "href": "scripts/orcid-claiming-worksheet.html#category-c-clean-up-remove-from-old-bib",
+    "title": "ORCID Claiming Worksheet",
+    "section": "",
+    "text": "#\nCitation Key\nIssue\n\n\n\n\n1\naye2001jl\nNot a real entry — “title” is just co-author names\n\n\n2\nseftonlro\nMissing year field\n\n\n3\ngyalaylro\nMissing year field\n\n\n4\nazari2021machine\nMissing year field\n\n\n5\nsmith2021solar\nDuplicate of guzewich2020solar (same paper, different first author/year)"
+  },
+  {
+    "objectID": "scripts/orcid-claiming-worksheet.html#after-claiming",
+    "href": "scripts/orcid-claiming-worksheet.html#after-claiming",
+    "title": "ORCID Claiming Worksheet",
+    "section": "",
+    "text": "Once you’ve claimed papers on ADS (allow 24 hours for indexing), re-run:\nenv ADS_API_TOKEN=your_token python scripts/update_bib.py\nThe newly claimed papers should now appear. Compare entry counts to verify."
+  },
+  {
+    "objectID": "talks/2021-pdw-planetarypy/index.html#summary",
+    "href": "talks/2021-pdw-planetarypy/index.html#summary",
+    "title": "The PlanetaryPy Project",
     "section": "Summary",
-    "text": "Summary\nFor the common case of “I have some scientific datasets (tens of MB to low GB) and want to serve them to a browser-based Python app” — GitHub release assets are hard to beat. Free, fast, versioned, no infrastructure, and your Pyodide/Shinylive app can fetch them directly."
+    "text": "Summary\nThe PlanetaryPy Project is a community effort to develop a core package for planetary science in Python and foster interoperability between Python planetary science packages.\nThe PlanetaryPy Technical Committee (TC) is the governing body for the PlanetaryPy Project. All of their work is done in the open via the TC GitHub repo. To learn more about what the TC is, how it operates, or to get involved, you can read its Charter (see paragraph below). The PlanetaryPy TC has regular meetings to which all are welcome to attend. The meeting agendas for upcoming meetings, and notes from previous meetings can be found in the TC’s GitHub repo.\nConference Program\nSlides\nProject URL\nAbstract PDF\nPresentation Video"
   },
   {
-    "objectID": "posts/2026-03-10_isis-two-image-matching/index.html",
-    "href": "posts/2026-03-10_isis-two-image-matching/index.html",
-    "title": "Lessons from Matching Two Mars Images with ISIS",
+    "objectID": "projects.html",
+    "href": "projects.html",
+    "title": "Projects",
     "section": "",
-    "text": "When you need to align two overlapping satellite images of Mars to sub-pixel accuracy, the USGS ISIS photogrammetry suite is the standard toolkit. It has been used to process imagery from nearly every planetary mission for decades. But the minimal case — two images, no ground control — turns out to have its own peculiar set of challenges that I hadn’t fully appreciated until I spent a day working through them empirically.\nThis post collects the surprising things I learned while matching a pair of MRO Context Camera (CTX) images using the ISIS autoseed / pointreg / jigsaw pipeline."
+    "text": "Cassini UVIS Data Product Enhancement\n\n\n\ncassini uvis\n\npi\n\n\n\n\n\n\n\nMichael Aye\n\n\n2026-03-04\n\n\n\n\n\n\n\n\n\n\n\n\n\nJANUS Camera on the JUICE Mission\n\n\n\njupiter\n\njuice\n\ninstrumentation\n\npython\n\n\n\n\n\n\n\nMichael Aye\n\n\n2026-03-04\n\n\n\n\n\n\n\n\n\n\n\n\n\nImage Co-registration\n\n\n\nmars\n\nremote sensing\n\nimage processing\n\n\n\n\n\n\n\nMichael Aye, Sebastian Walter\n\n\n2026-03-04\n\n\n\n\n\n\n\n\n\n\n\n\n\nPlanet Four\n\n\n\nmars\n\ncitizen science\n\npython\n\n\n\n\n\n\n\nMichael Aye, Tom Ihro, Ganna Portyankina, Candice Hansen, Meg Schwamb, Tim Michaels, Chris Lintott, et al.\n\n\n2026-03-04\n\n\n\n\n\n\n\n\n\n\n\n\n\nPlanetary Data Reader\n\n\n\nco-i\n\npds\n\npython\n\n\n\n\n\n\n\nChase Million, Michael St. Clair, Michael Aye\n\n\n2021-09-08\n\n\n\n\n\n\n\n\n\n\n\nMesoscale Structures in Saturn’s Rings: Clues to Origin and Evolution\n\n\n\nco-i\n\nsaturn rings\n\ncassini uvis\n\ncassini iss\n\n\n\n\n\n\n\nJoshua Colwell, Michael Aye\n\n\n2021-09-08\n\n\n\n\n\n\n\n\n\n\n\n\n\nPlanetaryPy\n\n\n\npython\n\n\n\n\n\n\n\nMichael Aye, Ross Beyer, Andrew Annex, Chase Million\n\n\n2021-09-08\n\n\n\n\n\n\nNo matching items"
   },
   {
-    "objectID": "posts/2026-03-10_isis-two-image-matching/index.html#the-setup",
-    "href": "posts/2026-03-10_isis-two-image-matching/index.html#the-setup",
-    "title": "Lessons from Matching Two Mars Images with ISIS",
-    "section": "The setup",
-    "text": "The setup\nTwo CTX images (K05_055343 and V05_082075) overlap in a region of Mars where no HRSC ortho-image is available — an “HRSC gap.” Our project’s primary objective is to coregister CTX against new HRSC Level 5 ortho-images, which provide ~12.5 m/pixel absolute reference — far better than the traditional MOLA baseline at ~463 m/pixel. In the gaps, we could fall back to MOLA, but we’d prefer to chain CTX images across the gap, anchored at both ends by images that were already matched against HRSC using our main coregistration pipeline. This means the gap interior inherits the HRSC geometric accuracy without ever touching MOLA.\nTo build that chain, we coregister overlapping CTX images against each other using tie points in detector (Level 1) space, then bundle-adjust to correct the camera pointing. The images are 6 m/pixel push-broom strips, roughly 30 km wide and 100 km long, overlapping by about 30 km in the cross-track direction.\n\n\n\n\n\n\nFigure 1: Footprint overview of the two CTX images. K05_055343 and V05_082075 overlap extensively in the cross-track direction."
+    "objectID": "posts/matplotlib-ticklabel-formats/index.html",
+    "href": "posts/matplotlib-ticklabel-formats/index.html",
+    "title": "Matplotlib Ticklabel Formats",
+    "section": "",
+    "text": "If you are a heavy matplotlib user, you are bound to have seen the funny offset numbers in the top left of the plot window:\n\nThey are obviously there to help the viewer focus on the level where the numbers are really changing, removing the area where there’s no change happening.\nBut I am claiming that due to pattern recognition, there are quite a few cases where this confuses more than it helps. In this example I (and the people in my team) are used to see 5-digit numbers and it takes quite some time to figure out here, that these are indeed 5-digit numbers.\nTherefore I researched how to switch this behavior off.\nFirst, one imports the ScalarFormatter class from the matplotlib.ticker module:\n\nfrom matplotlib.ticker import ScalarFormatter\n\nThen, one creates a formatter object with the use of offset numbers switched off:\n\ny_formatter = ScalarFormatter(useOffset=False)\n\nFinally, you apply it to an axis object that you either receive via the fig.subplot() command, via plt.gca() (acronym for Get Current Axis) or you catch it when it is being returned after a plot command:\n\nax.yaxis.set_major_formatter(y_formatter)\n\nThere you go, hope this helps someone.\nHere is the stackoverflow issue that helped me to find the solution.\nUpdate (2013-10-20) :\nAn easier way is to catch the axis object from the plot command and apply the following command:\n\nax.ticklabel_format(useOffset=False)\n\nI initiated a github issue to have this included in matplotlib, which has been responded already with a solution, so this will be configurable in the future, yay!\nUpdate 2, same day:\nWeird, I thought I had the above shortcut working at some time, now it doesn’t. If anyone knows the circumstance under this can work and can not, please comment."
   },
   {
-    "objectID": "posts/2026-03-10_isis-two-image-matching/index.html#surprise-1-default-parameters-are-terrible",
-    "href": "posts/2026-03-10_isis-two-image-matching/index.html#surprise-1-default-parameters-are-terrible",
-    "title": "Lessons from Matching Two Mars Images with ISIS",
-    "section": "Surprise 1: Default parameters are terrible",
-    "text": "Surprise 1: Default parameters are terrible\nISIS ships with conservative defaults for pointreg, and they produce disappointing results on CTX data. With the out-of-the-box configuration (tolerance=0.65, pattern chip 21x21 pixels, search chip 61x61), only 39.6% of seed points register successfully. All failures are FitChipToleranceNotMet — the correlation peak simply doesn’t reach the acceptance threshold.\nA systematic sweep of 30 configurations revealed that the pattern chip size is the key parameter. Increasing it from 21x21 to 51x51 pixels captures more terrain texture, giving the correlator a much stronger signal. Combined with lowering the tolerance to 0.3, registration jumps to 97.7% — from 169 to 417 out of 427 seed points.\nThis aligns with findings from Robbins et al. (2020), who used multiple pattern and search chip sizes when building a global CTX control network. They note that “smaller chips run more quickly… but they cannot match larger patterns” while “larger chips take more computer time, but they tend to better match larger features,” with an example configuration of 50×50 pattern chips and 150×150 search chips — remarkably close to our empirically derived 51×101 optimum.\nThe search chip size, meanwhile, barely matters. Varying it from 41 to 101 pixels at a fixed pattern size produces identical results. The pointing offsets between these two images are small enough that even the smallest search window finds the match."
+    "objectID": "posts/2026-05-12_spice-kernel-db-redteam/index.html",
+    "href": "posts/2026-05-12_spice-kernel-db-redteam/index.html",
+    "title": "Red-teaming spice-kernel-db: Even SPICE kernels expose attack surfaces",
+    "section": "",
+    "text": "spice-kernel-db is the content-aware SPICE kernel database I use to keep track of which kernels live where across missions. Today it went from 0.12.0 to 0.13.4 in five releases. The headline change was a parallel-agent adversarial review of the architecture — the kind of review where you ask “if this code were hostile to me, what’s the worst it could do?” — and the answer turned out to be more interesting than I expected."
   },
   {
-    "objectID": "posts/2026-03-10_isis-two-image-matching/index.html#surprise-2-more-points-better-quality-not-worse",
-    "href": "posts/2026-03-10_isis-two-image-matching/index.html#surprise-2-more-points-better-quality-not-worse",
-    "title": "Lessons from Matching Two Mars Images with ISIS",
-    "section": "Surprise 2: More points = better quality, not worse",
-    "text": "Surprise 2: More points = better quality, not worse\nThe natural concern with aggressive parameters is that you’re accepting garbage — false matches that will poison the bundle adjustment. But validating each pointreg configuration through jigsaw told the opposite story.\nSigma0 (the RMS reprojection residual) actually decreases with larger pattern chips:\n\n\n\nPattern chip\nRegistered\nsigma0\nRejected\n\n\n\n\n21x21\n387\n2.705\n0\n\n\n31x31\n406\n0.711\n0\n\n\n41x41\n414\n0.587\n0\n\n\n51x51\n417\n0.529\n0\n\n\n\nZero rejections across the board. Every single registered point is geometrically consistent. Larger templates don’t produce more false matches — they produce better matches, because there’s more terrain structure to correlate against."
+    "objectID": "posts/2026-05-12_spice-kernel-db-redteam/index.html#a-write-anywhere-primitive-hiding-in-a-metakernel",
+    "href": "posts/2026-05-12_spice-kernel-db-redteam/index.html#a-write-anywhere-primitive-hiding-in-a-metakernel",
+    "title": "Red-teaming spice-kernel-db: Even SPICE kernels expose attack surfaces",
+    "section": "A write-anywhere primitive hiding in a metakernel",
+    "text": "A write-anywhere primitive hiding in a metakernel\nA SPICE metakernel (.tm) declares PATH_VALUES and PATH_SYMBOLS so that KERNELS_TO_LOAD entries like $KERNELS/spk/de440.bsp resolve to real files. spice-kernel-db get fetches the metakernel, then materializes the kernels it references — either by downloading them or, when the content is already in the DB under a different name, by symlinking the file into the expected location.\nThe bug: that “expected location” was computed as download_dir / mission / relpath, where relpath came verbatim from the metakernel’s PATH_VALUES. A metakernel containing $KERNELS = '../../../../home/user/.ssh' would happily get a symlink named authorized_keys planted there, pointing at whatever bytes the attacker controlled. NAIF metakernels are trusted, but “trusted upstream mirror that anyone can put a file on” is not the same as “trusted.” The fix is a _safe_join helper that resolves the candidate against the download root and refuses the entire get on any escape. The same helper now backs rewrite_metakernel, which had its own traversal check that was almost — but not quite — correct."
   },
   {
-    "objectID": "posts/2026-03-10_isis-two-image-matching/index.html#surprise-3-twist-will-wreck-your-two-image-solution",
-    "href": "posts/2026-03-10_isis-two-image-matching/index.html#surprise-3-twist-will-wreck-your-two-image-solution",
-    "title": "Lessons from Matching Two Mars Images with ISIS",
-    "section": "Surprise 3: Twist will wreck your two-image solution",
-    "text": "Surprise 3: Twist will wreck your two-image solution\nJigsaw’s twist parameter controls whether it solves for camera roll. With a well-connected network of many images, this is usually fine. With two images, it’s catastrophic.\nEnabling twist with camsolve=velocities sends sigma0 to 1,007 (from 0.529). With camsolve=accelerations, it explodes to 2,071,095. The system simply doesn’t have enough geometric constraints to determine roll from a single overlap region.\nThe winning configuration: camsolve=accelerations, spsolve=none, twist=no. This gives sigma0 = 0.468, converging in 4 iterations. Disabling twist actually frees up degrees of freedom for higher-order pointing corrections that the data can support.\nSimilarly, any spsolve setting other than none causes jigsaw to hang indefinitely. Spacecraft position solving needs 3+ images."
+    "objectID": "posts/2026-05-12_spice-kernel-db-redteam/index.html#the-hash-verification-gate-that-wasnt",
+    "href": "posts/2026-05-12_spice-kernel-db-redteam/index.html#the-hash-verification-gate-that-wasnt",
+    "title": "Red-teaming spice-kernel-db: Even SPICE kernels expose attack surfaces",
+    "section": "The hash-verification gate that wasn’t",
+    "text": "The hash-verification gate that wasn’t\n_link_existing_kernels looked up the expected sha256 by the requested filename. The documented fallback in resolve_kernel — “jup365.bsp ↔︎ jup365_19900101_20500101.bsp” — meant the hash lookup returned NULL whenever resolution went through path-suffix matching, and NULL means “no check.” Different content, same hash gate, silently permitted. Now the hash is keyed by the resolved local path joined through locations.abs_path; a missing row is a hard skip with a warning instead of a silent pass. Hashes are also computed during the download itself (streaming sha256) rather than re-hashed from disk afterwards, closing the TOCTOU window and making future manifest-based verification trivial."
   },
   {
-    "objectID": "posts/2026-03-10_isis-two-image-matching/index.html#surprise-4-free-networks-drift-by-kilometers",
-    "href": "posts/2026-03-10_isis-two-image-matching/index.html#surprise-4-free-networks-drift-by-kilometers",
-    "title": "Lessons from Matching Two Mars Images with ISIS",
-    "section": "Surprise 4: Free networks drift by kilometers",
-    "text": "Surprise 4: Free networks drift by kilometers\nThis was the most disorienting discovery. After a successful bundle adjustment (sigma0 = 0.468, zero rejected points), the adjusted ground coordinates had shifted by an average of 2.6 km from their apriori positions. Some points moved over 8 km.\nThis isn’t a bug. Without ground control points, the bundle adjustment is a “free network” — it can translate and rotate the entire solution without changing the residuals. Jigsaw optimizes relative alignment between the two images, but absolute positioning on the planet is unconstrained.\nWhat made this especially confusing: the drift is non-uniform. It’s not a simple rigid shift. At the top of the image strip, the latitude offset is about 2,300 m; at the bottom, it’s 7,300 m. This is because camsolve=accelerations allows the pointing correction to vary along the flight path, and without an absolute reference, that variation is absorbed into the ground point positions."
+    "objectID": "posts/2026-05-12_spice-kernel-db-redteam/index.html#naifesa-rotate-kernels-out-from-under-you",
+    "href": "posts/2026-05-12_spice-kernel-db-redteam/index.html#naifesa-rotate-kernels-out-from-under-you",
+    "title": "Red-teaming spice-kernel-db: Even SPICE kernels expose attack surfaces",
+    "section": "NAIF/ESA rotate kernels out from under you",
+    "text": "NAIF/ESA rotate kernels out from under you\nThe other half of the day was about a class of bug I hadn’t anticipated: NAIF and ESA periodically moves old versioned metakernel snapshots into former_versions/, making their original URLs permanently 403/404/410. Calling update on a stale entry then crashes with an opaque urllib.error.HTTPError. The fix is its own little story:\n\n0.13.1 introduces a MetakernelUnreachableError (exit code 2, distinct from generic lookup failures) and a prune --metakernels command that HEAD-probes every registered metakernel and reports the dead ones. Crucially, transient errors (timeouts, DNS, 5xx) are never treated as dead — leaving a stale row in place is always safer than deleting on a network blip.\n0.13.2 ships a fix that was immediately revealed by trying to use 0.13.1 in the wild: prune --metakernels filtered the registry by WHERE source_url IS NOT NULL, which silently skipped every metakernel that had been scanned in from a local tree (the common case — scan_directory doesn’t know a URL). It now derives a probe URL from mission.mk_dir_url + filename and reports rows with neither as “no probeable URL” rather than ignoring them.\n0.13.3 adds prune --orphan-symlinks. After you prune a dead metakernel, the symlinks that pointed at its files survive as junk because they were never tracked in locations. The new mode walks each mission’s download tree and unlinks the dangling ones.\n0.13.4 fixes a display bug where alias rows — created in 0.12.0 when the picker groups versioned snapshots under a base name like juice_crema_5_2.tm → juice_crema_5_2_v470_20260415_001.tm — reported n_kernels=0 in list_metakernels because the entries were stored under the resolved target path while the alias row used the symlink path. Aliases now inherit the target’s entry count and are annotated ↳ identical to &lt;target&gt;."
   },
   {
-    "objectID": "posts/2026-03-10_isis-two-image-matching/index.html#useful-fact-the-adjusted-coordinates-are-your-best-qa-tool",
-    "href": "posts/2026-03-10_isis-two-image-matching/index.html#useful-fact-the-adjusted-coordinates-are-your-best-qa-tool",
-    "title": "Lessons from Matching Two Mars Images with ISIS",
-    "section": "Useful fact: The adjusted coordinates are your best QA tool",
-    "text": "Useful fact: The adjusted coordinates are your best QA tool\nThe control network stores two coordinate sets per tie point: apriori (from the original SPICE pointing) and adjusted (from the bundle solution). The adjusted coordinates are the precise intersection point of both cameras’ corrected lines of sight — they map exactly to the correct terrain in the post-jigsaw Level 2 images.\nThis makes them ideal for verifying that jigsaw worked. Extract cutouts from both images at the adjusted coordinates: if the terrain matches, the bundle adjustment succeeded. Extract cutouts at the apriori coordinates: the terrain won’t match, because that’s the pointing error you just corrected.\nOne subtlety that initially confused me: jigsaw corrects both images’ pointing, not just one. So the same map coordinate points to different terrain in the before-jigsaw and after-jigsaw versions of the same image. This isn’t imprecision — it’s simply both cameras being shifted to their corrected positions.\n\n\n\n\n\n\nNote\n\n\n\nIn principle, you could fix one image’s camera parameters in jigsaw and only solve for the other, making the “before” and “after” images identical for the fixed image. This would place all pointing correction on the second image."
+    "objectID": "posts/2026-05-12_spice-kernel-db-redteam/index.html#a-new-verify-command",
+    "href": "posts/2026-05-12_spice-kernel-db-redteam/index.html#a-new-verify-command",
+    "title": "Red-teaming spice-kernel-db: Even SPICE kernels expose attack surfaces",
+    "section": "A new verify command",
+    "text": "A new verify command\nspice-kernel-db verify [&lt;mk&gt;] deeply cross-checks a metakernel against the DB: file traversal, dangling symlinks, size mismatch, sha256 (with --deep), ambiguous resolution, and PATH_VALUES validity. --strict exits non-zero on any non-OK finding, --json emits machine-readable output. After the audit closed eight P0s and six P1s I needed a way to say “and the DB on this machine is actually fine,” and verify is that."
   },
   {
-    "objectID": "posts/2026-03-10_isis-two-image-matching/index.html#the-beforeafter-visualization",
-    "href": "posts/2026-03-10_isis-two-image-matching/index.html#the-beforeafter-visualization",
-    "title": "Lessons from Matching Two Mars Images with ISIS",
-    "section": "The before/after visualization",
-    "text": "The before/after visualization\nThe clearest way to verify that jigsaw worked is a simple 4-panel comparison:\n\nBefore (apriori coordinates): extract cutouts from both images at the original tie point location. The terrain doesn’t match — this is the pointing error.\nAfter (adjusted coordinates): extract cutouts from both images at the bundle-adjusted location. The terrain matches — the pointing has been corrected.\n\n\n\n\n\n\n\nFigure 2: Before/after terrain alignment at three random tie points. Left two columns show K05 and V05 at apriori (pre-jigsaw) coordinates — note the different terrain around the red crosses. Right two columns show both images at adjusted coordinates — identical terrain features, confirming the bundle adjustment worked.\n\n\n\nOne practical detail: K05 and V05 have different photometric properties (different acquisition times, sun angles), so per-image percentile stretching makes them look very different even when showing the same terrain. Per-cutout z-score normalization (subtract mean, divide by standard deviation) with a shared display range removes this offset while preserving texture contrast."
+    "objectID": "posts/2026-05-12_spice-kernel-db-redteam/index.html#the-unglamorous-part",
+    "href": "posts/2026-05-12_spice-kernel-db-redteam/index.html#the-unglamorous-part",
+    "title": "Red-teaming spice-kernel-db: Even SPICE kernels expose attack surfaces",
+    "section": "The unglamorous part",
+    "text": "The unglamorous part\nTwo of the five releases were almost entirely about catching up documentation that should have shipped with 0.13.0 in the first place (verify and prune both landed without docs/cli.qmd entries). I codified the rule in CLAUDE.md: every user-visible change — new CLI command, new flag, new public method, new error class, new exit code — lands its documentation in the same commit. Not the same PR. The same commit. The repo had drifted from this before and the half-life of “I’ll fix the docs tomorrow” turned out to be measured in months, not days."
   },
   {
-    "objectID": "posts/2026-03-10_isis-two-image-matching/index.html#cross-correlation-on-mars-is-treacherous",
-    "href": "posts/2026-03-10_isis-two-image-matching/index.html#cross-correlation-on-mars-is-treacherous",
-    "title": "Lessons from Matching Two Mars Images with ISIS",
-    "section": "Cross-correlation on Mars is treacherous",
-    "text": "Cross-correlation on Mars is treacherous\nBefore landing on the simple adjusted-coordinate approach, I tried using cross-correlation to find matching terrain between the before and after images. This was a dead end for two reasons:\n\nMars terrain is repetitive. Craters, ridges, and aeolian features repeat at similar scales across large areas. With a search window of several hundred pixels, the correlator happily locks onto the wrong crater — one that looks nearly identical to the target but is kilometers away.\nThe pointing correction is non-uniform. There is no single rigid shift between the before and after images. The correction varies spatially along the flight path, so any template-matching approach needs a different search center for each location.\n\nThe solution, if you insist on cross-correlation, is to center the search on the adjusted coordinates with a small radius (~300 pixels). But at that point, you’re barely refining anything — the adjusted coordinates are already correct."
-  },
-  {
-    "objectID": "posts/2026-03-10_isis-two-image-matching/index.html#takeaways-for-two-image-isis-matching",
-    "href": "posts/2026-03-10_isis-two-image-matching/index.html#takeaways-for-two-image-isis-matching",
-    "title": "Lessons from Matching Two Mars Images with ISIS",
-    "section": "Takeaways for two-image ISIS matching",
-    "text": "Takeaways for two-image ISIS matching\n\nIncrease the pattern chip. The default 21x21 is too small for CTX. 51x51 with tolerance 0.3 gives 97.7% registration and the best sigma0.\nDisable twist. With only 2 images, twist=no is mandatory. camsolve=accelerations, spsolve=none is the sweet spot.\nExpect large absolute drift in the free network solution. This is normal and does not indicate poor quality.\nTrust the adjusted coordinates. They are the exact bundle solution, not an approximation. Use them directly for QA visualization.\nRun the full pipeline consistently. spiceinit, cam2map, jigsaw (update=True), cam2map again. Mixing data from different processing stages produces mysterious coordinate mismatches.\n\nThese findings are specific to the two-image case. With larger networks (3+ images), twist may become viable, spsolve should be tested, and the free network drift will be reduced (though not eliminated without ground control).\n\nThis work is funded by the Federal Ministry of Research, Technology and Space (BMFTR) through the German Space Agency at DLR on the basis of a resolution of the German Bundestag (Funding code: 50 OO 2204)."
+    "objectID": "posts/2026-05-12_spice-kernel-db-redteam/index.html#numbers",
+    "href": "posts/2026-05-12_spice-kernel-db-redteam/index.html#numbers",
+    "title": "Red-teaming spice-kernel-db: Even SPICE kernels expose attack surfaces",
+    "section": "Numbers",
+    "text": "Numbers\n\n\n\n\n\n\n\nRelease\nWhat landed\n\n\n\n\n0.13.0\n8 P0 + 6 P1 audit findings closed, verify command, streaming sha256, mission canonicalisation, atomic file writes\n\n\n0.13.1\nMetakernelUnreachableError, prune --metakernels, docs catch-up\n\n\n0.13.2\nprune --metakernels finds scanned-in rows\n\n\n0.13.3\nprune --orphan-symlinks\n\n\n0.13.4\nlist_metakernels is alias-aware\n\n\n\nTest suite: 161 → 232. Full audit, data-migration notes, and the still-deferred per-metakernel dedup opt-out discussion are in Plans/2026-05-12-redteam-findings.md in the repo.\nThe lesson I keep relearning: the audit doesn’t end when you close the findings. It ends when the first user runs the fix on their own machine and the next bug falls out. Three of today’s five releases came from that."
   },
   {
     "objectID": "posts/rioxarray-xarray-version-pin/index.html",
