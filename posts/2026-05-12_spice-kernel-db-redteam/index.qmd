@@ -1,0 +1,125 @@
+---
+title: "Red-teaming spice-kernel-db: Even SPICE kernels expose attack surfaces"
+subtitle: "A path-traversal primitive, a new verify command, and learning to prune what NAIF/ESA rotate out"
+date: 2026-05-12
+authors:
+  - name: "Michael Aye"
+    url: https://michaelaye.github.io
+    orcid: 0000-0002-4088-1928
+categories: [python, spice, planetary, security, duckdb]
+---
+
+[`spice-kernel-db`](https://github.com/michaelaye/spice-kernel-db) is the
+content-aware SPICE kernel database I use to keep track of which
+kernels live where across missions. Today it went from 0.12.0 to 0.13.4 in
+five releases. The headline change was a parallel-agent adversarial review
+of the architecture --- the kind of review where you ask "if this code
+were hostile to me, what's the worst it could do?" --- and the answer
+turned out to be more interesting than I expected.
+
+## A write-anywhere primitive hiding in a metakernel
+
+A SPICE metakernel (`.tm`) declares `PATH_VALUES` and `PATH_SYMBOLS` so
+that `KERNELS_TO_LOAD` entries like `$KERNELS/spk/de440.bsp` resolve to
+real files. `spice-kernel-db get` fetches the metakernel, then
+materializes the kernels it references --- either by downloading them
+or, when the content is already in the DB under a different name, by
+symlinking the file into the expected location.
+
+The bug: that "expected location" was computed as
+`download_dir / mission / relpath`, where `relpath` came verbatim from the
+metakernel's `PATH_VALUES`. A metakernel containing
+`$KERNELS = '../../../../home/user/.ssh'` would happily get a symlink
+named `authorized_keys` planted there, pointing at whatever bytes the
+attacker controlled. NAIF metakernels are trusted, but "trusted upstream
+mirror that anyone can put a file on" is not the same as "trusted." The
+fix is a `_safe_join` helper that resolves the candidate against the
+download root and refuses the entire `get` on any escape. The same helper
+now backs `rewrite_metakernel`, which had its own traversal check that
+was almost --- but not quite --- correct.
+
+## The hash-verification gate that wasn't
+
+`_link_existing_kernels` looked up the expected sha256 by the *requested*
+filename. The documented fallback in `resolve_kernel` ---
+"`jup365.bsp` ↔ `jup365_19900101_20500101.bsp`" --- meant the hash lookup
+returned NULL whenever resolution went through path-suffix matching, and
+NULL means "no check." Different content, same hash gate, silently
+permitted. Now the hash is keyed by the *resolved local path* joined
+through `locations.abs_path`; a missing row is a hard skip with a warning
+instead of a silent pass. Hashes are also computed during the download
+itself (streaming sha256) rather than re-hashed from disk afterwards,
+closing the TOCTOU window and making future manifest-based verification
+trivial.
+
+## NAIF/ESA rotate kernels out from under you
+
+The other half of the day was about a class of bug I hadn't anticipated:
+NAIF and ESA periodically moves old versioned metakernel snapshots into
+`former_versions/`, making their original URLs permanently 403/404/410.
+Calling `update` on a stale entry then crashes with an opaque
+`urllib.error.HTTPError`. The fix is its own little story:
+
+1. **0.13.1** introduces a `MetakernelUnreachableError` (exit code 2,
+   distinct from generic lookup failures) and a `prune --metakernels`
+   command that HEAD-probes every registered metakernel and reports the
+   dead ones. Crucially, transient errors (timeouts, DNS, 5xx) are
+   *never* treated as dead --- leaving a stale row in place is always
+   safer than deleting on a network blip.
+2. **0.13.2** ships a fix that was immediately revealed by trying to use
+   0.13.1 in the wild: `prune --metakernels` filtered the registry by
+   `WHERE source_url IS NOT NULL`, which silently skipped every
+   metakernel that had been *scanned* in from a local tree (the common
+   case --- `scan_directory` doesn't know a URL). It now derives a probe
+   URL from `mission.mk_dir_url + filename` and reports rows with
+   neither as "no probeable URL" rather than ignoring them.
+3. **0.13.3** adds `prune --orphan-symlinks`. After you prune a dead
+   metakernel, the symlinks that *pointed* at its files survive as junk
+   because they were never tracked in `locations`. The new mode walks
+   each mission's download tree and unlinks the dangling ones.
+4. **0.13.4** fixes a display bug where alias rows --- created in 0.12.0
+   when the picker groups versioned snapshots under a base name like
+   `juice_crema_5_2.tm` → `juice_crema_5_2_v470_20260415_001.tm` ---
+   reported `n_kernels=0` in `list_metakernels` because the entries were
+   stored under the resolved target path while the alias row used the
+   symlink path. Aliases now inherit the target's entry count and are
+   annotated `↳ identical to <target>`.
+
+## A new `verify` command
+
+`spice-kernel-db verify [<mk>]` deeply cross-checks a metakernel against
+the DB: file traversal, dangling symlinks, size mismatch, sha256 (with
+`--deep`), ambiguous resolution, and `PATH_VALUES` validity. `--strict`
+exits non-zero on any non-OK finding, `--json` emits machine-readable
+output. After the audit closed eight P0s and six P1s I needed a way to
+say "and the DB on this machine is actually fine," and `verify` is that.
+
+## The unglamorous part
+
+Two of the five releases were almost entirely about catching up
+documentation that should have shipped with 0.13.0 in the first place
+(`verify` and `prune` both landed without `docs/cli.qmd` entries). I
+codified the rule in `CLAUDE.md`: every user-visible change --- new CLI
+command, new flag, new public method, new error class, new exit code ---
+lands its documentation in the same commit. Not the same PR. The same
+commit. The repo had drifted from this before and the half-life of "I'll
+fix the docs tomorrow" turned out to be measured in months, not days.
+
+## Numbers
+
+| Release | What landed |
+|---------|-------------|
+| 0.13.0  | 8 P0 + 6 P1 audit findings closed, `verify` command, streaming sha256, mission canonicalisation, atomic file writes |
+| 0.13.1  | `MetakernelUnreachableError`, `prune --metakernels`, docs catch-up |
+| 0.13.2  | `prune --metakernels` finds scanned-in rows |
+| 0.13.3  | `prune --orphan-symlinks` |
+| 0.13.4  | `list_metakernels` is alias-aware |
+
+Test suite: 161 → 232. Full audit, data-migration notes, and the
+still-deferred per-metakernel dedup opt-out discussion are in
+`Plans/2026-05-12-redteam-findings.md` in the repo.
+
+The lesson I keep relearning: the audit doesn't end when you close the
+findings. It ends when the first user runs the fix on their own machine
+and the next bug falls out. Three of today's five releases came from
+that.
