@@ -10,7 +10,272 @@
 <atom:link href="https://michaelaye.github.io/posts.xml" rel="self" type="application/rss+xml"/>
 <description></description>
 <generator>quarto-1.9.37</generator>
-<lastBuildDate>Tue, 12 May 2026 00:00:00 GMT</lastBuildDate>
+<lastBuildDate>Thu, 14 May 2026 00:00:00 GMT</lastBuildDate>
+<item>
+  <title>A longitudinal archive of the NSSDC planetary fact sheets, 1996–2025</title>
+  <link>https://michaelaye.github.io/posts/2026-05-14_nssdc-factsheets-archive/</link>
+  <description><![CDATA[ 
+
+
+
+
+
+
+<p>NASA’s <a href="https://nssdc.gsfc.nasa.gov/planetary/factsheet/">NSSDC planetary fact sheets</a> are the textbook reference many planetary scientist have bookmarked: one HTML page per body, with the bond albedo, surface pressure, ring system, satellite count, orbital elements, and a few dozen other parameters that nobody wants to re-derive from primary sources. They have been quietly maintained at GSFC since the mid-1990s.</p>
+<p>The word doing the work in that sentence is <strong>quietly</strong>. The pages get revised — sometimes every few months, sometimes after a decade of silence — and nothing on the live page tells you when, what changed, or what the value used to be. If you cite “Mars’s bond albedo is 0.250 (NSSDC)” in a 2014 paper, a 2026 reader visiting the same URL gets a different page and no way to recover the figure you actually used.</p>
+<p>This post is about the sub-project I built to fix that: a longitudinal archive of every distinct revision of the fact sheets, parsed into a structured time-indexed dataset, deposited at Zenodo, and shipped as part of the <code>constants</code> sub-package of <a href="https://github.com/planetarypy/planetarypy"><code>planetarypy</code></a>.</p>
+<section id="prior-art-and-the-lack-of-citable-works" class="level2">
+<h2 class="anchored" data-anchor-id="prior-art-and-the-lack-of-citable-works">Prior art and the lack of citable works</h2>
+<p>Before building the archive I checked whether anyone had already documented the fact sheets as a versioned product. The short answer is no, but please correct me in the comments, if I overlooked something! A search of NASA ADS, Google Scholar, Semantic Scholar, the NSSDC publications list, and the GSFC Solar System Exploration Data Services Office bibliography turns up <strong>no peer-reviewed paper, data paper, conference abstract, or formal release announcement that describes the planetary fact sheets</strong>. The first-author scholarly record of the long-time curator, Dr.&nbsp;David R. Williams (NSSDC, GSFC), is dominated by Apollo data restoration abstracts (LPSC 2006, 2008, 2011; AGU 2013) and a 2020 Planetary Spatial Data Infrastructure abstract — none about the fact sheet product itself. The GSFC project page lists the fact sheets as <a href="https://science.gsfc.nasa.gov/solarsystem/dataarchives/projects/629/">an operational project (#629)</a> with the “Other Publications” section empty, and notes that curatorship appears to have recently transitioned from Williams to Kristen M. Killingsworth, with Thomas H. Morgan as NASA Official.</p>
+<p>So the most-cited NASA planetary reference table on the open web — used in textbooks, journal papers, Wikipedia, and undergraduate problem sets for nearly thirty years — has no formal documentation of its own provenance, versioning, or methodology. The standard citation pattern in the literature is a bare URL with a “last accessed” date. That is the gap this archive is meant to close.</p>
+</section>
+<section id="whats-in-the-archive" class="level2">
+<h2 class="anchored" data-anchor-id="whats-in-the-archive">What’s in the archive</h2>
+<table class="caption-top table">
+<tbody>
+<tr class="odd">
+<td><strong>Coverage</strong></td>
+<td>13 fact sheets — Sun, Mercury, Venus, Earth, Moon, Mars, Jupiter, Saturn, Uranus, Neptune, Pluto, asteroid summary, comet summary</td>
+</tr>
+<tr class="even">
+<td><strong>Time span</strong></td>
+<td>December 1996 → May 2025</td>
+</tr>
+<tr class="odd">
+<td><strong>Distinct content versions</strong></td>
+<td>913 captures</td>
+</tr>
+<tr class="even">
+<td><strong>Parsed field rows</strong></td>
+<td>24,524 (long format)</td>
+</tr>
+<tr class="odd">
+<td><strong>DOI</strong></td>
+<td><a href="https://doi.org/10.5281/zenodo.20122987">10.5281/zenodo.20122987</a></td>
+</tr>
+<tr class="even">
+<td><strong>License</strong></td>
+<td>MIT</td>
+</tr>
+</tbody>
+</table>
+<p>The bundle on Zenodo contains five things:</p>
+<ol type="1">
+<li><strong><code>parsed_archive_v1.json</code></strong> — the canonical parsed dataset (~40 KB gzipped). One entry per fact sheet, each carrying every distinct capture with its Wayback timestamp, parsed <code>page_date</code>, the source <code>wayback_url</code>, and a <code>fields</code> dict where every value comes with <code>raw</code>, parsed <code>value</code>, and <code>unit</code>.</li>
+<li><strong>A long-format CSV mirror</strong> (24,524 rows) for people who would rather pivot than parse JSON.</li>
+<li><strong>The raw HTML corpus</strong> — every distinct snapshot, exactly as the Wayback Machine served it, so anyone can re-parse with a different ruleset and disagree with my decisions.</li>
+<li><strong>CDX provenance</strong> — the index records returned by the Wayback CDX API, kept verbatim so the chain from “snapshot existed” to “snapshot downloaded” is auditable.</li>
+<li><strong>The stdlib-only Python scripts</strong> that re-derive all of the above from public sources. No dependencies beyond CPython; running them reproduces the archive end-to-end.</li>
+</ol>
+</section>
+<section id="how-it-was-built" class="level2">
+<h2 class="anchored" data-anchor-id="how-it-was-built">How it was built</h2>
+<p>The pipeline is deliberately simple:</p>
+<ol type="1">
+<li><strong>Discover</strong> every Wayback capture of each of the 13 fact sheet URLs via the <a href="https://archive.org/help/wayback_api.php">CDX API</a>.</li>
+<li><strong>Deduplicate</strong> by SHA-256 of the response body — the CDX index lists many captures with identical content; only distinct payloads survive.</li>
+<li><strong>Fetch</strong> the surviving snapshots through the <code>id_</code> Wayback prefix (returns the original response, not the toolbar-decorated viewer).</li>
+<li><strong>Parse</strong> with a small set of HTML-table rules tuned to NSSDC’s layout history. The parser handles three layout eras (pre-2003, 2003–2015, post-2015) and falls back to raw-string capture for fields it can’t normalize, so nothing is silently dropped.</li>
+<li><strong>Date-stamp</strong> each capture by the <code>Last modified</code> text NSSDC bakes into the page (<code>page_date</code>), with the Wayback timestamp kept alongside as a safety net for pages that don’t carry one.</li>
+</ol>
+<p>The whole pipeline is stdlib-only on purpose: <code>urllib</code>, <code>html.parser</code>, <code>json</code>, <code>csv</code>, <code>hashlib</code>, <code>gzip</code>. If you have a Python interpreter you can rebuild the archive.</p>
+</section>
+<section id="how-it-helps" class="level2">
+<h2 class="anchored" data-anchor-id="how-it-helps">How it helps</h2>
+<p>Counting moons is the most photogenic example of what a longitudinal view shows. Here is Saturn’s <code>Number of known satellites</code> field, as served by NSSDC, on the dates the page itself reports:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th><code>page_date</code></th>
+<th>satellites</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>2000-02-22</td>
+<td>18</td>
+</tr>
+<tr class="even">
+<td>2010-04-15</td>
+<td>62</td>
+</tr>
+<tr class="odd">
+<td>2020-04-01</td>
+<td>82</td>
+</tr>
+<tr class="even">
+<td>2024-01-11</td>
+<td>146</td>
+</tr>
+<tr class="odd">
+<td><strong>2025-03-18</strong></td>
+<td><strong>274</strong></td>
+</tr>
+</tbody>
+</table>
+<p>A factor of fifteen across the archive, and the jump from 146 to 274 happened inside fifteen months. Any paper that cites “Saturn has <em>N</em> moons (NSSDC)” without a date stamp is a citation that’s already ambiguous. The archive resolves the ambiguity: every value is bound to the snapshot date and to a Wayback URL.</p>
+<p>Similar drift shows up for Mars’s pole orientation across IAU working group revisions, for Mercury’s mean surface temperature as the MESSENGER results propagated in, for Jupiter’s ring count, and for Earth’s “natural satellites” line during the brief period in which a couple of quasi-satellites were getting counted. The dataset isn’t dramatic for most fields most of the time — but where it matters, it matters a lot.</p>
+</section>
+<section id="wired-into-planetarypy.constants" class="level2">
+<h2 class="anchored" data-anchor-id="wired-into-planetarypy.constants">Wired into <code>planetarypy.constants</code></h2>
+<p>The archive isn’t meant to be consulted by hand. It’s the data layer behind the time-indexed body objects in <code>planetarypy.constants</code> — the sub-package I rewrote for the 0.61 release (see the <a href="https://michaelaye.github.io/planetarypy/"><code>planetarypy</code> docs</a>). The runtime auto-downloads the parsed JSON from Zenodo on first use, caches it, and exposes it two ways.</p>
+<p>The implicit way — you never have to know NSSDC exists:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> planetarypy.constants <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> Mars</span>
+<span id="cb1-2">Mars.bond_albedo            <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># 0.25  (current NSSDC value)</span></span>
+<span id="cb1-3">Mars.bond_albedo.source     <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># "NSSDC marsfact.html updated 2025-05-19"</span></span>
+<span id="cb1-4"></span>
+<span id="cb1-5">Mars.at_time(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'2012'</span>).bond_albedo</span>
+<span id="cb1-6"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># whatever NSSDC was serving on 2012-01-01, with a wayback_url attached</span></span></code></pre></div></div>
+<p>And the explicit way, for science-history work where you want the full revision trail:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> planetarypy.constants <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> nssdc</span>
+<span id="cb2-2"></span>
+<span id="cb2-3"><span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">for</span> date, const, url <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">in</span> nssdc.history(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'saturn'</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'number_of_satellites'</span>):</span>
+<span id="cb2-4">    <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">print</span>(<span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">f'</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span>date<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">: </span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">int</span>(const.value)<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:&gt;4}</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">  </span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span>url<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'</span>)</span>
+<span id="cb2-5"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># 2000-02-22:   18  https://web.archive.org/web/2000022.../saturnfact.html</span></span>
+<span id="cb2-6"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># 2010-04-15:   62  https://web.archive.org/web/2010041.../saturnfact.html</span></span>
+<span id="cb2-7"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># ...</span></span>
+<span id="cb2-8"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># 2025-03-18:  274  https://web.archive.org/web/2025031.../saturnfact.html</span></span></code></pre></div></div>
+<p>Every value is an <code>astropy.units.Quantity</code> carrying its unit, its parsed <code>page_date</code>, and the Wayback URL it came from. The provenance travels with the number, which is the whole point.</p>
+</section>
+<section id="how-to-cite" class="level2">
+<h2 class="anchored" data-anchor-id="how-to-cite">How to cite</h2>
+<p>If the archive is useful for a paper, cite the Zenodo deposit directly — it has its own DOI separate from any <code>planetarypy</code> release:</p>
+<blockquote class="blockquote">
+<p>Aye, K. M. (2025). <em>A longitudinal archive of the NSSDC planetary fact sheets (1996–2025)</em> [Data set]. Zenodo. <a href="https://doi.org/10.5281/zenodo.20122987" class="uri">https://doi.org/10.5281/zenodo.20122987</a></p>
+</blockquote>
+<p>BibTeX:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode bibtex code-with-copy"><code class="sourceCode bibtex"><span id="cb3-1"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">@dataset{aye_2025_nssdc_factsheets,</span></span>
+<span id="cb3-2"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  author       = {Aye, K. Michael},</span></span>
+<span id="cb3-3"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  title        = {A longitudinal archive of the NSSDC planetary</span></span>
+<span id="cb3-4"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">                  fact sheets (1996--2025)},</span></span>
+<span id="cb3-5"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  year         = 2025,</span></span>
+<span id="cb3-6"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  publisher    = {Zenodo},</span></span>
+<span id="cb3-7"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  doi          = {10.5281/zenodo.20122987},</span></span>
+<span id="cb3-8"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  url          = {https://doi.org/10.5281/zenodo.20122987},</span></span>
+<span id="cb3-9"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  license      = {MIT}</span></span>
+<span id="cb3-10"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span></span></code></pre></div></div>
+</section>
+<section id="whats-next" class="level2">
+<h2 class="anchored" data-anchor-id="whats-next">What’s next</h2>
+<p>The obvious extensions are (a) widening coverage to the NSSDC mission fact sheets (Cassini, Voyager, MESSENGER, …), which follow a different layout family and need their own parser, (b) adding a small change-log generator on top of the parsed JSON so you can ask “what did NSSDC change about Mars between two dates” and get a diff back, rather than having to walk <code>history()</code> yourself, and (c) shipping a pre-time-indexed Parquet variant of the dataset so end users don’t have to walk the nested JSON at all.</p>
+<p>The Parquet variant is the one I expect to land first. The plan: a single long-format file, one row per observation, with <code>body</code> and <code>field</code> as categoricals, <code>page_date</code> as a proper <code>datetime64</code>, and the parsed <code>value</code>, <code>unit</code>, <code>raw</code>, <code>wayback_url</code>, and <code>capture_sha256</code> alongside. Reading the whole archive becomes:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> pandas <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">as</span> pd</span>
+<span id="cb4-2">df <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> pd.read_parquet(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"parsed_archive_v2.parquet"</span>)</span>
+<span id="cb4-3">saturn_moons <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> (df.query(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"body == 'saturn' &amp; field == 'number_of_satellites'"</span>)</span>
+<span id="cb4-4">                  .set_index(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"page_date"</span>)[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"value"</span>].sort_index())</span></code></pre></div></div>
+<p>A second tier of tiny per-body wide pivots (<code>wide/{body}.parquet</code>, index = <code>page_date</code>, columns = fields) would make exploratory plotting instant. I considered an xarray <code>Dataset</code> keyed on <code>(body, field, time)</code> instead, but the cube is &gt;95 % empty, units are heterogeneous per field, and field names drift across NSSDC’s three layout eras — exactly the shapes xarray punishes. Long-format Parquet keeps the natural geometry of the data, stays pandas/polars/duckdb-native, and the per-body wide files cover the “I just want a table” use case.</p>
+<p>That will land as a v2 Zenodo deposit (new DOI, v1 stays citable), with the rebuild script kept stdlib-only and the Parquet writer factored into a separate opt-in module so the reproducibility story doesn’t regress.</p>
+<p>Beyond this archive specifically: I’ll soon be starting a short blog post series walking through <code>planetarypy</code>’s current features end-to-end — PDS indexes, the SPICE kernel subsetting, the catalog DB, the <code>plp</code> CLI, and the rest of the constants subsystem of which the NSSDC archive is one piece. This post is a teaser for the interesting abilities I added to <code>planetarypy</code> in the recent months.</p>
+<p>If you spot a parsing miss or a snapshot the pipeline skipped, the issue tracker on <a href="https://github.com/planetarypy/planetarypy/issues"><code>planetarypy/planetarypy</code></a> is the right place — the parsers live in the <code>constants</code> sub-package and PRs are very welcome.</p>
+
+
+</section>
+
+ ]]></description>
+  <category>python</category>
+  <category>planetary</category>
+  <category>planetarypy</category>
+  <category>nssdc</category>
+  <category>zenodo</category>
+  <category>archive</category>
+  <category>reproducibility</category>
+  <guid>https://michaelaye.github.io/posts/2026-05-14_nssdc-factsheets-archive/</guid>
+  <pubDate>Thu, 14 May 2026 00:00:00 GMT</pubDate>
+</item>
 <item>
   <title>Red-teaming spice-kernel-db: Even SPICE kernels expose attack surfaces</title>
   <link>https://michaelaye.github.io/posts/2026-05-12_spice-kernel-db-redteam/</link>
