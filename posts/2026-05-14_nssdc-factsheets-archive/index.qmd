@@ -1,0 +1,247 @@
+---
+title: "A longitudinal archive of the NSSDC planetary fact sheets, 1996–2025"
+subtitle: "Why I scraped 29 years of Wayback Machine snapshots, what's in the dataset, and how it powers `planetarypy.constants`"
+date: 2026-05-14
+authors:
+  - name: "Michael Aye"
+    url: https://michaelaye.github.io
+    orcid: 0000-0002-4088-1928
+categories: [python, planetary, planetarypy, nssdc, zenodo, archive, reproducibility]
+---
+
+NASA's [NSSDC planetary fact sheets](https://nssdc.gsfc.nasa.gov/planetary/factsheet/)
+are the textbook reference many planetary scientist have bookmarked: one
+HTML page per body, with the bond albedo, surface pressure, ring system,
+satellite count, orbital elements, and a few dozen other parameters that
+nobody wants to re-derive from primary sources. They have been quietly
+maintained at GSFC since the mid-1990s.
+
+The word doing the work in that sentence is **quietly**. The pages get
+revised --- sometimes every few months, sometimes after a decade of
+silence --- and nothing on the live page tells you when, what changed,
+or what the value used to be. If you cite "Mars's bond albedo is 0.250
+(NSSDC)" in a 2014 paper, a 2026 reader visiting the same URL gets a
+different page and no way to recover the figure you actually used.
+
+This post is about the sub-project I built to fix that: a longitudinal
+archive of every distinct revision of the fact sheets, parsed into a
+structured time-indexed dataset, deposited at Zenodo, and shipped as part
+of the `constants` sub-package of [`planetarypy`](https://github.com/planetarypy/planetarypy).
+
+## Prior art and the lack of citable works
+
+Before building the archive I checked whether anyone had already
+documented the fact sheets as a versioned product. The short answer is
+no, but please correct me in the comments, if I overlooked something! 
+A search of NASA ADS, Google Scholar, Semantic Scholar, the
+NSSDC publications list, and the GSFC Solar System Exploration Data
+Services Office bibliography turns up **no peer-reviewed paper, data
+paper, conference abstract, or formal release announcement that
+describes the planetary fact sheets**. The first-author scholarly record
+of the long-time curator, Dr. David R. Williams (NSSDC, GSFC), is
+dominated by Apollo data restoration abstracts (LPSC 2006, 2008, 2011;
+AGU 2013) and a 2020 Planetary Spatial Data Infrastructure abstract ---
+none about the fact sheet product itself. The GSFC project page lists
+the fact sheets as
+[an operational project (#629)](https://science.gsfc.nasa.gov/solarsystem/dataarchives/projects/629/)
+with the "Other Publications" section empty, and notes that curatorship
+appears to have recently transitioned from Williams to
+Kristen M. Killingsworth, with Thomas H. Morgan as NASA Official.
+
+So the most-cited NASA planetary reference table on the open web ---
+used in textbooks, journal papers, Wikipedia, and undergraduate problem
+sets for nearly thirty years --- has no formal documentation of its own
+provenance, versioning, or methodology. The standard citation pattern in
+the literature is a bare URL with a "last accessed" date. That is the
+gap this archive is meant to close.
+
+## What's in the archive
+
+| | |
+|---|---|
+| **Coverage** | 13 fact sheets — Sun, Mercury, Venus, Earth, Moon, Mars, Jupiter, Saturn, Uranus, Neptune, Pluto, asteroid summary, comet summary |
+| **Time span** | December 1996 → May 2025 |
+| **Distinct content versions** | 913 captures |
+| **Parsed field rows** | 24,524 (long format) |
+| **DOI** | [10.5281/zenodo.20122987](https://doi.org/10.5281/zenodo.20122987) |
+| **License** | MIT |
+
+The bundle on Zenodo contains five things:
+
+1. **`parsed_archive_v1.json`** — the canonical parsed dataset
+   (~40 KB gzipped). One entry per fact sheet, each carrying every distinct
+   capture with its Wayback timestamp, parsed `page_date`, the source
+   `wayback_url`, and a `fields` dict where every value comes with `raw`,
+   parsed `value`, and `unit`.
+2. **A long-format CSV mirror** (24,524 rows) for people who would
+   rather pivot than parse JSON.
+3. **The raw HTML corpus** — every distinct snapshot, exactly as the
+   Wayback Machine served it, so anyone can re-parse with a different
+   ruleset and disagree with my decisions.
+4. **CDX provenance** — the index records returned by the Wayback CDX
+   API, kept verbatim so the chain from "snapshot existed" to "snapshot
+   downloaded" is auditable.
+5. **The stdlib-only Python scripts** that re-derive all of the above
+   from public sources. No dependencies beyond CPython; running them
+   reproduces the archive end-to-end.
+
+## How it was built
+
+The pipeline is deliberately simple:
+
+1. **Discover** every Wayback capture of each of the 13 fact sheet URLs
+   via the [CDX API](https://archive.org/help/wayback_api.php).
+2. **Deduplicate** by SHA-256 of the response body — the CDX index lists
+   many captures with identical content; only distinct payloads survive.
+3. **Fetch** the surviving snapshots through the `id_` Wayback prefix
+   (returns the original response, not the toolbar-decorated viewer).
+4. **Parse** with a small set of HTML-table rules tuned to NSSDC's
+   layout history. The parser handles three layout eras (pre-2003,
+   2003–2015, post-2015) and falls back to raw-string capture for fields
+   it can't normalize, so nothing is silently dropped.
+5. **Date-stamp** each capture by the `Last modified` text NSSDC bakes
+   into the page (`page_date`), with the Wayback timestamp kept
+   alongside as a safety net for pages that don't carry one.
+
+The whole pipeline is stdlib-only on purpose: `urllib`, `html.parser`,
+`json`, `csv`, `hashlib`, `gzip`. If you have a Python interpreter you
+can rebuild the archive.
+
+## How it helps
+
+Counting moons is the most photogenic example of what a longitudinal
+view shows. Here is Saturn's `Number of known satellites` field, as
+served by NSSDC, on the dates the page itself reports:
+
+| `page_date` | satellites |
+|---|---|
+| 2000-02-22 | 18 |
+| 2010-04-15 | 62 |
+| 2020-04-01 | 82 |
+| 2024-01-11 | 146 |
+| **2025-03-18** | **274** |
+
+A factor of fifteen across the archive, and the jump from 146 to 274
+happened inside fifteen months. Any paper that cites "Saturn has *N*
+moons (NSSDC)" without a date stamp is a citation that's already
+ambiguous. The archive resolves the ambiguity: every value is bound to
+the snapshot date and to a Wayback URL.
+
+Similar drift shows up for Mars's pole orientation across IAU working
+group revisions, for Mercury's mean surface temperature as the MESSENGER
+results propagated in, for Jupiter's ring count, and for Earth's
+"natural satellites" line during the brief period in which a couple of
+quasi-satellites were getting counted. The dataset isn't dramatic for
+most fields most of the time --- but where it matters, it matters a lot.
+
+## Wired into `planetarypy.constants`
+
+The archive isn't meant to be consulted by hand. It's the data layer
+behind the time-indexed body objects in `planetarypy.constants` --- the
+sub-package I rewrote for the 0.61 release (see the
+[`planetarypy` docs](https://michaelaye.github.io/planetarypy/)). The
+runtime auto-downloads the parsed JSON from Zenodo on first use, caches
+it, and exposes it two ways.
+
+The implicit way --- you never have to know NSSDC exists:
+
+``` python
+from planetarypy.constants import Mars
+Mars.bond_albedo            # 0.25  (current NSSDC value)
+Mars.bond_albedo.source     # "NSSDC marsfact.html updated 2025-05-19"
+
+Mars.at_time('2012').bond_albedo
+# whatever NSSDC was serving on 2012-01-01, with a wayback_url attached
+```
+
+And the explicit way, for science-history work where you want the full
+revision trail:
+
+``` python
+from planetarypy.constants import nssdc
+
+for date, const, url in nssdc.history('saturn', 'number_of_satellites'):
+    print(f'{date}: {int(const.value):>4}  {url}')
+# 2000-02-22:   18  https://web.archive.org/web/2000022.../saturnfact.html
+# 2010-04-15:   62  https://web.archive.org/web/2010041.../saturnfact.html
+# ...
+# 2025-03-18:  274  https://web.archive.org/web/2025031.../saturnfact.html
+```
+
+Every value is an `astropy.units.Quantity` carrying its unit, its
+parsed `page_date`, and the Wayback URL it came from. The provenance
+travels with the number, which is the whole point.
+
+## How to cite
+
+If the archive is useful for a paper, cite the Zenodo deposit
+directly --- it has its own DOI separate from any `planetarypy` release:
+
+> Aye, K. M. (2025). *A longitudinal archive of the NSSDC planetary fact
+> sheets (1996–2025)* \[Data set\]. Zenodo. <https://doi.org/10.5281/zenodo.20122987>
+
+BibTeX:
+
+``` bibtex
+@dataset{aye_2025_nssdc_factsheets,
+  author       = {Aye, K. Michael},
+  title        = {A longitudinal archive of the NSSDC planetary
+                  fact sheets (1996--2025)},
+  year         = 2025,
+  publisher    = {Zenodo},
+  doi          = {10.5281/zenodo.20122987},
+  url          = {https://doi.org/10.5281/zenodo.20122987},
+  license      = {MIT}
+}
+```
+
+## What's next
+
+The obvious extensions are (a) widening coverage to the NSSDC mission
+fact sheets (Cassini, Voyager, MESSENGER, …), which follow a different
+layout family and need their own parser, (b) adding a small change-log
+generator on top of the parsed JSON so you can ask "what did NSSDC
+change about Mars between two dates" and get a diff back, rather than
+having to walk `history()` yourself, and (c) shipping a pre-time-indexed
+Parquet variant of the dataset so end users don't have to walk the
+nested JSON at all.
+
+The Parquet variant is the one I expect to land first. The plan: a
+single long-format file, one row per observation, with `body` and
+`field` as categoricals, `page_date` as a proper `datetime64`, and the
+parsed `value`, `unit`, `raw`, `wayback_url`, and `capture_sha256`
+alongside. Reading the whole archive becomes:
+
+``` python
+import pandas as pd
+df = pd.read_parquet("parsed_archive_v2.parquet")
+saturn_moons = (df.query("body == 'saturn' & field == 'number_of_satellites'")
+                  .set_index("page_date")["value"].sort_index())
+```
+
+A second tier of tiny per-body wide pivots (`wide/{body}.parquet`, index
+= `page_date`, columns = fields) would make exploratory plotting
+instant. I considered an xarray `Dataset` keyed on `(body, field, time)`
+instead, but the cube is >95 % empty, units are heterogeneous per field,
+and field names drift across NSSDC's three layout eras --- exactly the
+shapes xarray punishes. Long-format Parquet keeps the natural geometry
+of the data, stays pandas/polars/duckdb-native, and the per-body wide
+files cover the "I just want a table" use case.
+
+That will land as a v2 Zenodo deposit (new DOI, v1 stays citable), with
+the rebuild script kept stdlib-only and the Parquet writer factored
+into a separate opt-in module so the reproducibility story doesn't
+regress.
+
+Beyond this archive specifically: I'll soon be starting a short blog
+post series walking through `planetarypy`'s current features
+end-to-end --- PDS indexes, the SPICE kernel subsetting, the catalog
+DB, the `plp` CLI, and the rest of the constants subsystem of which
+the NSSDC archive is one piece. This post is a teaser for the
+interesting abilities I added to `planetarypy` in the recent months.
+
+If you spot a parsing miss or a snapshot the pipeline skipped, the
+issue tracker on
+[`planetarypy/planetarypy`](https://github.com/planetarypy/planetarypy/issues)
+is the right place --- the parsers live in the `constants` sub-package
+and PRs are very welcome.
