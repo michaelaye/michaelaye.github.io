@@ -245,3 +245,8 @@ issue tracker on
 [`planetarypy/planetarypy`](https://github.com/planetarypy/planetarypy/issues)
 is the right place --- the parsers live in the `constants` sub-package
 and PRs are very welcome.
+
+**PS.** If anybody knows about other efforts to archive or standardize
+planetary constants --- in any language, not just Python --- please let
+me know in the comments. It could guide future efforts in this
+direction.
