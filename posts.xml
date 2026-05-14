@@ -261,6 +261,7 @@ font-style: inherit;">"value"</span>].sort_index())</span></code></pre></div></d
 <p>That will land as a v2 Zenodo deposit (new DOI, v1 stays citable), with the rebuild script kept stdlib-only and the Parquet writer factored into a separate opt-in module so the reproducibility story doesn’t regress.</p>
 <p>Beyond this archive specifically: I’ll soon be starting a short blog post series walking through <code>planetarypy</code>’s current features end-to-end — PDS indexes, the SPICE kernel subsetting, the catalog DB, the <code>plp</code> CLI, and the rest of the constants subsystem of which the NSSDC archive is one piece. This post is a teaser for the interesting abilities I added to <code>planetarypy</code> in the recent months.</p>
 <p>If you spot a parsing miss or a snapshot the pipeline skipped, the issue tracker on <a href="https://github.com/planetarypy/planetarypy/issues"><code>planetarypy/planetarypy</code></a> is the right place — the parsers live in the <code>constants</code> sub-package and PRs are very welcome.</p>
+<p><strong>PS.</strong> If anybody knows about other efforts to archive or standardize planetary constants — in any language, not just Python — please let me know in the comments. It could guide future efforts in this direction.</p>
 
 
 </section>
