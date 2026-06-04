@@ -13,3 +13,5 @@ date-format: "YYYY-MM-DD"
 format:
   revealjs:
     history: false
+# default listing thumbnail (talks may override)
+image: /talk_placeholder.png

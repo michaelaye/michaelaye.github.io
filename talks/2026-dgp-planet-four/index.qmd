@@ -1,4 +1,5 @@
 ---
+image: image15.jpeg
 title: "Planet Four: Inter- and Intra-annual Variability of Dark Regolith on Ice Coverage at the Martian South Polar Region"
 title-slide-attributes: 
   data-background-image: ./image15.jpeg

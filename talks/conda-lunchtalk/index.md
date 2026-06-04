@@ -1,4 +1,5 @@
 ---
+image: conda.png
 title: "Best practices for conda-based Python science analysis environments"
 subtitle: OpenPlanetary Lunch Talk #3
 date: 2020-03-31T12:00:00

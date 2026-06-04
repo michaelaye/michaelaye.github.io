@@ -1,4 +1,5 @@
 ---
+image: rings_welcome.png
 title: "Is it easy enough to get to planetary data?"
 from: markdown+emoji
 subtitle: "An imager (and user's) perspective"

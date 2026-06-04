@@ -1,4 +1,5 @@
 ---
+image: op_header_about.png
 title: "OpenPlanetary Data Cafe and Friends"
 title-slide-attributes: 
   # data-background-image: ./image15.jpeg

@@ -1,0 +1,369 @@
+/*-- scss:defaults --*/
+
+// FU Berlin Corporate Design Colors
+$fu-dark-blue: #004659;
+$fu-blue-90: #195869;
+$fu-blue-80: #336B7A;
+$fu-blue-70: #4C7D8A;
+$fu-blue-60: #66909B;
+$fu-blue-50: #7FA2AC;
+$fu-blue-40: #99B5BD;
+$fu-blue-30: #B2C7CD;
+$fu-blue-20: #CCDADE;
+$fu-blue-10: #E5ECEE;
+
+$fu-lime: #CCFF00;
+$fu-black: #1d1d1b;
+$fu-cyan: #00A4D1;
+$fu-teal: #336B7A;
+$fu-coral: #E57050;
+$fu-plum: #813353;
+
+// Primary theme colors - dark background, light text
+$body-bg: $fu-dark-blue;
+$body-color: white;
+$link-color: $fu-dark-blue;
+$selection-bg: $fu-lime;
+
+// Headings
+$presentation-heading-font: Arial, Helvetica, sans-serif;
+$presentation-heading-color: $fu-dark-blue;
+
+// Body font
+$font-family-sans-serif: Arial, Helvetica, sans-serif;
+
+// Code
+$code-color: $fu-dark-blue;
+$code-bg: $fu-blue-10;
+
+/*-- scss:rules --*/
+
+// Title slide styling (dark background)
+.reveal .slides section.quarto-title-block {
+  h1.title {
+    color: white !important;
+    font-weight: bold;
+    border-bottom: 3px solid $fu-lime !important;
+  }
+
+  .subtitle {
+    color: $fu-lime !important;
+    font-size: 1.3em;
+  }
+
+  .quarto-title-authors {
+    color: white !important;
+    font-size: 0.85em;
+    max-width: 90%;
+    margin: 0.5em auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.3em 1em;
+    text-align: center;
+  }
+
+  .quarto-title-authors::before {
+    content: "Group members";
+    grid-column: 1 / -1;
+    text-align: center;
+    color: $fu-blue-30;
+    font-size: 0.8em;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.3em;
+  }
+
+  .quarto-title-author {
+    text-align: center;
+    color: white !important;
+  }
+
+  // Hide affiliations shown after each author
+  .quarto-title-author-affiliation,
+  .quarto-title-affiliation {
+    display: none !important;
+  }
+
+  .quarto-title-meta {
+    color: white !important;
+  }
+
+  .quarto-title-meta-heading {
+    color: $fu-blue-30 !important;
+  }
+
+  .quarto-title-meta-contents {
+    color: $fu-lime !important;
+  }
+
+  .date {
+    color: $fu-lime !important;
+  }
+
+  p {
+    color: white !important;
+  }
+
+  // Institute styling - show as separate block
+  .quarto-title-meta {
+    margin-top: 1em;
+  }
+
+  .quarto-title-meta-contents p {
+    color: $fu-blue-20 !important;
+    font-size: 0.8em;
+  }
+}
+
+// Section headers (title slides with background)
+.reveal .slide-background-content {
+  background-color: $fu-dark-blue;
+}
+
+// Override section slide text color (dark blue background)
+.reveal .slides section[data-background-color="#004659"] {
+  h1, h2, h3, p, li {
+    color: white !important;
+  }
+
+  h1, h2 {
+    border-bottom: none !important;
+  }
+}
+
+// Slide titles - white with lime accent
+.reveal h1, .reveal h2 {
+  color: white;
+  border-bottom: 3px solid $fu-lime;
+  padding-bottom: 0.3em;
+}
+
+.reveal h3 {
+  color: $fu-lime;
+}
+
+// Section headers (no border for section title slides)
+.reveal section.center h1,
+.reveal section[data-background-color] h1 {
+  border-bottom: none;
+  color: white;
+}
+
+// Content slides - light text on dark background
+.reveal .slides section {
+  color: white;
+}
+
+// Bullet points
+.reveal ul li::marker {
+  color: $fu-lime;
+}
+
+.reveal ul li {
+  margin-bottom: 0.4em;
+  color: white;
+}
+
+.reveal p {
+  color: white;
+}
+
+// Strong/bold text
+.reveal strong {
+  color: $fu-lime;
+}
+
+// Links
+.reveal a {
+  color: $fu-cyan;
+}
+
+.reveal a:hover {
+  color: $fu-lime;
+}
+
+// Footer styling
+.reveal .footer {
+  bottom: 10px !important;
+  color: rgba(255, 255, 255, 0.6) !important;
+  -webkit-text-fill-color: rgba(255, 255, 255, 0.6) !important;
+  font-family: Arial, Helvetica, sans-serif !important;
+  font-size: 14px !important;
+  font-weight: normal !important;
+}
+
+// Slide number - match footer exactly
+.reveal .slide-number,
+.reveal.has-logo .slide-number {
+  bottom: 10px !important;
+  left: 10px !important;
+  right: unset !important;
+  top: unset !important;
+  color: rgba(255, 255, 255, 0.6) !important;
+  background: none !important;
+  font-family: Arial, Helvetica, sans-serif !important;
+  font-size: 14px !important;
+  font-weight: normal !important;
+  letter-spacing: normal !important;
+}
+
+// Override link color specifically for slide number - reset everything
+.reveal .slide-number a {
+  all: unset !important;
+  color: rgba(255, 255, 255, 0.6) !important;
+  font-family: Arial, Helvetica, sans-serif !important;
+  font-size: 14px !important;
+  font-weight: 400 !important;
+  text-decoration: none !important;
+  -webkit-text-fill-color: rgba(255, 255, 255, 0.6) !important;
+  cursor: pointer;
+}
+
+.reveal .slide-number span {
+  all: unset !important;
+  color: inherit !important;
+  font: inherit !important;
+}
+
+// Logo positioning
+.reveal .slide-logo {
+  max-height: 60px !important;
+}
+
+// Callout boxes
+.callout {
+  border-left-color: $fu-dark-blue;
+}
+
+.callout.callout-note {
+  border-left-color: $fu-cyan;
+}
+
+.callout.callout-warning {
+  border-left-color: $fu-coral;
+}
+
+.callout.callout-important {
+  border-left-color: $fu-plum;
+}
+
+// Tables
+.reveal table {
+  border-collapse: collapse;
+}
+
+.reveal table th {
+  background-color: $fu-blue-80;
+  color: white;
+  padding: 0.5em 1em;
+}
+
+.reveal table td {
+  border-bottom: 1px solid $fu-blue-70;
+  padding: 0.4em 1em;
+  color: white;
+}
+
+.reveal table tr:nth-child(even) {
+  background-color: $fu-blue-90;
+}
+
+// Image captions
+.reveal figcaption {
+  color: $fu-blue-30;
+  font-size: 0.8em;
+  font-style: italic;
+}
+
+// Progress bar (optional)
+.reveal .progress {
+  background: $fu-blue-20;
+}
+
+.reveal .progress span {
+  background: $fu-lime;
+}
+
+// Menu button styling (hamburger icon)
+.reveal .slide-menu-button {
+  top: 10px !important;
+  bottom: unset !important;
+  left: 10px !important;
+  right: unset !important;
+  width: 30px !important;
+  height: 24px !important;
+}
+
+.reveal .slide-menu-button a {
+  display: block;
+  width: 30px;
+  height: 24px;
+  position: relative;
+}
+
+// Hide the Font Awesome icon that doesn't render
+.reveal .slide-menu-button i {
+  display: none !important;
+}
+
+// Create CSS hamburger icon
+.reveal .slide-menu-button a::before,
+.reveal .slide-menu-button a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 30px;
+  height: 3px;
+  background-color: white;
+  border-radius: 2px;
+}
+
+.reveal .slide-menu-button a::before {
+  top: 0;
+  box-shadow: 0 10px 0 white;
+}
+
+.reveal .slide-menu-button a::after {
+  bottom: 0;
+}
+
+.reveal .slide-menu-button:hover a::before,
+.reveal .slide-menu-button:hover a::after {
+  background-color: $fu-lime;
+}
+
+.reveal .slide-menu-button:hover a::before {
+  box-shadow: 0 10px 0 $fu-lime;
+}
+
+// Menu panel styling
+.slide-menu-wrapper {
+  background-color: $fu-blue-90 !important;
+}
+
+.slide-menu-wrapper .slide-menu {
+  background-color: $fu-blue-90 !important;
+}
+
+.slide-menu-wrapper .slide-menu-items {
+  color: white !important;
+}
+
+.slide-menu-wrapper .slide-menu-item {
+  color: white !important;
+}
+
+.slide-menu-wrapper .slide-menu-item.active {
+  background-color: $fu-dark-blue !important;
+  color: $fu-lime !important;
+}
+
+// Navigation controls - use default RevealJS styling
+// Just adjust colors for visibility on dark background
+.reveal .controls .controls-arrow {
+  color: white;
+}
+
+.reveal .controls .controls-arrow:hover {
+  color: $fu-lime;
+}

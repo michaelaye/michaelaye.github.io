@@ -1,4 +1,5 @@
 ---
+image: presentation/galaxyzoo.png
 title: "Planetary Research with Citizen Science"
 description: "Presentation given at Planetary Seminar of Freie Uni Berlin"
 subtitle: "Introduction to Citizen Science and the Planet Four project"

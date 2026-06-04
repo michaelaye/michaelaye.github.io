@@ -1,4 +1,5 @@
 ---
+image: diviner.png
 title: Calibration of the LRO Diviner Lunar Radiometer Experiment
 subtitle: International Conference for Young Professionals in Physics and Technology
 summary:

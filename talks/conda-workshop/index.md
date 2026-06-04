@@ -1,4 +1,5 @@
 ---
+image: conda.png
 title: "How to live peacefully with Ana/Mini/Conda"
 subtitle: OpenPlanetary Virtual Conference
 summary:

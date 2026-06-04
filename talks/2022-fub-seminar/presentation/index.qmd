@@ -1,4 +1,5 @@
 ---
+image: galaxyzoo.png
 title: "Planetary Research with Citizen Science"
 title-slide-attributes: 
   data-background-image: ./image15.jpeg

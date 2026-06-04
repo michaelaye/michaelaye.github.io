@@ -1,4 +1,5 @@
 ---
+image: conda.png
 title: "How to create and maintain a scientific Python environment using conda"
 subtitle: "International Conference for Young Professionals in Physics and Technology (ICYPPT)"
 date: 2021-04-28

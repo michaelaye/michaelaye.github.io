@@ -1,7 +1,7 @@
 ---
 title: "Talks"
 listing:
-  contents: talks
+  contents: "talks/*/index.{qmd,md,ipynb}"
   sort: "date desc"
   type: default
   categories: true
