@@ -1,6 +1,8 @@
 ---
 title: "Bibliography"
-bibliography: "MyPublications.bib"
+bibliography:
+  - MyPublications.bib
+  - manual_publications.bib
 csl: chicago-author-date-no-substitute.csl
 nocite: |
   @*

@@ -22,3 +22,13 @@ body.quarto-dark .nav-tabs .nav-link {
 body.quarto-dark .nav-tabs .nav-link.active {
   color: #fff !important;
 }
+
+/* The highlighted author name (highlight-author filter wraps it in <strong>)
+   is barely distinguishable on the dark theme — give it a warm accent colour
+   in dark mode only. Light mode keeps the plain bold. */
+[data-bs-theme="dark"] #refs-refereed strong,
+[data-bs-theme="dark"] #refs-nonrefereed strong,
+body.quarto-dark #refs-refereed strong,
+body.quarto-dark #refs-nonrefereed strong {
+  color: #ffc658;
+}
