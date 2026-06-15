@@ -1,128 +1,91 @@
-/*-- scss:defaults --*/
-
-@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap');
-
-$body-bg: #FBFAF7;
-$body-color: #16181D;
-$font-family-sans-serif: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
-$headings-font-family: "Archivo", #{$font-family-sans-serif};
-$link-color: #0E8C53;
-$navbar-bg: #16181D;
-
-
 /*-- scss:rules --*/
 
-:root {
-  --ink: #16181D;
-  --paper: #FBFAF7;
-  --surface: #FFFFFF;
-  --grass: #0E8C53;
-  --grass-bright: #16C172;
-  --line: #E7E4DB;
-  --muted: #6B7280;
-}
-
-body { background: var(--paper); }
+/* Layout-only styling for the World Cup page. Colors follow the active site
+   theme. Surfaces/borders are derived from color-mix() of the body text color
+   (not --bs-*-bg), because some dark themes (e.g. superhero) leave
+   --bs-tertiary-bg / --bs-secondary-bg as LIGHT values, which would make text
+   on those surfaces unreadable. This way every surface contrasts with the
+   body text in both light and dark mode. No fonts, no global theme changes. */
 
 /* ---------- Hero ---------- */
 .wc-hero { margin: .25rem 0 1.75rem; }
 .wc-eyebrow {
-  font-family: "Archivo", sans-serif;
   font-weight: 700;
   letter-spacing: .22em;
   text-transform: uppercase;
   font-size: .72rem;
-  color: var(--grass);
+  color: var(--bs-secondary-color);
 }
 .wc-title {
-  font-family: "Archivo", sans-serif;
-  font-weight: 900;
+  font-weight: 800;
   font-size: clamp(2.3rem, 7vw, 3.7rem);
   line-height: .94;
   letter-spacing: -.015em;
   margin: .35rem 0 .55rem;
-  color: var(--ink);
 }
-.wc-sub { color: var(--muted); font-size: 1.02rem; max-width: 52ch; margin: 0; }
+.wc-sub { color: var(--bs-secondary-color); font-size: 1.02rem; max-width: 52ch; margin: 0; }
 .wc-rule {
   height: 4px; width: 64px; margin: 1.1rem 0 0;
-  background: var(--grass-bright); border-radius: 999px;
+  background: var(--bs-primary); border-radius: 999px;
 }
 
-/* ---------- Tabset as a scoreboard segmented control ---------- */
+/* ---------- Tabset as a segmented control ---------- */
 .panel-tabset .nav-tabs {
-  border: 0;
+  border: 1px solid color-mix(in srgb, var(--bs-body-color) 16%, transparent);
   gap: .35rem;
   padding: .4rem;
-  background: var(--ink);
+  background: color-mix(in srgb, var(--bs-body-color) 6%, transparent);
   border-radius: 14px;
   flex-wrap: wrap;
 }
 .panel-tabset .nav-tabs .nav-link {
   border: 0;
-  background: transparent;            // let the dark bar show through (theme-agnostic)
+  background: transparent;
   border-radius: 9px;
   min-width: 2.5rem;
   padding: .5rem .7rem;
   text-align: center;
-  font-family: "Archivo", sans-serif;
-  font-weight: 800;
+  font-weight: 700;
   font-size: .95rem;
   letter-spacing: .06em;
-  color: rgba(255, 255, 255, .82);   // brighter inactive letters for readability
+  color: var(--bs-body-color);
   transition: background-color .12s ease, color .12s ease;
 }
 .panel-tabset .nav-tabs .nav-link:hover {
-  color: #fff;
-  background: rgba(255, 255, 255, .09);
+  background: color-mix(in srgb, var(--bs-body-color) 10%, transparent);
+  color: var(--bs-body-color);
 }
 .panel-tabset .nav-tabs .nav-link.active {
-  color: var(--ink);
-  background: var(--grass-bright);
+  color: var(--bs-body-bg);          /* contrasts with primary in both themes */
+  background: var(--bs-primary);
 }
 
 /* ---------- Group card ---------- */
 .group-card {
   position: relative;
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-top: 4px solid var(--grass);
+  background: color-mix(in srgb, var(--bs-body-color) 4%, transparent);
+  border: 1px solid color-mix(in srgb, var(--bs-body-color) 16%, transparent);
+  border-top: 4px solid var(--bs-primary);
   border-radius: 16px;
   padding: 1.35rem 1.35rem 1.1rem;
   margin-top: 1.25rem;
-  box-shadow: 0 18px 40px -30px rgba(16, 24, 32, .35);
+  box-shadow: 0 18px 40px -30px rgba(0, 0, 0, .35);
 }
-.group-head {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 1.1rem;
-}
+.group-head { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.1rem; }
 .group-letter {
-  font-family: "Archivo", sans-serif;
-  font-weight: 900;
+  font-weight: 800;
   font-size: clamp(2.8rem, 8vw, 4rem);
   line-height: .8;
-  color: var(--ink);
-  background: linear-gradient(180deg, var(--grass) 0%, var(--grass-bright) 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: var(--bs-primary);
 }
 .group-kicker {
-  font-family: "Archivo", sans-serif;
   font-weight: 700;
   letter-spacing: .16em;
   text-transform: uppercase;
   font-size: .7rem;
-  color: var(--muted);
+  color: var(--bs-secondary-color);
 }
-.group-lead {
-  font-family: "Archivo", sans-serif;
-  font-weight: 600;
-  font-size: 1.05rem;
-  color: var(--ink);
-}
+.group-lead { font-weight: 600; font-size: 1.05rem; }
 
 /* ---------- Team rows ---------- */
 .team-list { list-style: none; margin: 0; padding: 0; display: grid; gap: .5rem; }
@@ -132,48 +95,81 @@ body { background: var(--paper); }
   gap: .8rem;
   flex-wrap: wrap;
   padding: .7rem .9rem;
-  background: #FAFAF6;
-  border: 1px solid var(--line);
+  background: color-mix(in srgb, var(--bs-body-color) 6%, transparent);
+  border: 1px solid color-mix(in srgb, var(--bs-body-color) 14%, transparent);
   border-radius: 11px;
   transition: border-color .12s ease, transform .12s ease;
 }
-.team:hover { border-color: var(--grass); transform: translateX(2px); }
+.team:hover { border-color: var(--bs-primary); transform: translateX(2px); }
 .flag { font-size: 1.7rem; line-height: 1; width: 2.1rem; text-align: center; }
-.team-name {
-  font-family: "Archivo", sans-serif;
-  font-weight: 600;
-  font-size: 1.06rem;
-  flex: 1 1 8rem;
-  color: var(--ink);
-}
+.team-name { font-weight: 600; font-size: 1.06rem; flex: 1 1 8rem; color: var(--bs-body-color); }
 .conf {
-  font-family: "Archivo", sans-serif;
   font-weight: 700;
   font-size: .64rem;
   letter-spacing: .12em;
   text-transform: uppercase;
-  color: var(--muted);
-  border: 1px solid var(--line);
+  color: var(--bs-secondary-color);
+  border: 1px solid color-mix(in srgb, var(--bs-body-color) 22%, transparent);
   border-radius: 999px;
   padding: .2rem .55rem;
   cursor: help;
 }
 .chip {
-  font-family: "Archivo", sans-serif;
-  font-weight: 800;
+  font-weight: 700;
   font-size: .62rem;
   letter-spacing: .1em;
   text-transform: uppercase;
   padding: .22rem .55rem;
   border-radius: 999px;
+  background: color-mix(in srgb, var(--bs-body-color) 13%, transparent);
+  color: var(--bs-body-color);
 }
-.chip-host { background: var(--ink); color: #fff; }
-.chip-seed { background: rgba(14, 140, 83, .14); color: var(--grass); }
+.chip-seed { color: var(--bs-primary); }
 
-/* ---------- Quiet down on mobile + accessibility ---------- */
-@media (max-width: 420px) {
-  .team-name { flex-basis: 100%; }
+/* ---------- Standings table ---------- */
+.standings-wrap { margin-top: 1.2rem; }
+.standings-cap {
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  font-size: .64rem;
+  color: var(--bs-secondary-color);
+  margin: 0 0 .5rem .15rem;
 }
+table.standings { width: 100%; border-collapse: collapse; font-size: .9rem; color: var(--bs-body-color); }
+table.standings thead th {
+  font-weight: 700;
+  font-size: .62rem;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  color: var(--bs-secondary-color);
+  text-align: center;
+  padding: .35rem .25rem;
+  border-bottom: 2px solid color-mix(in srgb, var(--bs-body-color) 20%, transparent);
+}
+table.standings td {
+  text-align: center;
+  padding: .5rem .25rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--bs-body-color) 12%, transparent);
+  font-variant-numeric: tabular-nums;
+}
+table.standings tbody tr:last-child td { border-bottom: 0; }
+table.standings th.st-team, table.standings td.st-team { text-align: left; }
+table.standings td.st-team { font-weight: 600; display: flex; align-items: center; gap: .55rem; }
+table.standings td.st-team .flag { font-size: 1.2rem; width: auto; }
+table.standings td.st-team .st-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+table.standings td.pos { color: var(--bs-secondary-color); font-weight: 700; width: 1.4rem; }
+table.standings td.gd { color: var(--bs-secondary-color); }
+table.standings td.pts { font-weight: 800; }
+table.standings tr.q1 td.pos {
+  color: var(--bs-primary);
+  box-shadow: inset 3px 0 0 var(--bs-primary);
+}
+table.standings tr.q3 td.pos {
+  box-shadow: inset 3px 0 0 color-mix(in srgb, var(--bs-body-color) 25%, transparent);
+}
+
+/* ---------- Accessibility ---------- */
 @media (prefers-reduced-motion: reduce) {
   .team, .panel-tabset .nav-tabs .nav-link { transition: none; }
   .team:hover { transform: none; }

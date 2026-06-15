@@ -4,8 +4,7 @@ toc: false
 page-layout: article
 format:
   html:
-    # Page-scoped theme: World Cup styling applies ONLY to this page,
-    # the rest of the site keeps sandstone/superhero. Temporary page.
+    # Layout-only add-on (custom.scss); colors follow the site theme.
     theme:
       light: [sandstone, custom.scss]
       dark: [superhero, custom.scss]
@@ -24,127 +23,6 @@ format:
 :::
 :::
 
-```{python}
-#| echo: false
-#| output: asis
-
-# ---------------------------------------------------------------------------
-# Group data — 2026 FIFA World Cup final draw (Washington DC, 5 Dec 2025),
-# with the inter-confederation / UEFA play-off slots resolved.
-# Each team: (name, flag, confederation, role)  role ∈ {"host", "seed", None}
-# "seed" marks the Pot 1 team in groups without a host nation.
-# Within each group the host/seed is listed first, then alphabetical.
-# ---------------------------------------------------------------------------
-
-GROUPS = [
-    ("A", "Mexico", [
-        ("Mexico",                 "🇲🇽", "CONCACAF", "host"),
-        ("Czechia",                "🇨🇿", "UEFA",     None),
-        ("South Africa",           "🇿🇦", "CAF",      None),
-        ("South Korea",            "🇰🇷", "AFC",      None),
-    ]),
-    ("B", "Canada", [
-        ("Canada",                 "🇨🇦", "CONCACAF", "host"),
-        ("Bosnia and Herzegovina", "🇧🇦", "UEFA",     None),
-        ("Qatar",                  "🇶🇦", "AFC",      None),
-        ("Switzerland",            "🇨🇭", "UEFA",     None),
-    ]),
-    ("C", None, [
-        ("Brazil",                 "🇧🇷", "CONMEBOL", "seed"),
-        ("Haiti",                  "🇭🇹", "CONCACAF", None),
-        ("Morocco",                "🇲🇦", "CAF",      None),
-        ("Scotland",               "🏴󠁧󠁢󠁳󠁣󠁴󠁿", "UEFA",     None),
-    ]),
-    ("D", "United States", [
-        ("United States",          "🇺🇸", "CONCACAF", "host"),
-        ("Australia",              "🇦🇺", "AFC",      None),
-        ("Paraguay",               "🇵🇾", "CONMEBOL", None),
-        ("Türkiye",                "🇹🇷", "UEFA",     None),
-    ]),
-    ("E", None, [
-        ("Germany",                "🇩🇪", "UEFA",     "seed"),
-        ("Curaçao",                "🇨🇼", "CONCACAF", None),
-        ("Ecuador",                "🇪🇨", "CONMEBOL", None),
-        ("Ivory Coast",            "🇨🇮", "CAF",      None),
-    ]),
-    ("F", None, [
-        ("Netherlands",            "🇳🇱", "UEFA",     "seed"),
-        ("Japan",                  "🇯🇵", "AFC",      None),
-        ("Sweden",                 "🇸🇪", "UEFA",     None),
-        ("Tunisia",                "🇹🇳", "CAF",      None),
-    ]),
-    ("G", None, [
-        ("Belgium",                "🇧🇪", "UEFA",     "seed"),
-        ("Egypt",                  "🇪🇬", "CAF",      None),
-        ("Iran",                   "🇮🇷", "AFC",      None),
-        ("New Zealand",            "🇳🇿", "OFC",      None),
-    ]),
-    ("H", None, [
-        ("Spain",                  "🇪🇸", "UEFA",     "seed"),
-        ("Cape Verde",             "🇨🇻", "CAF",      None),
-        ("Saudi Arabia",           "🇸🇦", "AFC",      None),
-        ("Uruguay",                "🇺🇾", "CONMEBOL", None),
-    ]),
-    ("I", None, [
-        ("France",                 "🇫🇷", "UEFA",     "seed"),
-        ("Iraq",                   "🇮🇶", "AFC",      None),
-        ("Norway",                 "🇳🇴", "UEFA",     None),
-        ("Senegal",                "🇸🇳", "CAF",      None),
-    ]),
-    ("J", None, [
-        ("Argentina",              "🇦🇷", "CONMEBOL", "seed"),
-        ("Algeria",                "🇩🇿", "CAF",      None),
-        ("Austria",                "🇦🇹", "UEFA",     None),
-        ("Jordan",                 "🇯🇴", "AFC",      None),
-    ]),
-    ("K", None, [
-        ("Portugal",               "🇵🇹", "UEFA",     "seed"),
-        ("Colombia",               "🇨🇴", "CONMEBOL", None),
-        ("DR Congo",               "🇨🇩", "CAF",      None),
-        ("Uzbekistan",             "🇺🇿", "AFC",      None),
-    ]),
-    ("L", None, [
-        ("England",                "🏴󠁧󠁢󠁥󠁮󠁧󠁿", "UEFA",     "seed"),
-        ("Croatia",                "🇭🇷", "UEFA",     None),
-        ("Ghana",                  "🇬🇭", "CAF",      None),
-        ("Panama",                 "🇵🇦", "CONCACAF", None),
-    ]),
-]
-
-CONF_FULL = {
-    "UEFA": "Europe",
-    "CONMEBOL": "South America",
-    "CONCACAF": "North & Central America",
-    "CAF": "Africa",
-    "AFC": "Asia",
-    "OFC": "Oceania",
-}
-
-out = ["::::: {.panel-tabset}", ""]
-for letter, host, teams in GROUPS:
-    lead = teams[0][0]
-    role_line = f"Host nation &middot; {lead}" if host else f"Top seed &middot; {lead}"
-    out += [f"## {letter}", "", ":::: {.group-card}"]
-    out.append(
-        f'<div class="group-head"><div class="group-letter">{letter}</div>'
-        f'<div class="group-meta"><div class="group-kicker">Group {letter}</div>'
-        f'<div class="group-lead">{role_line}</div></div></div>'
-    )
-    out.append('<ol class="team-list">')
-    for name, flag, conf, role in teams:
-        if role == "host":
-            chip = '<span class="chip chip-host">Host</span>'
-        elif role == "seed":
-            chip = '<span class="chip chip-seed">Pot 1</span>'
-        else:
-            chip = ""
-        out.append(
-            f'<li class="team"><span class="flag">{flag}</span>'
-            f'<span class="team-name">{name}</span>'
-            f'<span class="conf" title="{CONF_FULL[conf]}">{conf}</span>{chip}</li>'
-        )
-    out += ["</ol>", "::::", ""]
-out.append(":::::")
-
-print("\n".join(out))
-```
+<!-- Groups + standings are static HTML in _groups.md (no Python at build time).
+     Refresh from live open data with:  python scripts/update_worldcup_standings.py -->
+{{< include _groups.md >}}
