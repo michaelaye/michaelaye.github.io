@@ -1,0 +1,180 @@
+/*-- scss:defaults --*/
+
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap');
+
+$body-bg: #FBFAF7;
+$body-color: #16181D;
+$font-family-sans-serif: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+$headings-font-family: "Archivo", #{$font-family-sans-serif};
+$link-color: #0E8C53;
+$navbar-bg: #16181D;
+
+
+/*-- scss:rules --*/
+
+:root {
+  --ink: #16181D;
+  --paper: #FBFAF7;
+  --surface: #FFFFFF;
+  --grass: #0E8C53;
+  --grass-bright: #16C172;
+  --line: #E7E4DB;
+  --muted: #6B7280;
+}
+
+body { background: var(--paper); }
+
+/* ---------- Hero ---------- */
+.wc-hero { margin: .25rem 0 1.75rem; }
+.wc-eyebrow {
+  font-family: "Archivo", sans-serif;
+  font-weight: 700;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  font-size: .72rem;
+  color: var(--grass);
+}
+.wc-title {
+  font-family: "Archivo", sans-serif;
+  font-weight: 900;
+  font-size: clamp(2.3rem, 7vw, 3.7rem);
+  line-height: .94;
+  letter-spacing: -.015em;
+  margin: .35rem 0 .55rem;
+  color: var(--ink);
+}
+.wc-sub { color: var(--muted); font-size: 1.02rem; max-width: 52ch; margin: 0; }
+.wc-rule {
+  height: 4px; width: 64px; margin: 1.1rem 0 0;
+  background: var(--grass-bright); border-radius: 999px;
+}
+
+/* ---------- Tabset as a scoreboard segmented control ---------- */
+.panel-tabset .nav-tabs {
+  border: 0;
+  gap: .35rem;
+  padding: .4rem;
+  background: var(--ink);
+  border-radius: 14px;
+  flex-wrap: wrap;
+}
+.panel-tabset .nav-tabs .nav-link {
+  border: 0;
+  background: transparent;            // let the dark bar show through (theme-agnostic)
+  border-radius: 9px;
+  min-width: 2.5rem;
+  padding: .5rem .7rem;
+  text-align: center;
+  font-family: "Archivo", sans-serif;
+  font-weight: 800;
+  font-size: .95rem;
+  letter-spacing: .06em;
+  color: rgba(255, 255, 255, .82);   // brighter inactive letters for readability
+  transition: background-color .12s ease, color .12s ease;
+}
+.panel-tabset .nav-tabs .nav-link:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, .09);
+}
+.panel-tabset .nav-tabs .nav-link.active {
+  color: var(--ink);
+  background: var(--grass-bright);
+}
+
+/* ---------- Group card ---------- */
+.group-card {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-top: 4px solid var(--grass);
+  border-radius: 16px;
+  padding: 1.35rem 1.35rem 1.1rem;
+  margin-top: 1.25rem;
+  box-shadow: 0 18px 40px -30px rgba(16, 24, 32, .35);
+}
+.group-head {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.1rem;
+}
+.group-letter {
+  font-family: "Archivo", sans-serif;
+  font-weight: 900;
+  font-size: clamp(2.8rem, 8vw, 4rem);
+  line-height: .8;
+  color: var(--ink);
+  background: linear-gradient(180deg, var(--grass) 0%, var(--grass-bright) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.group-kicker {
+  font-family: "Archivo", sans-serif;
+  font-weight: 700;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  font-size: .7rem;
+  color: var(--muted);
+}
+.group-lead {
+  font-family: "Archivo", sans-serif;
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: var(--ink);
+}
+
+/* ---------- Team rows ---------- */
+.team-list { list-style: none; margin: 0; padding: 0; display: grid; gap: .5rem; }
+.team {
+  display: flex;
+  align-items: center;
+  gap: .8rem;
+  flex-wrap: wrap;
+  padding: .7rem .9rem;
+  background: #FAFAF6;
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  transition: border-color .12s ease, transform .12s ease;
+}
+.team:hover { border-color: var(--grass); transform: translateX(2px); }
+.flag { font-size: 1.7rem; line-height: 1; width: 2.1rem; text-align: center; }
+.team-name {
+  font-family: "Archivo", sans-serif;
+  font-weight: 600;
+  font-size: 1.06rem;
+  flex: 1 1 8rem;
+  color: var(--ink);
+}
+.conf {
+  font-family: "Archivo", sans-serif;
+  font-weight: 700;
+  font-size: .64rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: .2rem .55rem;
+  cursor: help;
+}
+.chip {
+  font-family: "Archivo", sans-serif;
+  font-weight: 800;
+  font-size: .62rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  padding: .22rem .55rem;
+  border-radius: 999px;
+}
+.chip-host { background: var(--ink); color: #fff; }
+.chip-seed { background: rgba(14, 140, 83, .14); color: var(--grass); }
+
+/* ---------- Quiet down on mobile + accessibility ---------- */
+@media (max-width: 420px) {
+  .team-name { flex-basis: 100%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .team, .panel-tabset .nav-tabs .nav-link { transition: none; }
+  .team:hover { transform: none; }
+}
