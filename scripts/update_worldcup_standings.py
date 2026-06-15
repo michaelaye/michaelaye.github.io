@@ -15,6 +15,7 @@ and push the changed `_groups.md`.
 """
 from __future__ import annotations
 import json
+import re
 import sys
 import urllib.request
 from datetime import datetime
@@ -100,40 +101,59 @@ NAME_MAP = {
     "USA": "United States",
 }
 
+# Knockout rounds: (feed round name, display label), in bracket order.
+KO_ROUNDS = [
+    ("Round of 32", "Round of 32"),
+    ("Round of 16", "Round of 16"),
+    ("Quarter-final", "Quarter-finals"),
+    ("Semi-final", "Semi-finals"),
+    ("Match for third place", "Third-place play-off"),
+    ("Final", "Final"),
+]
+
+# A slot placeholder, e.g. "1A" (winner Grp A), "2B", "3A/B/C/D/F", "W74", "L101".
+TOKEN_RE = re.compile(r"^(\d[A-L](?:/[A-L])*|[WL]\d+)$")
+
 
 def fetch_matches():
-    """Return ({group_letter: [match, ...]}, played_count) from the feed.
+    """Return (by_group, by_ko_round, played_count) from the feed.
 
+    by_group:    {group_letter: [match, ...]}      group stage, chronological
+    by_ko_round: {feed_round_name: [match, ...]}   knockout, in bracket order
     Each match is a normalized dict: date, time, home, away, ft (or None),
-    ground. Names are mapped to the GROUPS display names. Matches are sorted
-    chronologically within each group.
+    ground. Group-stage names are mapped to GROUPS display names; knockout
+    team1/team2 stay as-is (real names once known, else slot tokens like 1A).
     """
     with urllib.request.urlopen(FEED, timeout=20) as r:
         data = json.load(r)
     valid = {n for _, _, teams in GROUPS for n, *_ in teams}
     by_group = {ltr: [] for ltr, _, _ in GROUPS}
+    ko = {feed: [] for feed, _ in KO_ROUNDS}
     played = 0
     for m in data.get("matches", []):
         grp = str(m.get("group", ""))
-        if not grp.startswith("Group"):
-            continue
-        letter = grp.split()[-1]
-        if letter not in by_group:
-            continue
-        home = NAME_MAP.get(m["team1"], m["team1"])
-        away = NAME_MAP.get(m["team2"], m["team2"])
-        if home not in valid or away not in valid:
-            print(f"  ! skipped unmapped match: {m['team1']} v {m['team2']} ({grp})")
-            continue
-        ft = m.get("score", {}).get("ft")
-        by_group[letter].append({
-            "date": m.get("date", ""), "time": m.get("time", ""),
-            "home": home, "away": away, "ft": ft, "ground": m.get("ground", "")})
-        if ft:
-            played += 1
+        rnd = m.get("round", "")
+        norm = {"date": m.get("date", ""), "time": m.get("time", ""),
+                "ft": m.get("score", {}).get("ft"), "ground": m.get("ground", "")}
+        if grp.startswith("Group"):
+            letter = grp.split()[-1]
+            if letter not in by_group:
+                continue
+            home = NAME_MAP.get(m["team1"], m["team1"])
+            away = NAME_MAP.get(m["team2"], m["team2"])
+            if home not in valid or away not in valid:
+                print(f"  ! skipped unmapped match: {m['team1']} v {m['team2']} ({grp})")
+                continue
+            by_group[letter].append({**norm, "home": home, "away": away})
+            if norm["ft"]:
+                played += 1
+        elif rnd in ko:
+            ko[rnd].append({**norm,
+                            "home": NAME_MAP.get(m["team1"], m["team1"]),
+                            "away": NAME_MAP.get(m["team2"], m["team2"])})
     for ltr in by_group:
         by_group[ltr].sort(key=lambda x: (x["date"], x["time"]))
-    return by_group, played
+    return by_group, ko, played
 
 
 def standings_table(letter, teams, matches):
@@ -236,10 +256,49 @@ def build(by_group):
     return "\n".join(out) + "\n"
 
 
+def _slot(name):
+    """Real team name -> plain text; placeholder token -> dashed chip."""
+    return f'<span class="ko-slot">{name}</span>' if TOKEN_RE.match(name) else name
+
+
+def _ko_match(mt):
+    try:
+        d = datetime.strptime(mt["date"], "%Y-%m-%d")
+        date_lbl = d.strftime("%b ") + str(d.day)
+    except ValueError:
+        date_lbl = mt["date"]
+    if mt["ft"]:
+        score, cls, meta = f'{mt["ft"][0]}&ndash;{mt["ft"][1]}', "played", mt["ground"]
+    else:
+        score, cls = "v", "upcoming"
+        meta = " &middot; ".join(p for p in (mt["ground"], mt["time"]) if p)
+    return (
+        f'<div class="fixture {cls}">'
+        f'<span class="fx-date">{date_lbl}</span>'
+        f'<span class="fx-team fx-home">{_slot(mt["home"])}</span>'
+        f'<span class="fx-score">{score}</span>'
+        f'<span class="fx-team fx-away">{_slot(mt["away"])}</span>'
+        f'<span class="fx-venue">{meta}</span></div>')
+
+
+def build_knockout(ko):
+    out = ['<div class="ko-bracket">']
+    for feed, label in KO_ROUNDS:
+        matches = ko.get(feed, [])
+        if not matches:
+            continue
+        out.append(f'<div class="ko-round"><div class="ko-round-name">{label}</div>'
+                   '<div class="ko-matches">')
+        out += [_ko_match(mt) for mt in matches]
+        out.append('</div></div>')
+    out.append('</div>')
+    return "\n".join(out) + "\n"
+
+
 def main():
     print(f"Fetching {FEED}")
     try:
-        by_group, applied = fetch_matches()
+        by_group, ko, applied = fetch_matches()
     except Exception as e:  # noqa: BLE001
         print(f"ERROR fetching feed: {e}", file=sys.stderr)
         return 1
@@ -248,7 +307,9 @@ def main():
               f"     Source: openfootball/worldcup.json · {applied} group-stage results applied. -->\n\n")
     with open(f"{here}/_groups.md", "w") as f:
         f.write(header + build(by_group))
-    print(f"Wrote _groups.md ({applied} results applied). "
+    with open(f"{here}/_knockout.md", "w") as f:
+        f.write(header + build_knockout(ko))
+    print(f"Wrote _groups.md + _knockout.md ({applied} results applied). "
           "Now: quarto render worldcup.qmd && git commit && git push")
     return 0
 
