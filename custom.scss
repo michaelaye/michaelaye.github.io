@@ -169,6 +169,62 @@ table.standings tr.q3 td.pos {
   box-shadow: inset 3px 0 0 color-mix(in srgb, var(--bs-body-color) 25%, transparent);
 }
 
+/* ---------- Fixtures ---------- */
+.fixtures { margin-top: 1.3rem; }
+.fixtures-cap {
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  font-size: .64rem;
+  color: var(--bs-secondary-color);
+  margin: 0 0 .5rem .15rem;
+}
+.fixture-list { list-style: none; margin: 0; padding: 0; display: grid; gap: .4rem; }
+.fixture {
+  display: grid;
+  grid-template-columns: 3rem 1fr auto 1fr;
+  column-gap: .6rem;
+  row-gap: .1rem;
+  align-items: center;
+  padding: .5rem .75rem;
+  border: 1px solid color-mix(in srgb, var(--bs-body-color) 12%, transparent);
+  border-radius: 10px;
+}
+.fx-date {
+  color: var(--bs-secondary-color);
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .03em;
+  text-transform: uppercase;
+}
+.fx-team { font-weight: 600; font-size: .95rem; }
+.fx-home { text-align: right; }
+.fx-away { text-align: left; }
+.fx-score {
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  min-width: 2.6rem;
+  text-align: center;
+  padding: .12rem .4rem;
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--bs-body-color) 10%, transparent);
+}
+.fixture.upcoming .fx-score {
+  background: transparent;
+  color: var(--bs-secondary-color);
+  font-weight: 700;
+}
+.fx-venue {
+  grid-column: 2 / -1;
+  color: var(--bs-secondary-color);
+  font-size: .72rem;
+}
+@media (max-width: 460px) {
+  .fixture { grid-template-columns: 1fr auto 1fr; }
+  .fx-date { grid-column: 1 / -1; }
+  .fx-venue { grid-column: 1 / -1; }
+}
+
 /* ---------- Accessibility ---------- */
 @media (prefers-reduced-motion: reduce) {
   .team, .panel-tabset .nav-tabs .nav-link { transition: none; }

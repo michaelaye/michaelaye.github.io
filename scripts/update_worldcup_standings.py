@@ -17,6 +17,7 @@ from __future__ import annotations
 import json
 import sys
 import urllib.request
+from datetime import datetime
 
 FEED = ("https://raw.githubusercontent.com/openfootball/"
         "worldcup.json/master/2026/worldcup.json")
@@ -100,33 +101,49 @@ NAME_MAP = {
 }
 
 
-def fetch_results():
-    """Return {group_letter: [(teamA, scoreA, teamB, scoreB), ...]} from the feed."""
+def fetch_matches():
+    """Return ({group_letter: [match, ...]}, played_count) from the feed.
+
+    Each match is a normalized dict: date, time, home, away, ft (or None),
+    ground. Names are mapped to the GROUPS display names. Matches are sorted
+    chronologically within each group.
+    """
     with urllib.request.urlopen(FEED, timeout=20) as r:
         data = json.load(r)
     valid = {n for _, _, teams in GROUPS for n, *_ in teams}
-    results, applied = {ltr: [] for ltr, _, _ in GROUPS}, 0
+    by_group = {ltr: [] for ltr, _, _ in GROUPS}
+    played = 0
     for m in data.get("matches", []):
         grp = str(m.get("group", ""))
-        ft = m.get("score", {}).get("ft")
-        if not grp.startswith("Group") or not ft:
+        if not grp.startswith("Group"):
             continue
         letter = grp.split()[-1]
-        a = NAME_MAP.get(m["team1"], m["team1"])
-        b = NAME_MAP.get(m["team2"], m["team2"])
-        if a not in valid or b not in valid or letter not in results:
+        if letter not in by_group:
+            continue
+        home = NAME_MAP.get(m["team1"], m["team1"])
+        away = NAME_MAP.get(m["team2"], m["team2"])
+        if home not in valid or away not in valid:
             print(f"  ! skipped unmapped match: {m['team1']} v {m['team2']} ({grp})")
             continue
-        results[letter].append((a, ft[0], b, ft[1]))
-        applied += 1
-    return results, applied
+        ft = m.get("score", {}).get("ft")
+        by_group[letter].append({
+            "date": m.get("date", ""), "time": m.get("time", ""),
+            "home": home, "away": away, "ft": ft, "ground": m.get("ground", "")})
+        if ft:
+            played += 1
+    for ltr in by_group:
+        by_group[ltr].sort(key=lambda x: (x["date"], x["time"]))
+    return by_group, played
 
 
-def standings_table(letter, teams, results):
+def standings_table(letter, teams, matches):
     flag = {name: fl for name, fl, _, _ in teams}
     tbl = {name: dict(P=0, W=0, D=0, L=0, GF=0, GA=0, Pts=0)
            for name, _, _, _ in teams}
-    for a, ga, b, gb in results.get(letter, []):
+    for mt in matches:
+        if not mt["ft"]:
+            continue
+        a, b, ga, gb = mt["home"], mt["away"], mt["ft"][0], mt["ft"][1]
         for t, gf, gax in ((a, ga, gb), (b, gb, ga)):
             s = tbl[t]; s["P"] += 1; s["GF"] += gf; s["GA"] += gax
         if ga > gb:
@@ -163,9 +180,38 @@ def standings_table(letter, teams, results):
         '</tr></thead><tbody>' + "".join(rows) + '</tbody></table></div>')
 
 
-def build(results):
+def fixtures_block(matches):
+    rows = []
+    for mt in matches:
+        try:
+            d = datetime.strptime(mt["date"], "%Y-%m-%d")
+            date_lbl = d.strftime("%b ") + str(d.day)
+        except ValueError:
+            date_lbl = mt["date"]
+        if mt["ft"]:
+            score = f'{mt["ft"][0]}&ndash;{mt["ft"][1]}'
+            cls, meta = "played", mt["ground"]
+        else:
+            score = "v"
+            cls = "upcoming"
+            meta = " &middot; ".join(p for p in (mt["ground"], mt["time"]) if p)
+        rows.append(
+            f'<li class="fixture {cls}">'
+            f'<span class="fx-date">{date_lbl}</span>'
+            f'<span class="fx-team fx-home">{mt["home"]}</span>'
+            f'<span class="fx-score">{score}</span>'
+            f'<span class="fx-team fx-away">{mt["away"]}</span>'
+            f'<span class="fx-venue">{meta}</span></li>')
+    return (
+        '<div class="fixtures">'
+        '<div class="fixtures-cap">Fixtures &amp; results</div>'
+        '<ul class="fixture-list">' + "".join(rows) + '</ul></div>')
+
+
+def build(by_group):
     out = ["::::: {.panel-tabset}", ""]
     for letter, host, teams in GROUPS:
+        matches = by_group[letter]
         lead = teams[0][0]
         role = f"Host nation &middot; {lead}" if host else f"Top seed &middot; {lead}"
         out += [f"## {letter}", "", ":::: {.group-card}"]
@@ -183,7 +229,8 @@ def build(results):
                 f'<span class="team-name">{name}</span>'
                 f'<span class="conf" title="{CONF_FULL[conf]}">{conf}</span>{chip}</li>')
         out.append("</ol>")
-        out.append(standings_table(letter, teams, results))
+        out.append(standings_table(letter, teams, matches))
+        out.append(fixtures_block(matches))
         out += ["::::", ""]
     out.append(":::::")
     return "\n".join(out) + "\n"
@@ -192,7 +239,7 @@ def build(results):
 def main():
     print(f"Fetching {FEED}")
     try:
-        results, applied = fetch_results()
+        by_group, applied = fetch_matches()
     except Exception as e:  # noqa: BLE001
         print(f"ERROR fetching feed: {e}", file=sys.stderr)
         return 1
@@ -200,7 +247,7 @@ def main():
     header = ("<!-- GENERATED by scripts/update_worldcup_standings.py — do not edit by hand.\n"
               f"     Source: openfootball/worldcup.json · {applied} group-stage results applied. -->\n\n")
     with open(f"{here}/_groups.md", "w") as f:
-        f.write(header + build(results))
+        f.write(header + build(by_group))
     print(f"Wrote _groups.md ({applied} results applied). "
           "Now: quarto render worldcup.qmd && git commit && git push")
     return 0
