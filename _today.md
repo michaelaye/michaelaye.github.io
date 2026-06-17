@@ -13,8 +13,8 @@
 :::
 
 <div class="fixture-list today-list">
-<div class="fixture upcoming"><span class="fx-date">12:00</span><span class="fx-team fx-home">Portugal</span><span class="fx-score">v</span><span class="fx-team fx-away">DR Congo</span><span class="fx-venue">Group K &middot; Houston &middot; UTC-5</span></div>
-<div class="fixture upcoming"><span class="fx-date">15:00</span><span class="fx-team fx-home">England</span><span class="fx-score">v</span><span class="fx-team fx-away">Croatia</span><span class="fx-venue">Group L &middot; Dallas (Arlington) &middot; UTC-5</span></div>
-<div class="fixture upcoming"><span class="fx-date">19:00</span><span class="fx-team fx-home">Ghana</span><span class="fx-score">v</span><span class="fx-team fx-away">Panama</span><span class="fx-venue">Group L &middot; Toronto &middot; UTC-4</span></div>
-<div class="fixture upcoming"><span class="fx-date">20:00</span><span class="fx-team fx-home">Uzbekistan</span><span class="fx-score">v</span><span class="fx-team fx-away">Colombia</span><span class="fx-venue">Group K &middot; Mexico City &middot; UTC-6</span></div>
+<div class="fixture upcoming"><span class="fx-date"><time class="lt" datetime="2026-06-17T17:00:00Z">12:00</time></span><span class="fx-team fx-home">Portugal</span><span class="fx-score">v</span><span class="fx-team fx-away">DR Congo</span><span class="fx-venue">Group K &middot; Houston</span></div>
+<div class="fixture upcoming"><span class="fx-date"><time class="lt" datetime="2026-06-17T20:00:00Z">15:00</time></span><span class="fx-team fx-home">England</span><span class="fx-score">v</span><span class="fx-team fx-away">Croatia</span><span class="fx-venue">Group L &middot; Dallas (Arlington)</span></div>
+<div class="fixture upcoming"><span class="fx-date"><time class="lt" datetime="2026-06-17T23:00:00Z">19:00</time></span><span class="fx-team fx-home">Ghana</span><span class="fx-score">v</span><span class="fx-team fx-away">Panama</span><span class="fx-venue">Group L &middot; Toronto</span></div>
+<div class="fixture upcoming"><span class="fx-date"><time class="lt" datetime="2026-06-18T02:00:00Z">20:00</time></span><span class="fx-team fx-home">Uzbekistan</span><span class="fx-score">v</span><span class="fx-team fx-away">Colombia</span><span class="fx-venue">Group K &middot; Mexico City</span></div>
 </div>

@@ -19,7 +19,7 @@ import os
 import re
 import sys
 import urllib.request
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 
 FEED = ("https://raw.githubusercontent.com/openfootball/"
         "worldcup.json/master/2026/worldcup.json")
@@ -215,7 +215,7 @@ def fixtures_block(matches):
         else:
             score = "v"
             cls = "upcoming"
-            meta = " &middot; ".join(p for p in (mt["ground"], mt["time"]) if p)
+            meta = " &middot; ".join(p for p in (mt["ground"], _time_html(mt["date"], mt["time"])) if p)
         rows.append(
             f'<li class="fixture {cls}">'
             f'<span class="fx-date">{date_lbl}</span>'
@@ -262,6 +262,33 @@ def _slot(name):
     return f'<span class="ko-slot">{name}</span>' if TOKEN_RE.match(name) else name
 
 
+def to_utc_iso(date, time):
+    """('2026-06-17', '19:00 UTC-6') -> '2026-06-18T01:00:00Z'  (None if unparseable)."""
+    m = re.match(r"(\d{1,2}):(\d{2})\s+UTC([+-]\d{1,2})(?::(\d{2}))?", time or "")
+    if not m:
+        return None
+    hh, mm, oh, om = int(m.group(1)), int(m.group(2)), int(m.group(3)), int(m.group(4) or 0)
+    try:
+        local = datetime.strptime(date, "%Y-%m-%d").replace(hour=hh, minute=mm)
+    except (ValueError, TypeError):
+        return None
+    offset = timedelta(hours=abs(oh), minutes=om)
+    if oh < 0:
+        offset = -offset
+    return (local - offset).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+
+def _time_html(date, time):
+    """Kickoff as a <time> carrying the absolute UTC instant, so the browser can
+    localize it to the viewer's zone. Falls back to the raw venue-local HH:MM
+    when JavaScript is off or the time can't be parsed."""
+    if not time:
+        return ""
+    hhmm = time.split()[0]
+    iso = to_utc_iso(date, time)
+    return f'<time class="lt" datetime="{iso}">{hhmm}</time>' if iso else hhmm
+
+
 def _ko_match(mt):
     try:
         d = datetime.strptime(mt["date"], "%Y-%m-%d")
@@ -272,7 +299,7 @@ def _ko_match(mt):
         score, cls, meta = f'{mt["ft"][0]}&ndash;{mt["ft"][1]}', "played", mt["ground"]
     else:
         score, cls = "v", "upcoming"
-        meta = " &middot; ".join(p for p in (mt["ground"], mt["time"]) if p)
+        meta = " &middot; ".join(p for p in (mt["ground"], _time_html(mt["date"], mt["time"])) if p)
     return (
         f'<div class="fixture {cls}">'
         f'<span class="fx-date">{date_lbl}</span>'
@@ -307,17 +334,14 @@ def _all_matches(by_group, ko):
 
 
 def _today_row(m):
-    parts = m["time"].split()
-    hhmm = parts[0] if parts else ""
-    tz = parts[1] if len(parts) > 1 else ""
     if m["ft"]:
         score, cls = f'{m["ft"][0]}&ndash;{m["ft"][1]}', "played"
     else:
         score, cls = "v", "upcoming"
-    meta = " &middot; ".join(p for p in (m["stage"], m["ground"], tz) if p)
+    meta = " &middot; ".join(p for p in (m["stage"], m["ground"]) if p)
     return (
         f'<div class="fixture {cls}">'
-        f'<span class="fx-date">{hhmm}</span>'
+        f'<span class="fx-date">{_time_html(m["date"], m["time"])}</span>'
         f'<span class="fx-team fx-home">{_slot(m["home"])}</span>'
         f'<span class="fx-score">{score}</span>'
         f'<span class="fx-team fx-away">{_slot(m["away"])}</span>'
