@@ -225,6 +225,10 @@ table.standings tr.q3 td.pos {
   .fx-venue { grid-column: 1 / -1; }
 }
 
+/* ---------- Today / next matches ---------- */
+.today-hero { margin-top: .25rem; }
+.today-list .fixture { border-left: 3px solid var(--bs-primary); }
+
 /* ---------- Knockout bracket ---------- */
 .ko-hero { margin-top: 2.6rem; }
 .ko-bracket { display: grid; gap: 1.5rem; }

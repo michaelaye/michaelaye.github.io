@@ -38,7 +38,7 @@ end
 
 # --- 3. stage only the World Cup files ---------------------------------------
 echo "▶ 3/4  Staging changes"
-git add _groups.md _knockout.md worldcup.qmd custom.scss \
+git add _groups.md _knockout.md _today.md worldcup.qmd custom.scss \
         scripts/update_worldcup_standings.py scripts/update_homepage.fish
 
 if git diff --cached --quiet
