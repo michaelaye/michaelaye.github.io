@@ -3,10 +3,11 @@ on:
   push:
     branches: main
   schedule:
-    # Every 3 hours (UTC) — refreshes the World Cup data on the live site.
-    # Note: GitHub auto-disables scheduled workflows after 60 days without
+    # Hourly, at :23 past (offset from the top of the hour to avoid GitHub's
+    # peak-load runner congestion) — refreshes the World Cup data on the live
+    # site. Note: GitHub auto-disables scheduled workflows after 60 days without
     # repo activity. Remove this schedule (and the World Cup page) post-tournament.
-    - cron: '0 */3 * * *'
+    - cron: '23 * * * *'
 
 name: Quarto Publish
 
