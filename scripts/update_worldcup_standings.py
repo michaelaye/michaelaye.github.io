@@ -372,9 +372,13 @@ def build_today(by_group, ko, today):
             eyebrow, title, sub = "Up next", "Next matches", _long_date(future[0])
         else:
             eyebrow, title, sub = "Full time", "Tournament complete", "All matches played."
-    body = (f'<div class="fixture-list today-list">\n'
-            + "\n".join(_today_row(m) for m in todays) + "\n</div>"
-            if todays else '<p class="wc-sub">No fixtures scheduled.</p>')
+    if todays:
+        body = ('<p class="lt-note">Kickoff times shown in your local time zone '
+                '(<span class="lt-tz">your local time</span>).</p>\n'
+                '<div class="fixture-list today-list">\n'
+                + "\n".join(_today_row(m) for m in todays) + "\n</div>")
+    else:
+        body = '<p class="wc-sub">No fixtures scheduled.</p>'
     return (
         "::: {.wc-hero .today-hero}\n"
         f"[FIFA World Cup 2026 · {eyebrow}]{{.wc-eyebrow}}\n\n"

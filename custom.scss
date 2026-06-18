@@ -228,7 +228,7 @@ table.standings tr.q3 td.pos {
 /* ---------- Today / next matches ---------- */
 .today-hero { margin-top: .25rem; }
 .today-list .fixture { border-left: 3px solid var(--bs-primary); }
-.lt-note { color: var(--bs-secondary-color); font-size: .74rem; margin: -.4rem 0 1.5rem; }
+.lt-note { color: var(--bs-secondary-color); font-size: .74rem; margin: 0 0 .9rem .15rem; }
 
 /* ---------- Knockout bracket ---------- */
 .ko-hero { margin-top: 2.6rem; }

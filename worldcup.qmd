@@ -12,10 +12,9 @@ format:
       body-width: 880px
 ---
 
-<!-- Today's / next matches — generated into _today.md by the refresh script. -->
+<!-- Today's / next matches — generated into _today.md by the refresh script.
+     Includes the "times shown in your local time zone" note above the list. -->
 {{< include _today.md >}}
-
-<p class="lt-note">Kickoff times shown in your local time zone (<span class="lt-tz">your local time</span>).</p>
 
 ::: {.wc-hero}
 [FIFA World Cup 2026 · Group Stage]{.wc-eyebrow}
