@@ -2,9 +2,9 @@
   {
     "listing": "/index.html",
     "items": [
+      "/projects/planet-four/index.html",
       "/projects/koregistration/index.html",
       "/projects/uvis-pdart/index.html",
-      "/projects/planet-four/index.html",
       "/projects/janus-juice/index.html",
       "/projects/planetary-data-reader/index.html",
       "/projects/saturn-rings/index.html",
@@ -50,9 +50,9 @@
   {
     "listing": "/projects.html",
     "items": [
+      "/projects/planet-four/index.html",
       "/projects/koregistration/index.html",
       "/projects/uvis-pdart/index.html",
-      "/projects/planet-four/index.html",
       "/projects/janus-juice/index.html",
       "/projects/planetary-data-reader/index.html",
       "/projects/saturn-rings/index.html",
