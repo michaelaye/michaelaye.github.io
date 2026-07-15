@@ -1,17 +1,5 @@
 [
   {
-    "listing": "/index.html",
-    "items": [
-      "/projects/planet-four/index.html",
-      "/projects/koregistration/index.html",
-      "/projects/uvis-pdart/index.html",
-      "/projects/janus-juice/index.html",
-      "/projects/planetary-data-reader/index.html",
-      "/projects/saturn-rings/index.html",
-      "/projects/planetarypy/index.html"
-    ]
-  },
-  {
     "listing": "/posts.html",
     "items": [
       "/posts/2026-05-14_nssdc-factsheets-archive/index.html",
@@ -21,9 +9,9 @@
       "/posts/github-releases-as-data-cdn/index.html",
       "/posts/homepage-setup/index.html",
       "/posts/ads-bib-tools/index.html",
+      "/posts/highlight-author-quarto-extension/index.html",
       "/posts/rioxarray-xarray-version-pin/index.html",
       "/posts/chronobib-quarto-extension/index.html",
-      "/posts/highlight-author-quarto-extension/index.html",
       "/posts/2023-03-06_Tuya_thermostats/index.html",
       "/posts/minimal-conda-setup-instructions/index.html",
       "/posts/execute-speedtest-regularly/index.html",
@@ -51,8 +39,20 @@
     "listing": "/projects.html",
     "items": [
       "/projects/planet-four/index.html",
-      "/projects/koregistration/index.html",
       "/projects/uvis-pdart/index.html",
+      "/projects/koregistration/index.html",
+      "/projects/janus-juice/index.html",
+      "/projects/planetary-data-reader/index.html",
+      "/projects/saturn-rings/index.html",
+      "/projects/planetarypy/index.html"
+    ]
+  },
+  {
+    "listing": "/index.html",
+    "items": [
+      "/projects/planet-four/index.html",
+      "/projects/uvis-pdart/index.html",
+      "/projects/koregistration/index.html",
       "/projects/janus-juice/index.html",
       "/projects/planetary-data-reader/index.html",
       "/projects/saturn-rings/index.html",
