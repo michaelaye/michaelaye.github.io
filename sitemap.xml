@@ -1,171 +1,171 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://michaelaye.github.io/index.html</loc>
-    <lastmod>2026-07-15T23:15:48.804Z</lastmod>
-  </url>
-  <url>
-    <loc>https://michaelaye.github.io/projects/janus-juice/index.html</loc>
-    <lastmod>2026-07-15T23:15:48.822Z</lastmod>
-  </url>
-  <url>
-    <loc>https://michaelaye.github.io/projects/uvis-pdart/index.html</loc>
-    <lastmod>2026-07-15T23:15:48.893Z</lastmod>
-  </url>
-  <url>
-    <loc>https://michaelaye.github.io/projects/planetary-data-reader/index.html</loc>
-    <lastmod>2026-07-15T23:15:48.886Z</lastmod>
-  </url>
-  <url>
     <loc>https://michaelaye.github.io/posts.html</loc>
-    <lastmod>2026-07-15T23:15:48.804Z</lastmod>
-  </url>
-  <url>
-    <loc>https://michaelaye.github.io/talks.html</loc>
-    <lastmod>2026-07-15T23:15:48.896Z</lastmod>
-  </url>
-  <url>
-    <loc>https://michaelaye.github.io/posts/highlight-author-quarto-extension/index.html</loc>
-    <lastmod>2026-07-15T23:15:48.813Z</lastmod>
-  </url>
-  <url>
-    <loc>https://michaelaye.github.io/posts/2026-05-14_nssdc-factsheets-archive/index.html</loc>
-    <lastmod>2026-07-15T23:15:48.810Z</lastmod>
-  </url>
-  <url>
-    <loc>https://michaelaye.github.io/posts/2023-03-06_Tuya_thermostats/index.html</loc>
-    <lastmod>2026-07-15T23:15:48.806Z</lastmod>
-  </url>
-  <url>
-    <loc>https://michaelaye.github.io/posts/2026-03-10_isis-two-image-matching/index.html</loc>
-    <lastmod>2026-07-15T23:15:48.808Z</lastmod>
-  </url>
-  <url>
-    <loc>https://michaelaye.github.io/posts/2026-04-12_equal-commute/index.html</loc>
-    <lastmod>2026-07-15T23:15:48.810Z</lastmod>
-  </url>
-  <url>
-    <loc>https://michaelaye.github.io/posts/ads-bib-tools/index.html</loc>
-    <lastmod>2026-07-15T23:15:48.811Z</lastmod>
-  </url>
-  <url>
-    <loc>https://michaelaye.github.io/posts/homepage-setup/index.html</loc>
-    <lastmod>2026-07-15T23:15:48.813Z</lastmod>
-  </url>
-  <url>
-    <loc>https://michaelaye.github.io/posts/rioxarray-xarray-version-pin/index.html</loc>
-    <lastmod>2026-07-15T23:15:48.814Z</lastmod>
-  </url>
-  <url>
-    <loc>https://michaelaye.github.io/projects.html</loc>
-    <lastmod>2026-07-15T23:15:48.814Z</lastmod>
+    <lastmod>2026-07-16T00:12:51.999Z</lastmod>
   </url>
   <url>
     <loc>https://michaelaye.github.io/scripts/orcid-claiming-worksheet.html</loc>
-    <lastmod>2026-07-15T23:15:48.895Z</lastmod>
-  </url>
-  <url>
-    <loc>https://michaelaye.github.io/talks/2026-fub-seminar/index.html</loc>
-    <lastmod>2026-07-15T23:15:49.200Z</lastmod>
+    <lastmod>2026-07-16T00:12:52.089Z</lastmod>
   </url>
   <url>
     <loc>https://michaelaye.github.io/talks/2022-fub-seminar/presentation/index.html</loc>
-    <lastmod>2026-07-15T23:15:48.939Z</lastmod>
-  </url>
-  <url>
-    <loc>https://michaelaye.github.io/talks/2021-diviner-kharkiv-talk/index.html</loc>
-    <lastmod>2026-07-15T23:15:48.909Z</lastmod>
-  </url>
-  <url>
-    <loc>https://michaelaye.github.io/talks/2021-conda-workshop-kharkiv/index.html</loc>
-    <lastmod>2026-07-15T23:15:48.907Z</lastmod>
-  </url>
-  <url>
-    <loc>https://michaelaye.github.io/talks/2021-pdw-planetarypy/index.html</loc>
-    <lastmod>2026-07-15T23:15:48.915Z</lastmod>
-  </url>
-  <url>
-    <loc>https://michaelaye.github.io/talks/conda-lunchtalk/index.html</loc>
-    <lastmod>2026-07-15T23:15:49.202Z</lastmod>
-  </url>
-  <url>
-    <loc>https://michaelaye.github.io/talks/2024-ipda-data-talk/index.html</loc>
-    <lastmod>2026-07-15T23:15:49.000Z</lastmod>
+    <lastmod>2026-07-16T00:12:52.134Z</lastmod>
   </url>
   <url>
     <loc>https://michaelaye.github.io/talks/2024-epsc-op-data-cafe/index.html</loc>
-    <lastmod>2026-07-15T23:15:48.994Z</lastmod>
+    <lastmod>2026-07-16T00:12:52.192Z</lastmod>
   </url>
   <url>
     <loc>https://michaelaye.github.io/talks/2026-dgp-planet-four/index.html</loc>
-    <lastmod>2026-07-15T23:15:49.057Z</lastmod>
+    <lastmod>2026-07-16T00:12:52.257Z</lastmod>
   </url>
   <url>
-    <loc>https://michaelaye.github.io/talks/2022-fub-seminar/index.html</loc>
-    <lastmod>2026-07-15T23:15:48.917Z</lastmod>
+    <loc>https://michaelaye.github.io/talks/2021-diviner-kharkiv-talk/index.html</loc>
+    <lastmod>2026-07-16T00:12:52.102Z</lastmod>
   </url>
   <url>
-    <loc>https://michaelaye.github.io/talks/conda-workshop/index.html</loc>
-    <lastmod>2026-07-15T23:15:49.203Z</lastmod>
+    <loc>https://michaelaye.github.io/talks/conda-lunchtalk/index.html</loc>
+    <lastmod>2026-07-16T00:12:52.402Z</lastmod>
   </url>
   <url>
-    <loc>https://michaelaye.github.io/worldcup.html</loc>
-    <lastmod>2026-07-15T23:15:49.203Z</lastmod>
+    <loc>https://michaelaye.github.io/talks/2021-conda-workshop-kharkiv/index.html</loc>
+    <lastmod>2026-07-16T00:12:52.101Z</lastmod>
   </url>
   <url>
-    <loc>https://michaelaye.github.io/bibliography.html</loc>
-    <lastmod>2026-07-15T23:15:48.804Z</lastmod>
-  </url>
-  <url>
-    <loc>https://michaelaye.github.io/posts/2026-05-12_spice-kernel-db-redteam/index.html</loc>
-    <lastmod>2026-07-15T23:15:48.810Z</lastmod>
+    <loc>https://michaelaye.github.io/posts/2026-04-12_equal-commute/index.html</loc>
+    <lastmod>2026-07-16T00:12:52.005Z</lastmod>
   </url>
   <url>
     <loc>https://michaelaye.github.io/posts/chronobib-quarto-extension/index.html</loc>
-    <lastmod>2026-07-15T23:15:48.811Z</lastmod>
+    <lastmod>2026-07-16T00:12:52.006Z</lastmod>
   </url>
   <url>
-    <loc>https://michaelaye.github.io/posts/matplotlib-ticklabel-formats/index.html</loc>
-    <lastmod>2026-07-15T23:15:48.814Z</lastmod>
-  </url>
-  <url>
-    <loc>https://michaelaye.github.io/posts/mamba-is-the-new-conda/index.html</loc>
-    <lastmod>2026-07-15T23:15:48.814Z</lastmod>
-  </url>
-  <url>
-    <loc>https://michaelaye.github.io/posts/execute-speedtest-regularly/index.html</loc>
-    <lastmod>2026-07-15T23:15:48.811Z</lastmod>
+    <loc>https://michaelaye.github.io/posts/rioxarray-xarray-version-pin/index.html</loc>
+    <lastmod>2026-07-16T00:12:52.008Z</lastmod>
   </url>
   <url>
     <loc>https://michaelaye.github.io/posts/github-releases-as-data-cdn/index.html</loc>
-    <lastmod>2026-07-15T23:15:48.813Z</lastmod>
+    <lastmod>2026-07-16T00:12:52.007Z</lastmod>
   </url>
   <url>
-    <loc>https://michaelaye.github.io/posts/minimal-conda-setup-instructions/index.html</loc>
-    <lastmod>2026-07-15T23:15:48.814Z</lastmod>
+    <loc>https://michaelaye.github.io/posts/ads-bib-tools/index.html</loc>
+    <lastmod>2026-07-16T00:12:52.006Z</lastmod>
+  </url>
+  <url>
+    <loc>https://michaelaye.github.io/posts/highlight-author-quarto-extension/index.html</loc>
+    <lastmod>2026-07-16T00:12:52.007Z</lastmod>
   </url>
   <url>
     <loc>https://michaelaye.github.io/posts/fan-creation/index.html</loc>
-    <lastmod>2026-07-15T23:15:48.813Z</lastmod>
+    <lastmod>2026-07-16T00:12:52.007Z</lastmod>
   </url>
   <url>
-    <loc>https://michaelaye.github.io/about.html</loc>
-    <lastmod>2026-07-15T23:15:48.804Z</lastmod>
+    <loc>https://michaelaye.github.io/posts/matplotlib-ticklabel-formats/index.html</loc>
+    <lastmod>2026-07-16T00:12:52.008Z</lastmod>
+  </url>
+  <url>
+    <loc>https://michaelaye.github.io/posts/2023-03-06_Tuya_thermostats/index.html</loc>
+    <lastmod>2026-07-16T00:12:52.001Z</lastmod>
+  </url>
+  <url>
+    <loc>https://michaelaye.github.io/talks.html</loc>
+    <lastmod>2026-07-16T00:12:52.089Z</lastmod>
+  </url>
+  <url>
+    <loc>https://michaelaye.github.io/projects/janus-juice/index.html</loc>
+    <lastmod>2026-07-16T00:12:52.017Z</lastmod>
+  </url>
+  <url>
+    <loc>https://michaelaye.github.io/projects/planetary-data-reader/index.html</loc>
+    <lastmod>2026-07-16T00:12:52.081Z</lastmod>
   </url>
   <url>
     <loc>https://michaelaye.github.io/projects/planetarypy/index.html</loc>
-    <lastmod>2026-07-15T23:15:48.886Z</lastmod>
+    <lastmod>2026-07-16T00:12:52.081Z</lastmod>
+  </url>
+  <url>
+    <loc>https://michaelaye.github.io/projects/uvis-pdart/index.html</loc>
+    <lastmod>2026-07-16T00:12:52.088Z</lastmod>
+  </url>
+  <url>
+    <loc>https://michaelaye.github.io/bibliography.html</loc>
+    <lastmod>2026-07-16T00:12:51.998Z</lastmod>
   </url>
   <url>
     <loc>https://michaelaye.github.io/projects/koregistration/index.html</loc>
-    <lastmod>2026-07-15T23:15:48.837Z</lastmod>
-  </url>
-  <url>
-    <loc>https://michaelaye.github.io/projects/planet-four/index.html</loc>
-    <lastmod>2026-07-15T23:15:48.886Z</lastmod>
+    <lastmod>2026-07-16T00:12:52.033Z</lastmod>
   </url>
   <url>
     <loc>https://michaelaye.github.io/projects/saturn-rings/index.html</loc>
-    <lastmod>2026-07-15T23:15:48.893Z</lastmod>
+    <lastmod>2026-07-16T00:12:52.088Z</lastmod>
+  </url>
+  <url>
+    <loc>https://michaelaye.github.io/projects/planet-four/index.html</loc>
+    <lastmod>2026-07-16T00:12:52.080Z</lastmod>
+  </url>
+  <url>
+    <loc>https://michaelaye.github.io/projects.html</loc>
+    <lastmod>2026-07-16T00:12:52.008Z</lastmod>
+  </url>
+  <url>
+    <loc>https://michaelaye.github.io/posts/minimal-conda-setup-instructions/index.html</loc>
+    <lastmod>2026-07-16T00:12:52.008Z</lastmod>
+  </url>
+  <url>
+    <loc>https://michaelaye.github.io/posts/2026-05-12_spice-kernel-db-redteam/index.html</loc>
+    <lastmod>2026-07-16T00:12:52.005Z</lastmod>
+  </url>
+  <url>
+    <loc>https://michaelaye.github.io/posts/2026-05-14_nssdc-factsheets-archive/index.html</loc>
+    <lastmod>2026-07-16T00:12:52.006Z</lastmod>
+  </url>
+  <url>
+    <loc>https://michaelaye.github.io/posts/2026-03-10_isis-two-image-matching/index.html</loc>
+    <lastmod>2026-07-16T00:12:52.003Z</lastmod>
+  </url>
+  <url>
+    <loc>https://michaelaye.github.io/posts/mamba-is-the-new-conda/index.html</loc>
+    <lastmod>2026-07-16T00:12:52.008Z</lastmod>
+  </url>
+  <url>
+    <loc>https://michaelaye.github.io/posts/homepage-setup/index.html</loc>
+    <lastmod>2026-07-16T00:12:52.007Z</lastmod>
+  </url>
+  <url>
+    <loc>https://michaelaye.github.io/posts/execute-speedtest-regularly/index.html</loc>
+    <lastmod>2026-07-16T00:12:52.006Z</lastmod>
+  </url>
+  <url>
+    <loc>https://michaelaye.github.io/about.html</loc>
+    <lastmod>2026-07-16T00:12:51.998Z</lastmod>
+  </url>
+  <url>
+    <loc>https://michaelaye.github.io/talks/2024-ipda-data-talk/index.html</loc>
+    <lastmod>2026-07-16T00:12:52.199Z</lastmod>
+  </url>
+  <url>
+    <loc>https://michaelaye.github.io/talks/conda-workshop/index.html</loc>
+    <lastmod>2026-07-16T00:12:52.402Z</lastmod>
+  </url>
+  <url>
+    <loc>https://michaelaye.github.io/talks/2026-fub-seminar/index.html</loc>
+    <lastmod>2026-07-16T00:12:52.400Z</lastmod>
+  </url>
+  <url>
+    <loc>https://michaelaye.github.io/talks/2021-pdw-planetarypy/index.html</loc>
+    <lastmod>2026-07-16T00:12:52.110Z</lastmod>
+  </url>
+  <url>
+    <loc>https://michaelaye.github.io/talks/2022-fub-seminar/index.html</loc>
+    <lastmod>2026-07-16T00:12:52.110Z</lastmod>
+  </url>
+  <url>
+    <loc>https://michaelaye.github.io/worldcup.html</loc>
+    <lastmod>2026-07-16T00:12:52.402Z</lastmod>
+  </url>
+  <url>
+    <loc>https://michaelaye.github.io/index.html</loc>
+    <lastmod>2026-07-16T00:12:51.999Z</lastmod>
   </url>
 </urlset>
