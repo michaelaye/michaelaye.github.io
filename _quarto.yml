@@ -20,9 +20,6 @@ website:
       - projects.qmd
       - bibliography.qmd
       - about.qmd
-      # TEMPORARY — remove after the tournament
-      - text: "⚽ World Cup 2026"
-        file: worldcup.qmd
     right:
       - icon: github
         href: https://github.com/michaelaye/michaelaye.github.io

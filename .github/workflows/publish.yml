@@ -2,12 +2,6 @@ on:
   workflow_dispatch:
   push:
     branches: main
-  schedule:
-    # Hourly, at :23 past (offset from the top of the hour to avoid GitHub's
-    # peak-load runner congestion) — refreshes the World Cup data on the live
-    # site. Note: GitHub auto-disables scheduled workflows after 60 days without
-    # repo activity. Remove this schedule (and the World Cup page) post-tournament.
-    - cron: '23 * * * *'
 
 name: Quarto Publish
 
@@ -19,14 +13,6 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-
-      - name: Refresh World Cup data from openfootball (stdlib only)
-        run: python scripts/update_worldcup_standings.py
 
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
