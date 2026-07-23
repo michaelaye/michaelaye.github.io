@@ -329,571 +329,116 @@
     "text": "Once you’ve claimed papers on ADS (allow 24 hours for indexing), re-run:\nenv ADS_API_TOKEN=your_token python scripts/update_bib.py\nThe newly claimed papers should now appear. Compare entry counts to verify."
   },
   {
-    "objectID": "talks.html",
-    "href": "talks.html",
-    "title": "Talks",
+    "objectID": "projects/uvis-pdart/index.html",
+    "href": "projects/uvis-pdart/index.html",
+    "title": "Cassini UVIS Data Product Enhancement",
     "section": "",
-    "text": "Citizen Science on Mars — and the Surface Coverage of Dark Regolith on the Seasonal South Polar Ice Cap\n\n\n\n\n\n\npresentation\n\nplanet-four\n\n\n\nPlanetary seminar at FU Berlin. Citizen science on Mars with Planet Four, the surface coverage of dark CO₂-jet deposits on the seasonal south-polar cap, and a cautionary tale on heterogeneous datasets — how an apparent inter-annual trend turned out to be a sampling artefact, and what a properly matched-ROI analysis reveals instead.\n\n\n\n\n\n2026-06-04\n\n\nK.-Michael Aye, Tom Ihro, Tim Michaels, Ganna Portyankina, Candice J. Hansen, Megan E. Schwamb\n\n\n\n\n\n\n\n\n\n\n\n\nPlanet Four: Inter- and Intra-annual Variability of Dark Regolith on Ice Coverage at the Martian South Polar Region\n\n\n\n\n\n\nonline-presentation\n\n\n\nA short overview of the Planetary Research done via Citizen Science, followed by an in-depth review of the Planet Four Citizen Science projects.\n\n\n\n\n\n2026-03-17\n\n\nMichael Aye\n\n\n\n\n\n\n\n\n\n\n\n\nIs it easy enough to get to planetary data?\n\n\nAn imager (and user’s) perspective\n\n\n\nonline-presentation\n\n\n\nA review on how to access planetary image data, with a focus on what is easy and what is hard.\n\n\n\n\n\n2024-09-16\n\n\nMichael Aye\n\n\n\n\n\n\n\n\n\n\n\n\nOpenPlanetary Data Cafe and Friends\n\n\n\n\n\n\nonline-presentation\n\n\n\nA short overview of the OpenPlanetary organization, followed by a brief review of the planetary science software stack.\n\n\n\n\n\n2024-09-13\n\n\nMichael Aye\n\n\n\n\n\n\n\n\n\n\n\n\nPlanetary Research with Citizen Science\n\n\nIntroduction to Citizen Science and the Planet Four project\n\n\n\nmars\n\npolar science\n\ncitizen science\n\n\n\nPresentation given at Planetary Seminar of Freie Uni Berlin\n\n\n\n\n\n2022-10-27\n\n\nMichael Aye\n\n\n\n\n\n\n\n\n\n\n\n\nThe PlanetaryPy Project\n\n\n5th Planetary Data Workshop\n\n\n\nplanetarypy\n\npython\n\n\n\n\n\n\n\n\n\n2021-07-01\n\n\n\n\n\n\n\n\n\n\n\n\nHow to create and maintain a scientific Python environment using conda\n\n\nInternational Conference for Young Professionals in Physics and Technology (ICYPPT)\n\n\n\ninvited talk\n\nconda\n\nsoftware management\n\n\n\n\n\n\n\n\n\n2021-04-28\n\n\n\n\n\n\n\n\n\n\n\n\nCalibration of the LRO Diviner Lunar Radiometer Experiment\n\n\nInternational Conference for Young Professionals in Physics and Technology\n\n\n\ninvited talk\n\nLRO\n\nDiviner\n\ncalibration\n\n\n\n\n\n\n\n\n\n2021-04-27\n\n\n\n\n\n\n\n\n\n\n\n\nHow to live peacefully with Ana/Mini/Conda\n\n\nOpenPlanetary Virtual Conference\n\n\n\nconda\n\npython\n\n\n\nI will explain the basic principles of the conda-based toolset, recommend best practices for using conda environments and channels, and demonstrate techniques on how to efficiently delete and reinstall everything in under 5 minutes. I also will discuss Python software package discovery and installation strategies in relation to these conda environments and how to efficiently develop your own libraries while being part of a conda environment.\n\n\n\n\n\n2020-06-23\n\n\nMichael Aye\n\n\n\n\n\n\n\n\n\n\n\n\nBest practices for conda-based Python science analysis environments\n\n\nOpenPlanetary Lunch Talk\n\n\n\nconda\n\npython\n\n\n\n\n\n\n\n\n\n2020-03-31\n\n\nMichael Aye\n\n\n\n\n\nNo matching items"
+    "text": "This NASA PDART project upgrades the existing Cassini UVIS data products into a modern, science-ready format. The PI is Matt Tiscareno at the SETI Institute; I serve as external consultant and continue to lead most project activities from FU Berlin."
   },
   {
-    "objectID": "projects/planetarypy/index.html",
-    "href": "projects/planetarypy/index.html",
-    "title": "PlanetaryPy",
+    "objectID": "projects/uvis-pdart/index.html#objectives",
+    "href": "projects/uvis-pdart/index.html#objectives",
+    "title": "Cassini UVIS Data Product Enhancement",
+    "section": "Objectives",
+    "text": "Objectives\nThe limited content and inconvenient format of published Cassini Ultraviolet Imaging Spectrograph (UVIS) data products puts a high burden on end users before scientific investigation can begin. This project produces upgraded data products in a modern format, adds all required metadata to remove the need for time-consuming geometry calculations, and performs default calibrations for the majority of data products. This benefits all aspects of UVIS science:\n\nstellar and solar occultations of Saturn,\nemissions from the Titan atmosphere,\nsatellite reflectance,\nring spectroscopy, and more."
+  },
+  {
+    "objectID": "projects/uvis-pdart/index.html#approach",
+    "href": "projects/uvis-pdart/index.html#approach",
+    "title": "Cassini UVIS Data Product Enhancement",
+    "section": "Approach",
+    "text": "Approach\nWe create enhanced UVIS data products by pre-calculating an expanded set of geometry parameters for each detector readout and applying a default calibration that varies with the observational scenario. The additional metadata is included with the original instrument data in PDS4-compatible FITS files. Python and IDL tools are provided for data access, analysis, and plotting."
+  },
+  {
+    "objectID": "projects/uvis-pdart/index.html#current-status",
+    "href": "projects/uvis-pdart/index.html#current-status",
+    "title": "Cassini UVIS Data Product Enhancement",
+    "section": "Current status",
+    "text": "Current status\nThe project is in its third year. Current work focuses on:\n\nFITS metadata definition and automation\nThe UVIS User Guide — comprehensive documentation for working with the enhanced data products\nCalibration pipeline refinement and validation"
+  },
+  {
+    "objectID": "projects/saturn-rings/index.html",
+    "href": "projects/saturn-rings/index.html",
+    "title": "Mesoscale Structures in Saturn’s Rings: Clues to Origin and Evolution",
     "section": "",
-    "text": "The PlanetaryPy Project is a community effort to develop a core package for planetary science in Python and foster interoperability between Python planetary science packages. The PlanetaryPy Technical Committee (TC) is the governing body for the PlanetaryPy Project. All of their work is done in the open via the TC GitHub repo.\nTo learn more about what the TC is, how it operates, or to get involved, you can read its Charter. The PlanetaryPy TC has regular meetings to which all are welcome to attend. The meeting agendas for upcoming meetings, and notes from previous meetings can be found in the TC’s GitHub repo.\nProject link\nLink to Github repo\nLink to slides\nVideo link"
+    "text": "I was a funded Co-I on this project led by Joshua Colwell (UCF) until I left the US in 2022.\nMy task was to analyze Cassini ISS images of the Saturn rings like shown above, project them into the ring-cylindrical coordinate system so that one can do statistics along the ring azimuth. After subtracting the dominant background density wave signal one can produce statistical statements about potential clumping changes over the Saturn ring radius, using robust median absolute deviation statistics."
   },
   {
-    "objectID": "projects/koregistration/index.html",
-    "href": "projects/koregistration/index.html",
-    "title": "Image Co-registration",
+    "objectID": "projects/saturn-rings/index.html#project-summary",
+    "href": "projects/saturn-rings/index.html#project-summary",
+    "title": "Mesoscale Structures in Saturn’s Rings: Clues to Origin and Evolution",
+    "section": "Project summary",
+    "text": "Project summary\nWe propose to apply a variety of image processing techniques to observations of Saturn’s rings made by the Cassini Imaging Science Subsystem (ISS) and the Ultraviolet Imaging Spectrograph (UVIS) to investigate a previously unexpected aspect of Saturn’s rings: non-axisymmetric mesoscale structures that are larger than individual particles or self-gravitating clumps of particles and smaller than regular structures such as ringlets, density waves, and bending waves.\nISS images of the C ring reveal unexpected texture indicating structures spanning about 1 km in ring radius and several tens of km in the azimuthal direction. The nature and amount of this texture in the images varies across the C ring. Similar texture is seen in the outer portion of the B ring as well as within density waves in the A ring. UVIS observed a series of special stellar occultations that had very low velocities in the local ring particle frame (“particle tracking occultations”). These provide uniquely high resolution for non-axisymmetric structures.\nUVIS also observed many occultations of binary stars where the two stars’ separation distances projected in the ring plane span 10’s of m to a few km. These occultations are ideally suited for studying mesoscale structures. By analyzing changes in the auto-correlation of the occultation light curve we can measure changes in ring optical depth at a given ring plane radius since the two stellar components cross that radial position at different longitudes. The combination of multiple UVIS occultations at different viewing geometries, both in ring elevation and azimuth, make it possible to study not only the sizes and distribution of mesoscale structures but also their three-dimensional shapes.\nWe will incorporate analysis of the higher order moments of the UVIS stellar occultations as well as carry out N-body simulations of the rings using a well-tested collisional and self-gravitating model developed by Co-I Lewis. We will forward model the rings and reproduce the textured structure seen in ISS images as well as occultation signals of non-axisymmetric structures. We will test the effects of particle density, particle size distribution, and local embedded perturbers (giant boulders or miniature moonlets) to understand the conditions required for formation of these structures that likely include both large-scale aggregates or density enhancements as well as azimuthally-limited gaps or holes in the rings.\nWe will compare these results with observations made across the ring system including “straw” in density waves in the A ring and various streaky texture identified in images across the main rings. We will compare the simulations with particle-tracking occultations throughout the main rings to better understand the differences in ring particle properties across the system. Comparisons of both occultation data and high-resolution imaging data with simulations will show the effects of particle properties, distance from Saturn, local ring surface mass density, and effects of gravitational perturbations from external satellites and embedded moonlets.\nWe will search for evidence of secular changes in these structures to better understand the evolution of the system. Results from our analysis will constrain long-term evolutionary models of the viscous spreading of the rings as well as ring erosion and pollution models. The results of this research will thus help us address fundamental questions about the origin of the rings, such as whether the different main ring regions have a common or separate origin."
+  },
+  {
+    "objectID": "projects/planetary-data-reader/index.html",
+    "href": "projects/planetary-data-reader/index.html",
+    "title": "Planetary Data Reader",
     "section": "",
-    "text": "When combining orbital images of Mars taken at different times, precise alignment — co-registration — is essential. Small misalignments between images propagate into every downstream product: mosaics, digital terrain models, and change detection maps all suffer.\nTraditional co-registration workflows for CTX (Context Camera) images from Mars Reconnaissance Orbiter rely on manual tie-point generation — a tedious, time-consuming process that doesn’t scale. This project develops an automatic co-registration pipeline using modern image processing techniques that eliminates the need for manual tie-points entirely, producing well-aligned image stacks ready for downstream analysis.\nThis is a collaborative project with Sebastian Walter as the lead at Freie Universität Berlin, funded by the German Federal Ministry of Education and Research (BMBF) through DLR (grant 50 OO 2204)."
+    "text": "I am a Collaborator (Co-I until I left the US) in this exciting project, led by Chase Million of Million Concepts."
   },
   {
-    "objectID": "projects/koregistration/index.html#outputs",
-    "href": "projects/koregistration/index.html#outputs",
-    "title": "Image Co-registration",
-    "section": "Outputs",
-    "text": "Outputs\n\nEGU 2023 poster\nLPSC 54 (2023) abstract\nWalter et al. (2024), “Mars Reconnaissance Orbiter Context Camera Updated In-Flight Calibration,” Earth and Space Science 11(2). DOI: 10.1029/2023EA003491"
+    "objectID": "projects/planetary-data-reader/index.html#goals-and-objectives",
+    "href": "projects/planetary-data-reader/index.html#goals-and-objectives",
+    "title": "Planetary Data Reader",
+    "section": "Goals and objectives",
+    "text": "Goals and objectives\nThis project will create an open source, Python-based tool capable of reading the vast majority of data (including tables and images) and metadata formats currently archived by the PDS, as well as some formats common in planetary science research workflows but not typically archived in PDS (e.g. ISIS cube, JP2, GeoTiff). It will offer users a consistent, easily-understandable interface that works the same way for all data formats. For instance, a simple command like read(filename) will return a Python object that can immediately be used in research workflows or easily converted to other formats using pre-existing tools.\nThis tool solves a well-known pain point for planetary data users: simply figuring out how to access data, especially data archived under PDS3, which often have inconsistent or bespoke formats. PDS is in the process of migrating archives to the stricter PDS4 standard, but the timeline for this migration is uncertain, and it is unlikely to be completed before 2025. The tool developed under this project provides a stopgap solution and also supplements the migration effort in two important ways. First, reading PDS3 data formats is one limit on a swift and efficient data migration, so this tool will streamline that effort. Second, because this tool will treat PDS3 and PDS4 data identically from the end-user perspective, it will future-proof research workflows from the migration."
   },
   {
-    "objectID": "projects/janus-juice/index.html",
-    "href": "projects/janus-juice/index.html",
-    "title": "JANUS Camera on the JUICE Mission",
+    "objectID": "projects/planetary-data-reader/index.html#approach-and-methodology",
+    "href": "projects/planetary-data-reader/index.html#approach-and-methodology",
+    "title": "Planetary Data Reader",
+    "section": "Approach and methodology",
+    "text": "Approach and methodology\nThis effort will build on proof-of-concept work already undertaken by this team. The majority of data archived under PDS3 (including .DAT and .IMG files) use a bitwise structured format sometimes referred to as the “PDS3 format.” It is not dissimilar from the FITS file format, but suffers from a much looser definition, leading to difficulties reading these files. The major issues in PDS3 that we have identified are (1) inconsistent mapping between specified data types and byte-size / order, (2) complex files containing multiple or mixed data types, and (3) file format definitions that are not stored in standard locations. We have prototyped solutions to these three issues, and the work plan will involve fully developing and testing those solutions. Other issues arise less frequently (e.g. one-off “bad” files, unique formats) and will be dealt with case-by-case.\nSeveral Python tools exist for reading subsets of planetary data. They include pds4_tools, PVL, Plio, Python wrappers for GDAL and fitsio, Pysis, and SpiceyPy, astropy. These will be reused when appropriate, with input and output syntax / behavior wrapped to provide consistent experience across data types.\nA thorough testing suite will also be developed which, in addition to more targeted approaches, will scrape PDS data holdings in a systematic way to verify expected behavior and identify issues requiring additional development. The resulting tool will be released under a permissive license and made publicly available on the PI’s institutional webspace and the NASA PSD Github. It will be made available for easy installation through pip and conda and also submitted as an affiliate package to the PlanetaryPy project."
+  },
+  {
+    "objectID": "projects/planetary-data-reader/index.html#scope-and-relevance",
+    "href": "projects/planetary-data-reader/index.html#scope-and-relevance",
+    "title": "Planetary Data Reader",
+    "section": "Scope and relevance",
+    "text": "Scope and relevance\nThe proposed work will “develop and disseminate software tools that facilitate the use of existing datasets or that would enable or enhance future science investigations of interest to the Planetary Science Division” and is therefore a Software Tool Development and Validation task per section 1.7 of the solicitation. The proposed work does not include a “science investigation” or application of t hese tools except as necessary to validate their performance. It is therefore within scope of and appropriate for PDART.\nLink to project\nPDF link\nListing picture source"
+  },
+  {
+    "objectID": "projects/planet-four/index.html",
+    "href": "projects/planet-four/index.html",
+    "title": "Planet Four",
     "section": "",
-    "text": "JANUS (Jovis, Amorum ac Natorum Undique Scrutator) is the optical camera system on ESA’s JUICE mission to the Jupiter system. It will image Jupiter’s atmosphere, the Galilean moons — particularly Ganymede, Europa, and Callisto — and the broader Jovian environment at visible and near-infrared wavelengths.\nMy work on JANUS focuses on radiometric calibration, exposure time calculation, and signal-to-noise analysis. I developed the janus-nbexposure Python package for computing expected signal levels and optimal exposure times across JANUS observing scenarios, accounting for detector characteristics, optical throughput, and target radiance — including reflected Jupiter-shine on the icy moons.\nThis work supports observation planning and helps ensure that JANUS achieves its science objectives within the instrument’s operational constraints. Funded by the German Federal Ministry of Education and Research (BMBF) through DLR (grant 50QJ2404)."
+    "text": "The Red Planet is a unique and dynamic world. Through the power of the Internet and its volunteers, we explore the surface, climate, and history of Mars with the Planet Four projects.\nIt is difficult if not impossible for computer algorithms to accurately map individual polar seasonal fans, spot araneiform (‘spider’) erosion, and identify polygonal ridges. These features visible from orbit are easily spotted by the human eye, and volunteers from around the world have contributed by mapping seasonal fans, polygonal ridges, and araneiforms in Mars Reconnaissance Orbiter imagery."
   },
   {
-    "objectID": "projects/janus-juice/index.html#links",
-    "href": "projects/janus-juice/index.html#links",
-    "title": "JANUS Camera on the JUICE Mission",
+    "objectID": "projects/planet-four/index.html#the-v3.1-catalog",
+    "href": "projects/planet-four/index.html#the-v3.1-catalog",
+    "title": "Planet Four",
+    "section": "The v3.1 catalog",
+    "text": "The v3.1 catalog\nThe Planet Four Data Catalog v3.1 is openly available on Zenodo (CC-BY 4.0). It aggregates the classifications of 40,000+ volunteers across 64,494 tiles from 469 HiRISE observations spanning Mars Years 28–33 (~25 regions of interest):\n\n265,389 fans — directional CO₂-jet deposits whose orientation records the surface wind\n427,404 blotches — elliptical deposits with no clear direction\n\nHow to cite: Aye, K.-M., Schwamb, M. E., Portyankina, G., Hansen, C. J., et al. (2026). Planet Four Data Catalog (v3.1) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.19026723"
+  },
+  {
+    "objectID": "projects/planet-four/index.html#p4tools",
+    "href": "projects/planet-four/index.html#p4tools",
+    "title": "Planet Four",
+    "section": "p4tools",
+    "text": "p4tools\nThe p4tools Python library provides easy access to the Planet Four citizen-science catalogs. Install via pip install p4tools and load any part of the catalog in a couple of lines — each sub-part is downloaded and cached automatically on first use via pooch:\nfrom p4tools import io\n\nfans     = io.get_fan_catalog(version=\"v3.1\")\nblotches = io.get_blotch_catalog(version=\"v3.1\")\nmeta     = io.get_meta_data()      # HiRISE observation metadata\ncoords   = io.get_tile_coords()    # per-tile coordinates\nregions  = io.get_region_names()   # region-of-interest labels\nBeyond the fan and blotch tables, p4tools now retrieves every sub-part of the catalog — the metadata-merged catalog variants, the observation and EDR-index metadata, and the tile-coordinate tables — each fetched and cached the first time you request it. See the p4tools documentation for the full API."
+  },
+  {
+    "objectID": "projects/planet-four/index.html#current-research",
+    "href": "projects/planet-four/index.html#current-research",
+    "title": "Planet Four",
+    "section": "Current research",
+    "text": "Current research\nOur latest analysis covers 469 HiRISE observations spanning Mars Years 28–33, studying inter- and intra-annual variability of dark regolith deposits at Mars’ south pole (EGU 2026; FU Berlin planetary seminar, June 2026). Across the seasonal south-polar cap the jet-deposit ground coverage has a median of 4.88% and a mean of 9.32% — a strongly right-skewed distribution that repeats well within individual regions across Mars Years, providing new constraints on seasonal CO₂ jet activity."
+  },
+  {
+    "objectID": "projects/planet-four/index.html#links",
+    "href": "projects/planet-four/index.html#links",
+    "title": "Planet Four",
     "section": "Links",
-    "text": "Links\n\njanus-nbexposure — Exposure calculation package\nJUICE mission (ESA)"
+    "text": "Links\n\nPlanet Four\nv3.1 data catalog on Zenodo\nFU Berlin planetary seminar talk (2026)\nZooniverse results\np4tools on PyPI\np4tools documentation\nGitHub organization\nIntroduction video\nPublications"
   },
   {
-    "objectID": "talks/2022-fub-seminar/presentation/index.html#political-answer-quotes-eu-horizon-monthly-focus",
-    "href": "talks/2022-fub-seminar/presentation/index.html#political-answer-quotes-eu-horizon-monthly-focus",
-    "title": "Planetary Research with Citizen Science",
-    "section": "Political answer (Quotes EU Horizon monthly focus)",
-    "text": "Political answer (Quotes EU Horizon monthly focus)\n\n“Through citizen science, ordinary people can take part in extraordinary research.”\n“Through their contributions, the citizen scientist can actively pursue personal values, and be part of a research community seeking the same goals.”\n“The professional scientist can get more data than they would otherwise. This leads to better precision in their measurements and more lines of enquiry in their research.”\n“Environmental monitoring is a particularly active field of citizen science.”\n“Scientists naturally want to measure the effects of citizen science and its impact on society […]” (Meta-CS)"
-  },
-  {
-    "objectID": "talks/2022-fub-seminar/presentation/index.html#what-is-cs-practically",
-    "href": "talks/2022-fub-seminar/presentation/index.html#what-is-cs-practically",
-    "title": "Planetary Research with Citizen Science",
-    "section": "What is CS, practically?",
-    "text": "What is CS, practically?\n\nProblem: Simple, but arduous or repetitive task\n\ntoo much data to go through yourself\n\nSplit up the task into screen-sized subtasks\nPresent the data with a simple workflow to thousands of untrained volunteers"
-  },
-  {
-    "objectID": "talks/2022-fub-seminar/presentation/index.html#what-is-in-it-for-scientists",
-    "href": "talks/2022-fub-seminar/presentation/index.html#what-is-in-it-for-scientists",
-    "title": "Planetary Research with Citizen Science",
-    "section": "What is in it for scientists?",
-    "text": "What is in it for scientists?\n\namount of data grows exponentially\nideal for simple but arduous questions\nML: labeled data always better\nCS is an efficient way to create many labels\ngood outreach opportunity"
-  },
-  {
-    "objectID": "talks/2022-fub-seminar/presentation/index.html#what-is-in-it-for-citizens",
-    "href": "talks/2022-fub-seminar/presentation/index.html#what-is-in-it-for-citizens",
-    "title": "Planetary Research with Citizen Science",
-    "section": "What is in it for citizens?",
-    "text": "What is in it for citizens?\n\nparticipate in real science\nindependent of prior education!\nwide variety of research fields offered as CS now"
-  },
-  {
-    "objectID": "talks/2022-fub-seminar/presentation/index.html#recognition-of-the-field-us",
-    "href": "talks/2022-fub-seminar/presentation/index.html#recognition-of-the-field-us",
-    "title": "Planetary Research with Citizen Science",
-    "section": "Recognition of the field (US)",
-    "text": "Recognition of the field (US)\n\nhttps://science.nasa.gov/citizenscience\nSeed funding available through standard NASA funding programs\nCan be attached to larger project applications"
-  },
-  {
-    "objectID": "talks/2022-fub-seminar/presentation/index.html#recognition-of-the-field-eu",
-    "href": "talks/2022-fub-seminar/presentation/index.html#recognition-of-the-field-eu",
-    "title": "Planetary Research with Citizen Science",
-    "section": "Recognition of the field (EU)",
-    "text": "Recognition of the field (EU)\nEU Horizon monthly focus and semi-regularly CS news\nhttps://ec.europa.eu/research-and-innovation/en/horizon-magazine/citizen-science-science-and-people"
-  },
-  {
-    "objectID": "talks/2022-fub-seminar/presentation/index.html#science-case",
-    "href": "talks/2022-fub-seminar/presentation/index.html#science-case",
-    "title": "Planetary Research with Citizen Science",
-    "section": "Science case",
-    "text": "Science case"
-  },
-  {
-    "objectID": "talks/2022-fub-seminar/presentation/index.html#science-case-temporal",
-    "href": "talks/2022-fub-seminar/presentation/index.html#science-case-temporal",
-    "title": "Planetary Research with Citizen Science",
-    "section": "Science case temporal",
-    "text": "Science case temporal"
-  },
-  {
-    "objectID": "talks/2022-fub-seminar/presentation/index.html#science-case-kieffer-model",
-    "href": "talks/2022-fub-seminar/presentation/index.html#science-case-kieffer-model",
-    "title": "Planetary Research with Citizen Science",
-    "section": "Science case: Kieffer model",
-    "text": "Science case: Kieffer model\n\n\nJet deposits are aligned by prevalent winds at the time!\nMapping these features would be more wind data than we ever had on Mars!"
-  },
-  {
-    "objectID": "talks/2022-fub-seminar/presentation/index.html#active-areas-around-south-pole",
-    "href": "talks/2022-fub-seminar/presentation/index.html#active-areas-around-south-pole",
-    "title": "Planetary Research with Citizen Science",
-    "section": "Active areas around south pole",
-    "text": "Active areas around south pole\n\n\nSeasonal campaigns at most of these areas!\n\n-&gt; Lots of huge HiRISE image data"
-  },
-  {
-    "objectID": "talks/2022-fub-seminar/presentation/index.html#input-data",
-    "href": "talks/2022-fub-seminar/presentation/index.html#input-data",
-    "title": "Planetary Research with Citizen Science",
-    "section": "Input data",
-    "text": "Input data\n\n221 HiRISE images from MY 29/30\nsplit up into over 40,000 image screen-sized tiles\nTiles are being “anonymized”, to prevent bias\nThe data input and reduction pipelines need to track everything"
-  },
-  {
-    "objectID": "talks/2022-fub-seminar/presentation/index.html#interface",
-    "href": "talks/2022-fub-seminar/presentation/index.html#interface",
-    "title": "Planetary Research with Citizen Science",
-    "section": "Interface",
-    "text": "Interface"
-  },
-  {
-    "objectID": "talks/2022-fub-seminar/presentation/index.html#interface-return",
-    "href": "talks/2022-fub-seminar/presentation/index.html#interface-return",
-    "title": "Planetary Research with Citizen Science",
-    "section": "Interface return",
-    "text": "Interface return\n\nDifficulty: What (contrast) defines the “end” of a surface feature?Minimum of 30 different volunteers per image tile!\n=&gt; quite slow progress"
-  },
-  {
-    "objectID": "talks/2022-fub-seminar/presentation/index.html#reduction-pipeline",
-    "href": "talks/2022-fub-seminar/presentation/index.html#reduction-pipeline",
-    "title": "Planetary Research with Citizen Science",
-    "section": "Reduction pipeline",
-    "text": "Reduction pipeline\n\nComprehensive description in Aye et al. (2019) : “Planet Four: Probing springtime winds on Mars by mapping the southern polar CO2 jet deposits”"
-  },
-  {
-    "objectID": "talks/2022-fub-seminar/presentation/index.html#reduction-pipeline-2",
-    "href": "talks/2022-fub-seminar/presentation/index.html#reduction-pipeline-2",
-    "title": "Planetary Research with Citizen Science",
-    "section": "Reduction pipeline 2",
-    "text": "Reduction pipeline 2\n\nClockwise from upper left: 1) Raw, 2) Fan markings, 3) Blotch markings, 4) Blotch reduction, 5) Fan reduction, 6) catalog entry with 50% majority vote"
-  },
-  {
-    "objectID": "talks/2022-fub-seminar/presentation/index.html#catalog-entries",
-    "href": "talks/2022-fub-seminar/presentation/index.html#catalog-entries",
-    "title": "Planetary Research with Citizen Science",
-    "section": "Catalog entries",
-    "text": "Catalog entries"
-  },
-  {
-    "objectID": "talks/2022-fub-seminar/presentation/index.html#science-team-gold-markings",
-    "href": "talks/2022-fub-seminar/presentation/index.html#science-team-gold-markings",
-    "title": "Planetary Research with Citizen Science",
-    "section": "Science Team (Gold) markings",
-    "text": "Science Team (Gold) markings\n\nEach team member marked several hundred tiles\nSignificant differences between science team members\nYears of experience do not overcome the original contrast problem!"
-  },
-  {
-    "objectID": "talks/2022-fub-seminar/presentation/index.html#compare-experts-with-citizens",
-    "href": "talks/2022-fub-seminar/presentation/index.html#compare-experts-with-citizens",
-    "title": "Planetary Research with Citizen Science",
-    "section": "Compare experts with citizens",
-    "text": "Compare experts with citizens"
-  },
-  {
-    "objectID": "talks/2022-fub-seminar/presentation/index.html#results",
-    "href": "talks/2022-fub-seminar/presentation/index.html#results",
-    "title": "Planetary Research with Citizen Science",
-    "section": "Results",
-    "text": "Results\n\nOver 40,000 citizens have contributed\n\nMost only once\nCore team of approx 10-20 volunteers did most of the work\n\nca. 400,000 geo-located objects in catalog\navailable at https://www.zooniverse.org/projects/mschwamb/planet-four/about/results"
-  },
-  {
-    "objectID": "talks/2022-fub-seminar/presentation/index.html#what-can-be-done-with-it",
-    "href": "talks/2022-fub-seminar/presentation/index.html#what-can-be-done-with-it",
-    "title": "Planetary Research with Citizen Science",
-    "section": "What can be done with it?",
-    "text": "What can be done with it?\n\nPortyankina et al. (2022) “Planet Four: Derived South Polar Martian Winds Interpreted Using Mesoscale Modeling”"
-  },
-  {
-    "objectID": "talks/2022-fub-seminar/presentation/index.html#compare-with-climate-models",
-    "href": "talks/2022-fub-seminar/presentation/index.html#compare-with-climate-models",
-    "title": "Planetary Research with Citizen Science",
-    "section": "Compare with climate models",
-    "text": "Compare with climate models\n\nTeam member Tim Michaels nest GCM into high-res meso-scale models using CTX and HiRISE DTM topography\nRun for several days to avoid “spin-up” effects\nRun at different \\(L_s\\) over the season\nCompare wind predictions with Planet Four data\nJust published in Portyankina et al. (2022)"
-  },
-  {
-    "objectID": "talks/2022-fub-seminar/presentation/index.html#measure-of-success",
-    "href": "talks/2022-fub-seminar/presentation/index.html#measure-of-success",
-    "title": "Planetary Research with Citizen Science",
-    "section": "Measure of success",
-    "text": "Measure of success\n\nDefine status of good / average / bad fit with data\nUsing only direction very good match with climate models\nTaking into account wind strength as well less good\nOur assumptions for jet deposit &lt;-&gt; wind strength are too simple"
-  },
-  {
-    "objectID": "talks/2022-fub-seminar/presentation/index.html#section-3",
-    "href": "talks/2022-fub-seminar/presentation/index.html#section-3",
-    "title": "Planetary Research with Citizen Science",
-    "section": "",
-    "text": "Only wind directions"
-  },
-  {
-    "objectID": "talks/2022-fub-seminar/presentation/index.html#section-4",
-    "href": "talks/2022-fub-seminar/presentation/index.html#section-4",
-    "title": "Planetary Research with Citizen Science",
-    "section": "",
-    "text": "Wind directions and estimated strengths"
-  },
-  {
-    "objectID": "talks/2022-fub-seminar/presentation/index.html#conclusions",
-    "href": "talks/2022-fub-seminar/presentation/index.html#conclusions",
-    "title": "Planetary Research with Citizen Science",
-    "section": "Conclusions",
-    "text": "Conclusions\n\nCitizen Science is not only outreach\nScientific paradigms are being changed thanks to the work power of hundred thousands of citizen scientists all over the world\nIf data reduction is done carefully, the results are very reliable\nDon’t try to do this “on the side”\n\nIt’s a full time analytical job"
-  },
-  {
-    "objectID": "talks/2022-fub-seminar/presentation/index.html#conclusions-2",
-    "href": "talks/2022-fub-seminar/presentation/index.html#conclusions-2",
-    "title": "Planetary Research with Citizen Science",
-    "section": "Conclusions 2",
-    "text": "Conclusions 2\n\nOverall good match with models but discrepancies exist\nHope to derive jet eruption times"
-  },
-  {
-    "objectID": "talks/2024-epsc-op-data-cafe/index.html#practically-speaking",
-    "href": "talks/2024-epsc-op-data-cafe/index.html#practically-speaking",
-    "title": "OpenPlanetary Data Cafe and Friends",
-    "section": "Practically speaking",
-    "text": "Practically speaking\nWe are\n\na Slack forum (possibly changing soon-ish)\nan open discussion forum\n\npublicly searchable\nhttps://openplanetary.discourse.group/)"
-  },
-  {
-    "objectID": "talks/2024-epsc-op-data-cafe/index.html#our-mission",
-    "href": "talks/2024-epsc-op-data-cafe/index.html#our-mission",
-    "title": "OpenPlanetary Data Cafe and Friends",
-    "section": "Our Mission",
-    "text": "Our Mission\nOur mission is\n\nto promote and facilitate the open practice of planetary science and data analysis for professionals and amateurs\nby organizing events and conducting collaborative projects aimed at creating scientific, technical and educational resources, tools and data accessible to all.\n\ne.g. monthly OP Virtual Lunch talks"
-  },
-  {
-    "objectID": "talks/2024-epsc-op-data-cafe/index.html#our-story",
-    "href": "talks/2024-epsc-op-data-cafe/index.html#our-story",
-    "title": "OpenPlanetary Data Cafe and Friends",
-    "section": "OUR STORY",
-    "text": "OUR STORY\n\nstarted back in 2015 from an initial participants effort to stay connected and share information related to and beyond the ESA’s first Planetary GIS Workshop.\ncontinued during the 2nd USGS Planetary Data Workshop, and aggregated more people.\nIn 2018, established non-profit organisation, to provide a legal framework to sustainably fund our community framework, projects and activities, and better serve the planetary science community as a whole."
-  },
-  {
-    "objectID": "talks/2024-epsc-op-data-cafe/index.html#people",
-    "href": "talks/2024-epsc-op-data-cafe/index.html#people",
-    "title": "OpenPlanetary Data Cafe and Friends",
-    "section": "People",
-    "text": "People\n\nco-founded by presiden Nicolas Manaud and US chttps://www.planetarymapping.eu/ounter-part Chase Million (https://www.openplanetary.org/about)\nwe have a board of directors with shared responsibilities\nSlack channel has &gt; 800 members from all over the world\nyou can find many planetary scientists, planetary data experts, software developers, directly involved in the tools you use every day"
-  },
-  {
-    "objectID": "talks/2024-epsc-op-data-cafe/index.html#gmap-course",
-    "href": "talks/2024-epsc-op-data-cafe/index.html#gmap-course",
-    "title": "OpenPlanetary Data Cafe and Friends",
-    "section": "GMAP course",
-    "text": "GMAP course\n\nA regular growth event is the Planetary Geologic Mapping Winter School of the GMAP organization by Angelo Rossi and others\nhttps://www.planetarymapping.eu/\n\nLots of resources for planetary geologic mapping to find there!"
-  },
-  {
-    "objectID": "talks/2024-epsc-op-data-cafe/index.html#covered-topics-by-op-members-in-slack-and-discourse-forum",
-    "href": "talks/2024-epsc-op-data-cafe/index.html#covered-topics-by-op-members-in-slack-and-discourse-forum",
-    "title": "OpenPlanetary Data Cafe and Friends",
-    "section": "Covered topics by OP members in Slack and Discourse Forum",
-    "text": "Covered topics by OP members in Slack and Discourse Forum\n\nchannels for PDS, PSA, ISIS, GDAL, PlanetaryPython, SPICE, conda, mapping, jupyter, machine-learning, cloud, docker, QGIS, and more.\nfolks directly involved in the tools you use every day: GDAL, ISIS, PDS, SPICE, PSA, ASP, PlanetaryPython, etc."
-  },
-  {
-    "objectID": "talks/2024-epsc-op-data-cafe/index.html#forum",
-    "href": "talks/2024-epsc-op-data-cafe/index.html#forum",
-    "title": "OpenPlanetary Data Cafe and Friends",
-    "section": "Forum",
-    "text": "Forum\n\nto preserve and make searchable / findable discussions of general interest to the community:\nhttps://openplanetary.discourse.group/"
-  },
-  {
-    "objectID": "talks/2024-epsc-op-data-cafe/index.html#software-virtual-environments",
-    "href": "talks/2024-epsc-op-data-cafe/index.html#software-virtual-environments",
-    "title": "OpenPlanetary Data Cafe and Friends",
-    "section": "Software virtual environments",
-    "text": "Software virtual environments\n\nDespite some challenges and learning curves, many people recommend conda environments as the most sustainable way to manage software dependencies in our field of science.\nDon’t listen to your IT departments, when they say, you can do everything without conda. (convince them otherwise ;) )\n\nGDAL still today is the dealbreaker, requires more work than really necessary.\nThere are a few other libraries that have similar issues."
-  },
-  {
-    "objectID": "talks/2024-epsc-op-data-cafe/index.html#planetary-python",
-    "href": "talks/2024-epsc-op-data-cafe/index.html#planetary-python",
-    "title": "OpenPlanetary Data Cafe and Friends",
-    "section": "Planetary Python",
-    "text": "Planetary Python\n\nWe are an organization as well:\n\nhttps://planetarypy.org/\nWe have code of conduct, regular technical meetings, trying to establish a core package for standard tasks in planetary python.\n\nI have a large-ish chaotic package, that is being transferred to the organization, piece-by-piece, in a peer-review fashion.\nslowly growing community package: https://github.com/planetarypy/planetarypy\nDemo\nShow SPICE and Index functionality"
-  },
-  {
-    "objectID": "talks/2026-dgp-planet-four/index.html#science-case",
-    "href": "talks/2026-dgp-planet-four/index.html#science-case",
-    "title": "Planet Four: Inter- and Intra-annual Variability of Dark Regolith on Ice Coverage at the Martian South Polar Region",
-    "section": "Science case",
-    "text": "Science case"
-  },
-  {
-    "objectID": "talks/2026-dgp-planet-four/index.html#science-case-1",
-    "href": "talks/2026-dgp-planet-four/index.html#science-case-1",
-    "title": "Planet Four: Inter- and Intra-annual Variability of Dark Regolith on Ice Coverage at the Martian South Polar Region",
-    "section": "Science case",
-    "text": "Science case"
-  },
-  {
-    "objectID": "talks/2026-dgp-planet-four/index.html#science-case-temporal",
-    "href": "talks/2026-dgp-planet-four/index.html#science-case-temporal",
-    "title": "Planet Four: Inter- and Intra-annual Variability of Dark Regolith on Ice Coverage at the Martian South Polar Region",
-    "section": "Science case temporal",
-    "text": "Science case temporal"
-  },
-  {
-    "objectID": "talks/2026-dgp-planet-four/index.html#science-case-kieffer-model",
-    "href": "talks/2026-dgp-planet-four/index.html#science-case-kieffer-model",
-    "title": "Planet Four: Inter- and Intra-annual Variability of Dark Regolith on Ice Coverage at the Martian South Polar Region",
-    "section": "Science case: Kieffer model",
-    "text": "Science case: Kieffer model\n\n\nJet deposits are aligned by prevalent winds at the time!\nMapping these features enables the first large area knowledge of prevailing winds on Mars!\n\non intra-seasonal timescales, not only over many years."
-  },
-  {
-    "objectID": "talks/2026-dgp-planet-four/index.html#active-areas-around-south-pole",
-    "href": "talks/2026-dgp-planet-four/index.html#active-areas-around-south-pole",
-    "title": "Planet Four: Inter- and Intra-annual Variability of Dark Regolith on Ice Coverage at the Martian South Polar Region",
-    "section": "Active areas around south pole",
-    "text": "Active areas around south pole\n\n\nSeasonal campaigns at most of these areas!\n\n-&gt; Lots of huge HiRISE image data"
-  },
-  {
-    "objectID": "talks/2026-dgp-planet-four/index.html#input-data",
-    "href": "talks/2026-dgp-planet-four/index.html#input-data",
-    "title": "Planet Four: Inter- and Intra-annual Variability of Dark Regolith on Ice Coverage at the Martian South Polar Region",
-    "section": "Input data",
-    "text": "Input data\n\n221 HiRISE images from MY 29/30\n\nnew catalog: 469 studied images from MY 28-33 (6 years of data)\n\nsplit up into over 30,000 image screen-sized tiles\n\nnow over 64,000 tiles\n\nTiles are being “anonymized”, to prevent bias\nThe data input and reduction pipelines need to track everything"
-  },
-  {
-    "objectID": "talks/2026-dgp-planet-four/index.html#interface",
-    "href": "talks/2026-dgp-planet-four/index.html#interface",
-    "title": "Planet Four: Inter- and Intra-annual Variability of Dark Regolith on Ice Coverage at the Martian South Polar Region",
-    "section": "Interface",
-    "text": "Interface"
-  },
-  {
-    "objectID": "talks/2026-dgp-planet-four/index.html#interface-return",
-    "href": "talks/2026-dgp-planet-four/index.html#interface-return",
-    "title": "Planet Four: Inter- and Intra-annual Variability of Dark Regolith on Ice Coverage at the Martian South Polar Region",
-    "section": "Interface return",
-    "text": "Interface return\n\nDifficulty: What (contrast) defines the “end” of a surface feature?Minimum of 30 different volunteers per image tile!\n=&gt; quite slow progress"
-  },
-  {
-    "objectID": "talks/2026-dgp-planet-four/index.html#reduction-pipeline",
-    "href": "talks/2026-dgp-planet-four/index.html#reduction-pipeline",
-    "title": "Planet Four: Inter- and Intra-annual Variability of Dark Regolith on Ice Coverage at the Martian South Polar Region",
-    "section": "Reduction pipeline",
-    "text": "Reduction pipeline\n\nClockwise from upper left: 1) Raw, 2) Fan markings, 3) Blotch markings, 4) Blotch reduction, 5) Fan reduction, 6) catalog entry with 50% majority vote"
-  },
-  {
-    "objectID": "talks/2026-dgp-planet-four/index.html#catalog-entries",
-    "href": "talks/2026-dgp-planet-four/index.html#catalog-entries",
-    "title": "Planet Four: Inter- and Intra-annual Variability of Dark Regolith on Ice Coverage at the Martian South Polar Region",
-    "section": "Catalog entries",
-    "text": "Catalog entries"
-  },
-  {
-    "objectID": "talks/2026-dgp-planet-four/index.html#results",
-    "href": "talks/2026-dgp-planet-four/index.html#results",
-    "title": "Planet Four: Inter- and Intra-annual Variability of Dark Regolith on Ice Coverage at the Martian South Polar Region",
-    "section": "Results",
-    "text": "Results\n\nOver 40,000 citizens have contributed\n\nMost only once\nCore team of approx 10-20 volunteers did most of the work\n\nnow over 690,000 geo-located objects in catalog\navailable at zenodo “Planet Four Data Catalog” and via Python library “p4tools”"
-  },
-  {
-    "objectID": "talks/2026-dgp-planet-four/index.html#what-can-be-done-with-it",
-    "href": "talks/2026-dgp-planet-four/index.html#what-can-be-done-with-it",
-    "title": "Planet Four: Inter- and Intra-annual Variability of Dark Regolith on Ice Coverage at the Martian South Polar Region",
-    "section": "What can be done with it?",
-    "text": "What can be done with it?\n\n\nPortyankina et al. (2022) “Planet Four: Derived South Polar Martian Winds Interpreted Using Mesoscale Modeling”"
-  },
-  {
-    "objectID": "talks/2026-dgp-planet-four/index.html#covered-surface-interests",
-    "href": "talks/2026-dgp-planet-four/index.html#covered-surface-interests",
-    "title": "Planet Four: Inter- and Intra-annual Variability of Dark Regolith on Ice Coverage at the Martian South Polar Region",
-    "section": "Covered surface interests",
-    "text": "Covered surface interests\n\nSeasonal CO2 ice is quite bright\nSo, how much is covered by dark regolith?\n-&gt; energy balance of the surface and lower atmosphere\nPrevious work estimated 20-30% coverage, but only for a few locations and times"
-  },
-  {
-    "objectID": "talks/2026-dgp-planet-four/index.html#surface-coverage-across-years",
-    "href": "talks/2026-dgp-planet-four/index.html#surface-coverage-across-years",
-    "title": "Planet Four: Inter- and Intra-annual Variability of Dark Regolith on Ice Coverage at the Martian South Polar Region",
-    "section": "Surface coverage across years",
-    "text": "Surface coverage across years"
-  },
-  {
-    "objectID": "talks/2026-dgp-planet-four/index.html#relationship-to-global-dust-storms",
-    "href": "talks/2026-dgp-planet-four/index.html#relationship-to-global-dust-storms",
-    "title": "Planet Four: Inter- and Intra-annual Variability of Dark Regolith on Ice Coverage at the Martian South Polar Region",
-    "section": "Relationship to global dust storms?",
-    "text": "Relationship to global dust storms?"
-  },
-  {
-    "objectID": "talks/2026-dgp-planet-four/index.html#intra-seasonal-variability",
-    "href": "talks/2026-dgp-planet-four/index.html#intra-seasonal-variability",
-    "title": "Planet Four: Inter- and Intra-annual Variability of Dark Regolith on Ice Coverage at the Martian South Polar Region",
-    "section": "Intra-seasonal variability",
-    "text": "Intra-seasonal variability"
-  },
-  {
-    "objectID": "talks/2026-dgp-planet-four/index.html#fan-lengths",
-    "href": "talks/2026-dgp-planet-four/index.html#fan-lengths",
-    "title": "Planet Four: Inter- and Intra-annual Variability of Dark Regolith on Ice Coverage at the Martian South Polar Region",
-    "section": "Fan lengths",
-    "text": "Fan lengths\nCombo of jet and wind strengths"
-  },
-  {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
-    "section": "",
-    "text": "University of Durham | Durham, UK PhD High Energy Astrophysics | Sept 2000 – Dec 2004\nUniversität Heidelberg | Heidelberg, Germany Diploma in Physics (Astronomy, Particle Physics) | April 1995 – June 1999"
-  },
-  {
-    "objectID": "about.html#education",
-    "href": "about.html#education",
-    "title": "About",
-    "section": "",
-    "text": "University of Durham | Durham, UK PhD High Energy Astrophysics | Sept 2000 – Dec 2004\nUniversität Heidelberg | Heidelberg, Germany Diploma in Physics (Astronomy, Particle Physics) | April 1995 – June 1999"
-  },
-  {
-    "objectID": "about.html#experience",
-    "href": "about.html#experience",
-    "title": "About",
-    "section": "Experience",
-    "text": "Experience\nFreie Universität Berlin | Research Scientist | Juli 2022 – present\nUniversity of Colorado, Boulder | Laboratory for Atmospheric and Space Science (LASP) | Research Associate | December 2014 – June 2022\nUniversity of California, Los Angeles | Postdoctoral Researcher | August 2012 – Nov 2014\nPhysikalisches Institut Bern | Assistant Project Manager BepiColombo Laser Altimeter | Feb 2008 – July 2012\nMax-Planck-Institute for Solar System Research | Dawn Framing Camera Team | Feb 2005 – Feb 2008"
-  },
-  {
-    "objectID": "about.html#activities",
-    "href": "about.html#activities",
-    "title": "About",
-    "section": "Activities",
-    "text": "Activities\n\nGuest Associate Editor for FrontiersIn Special Issue Snakes on a Spaceship\nOpenPlanetary board member, responsible for Python-related issues"
-  },
-  {
-    "objectID": "talks/2024-ipda-data-talk/index.html#who-am-i",
-    "href": "talks/2024-ipda-data-talk/index.html#who-am-i",
-    "title": "Is it easy enough to get to planetary data?",
-    "section": "Who am I?",
-    "text": "Who am I?\n\nCoding-inclined planetary scientist\n\nWorked on: Dawn, Cassini, BepiColombo, LRO, MRO, MEX\nWorked as/on:Ground ops, Onboard software, Project Manager, Calibration, Data analyst\n\nFighter for open-source, open-data, open-science\n\nIf I can’t reproduce with public data and public code:\n\n-&gt; at best smelly.\n\n\nWorked at: MPS, UBe, UCLA(JPL/NASA), LASP(CU), Freie Uni Berlin.\n\n\n\nYou can find this talk and other resources on https://michaelaye.github.io/"
-  },
-  {
-    "objectID": "talks/2024-ipda-data-talk/index.html#disclaimer",
-    "href": "talks/2024-ipda-data-talk/index.html#disclaimer",
-    "title": "Is it easy enough to get to planetary data?",
-    "section": "Disclaimer",
-    "text": "Disclaimer\n\nI understand: an archiving budget and a “make things easy for the user”-budget aren’t the same numbers, propably not even close.\n\nAnd I appreciate that most stakeholders are formally paid only for archiving.\n\nAlso, sometimes things are not working because an instrument team isn’t delivering what is needed."
-  },
-  {
-    "objectID": "talks/2024-ipda-data-talk/index.html#what-are-the-most-prevalent-types-of-data-searches",
-    "href": "talks/2024-ipda-data-talk/index.html#what-are-the-most-prevalent-types-of-data-searches",
-    "title": "Is it easy enough to get to planetary data?",
-    "section": "What are the most prevalent types of data searches?",
-    "text": "What are the most prevalent types of data searches?\nThis is really a question I have, do we have data on this?\nCandidates, IMHO:\n\nby product / observation ID\nby coordinates (space or time)\nby observation geometry / illumination conditions\nbrowsing (I’m really wondering how much this is done with an archive interface)"
-  },
-  {
-    "objectID": "talks/2024-ipda-data-talk/index.html#one-of-my-perfect-use-cases",
-    "href": "talks/2024-ipda-data-talk/index.html#one-of-my-perfect-use-cases",
-    "title": "Is it easy enough to get to planetary data?",
-    "section": "One of my perfect use cases",
-    "text": "One of my perfect use cases\n\nRead a paper using Cassini ISS\nsee a product ID N1454725799\nuse an API to download the data\n\nfor example:\n\nfrom planetarypy.ciss import ISS\niss = ISS(\"N1454725799\")\niss.download_calib()"
-  },
-  {
-    "objectID": "talks/2024-ipda-data-talk/index.html#testing-for-a-set-of-data-search-types",
-    "href": "talks/2024-ipda-data-talk/index.html#testing-for-a-set-of-data-search-types",
-    "title": "Is it easy enough to get to planetary data?",
-    "section": "Testing for a set of data search types",
-    "text": "Testing for a set of data search types\n\nBy product / observation ID (Is there a difference sometimes?)\n\nHRSC PID h6980_0000 (taken from a paper)\nCassini ISS N1454725799\n\nBy coordinates (space or time)\nBrowsing"
-  },
-  {
-    "objectID": "talks/2024-ipda-data-talk/index.html#psa-hrsc",
-    "href": "talks/2024-ipda-data-talk/index.html#psa-hrsc",
-    "title": "Is it easy enough to get to planetary data?",
-    "section": "PSA (HRSC)",
-    "text": "PSA (HRSC)"
-  },
-  {
-    "objectID": "talks/2024-ipda-data-talk/index.html#psa-continued",
-    "href": "talks/2024-ipda-data-talk/index.html#psa-continued",
-    "title": "Is it easy enough to get to planetary data?",
-    "section": "PSA continued",
-    "text": "PSA continued\n\ngoogled “ESA PSA”\n\ngoogling “PSA HRSC” not working, “PSA HRSC data” better, but not direct\n\nvery quick to filter for one instrument or mission (1 entry/click)\nproduct ID filter is not shown immediately, distinction “Basic/Advanced” a bit small.\ntried to use “Observation ID” to find “h6980_0000” using\n\nh6980_0000\nh6980_0000*\n“h6980_0000”\nnothing worked.\n\nchose random other product for D/L testing, worked very smoothly. (zip)"
-  },
-  {
-    "objectID": "talks/2024-ipda-data-talk/index.html#geosciences-ode-hrsc",
-    "href": "talks/2024-ipda-data-talk/index.html#geosciences-ode-hrsc",
-    "title": "Is it easy enough to get to planetary data?",
-    "section": "Geosciences / ODE (HRSC)",
-    "text": "Geosciences / ODE (HRSC)\n\ngoogled “pds hrsc data”, 1st hit\nwelcome view also tough to parse"
-  },
-  {
-    "objectID": "talks/2024-ipda-data-talk/index.html#ode-continued",
-    "href": "talks/2024-ipda-data-talk/index.html#ode-continued",
-    "title": "Is it easy enough to get to planetary data?",
-    "section": "ODE continued",
-    "text": "ODE continued\n\npicking “Mars Orbital Data Explorer”\nbecause i heard about, otherwise very tough\ndata product search\nEsa’s Mars Express\nHRSC\ncalibrated data (simply choosing HRSC not possible?)\nfilter by product ID\n“h6980_0000*” gives 9 results\nView results in table"
-  },
-  {
-    "objectID": "talks/2024-ipda-data-talk/index.html#mars-ode",
-    "href": "talks/2024-ipda-data-talk/index.html#mars-ode",
-    "title": "Is it easy enough to get to planetary data?",
-    "section": "Mars ODE",
-    "text": "Mars ODE"
-  },
-  {
-    "objectID": "talks/2024-ipda-data-talk/index.html#rings-node",
-    "href": "talks/2024-ipda-data-talk/index.html#rings-node",
-    "title": "Is it easy enough to get to planetary data?",
-    "section": "Rings Node",
-    "text": "Rings Node\n\ngoogled “pds rings node”\nclicked on OPUS (guided well by one of 1st sentences)"
-  },
-  {
-    "objectID": "talks/2024-ipda-data-talk/index.html#rings-node-continued",
-    "href": "talks/2024-ipda-data-talk/index.html#rings-node-continued",
-    "title": "Is it easy enough to get to planetary data?",
-    "section": "Rings Node continued",
-    "text": "Rings Node continued\n\ncassini iss\nPDS constraints (not that easy to realize but i guess “guessable”)\nPDS3 Product ID\nN1454725799\nBrowse results (not too easy to realize)"
-  },
-  {
-    "objectID": "talks/2024-ipda-data-talk/index.html#rings-node-continued-results-page",
-    "href": "talks/2024-ipda-data-talk/index.html#rings-node-continued-results-page",
-    "title": "Is it easy enough to get to planetary data?",
-    "section": "Rings Node continued (results page)",
-    "text": "Rings Node continued (results page)\n\nclicked on 1 results\npreview shown\npressing spacebar to enter it to shopping cart got spinning wheel\n\n\nbut cart got filled\n\n\ngo to cart\nchoose from download options"
-  },
-  {
-    "objectID": "talks/2024-ipda-data-talk/index.html#atmosphere-node",
-    "href": "talks/2024-ipda-data-talk/index.html#atmosphere-node",
-    "title": "Is it easy enough to get to planetary data?",
-    "section": "Atmosphere Node",
-    "text": "Atmosphere Node\n\ngoogled “pds atmospheres”"
-  },
-  {
-    "objectID": "talks/2024-ipda-data-talk/index.html#atmosphere-cont.",
-    "href": "talks/2024-ipda-data-talk/index.html#atmosphere-cont.",
-    "title": "Is it easy enough to get to planetary data?",
-    "section": "Atmosphere cont.",
-    "text": "Atmosphere cont.\n\nCassini Archive\nISS\nFind info on PDS Image Atlas (the search engine)\npick mission\npick insterument\nfind/enter PDS Archive Constraints (again, weirdly named?)\none result shown\nclicking gives promising buttons\nchoosing “Full Product” starts to stream binary code into the browser, WTH??\n\neven worse, right-click -&gt; save as does not work with the button."
-  },
-  {
-    "objectID": "talks/2024-ipda-data-talk/index.html#atlas-download-options",
-    "href": "talks/2024-ipda-data-talk/index.html#atlas-download-options",
-    "title": "Is it easy enough to get to planetary data?",
-    "section": "Atlas download options",
-    "text": "Atlas download options"
-  },
-  {
-    "objectID": "talks/2024-ipda-data-talk/index.html#ode-hrsc",
-    "href": "talks/2024-ipda-data-talk/index.html#ode-hrsc",
-    "title": "Is it easy enough to get to planetary data?",
-    "section": "ODE (HRSC)",
-    "text": "ODE (HRSC)\nLat -85, -80,\nLon 10, 20\ngives 509 results and no issues."
-  },
-  {
-    "objectID": "talks/2024-ipda-data-talk/index.html#psa-hrsc-1",
-    "href": "talks/2024-ipda-data-talk/index.html#psa-hrsc-1",
-    "title": "Is it easy enough to get to planetary data?",
-    "section": "PSA (HRSC)",
-    "text": "PSA (HRSC)\nSame coordinates as ODE.\nGives error message:\n\nplease select a target with an available map"
-  },
-  {
-    "objectID": "talks/2024-ipda-data-talk/index.html#upcoming",
-    "href": "talks/2024-ipda-data-talk/index.html#upcoming",
-    "title": "Is it easy enough to get to planetary data?",
-    "section": "Upcoming",
-    "text": "Upcoming\n\nWant to try to add VESPA / EPN-TAP to the table\nAdd it to planetarypy"
+    "objectID": "talks/2021-pdw-planetarypy/index.html#summary",
+    "href": "talks/2021-pdw-planetarypy/index.html#summary",
+    "title": "The PlanetaryPy Project",
+    "section": "Summary",
+    "text": "Summary\nThe PlanetaryPy Project is a community effort to develop a core package for planetary science in Python and foster interoperability between Python planetary science packages.\nThe PlanetaryPy Technical Committee (TC) is the governing body for the PlanetaryPy Project. All of their work is done in the open via the TC GitHub repo. To learn more about what the TC is, how it operates, or to get involved, you can read its Charter (see paragraph below). The PlanetaryPy TC has regular meetings to which all are welcome to attend. The meeting agendas for upcoming meetings, and notes from previous meetings can be found in the TC’s GitHub repo.\nConference Program\nSlides\nProject URL\nAbstract PDF\nPresentation Video"
   },
   {
     "objectID": "talks/2026-fub-seminar/index.html#outline",
@@ -1120,137 +665,571 @@
     "text": "References\n\n\nAye, K-Michael, Megan E Schwamb, Ganna Portyankina, et al. 2019. “Planet Four: Probing Springtime Winds on Mars by Mapping the Southern Polar CO2 Jet Deposits.” Icarus 319 (February): 558–98. https://doi.org/10.1016/j.icarus.2018.08.018.\n\n\nHansen, Candice J., Shane Byrne, Wendy M. Calvin, et al. 2024. “A Comparison of CO\\(_2\\) Seasonal Activity in Mars’s Northern and Southern Hemispheres.” Icarus 419: 115801. https://doi.org/10.1016/j.icarus.2023.115801.\n\n\nKieffer, Hugh H. 2007. “Cold Jets in the Martian Polar Caps.” J. Geophys. Res. Planets 112 (E8): E08005. https://doi.org/10.1029/2006JE002816.\n\n\nPiqueux, Sylvain, Shane Byrne, and Mark I. Richardson. 2003. “Sublimation of Mars’s Southern Seasonal CO\\(_2\\) Ice Cap and the Formation of Spiders.” J. Geophys. Res. Planets 108 (E8): 5084. https://doi.org/10.1029/2002JE002007.\n\n\nPommerol, Antoine, Ganna Portyankina, Nicolas Thomas, et al. 2011. “Evolution of South Seasonal Cap During Martian Spring: Insights from High-Resolution Observations by HiRISE and CRISM on Mars Reconnaissance Orbiter.” J. Geophys. Res. Planets 116 (E08007). https://doi.org/10.1029/2010JE003790.\n\n\nPortyankina, Ganna, Timothy I Michaels, Klaus-Michael Aye, Megan E Schwamb, Candice J Hansen, and Chris J Lintott. 2022. “Planet Four: Derived South Polar Martian Winds Interpreted Using Mesoscale Modeling.” Planet. Sci. J. 3 (2): 31. https://doi.org/10.3847/PSJ/ac3087.\n\n\nPortyankina, Ganna, Antoine Pommerol, K.-Michael Aye, Candice J. Hansen, and Nicolas Thomas. 2013. “Observations of the Northern Seasonal Polar Cap on Mars II: HiRISE Photometric Analysis of Evolution of Northern Polar Dunes in Spring.” Icarus 225: 898–910. https://doi.org/10.1016/j.icarus.2012.10.017."
   },
   {
-    "objectID": "talks/2021-pdw-planetarypy/index.html#summary",
-    "href": "talks/2021-pdw-planetarypy/index.html#summary",
-    "title": "The PlanetaryPy Project",
-    "section": "Summary",
-    "text": "Summary\nThe PlanetaryPy Project is a community effort to develop a core package for planetary science in Python and foster interoperability between Python planetary science packages.\nThe PlanetaryPy Technical Committee (TC) is the governing body for the PlanetaryPy Project. All of their work is done in the open via the TC GitHub repo. To learn more about what the TC is, how it operates, or to get involved, you can read its Charter (see paragraph below). The PlanetaryPy TC has regular meetings to which all are welcome to attend. The meeting agendas for upcoming meetings, and notes from previous meetings can be found in the TC’s GitHub repo.\nConference Program\nSlides\nProject URL\nAbstract PDF\nPresentation Video"
+    "objectID": "talks/2024-ipda-data-talk/index.html#who-am-i",
+    "href": "talks/2024-ipda-data-talk/index.html#who-am-i",
+    "title": "Is it easy enough to get to planetary data?",
+    "section": "Who am I?",
+    "text": "Who am I?\n\nCoding-inclined planetary scientist\n\nWorked on: Dawn, Cassini, BepiColombo, LRO, MRO, MEX\nWorked as/on:Ground ops, Onboard software, Project Manager, Calibration, Data analyst\n\nFighter for open-source, open-data, open-science\n\nIf I can’t reproduce with public data and public code:\n\n-&gt; at best smelly.\n\n\nWorked at: MPS, UBe, UCLA(JPL/NASA), LASP(CU), Freie Uni Berlin.\n\n\n\nYou can find this talk and other resources on https://michaelaye.github.io/"
   },
   {
-    "objectID": "projects/planet-four/index.html",
-    "href": "projects/planet-four/index.html",
-    "title": "Planet Four",
+    "objectID": "talks/2024-ipda-data-talk/index.html#disclaimer",
+    "href": "talks/2024-ipda-data-talk/index.html#disclaimer",
+    "title": "Is it easy enough to get to planetary data?",
+    "section": "Disclaimer",
+    "text": "Disclaimer\n\nI understand: an archiving budget and a “make things easy for the user”-budget aren’t the same numbers, propably not even close.\n\nAnd I appreciate that most stakeholders are formally paid only for archiving.\n\nAlso, sometimes things are not working because an instrument team isn’t delivering what is needed."
+  },
+  {
+    "objectID": "talks/2024-ipda-data-talk/index.html#what-are-the-most-prevalent-types-of-data-searches",
+    "href": "talks/2024-ipda-data-talk/index.html#what-are-the-most-prevalent-types-of-data-searches",
+    "title": "Is it easy enough to get to planetary data?",
+    "section": "What are the most prevalent types of data searches?",
+    "text": "What are the most prevalent types of data searches?\nThis is really a question I have, do we have data on this?\nCandidates, IMHO:\n\nby product / observation ID\nby coordinates (space or time)\nby observation geometry / illumination conditions\nbrowsing (I’m really wondering how much this is done with an archive interface)"
+  },
+  {
+    "objectID": "talks/2024-ipda-data-talk/index.html#one-of-my-perfect-use-cases",
+    "href": "talks/2024-ipda-data-talk/index.html#one-of-my-perfect-use-cases",
+    "title": "Is it easy enough to get to planetary data?",
+    "section": "One of my perfect use cases",
+    "text": "One of my perfect use cases\n\nRead a paper using Cassini ISS\nsee a product ID N1454725799\nuse an API to download the data\n\nfor example:\n\nfrom planetarypy.ciss import ISS\niss = ISS(\"N1454725799\")\niss.download_calib()"
+  },
+  {
+    "objectID": "talks/2024-ipda-data-talk/index.html#testing-for-a-set-of-data-search-types",
+    "href": "talks/2024-ipda-data-talk/index.html#testing-for-a-set-of-data-search-types",
+    "title": "Is it easy enough to get to planetary data?",
+    "section": "Testing for a set of data search types",
+    "text": "Testing for a set of data search types\n\nBy product / observation ID (Is there a difference sometimes?)\n\nHRSC PID h6980_0000 (taken from a paper)\nCassini ISS N1454725799\n\nBy coordinates (space or time)\nBrowsing"
+  },
+  {
+    "objectID": "talks/2024-ipda-data-talk/index.html#psa-hrsc",
+    "href": "talks/2024-ipda-data-talk/index.html#psa-hrsc",
+    "title": "Is it easy enough to get to planetary data?",
+    "section": "PSA (HRSC)",
+    "text": "PSA (HRSC)"
+  },
+  {
+    "objectID": "talks/2024-ipda-data-talk/index.html#psa-continued",
+    "href": "talks/2024-ipda-data-talk/index.html#psa-continued",
+    "title": "Is it easy enough to get to planetary data?",
+    "section": "PSA continued",
+    "text": "PSA continued\n\ngoogled “ESA PSA”\n\ngoogling “PSA HRSC” not working, “PSA HRSC data” better, but not direct\n\nvery quick to filter for one instrument or mission (1 entry/click)\nproduct ID filter is not shown immediately, distinction “Basic/Advanced” a bit small.\ntried to use “Observation ID” to find “h6980_0000” using\n\nh6980_0000\nh6980_0000*\n“h6980_0000”\nnothing worked.\n\nchose random other product for D/L testing, worked very smoothly. (zip)"
+  },
+  {
+    "objectID": "talks/2024-ipda-data-talk/index.html#geosciences-ode-hrsc",
+    "href": "talks/2024-ipda-data-talk/index.html#geosciences-ode-hrsc",
+    "title": "Is it easy enough to get to planetary data?",
+    "section": "Geosciences / ODE (HRSC)",
+    "text": "Geosciences / ODE (HRSC)\n\ngoogled “pds hrsc data”, 1st hit\nwelcome view also tough to parse"
+  },
+  {
+    "objectID": "talks/2024-ipda-data-talk/index.html#ode-continued",
+    "href": "talks/2024-ipda-data-talk/index.html#ode-continued",
+    "title": "Is it easy enough to get to planetary data?",
+    "section": "ODE continued",
+    "text": "ODE continued\n\npicking “Mars Orbital Data Explorer”\nbecause i heard about, otherwise very tough\ndata product search\nEsa’s Mars Express\nHRSC\ncalibrated data (simply choosing HRSC not possible?)\nfilter by product ID\n“h6980_0000*” gives 9 results\nView results in table"
+  },
+  {
+    "objectID": "talks/2024-ipda-data-talk/index.html#mars-ode",
+    "href": "talks/2024-ipda-data-talk/index.html#mars-ode",
+    "title": "Is it easy enough to get to planetary data?",
+    "section": "Mars ODE",
+    "text": "Mars ODE"
+  },
+  {
+    "objectID": "talks/2024-ipda-data-talk/index.html#rings-node",
+    "href": "talks/2024-ipda-data-talk/index.html#rings-node",
+    "title": "Is it easy enough to get to planetary data?",
+    "section": "Rings Node",
+    "text": "Rings Node\n\ngoogled “pds rings node”\nclicked on OPUS (guided well by one of 1st sentences)"
+  },
+  {
+    "objectID": "talks/2024-ipda-data-talk/index.html#rings-node-continued",
+    "href": "talks/2024-ipda-data-talk/index.html#rings-node-continued",
+    "title": "Is it easy enough to get to planetary data?",
+    "section": "Rings Node continued",
+    "text": "Rings Node continued\n\ncassini iss\nPDS constraints (not that easy to realize but i guess “guessable”)\nPDS3 Product ID\nN1454725799\nBrowse results (not too easy to realize)"
+  },
+  {
+    "objectID": "talks/2024-ipda-data-talk/index.html#rings-node-continued-results-page",
+    "href": "talks/2024-ipda-data-talk/index.html#rings-node-continued-results-page",
+    "title": "Is it easy enough to get to planetary data?",
+    "section": "Rings Node continued (results page)",
+    "text": "Rings Node continued (results page)\n\nclicked on 1 results\npreview shown\npressing spacebar to enter it to shopping cart got spinning wheel\n\n\nbut cart got filled\n\n\ngo to cart\nchoose from download options"
+  },
+  {
+    "objectID": "talks/2024-ipda-data-talk/index.html#atmosphere-node",
+    "href": "talks/2024-ipda-data-talk/index.html#atmosphere-node",
+    "title": "Is it easy enough to get to planetary data?",
+    "section": "Atmosphere Node",
+    "text": "Atmosphere Node\n\ngoogled “pds atmospheres”"
+  },
+  {
+    "objectID": "talks/2024-ipda-data-talk/index.html#atmosphere-cont.",
+    "href": "talks/2024-ipda-data-talk/index.html#atmosphere-cont.",
+    "title": "Is it easy enough to get to planetary data?",
+    "section": "Atmosphere cont.",
+    "text": "Atmosphere cont.\n\nCassini Archive\nISS\nFind info on PDS Image Atlas (the search engine)\npick mission\npick insterument\nfind/enter PDS Archive Constraints (again, weirdly named?)\none result shown\nclicking gives promising buttons\nchoosing “Full Product” starts to stream binary code into the browser, WTH??\n\neven worse, right-click -&gt; save as does not work with the button."
+  },
+  {
+    "objectID": "talks/2024-ipda-data-talk/index.html#atlas-download-options",
+    "href": "talks/2024-ipda-data-talk/index.html#atlas-download-options",
+    "title": "Is it easy enough to get to planetary data?",
+    "section": "Atlas download options",
+    "text": "Atlas download options"
+  },
+  {
+    "objectID": "talks/2024-ipda-data-talk/index.html#ode-hrsc",
+    "href": "talks/2024-ipda-data-talk/index.html#ode-hrsc",
+    "title": "Is it easy enough to get to planetary data?",
+    "section": "ODE (HRSC)",
+    "text": "ODE (HRSC)\nLat -85, -80,\nLon 10, 20\ngives 509 results and no issues."
+  },
+  {
+    "objectID": "talks/2024-ipda-data-talk/index.html#psa-hrsc-1",
+    "href": "talks/2024-ipda-data-talk/index.html#psa-hrsc-1",
+    "title": "Is it easy enough to get to planetary data?",
+    "section": "PSA (HRSC)",
+    "text": "PSA (HRSC)\nSame coordinates as ODE.\nGives error message:\n\nplease select a target with an available map"
+  },
+  {
+    "objectID": "talks/2024-ipda-data-talk/index.html#upcoming",
+    "href": "talks/2024-ipda-data-talk/index.html#upcoming",
+    "title": "Is it easy enough to get to planetary data?",
+    "section": "Upcoming",
+    "text": "Upcoming\n\nWant to try to add VESPA / EPN-TAP to the table\nAdd it to planetarypy"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
     "section": "",
-    "text": "The Red Planet is a unique and dynamic world. Through the power of the Internet and its volunteers, we explore the surface, climate, and history of Mars with the Planet Four projects.\nIt is difficult if not impossible for computer algorithms to accurately map individual polar seasonal fans, spot araneiform (‘spider’) erosion, and identify polygonal ridges. These features visible from orbit are easily spotted by the human eye, and volunteers from around the world have contributed by mapping seasonal fans, polygonal ridges, and araneiforms in Mars Reconnaissance Orbiter imagery."
+    "text": "University of Durham | Durham, UK PhD High Energy Astrophysics | Sept 2000 – Dec 2004\nUniversität Heidelberg | Heidelberg, Germany Diploma in Physics (Astronomy, Particle Physics) | April 1995 – June 1999"
   },
   {
-    "objectID": "projects/planet-four/index.html#the-v3.1-catalog",
-    "href": "projects/planet-four/index.html#the-v3.1-catalog",
-    "title": "Planet Four",
-    "section": "The v3.1 catalog",
-    "text": "The v3.1 catalog\nThe Planet Four Data Catalog v3.1 is openly available on Zenodo (CC-BY 4.0). It aggregates the classifications of 40,000+ volunteers across 64,494 tiles from 469 HiRISE observations spanning Mars Years 28–33 (~25 regions of interest):\n\n265,389 fans — directional CO₂-jet deposits whose orientation records the surface wind\n427,404 blotches — elliptical deposits with no clear direction\n\nHow to cite: Aye, K.-M., Schwamb, M. E., Portyankina, G., Hansen, C. J., et al. (2026). Planet Four Data Catalog (v3.1) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.19026723"
+    "objectID": "about.html#education",
+    "href": "about.html#education",
+    "title": "About",
+    "section": "",
+    "text": "University of Durham | Durham, UK PhD High Energy Astrophysics | Sept 2000 – Dec 2004\nUniversität Heidelberg | Heidelberg, Germany Diploma in Physics (Astronomy, Particle Physics) | April 1995 – June 1999"
   },
   {
-    "objectID": "projects/planet-four/index.html#p4tools",
-    "href": "projects/planet-four/index.html#p4tools",
-    "title": "Planet Four",
-    "section": "p4tools",
-    "text": "p4tools\nThe p4tools Python library provides easy access to the Planet Four citizen-science catalogs. Install via pip install p4tools and load any part of the catalog in a couple of lines — each sub-part is downloaded and cached automatically on first use via pooch:\nfrom p4tools import io\n\nfans     = io.get_fan_catalog(version=\"v3.1\")\nblotches = io.get_blotch_catalog(version=\"v3.1\")\nmeta     = io.get_meta_data()      # HiRISE observation metadata\ncoords   = io.get_tile_coords()    # per-tile coordinates\nregions  = io.get_region_names()   # region-of-interest labels\nBeyond the fan and blotch tables, p4tools now retrieves every sub-part of the catalog — the metadata-merged catalog variants, the observation and EDR-index metadata, and the tile-coordinate tables — each fetched and cached the first time you request it. See the p4tools documentation for the full API."
+    "objectID": "about.html#experience",
+    "href": "about.html#experience",
+    "title": "About",
+    "section": "Experience",
+    "text": "Experience\nFreie Universität Berlin | Research Scientist | Juli 2022 – present\nUniversity of Colorado, Boulder | Laboratory for Atmospheric and Space Science (LASP) | Research Associate | December 2014 – June 2022\nUniversity of California, Los Angeles | Postdoctoral Researcher | August 2012 – Nov 2014\nPhysikalisches Institut Bern | Assistant Project Manager BepiColombo Laser Altimeter | Feb 2008 – July 2012\nMax-Planck-Institute for Solar System Research | Dawn Framing Camera Team | Feb 2005 – Feb 2008"
   },
   {
-    "objectID": "projects/planet-four/index.html#current-research",
-    "href": "projects/planet-four/index.html#current-research",
-    "title": "Planet Four",
-    "section": "Current research",
-    "text": "Current research\nOur latest analysis covers 469 HiRISE observations spanning Mars Years 28–33, studying inter- and intra-annual variability of dark regolith deposits at Mars’ south pole (EGU 2026; FU Berlin planetary seminar, June 2026). Across the seasonal south-polar cap the jet-deposit ground coverage has a median of 4.88% and a mean of 9.32% — a strongly right-skewed distribution that repeats well within individual regions across Mars Years, providing new constraints on seasonal CO₂ jet activity."
+    "objectID": "about.html#activities",
+    "href": "about.html#activities",
+    "title": "About",
+    "section": "Activities",
+    "text": "Activities\n\nGuest Associate Editor for FrontiersIn Special Issue Snakes on a Spaceship\nOpenPlanetary board member, responsible for Python-related issues"
   },
   {
-    "objectID": "projects/planet-four/index.html#links",
-    "href": "projects/planet-four/index.html#links",
-    "title": "Planet Four",
+    "objectID": "talks/2026-dgp-planet-four/index.html#science-case",
+    "href": "talks/2026-dgp-planet-four/index.html#science-case",
+    "title": "Planet Four: Inter- and Intra-annual Variability of Dark Regolith on Ice Coverage at the Martian South Polar Region",
+    "section": "Science case",
+    "text": "Science case"
+  },
+  {
+    "objectID": "talks/2026-dgp-planet-four/index.html#science-case-1",
+    "href": "talks/2026-dgp-planet-four/index.html#science-case-1",
+    "title": "Planet Four: Inter- and Intra-annual Variability of Dark Regolith on Ice Coverage at the Martian South Polar Region",
+    "section": "Science case",
+    "text": "Science case"
+  },
+  {
+    "objectID": "talks/2026-dgp-planet-four/index.html#science-case-temporal",
+    "href": "talks/2026-dgp-planet-four/index.html#science-case-temporal",
+    "title": "Planet Four: Inter- and Intra-annual Variability of Dark Regolith on Ice Coverage at the Martian South Polar Region",
+    "section": "Science case temporal",
+    "text": "Science case temporal"
+  },
+  {
+    "objectID": "talks/2026-dgp-planet-four/index.html#science-case-kieffer-model",
+    "href": "talks/2026-dgp-planet-four/index.html#science-case-kieffer-model",
+    "title": "Planet Four: Inter- and Intra-annual Variability of Dark Regolith on Ice Coverage at the Martian South Polar Region",
+    "section": "Science case: Kieffer model",
+    "text": "Science case: Kieffer model\n\n\nJet deposits are aligned by prevalent winds at the time!\nMapping these features enables the first large area knowledge of prevailing winds on Mars!\n\non intra-seasonal timescales, not only over many years."
+  },
+  {
+    "objectID": "talks/2026-dgp-planet-four/index.html#active-areas-around-south-pole",
+    "href": "talks/2026-dgp-planet-four/index.html#active-areas-around-south-pole",
+    "title": "Planet Four: Inter- and Intra-annual Variability of Dark Regolith on Ice Coverage at the Martian South Polar Region",
+    "section": "Active areas around south pole",
+    "text": "Active areas around south pole\n\n\nSeasonal campaigns at most of these areas!\n\n-&gt; Lots of huge HiRISE image data"
+  },
+  {
+    "objectID": "talks/2026-dgp-planet-four/index.html#input-data",
+    "href": "talks/2026-dgp-planet-four/index.html#input-data",
+    "title": "Planet Four: Inter- and Intra-annual Variability of Dark Regolith on Ice Coverage at the Martian South Polar Region",
+    "section": "Input data",
+    "text": "Input data\n\n221 HiRISE images from MY 29/30\n\nnew catalog: 469 studied images from MY 28-33 (6 years of data)\n\nsplit up into over 30,000 image screen-sized tiles\n\nnow over 64,000 tiles\n\nTiles are being “anonymized”, to prevent bias\nThe data input and reduction pipelines need to track everything"
+  },
+  {
+    "objectID": "talks/2026-dgp-planet-four/index.html#interface",
+    "href": "talks/2026-dgp-planet-four/index.html#interface",
+    "title": "Planet Four: Inter- and Intra-annual Variability of Dark Regolith on Ice Coverage at the Martian South Polar Region",
+    "section": "Interface",
+    "text": "Interface"
+  },
+  {
+    "objectID": "talks/2026-dgp-planet-four/index.html#interface-return",
+    "href": "talks/2026-dgp-planet-four/index.html#interface-return",
+    "title": "Planet Four: Inter- and Intra-annual Variability of Dark Regolith on Ice Coverage at the Martian South Polar Region",
+    "section": "Interface return",
+    "text": "Interface return\n\nDifficulty: What (contrast) defines the “end” of a surface feature?Minimum of 30 different volunteers per image tile!\n=&gt; quite slow progress"
+  },
+  {
+    "objectID": "talks/2026-dgp-planet-four/index.html#reduction-pipeline",
+    "href": "talks/2026-dgp-planet-four/index.html#reduction-pipeline",
+    "title": "Planet Four: Inter- and Intra-annual Variability of Dark Regolith on Ice Coverage at the Martian South Polar Region",
+    "section": "Reduction pipeline",
+    "text": "Reduction pipeline\n\nClockwise from upper left: 1) Raw, 2) Fan markings, 3) Blotch markings, 4) Blotch reduction, 5) Fan reduction, 6) catalog entry with 50% majority vote"
+  },
+  {
+    "objectID": "talks/2026-dgp-planet-four/index.html#catalog-entries",
+    "href": "talks/2026-dgp-planet-four/index.html#catalog-entries",
+    "title": "Planet Four: Inter- and Intra-annual Variability of Dark Regolith on Ice Coverage at the Martian South Polar Region",
+    "section": "Catalog entries",
+    "text": "Catalog entries"
+  },
+  {
+    "objectID": "talks/2026-dgp-planet-four/index.html#results",
+    "href": "talks/2026-dgp-planet-four/index.html#results",
+    "title": "Planet Four: Inter- and Intra-annual Variability of Dark Regolith on Ice Coverage at the Martian South Polar Region",
+    "section": "Results",
+    "text": "Results\n\nOver 40,000 citizens have contributed\n\nMost only once\nCore team of approx 10-20 volunteers did most of the work\n\nnow over 690,000 geo-located objects in catalog\navailable at zenodo “Planet Four Data Catalog” and via Python library “p4tools”"
+  },
+  {
+    "objectID": "talks/2026-dgp-planet-four/index.html#what-can-be-done-with-it",
+    "href": "talks/2026-dgp-planet-four/index.html#what-can-be-done-with-it",
+    "title": "Planet Four: Inter- and Intra-annual Variability of Dark Regolith on Ice Coverage at the Martian South Polar Region",
+    "section": "What can be done with it?",
+    "text": "What can be done with it?\n\n\nPortyankina et al. (2022) “Planet Four: Derived South Polar Martian Winds Interpreted Using Mesoscale Modeling”"
+  },
+  {
+    "objectID": "talks/2026-dgp-planet-four/index.html#covered-surface-interests",
+    "href": "talks/2026-dgp-planet-four/index.html#covered-surface-interests",
+    "title": "Planet Four: Inter- and Intra-annual Variability of Dark Regolith on Ice Coverage at the Martian South Polar Region",
+    "section": "Covered surface interests",
+    "text": "Covered surface interests\n\nSeasonal CO2 ice is quite bright\nSo, how much is covered by dark regolith?\n-&gt; energy balance of the surface and lower atmosphere\nPrevious work estimated 20-30% coverage, but only for a few locations and times"
+  },
+  {
+    "objectID": "talks/2026-dgp-planet-four/index.html#surface-coverage-across-years",
+    "href": "talks/2026-dgp-planet-four/index.html#surface-coverage-across-years",
+    "title": "Planet Four: Inter- and Intra-annual Variability of Dark Regolith on Ice Coverage at the Martian South Polar Region",
+    "section": "Surface coverage across years",
+    "text": "Surface coverage across years"
+  },
+  {
+    "objectID": "talks/2026-dgp-planet-four/index.html#relationship-to-global-dust-storms",
+    "href": "talks/2026-dgp-planet-four/index.html#relationship-to-global-dust-storms",
+    "title": "Planet Four: Inter- and Intra-annual Variability of Dark Regolith on Ice Coverage at the Martian South Polar Region",
+    "section": "Relationship to global dust storms?",
+    "text": "Relationship to global dust storms?"
+  },
+  {
+    "objectID": "talks/2026-dgp-planet-four/index.html#intra-seasonal-variability",
+    "href": "talks/2026-dgp-planet-four/index.html#intra-seasonal-variability",
+    "title": "Planet Four: Inter- and Intra-annual Variability of Dark Regolith on Ice Coverage at the Martian South Polar Region",
+    "section": "Intra-seasonal variability",
+    "text": "Intra-seasonal variability"
+  },
+  {
+    "objectID": "talks/2026-dgp-planet-four/index.html#fan-lengths",
+    "href": "talks/2026-dgp-planet-four/index.html#fan-lengths",
+    "title": "Planet Four: Inter- and Intra-annual Variability of Dark Regolith on Ice Coverage at the Martian South Polar Region",
+    "section": "Fan lengths",
+    "text": "Fan lengths\nCombo of jet and wind strengths"
+  },
+  {
+    "objectID": "talks/2024-epsc-op-data-cafe/index.html#practically-speaking",
+    "href": "talks/2024-epsc-op-data-cafe/index.html#practically-speaking",
+    "title": "OpenPlanetary Data Cafe and Friends",
+    "section": "Practically speaking",
+    "text": "Practically speaking\nWe are\n\na Slack forum (possibly changing soon-ish)\nan open discussion forum\n\npublicly searchable\nhttps://openplanetary.discourse.group/)"
+  },
+  {
+    "objectID": "talks/2024-epsc-op-data-cafe/index.html#our-mission",
+    "href": "talks/2024-epsc-op-data-cafe/index.html#our-mission",
+    "title": "OpenPlanetary Data Cafe and Friends",
+    "section": "Our Mission",
+    "text": "Our Mission\nOur mission is\n\nto promote and facilitate the open practice of planetary science and data analysis for professionals and amateurs\nby organizing events and conducting collaborative projects aimed at creating scientific, technical and educational resources, tools and data accessible to all.\n\ne.g. monthly OP Virtual Lunch talks"
+  },
+  {
+    "objectID": "talks/2024-epsc-op-data-cafe/index.html#our-story",
+    "href": "talks/2024-epsc-op-data-cafe/index.html#our-story",
+    "title": "OpenPlanetary Data Cafe and Friends",
+    "section": "OUR STORY",
+    "text": "OUR STORY\n\nstarted back in 2015 from an initial participants effort to stay connected and share information related to and beyond the ESA’s first Planetary GIS Workshop.\ncontinued during the 2nd USGS Planetary Data Workshop, and aggregated more people.\nIn 2018, established non-profit organisation, to provide a legal framework to sustainably fund our community framework, projects and activities, and better serve the planetary science community as a whole."
+  },
+  {
+    "objectID": "talks/2024-epsc-op-data-cafe/index.html#people",
+    "href": "talks/2024-epsc-op-data-cafe/index.html#people",
+    "title": "OpenPlanetary Data Cafe and Friends",
+    "section": "People",
+    "text": "People\n\nco-founded by presiden Nicolas Manaud and US chttps://www.planetarymapping.eu/ounter-part Chase Million (https://www.openplanetary.org/about)\nwe have a board of directors with shared responsibilities\nSlack channel has &gt; 800 members from all over the world\nyou can find many planetary scientists, planetary data experts, software developers, directly involved in the tools you use every day"
+  },
+  {
+    "objectID": "talks/2024-epsc-op-data-cafe/index.html#gmap-course",
+    "href": "talks/2024-epsc-op-data-cafe/index.html#gmap-course",
+    "title": "OpenPlanetary Data Cafe and Friends",
+    "section": "GMAP course",
+    "text": "GMAP course\n\nA regular growth event is the Planetary Geologic Mapping Winter School of the GMAP organization by Angelo Rossi and others\nhttps://www.planetarymapping.eu/\n\nLots of resources for planetary geologic mapping to find there!"
+  },
+  {
+    "objectID": "talks/2024-epsc-op-data-cafe/index.html#covered-topics-by-op-members-in-slack-and-discourse-forum",
+    "href": "talks/2024-epsc-op-data-cafe/index.html#covered-topics-by-op-members-in-slack-and-discourse-forum",
+    "title": "OpenPlanetary Data Cafe and Friends",
+    "section": "Covered topics by OP members in Slack and Discourse Forum",
+    "text": "Covered topics by OP members in Slack and Discourse Forum\n\nchannels for PDS, PSA, ISIS, GDAL, PlanetaryPython, SPICE, conda, mapping, jupyter, machine-learning, cloud, docker, QGIS, and more.\nfolks directly involved in the tools you use every day: GDAL, ISIS, PDS, SPICE, PSA, ASP, PlanetaryPython, etc."
+  },
+  {
+    "objectID": "talks/2024-epsc-op-data-cafe/index.html#forum",
+    "href": "talks/2024-epsc-op-data-cafe/index.html#forum",
+    "title": "OpenPlanetary Data Cafe and Friends",
+    "section": "Forum",
+    "text": "Forum\n\nto preserve and make searchable / findable discussions of general interest to the community:\nhttps://openplanetary.discourse.group/"
+  },
+  {
+    "objectID": "talks/2024-epsc-op-data-cafe/index.html#software-virtual-environments",
+    "href": "talks/2024-epsc-op-data-cafe/index.html#software-virtual-environments",
+    "title": "OpenPlanetary Data Cafe and Friends",
+    "section": "Software virtual environments",
+    "text": "Software virtual environments\n\nDespite some challenges and learning curves, many people recommend conda environments as the most sustainable way to manage software dependencies in our field of science.\nDon’t listen to your IT departments, when they say, you can do everything without conda. (convince them otherwise ;) )\n\nGDAL still today is the dealbreaker, requires more work than really necessary.\nThere are a few other libraries that have similar issues."
+  },
+  {
+    "objectID": "talks/2024-epsc-op-data-cafe/index.html#planetary-python",
+    "href": "talks/2024-epsc-op-data-cafe/index.html#planetary-python",
+    "title": "OpenPlanetary Data Cafe and Friends",
+    "section": "Planetary Python",
+    "text": "Planetary Python\n\nWe are an organization as well:\n\nhttps://planetarypy.org/\nWe have code of conduct, regular technical meetings, trying to establish a core package for standard tasks in planetary python.\n\nI have a large-ish chaotic package, that is being transferred to the organization, piece-by-piece, in a peer-review fashion.\nslowly growing community package: https://github.com/planetarypy/planetarypy\nDemo\nShow SPICE and Index functionality"
+  },
+  {
+    "objectID": "talks/2022-fub-seminar/presentation/index.html#political-answer-quotes-eu-horizon-monthly-focus",
+    "href": "talks/2022-fub-seminar/presentation/index.html#political-answer-quotes-eu-horizon-monthly-focus",
+    "title": "Planetary Research with Citizen Science",
+    "section": "Political answer (Quotes EU Horizon monthly focus)",
+    "text": "Political answer (Quotes EU Horizon monthly focus)\n\n“Through citizen science, ordinary people can take part in extraordinary research.”\n“Through their contributions, the citizen scientist can actively pursue personal values, and be part of a research community seeking the same goals.”\n“The professional scientist can get more data than they would otherwise. This leads to better precision in their measurements and more lines of enquiry in their research.”\n“Environmental monitoring is a particularly active field of citizen science.”\n“Scientists naturally want to measure the effects of citizen science and its impact on society […]” (Meta-CS)"
+  },
+  {
+    "objectID": "talks/2022-fub-seminar/presentation/index.html#what-is-cs-practically",
+    "href": "talks/2022-fub-seminar/presentation/index.html#what-is-cs-practically",
+    "title": "Planetary Research with Citizen Science",
+    "section": "What is CS, practically?",
+    "text": "What is CS, practically?\n\nProblem: Simple, but arduous or repetitive task\n\ntoo much data to go through yourself\n\nSplit up the task into screen-sized subtasks\nPresent the data with a simple workflow to thousands of untrained volunteers"
+  },
+  {
+    "objectID": "talks/2022-fub-seminar/presentation/index.html#what-is-in-it-for-scientists",
+    "href": "talks/2022-fub-seminar/presentation/index.html#what-is-in-it-for-scientists",
+    "title": "Planetary Research with Citizen Science",
+    "section": "What is in it for scientists?",
+    "text": "What is in it for scientists?\n\namount of data grows exponentially\nideal for simple but arduous questions\nML: labeled data always better\nCS is an efficient way to create many labels\ngood outreach opportunity"
+  },
+  {
+    "objectID": "talks/2022-fub-seminar/presentation/index.html#what-is-in-it-for-citizens",
+    "href": "talks/2022-fub-seminar/presentation/index.html#what-is-in-it-for-citizens",
+    "title": "Planetary Research with Citizen Science",
+    "section": "What is in it for citizens?",
+    "text": "What is in it for citizens?\n\nparticipate in real science\nindependent of prior education!\nwide variety of research fields offered as CS now"
+  },
+  {
+    "objectID": "talks/2022-fub-seminar/presentation/index.html#recognition-of-the-field-us",
+    "href": "talks/2022-fub-seminar/presentation/index.html#recognition-of-the-field-us",
+    "title": "Planetary Research with Citizen Science",
+    "section": "Recognition of the field (US)",
+    "text": "Recognition of the field (US)\n\nhttps://science.nasa.gov/citizenscience\nSeed funding available through standard NASA funding programs\nCan be attached to larger project applications"
+  },
+  {
+    "objectID": "talks/2022-fub-seminar/presentation/index.html#recognition-of-the-field-eu",
+    "href": "talks/2022-fub-seminar/presentation/index.html#recognition-of-the-field-eu",
+    "title": "Planetary Research with Citizen Science",
+    "section": "Recognition of the field (EU)",
+    "text": "Recognition of the field (EU)\nEU Horizon monthly focus and semi-regularly CS news\nhttps://ec.europa.eu/research-and-innovation/en/horizon-magazine/citizen-science-science-and-people"
+  },
+  {
+    "objectID": "talks/2022-fub-seminar/presentation/index.html#science-case",
+    "href": "talks/2022-fub-seminar/presentation/index.html#science-case",
+    "title": "Planetary Research with Citizen Science",
+    "section": "Science case",
+    "text": "Science case"
+  },
+  {
+    "objectID": "talks/2022-fub-seminar/presentation/index.html#science-case-temporal",
+    "href": "talks/2022-fub-seminar/presentation/index.html#science-case-temporal",
+    "title": "Planetary Research with Citizen Science",
+    "section": "Science case temporal",
+    "text": "Science case temporal"
+  },
+  {
+    "objectID": "talks/2022-fub-seminar/presentation/index.html#science-case-kieffer-model",
+    "href": "talks/2022-fub-seminar/presentation/index.html#science-case-kieffer-model",
+    "title": "Planetary Research with Citizen Science",
+    "section": "Science case: Kieffer model",
+    "text": "Science case: Kieffer model\n\n\nJet deposits are aligned by prevalent winds at the time!\nMapping these features would be more wind data than we ever had on Mars!"
+  },
+  {
+    "objectID": "talks/2022-fub-seminar/presentation/index.html#active-areas-around-south-pole",
+    "href": "talks/2022-fub-seminar/presentation/index.html#active-areas-around-south-pole",
+    "title": "Planetary Research with Citizen Science",
+    "section": "Active areas around south pole",
+    "text": "Active areas around south pole\n\n\nSeasonal campaigns at most of these areas!\n\n-&gt; Lots of huge HiRISE image data"
+  },
+  {
+    "objectID": "talks/2022-fub-seminar/presentation/index.html#input-data",
+    "href": "talks/2022-fub-seminar/presentation/index.html#input-data",
+    "title": "Planetary Research with Citizen Science",
+    "section": "Input data",
+    "text": "Input data\n\n221 HiRISE images from MY 29/30\nsplit up into over 40,000 image screen-sized tiles\nTiles are being “anonymized”, to prevent bias\nThe data input and reduction pipelines need to track everything"
+  },
+  {
+    "objectID": "talks/2022-fub-seminar/presentation/index.html#interface",
+    "href": "talks/2022-fub-seminar/presentation/index.html#interface",
+    "title": "Planetary Research with Citizen Science",
+    "section": "Interface",
+    "text": "Interface"
+  },
+  {
+    "objectID": "talks/2022-fub-seminar/presentation/index.html#interface-return",
+    "href": "talks/2022-fub-seminar/presentation/index.html#interface-return",
+    "title": "Planetary Research with Citizen Science",
+    "section": "Interface return",
+    "text": "Interface return\n\nDifficulty: What (contrast) defines the “end” of a surface feature?Minimum of 30 different volunteers per image tile!\n=&gt; quite slow progress"
+  },
+  {
+    "objectID": "talks/2022-fub-seminar/presentation/index.html#reduction-pipeline",
+    "href": "talks/2022-fub-seminar/presentation/index.html#reduction-pipeline",
+    "title": "Planetary Research with Citizen Science",
+    "section": "Reduction pipeline",
+    "text": "Reduction pipeline\n\nComprehensive description in Aye et al. (2019) : “Planet Four: Probing springtime winds on Mars by mapping the southern polar CO2 jet deposits”"
+  },
+  {
+    "objectID": "talks/2022-fub-seminar/presentation/index.html#reduction-pipeline-2",
+    "href": "talks/2022-fub-seminar/presentation/index.html#reduction-pipeline-2",
+    "title": "Planetary Research with Citizen Science",
+    "section": "Reduction pipeline 2",
+    "text": "Reduction pipeline 2\n\nClockwise from upper left: 1) Raw, 2) Fan markings, 3) Blotch markings, 4) Blotch reduction, 5) Fan reduction, 6) catalog entry with 50% majority vote"
+  },
+  {
+    "objectID": "talks/2022-fub-seminar/presentation/index.html#catalog-entries",
+    "href": "talks/2022-fub-seminar/presentation/index.html#catalog-entries",
+    "title": "Planetary Research with Citizen Science",
+    "section": "Catalog entries",
+    "text": "Catalog entries"
+  },
+  {
+    "objectID": "talks/2022-fub-seminar/presentation/index.html#science-team-gold-markings",
+    "href": "talks/2022-fub-seminar/presentation/index.html#science-team-gold-markings",
+    "title": "Planetary Research with Citizen Science",
+    "section": "Science Team (Gold) markings",
+    "text": "Science Team (Gold) markings\n\nEach team member marked several hundred tiles\nSignificant differences between science team members\nYears of experience do not overcome the original contrast problem!"
+  },
+  {
+    "objectID": "talks/2022-fub-seminar/presentation/index.html#compare-experts-with-citizens",
+    "href": "talks/2022-fub-seminar/presentation/index.html#compare-experts-with-citizens",
+    "title": "Planetary Research with Citizen Science",
+    "section": "Compare experts with citizens",
+    "text": "Compare experts with citizens"
+  },
+  {
+    "objectID": "talks/2022-fub-seminar/presentation/index.html#results",
+    "href": "talks/2022-fub-seminar/presentation/index.html#results",
+    "title": "Planetary Research with Citizen Science",
+    "section": "Results",
+    "text": "Results\n\nOver 40,000 citizens have contributed\n\nMost only once\nCore team of approx 10-20 volunteers did most of the work\n\nca. 400,000 geo-located objects in catalog\navailable at https://www.zooniverse.org/projects/mschwamb/planet-four/about/results"
+  },
+  {
+    "objectID": "talks/2022-fub-seminar/presentation/index.html#what-can-be-done-with-it",
+    "href": "talks/2022-fub-seminar/presentation/index.html#what-can-be-done-with-it",
+    "title": "Planetary Research with Citizen Science",
+    "section": "What can be done with it?",
+    "text": "What can be done with it?\n\nPortyankina et al. (2022) “Planet Four: Derived South Polar Martian Winds Interpreted Using Mesoscale Modeling”"
+  },
+  {
+    "objectID": "talks/2022-fub-seminar/presentation/index.html#compare-with-climate-models",
+    "href": "talks/2022-fub-seminar/presentation/index.html#compare-with-climate-models",
+    "title": "Planetary Research with Citizen Science",
+    "section": "Compare with climate models",
+    "text": "Compare with climate models\n\nTeam member Tim Michaels nest GCM into high-res meso-scale models using CTX and HiRISE DTM topography\nRun for several days to avoid “spin-up” effects\nRun at different \\(L_s\\) over the season\nCompare wind predictions with Planet Four data\nJust published in Portyankina et al. (2022)"
+  },
+  {
+    "objectID": "talks/2022-fub-seminar/presentation/index.html#measure-of-success",
+    "href": "talks/2022-fub-seminar/presentation/index.html#measure-of-success",
+    "title": "Planetary Research with Citizen Science",
+    "section": "Measure of success",
+    "text": "Measure of success\n\nDefine status of good / average / bad fit with data\nUsing only direction very good match with climate models\nTaking into account wind strength as well less good\nOur assumptions for jet deposit &lt;-&gt; wind strength are too simple"
+  },
+  {
+    "objectID": "talks/2022-fub-seminar/presentation/index.html#section-3",
+    "href": "talks/2022-fub-seminar/presentation/index.html#section-3",
+    "title": "Planetary Research with Citizen Science",
+    "section": "",
+    "text": "Only wind directions"
+  },
+  {
+    "objectID": "talks/2022-fub-seminar/presentation/index.html#section-4",
+    "href": "talks/2022-fub-seminar/presentation/index.html#section-4",
+    "title": "Planetary Research with Citizen Science",
+    "section": "",
+    "text": "Wind directions and estimated strengths"
+  },
+  {
+    "objectID": "talks/2022-fub-seminar/presentation/index.html#conclusions",
+    "href": "talks/2022-fub-seminar/presentation/index.html#conclusions",
+    "title": "Planetary Research with Citizen Science",
+    "section": "Conclusions",
+    "text": "Conclusions\n\nCitizen Science is not only outreach\nScientific paradigms are being changed thanks to the work power of hundred thousands of citizen scientists all over the world\nIf data reduction is done carefully, the results are very reliable\nDon’t try to do this “on the side”\n\nIt’s a full time analytical job"
+  },
+  {
+    "objectID": "talks/2022-fub-seminar/presentation/index.html#conclusions-2",
+    "href": "talks/2022-fub-seminar/presentation/index.html#conclusions-2",
+    "title": "Planetary Research with Citizen Science",
+    "section": "Conclusions 2",
+    "text": "Conclusions 2\n\nOverall good match with models but discrepancies exist\nHope to derive jet eruption times"
+  },
+  {
+    "objectID": "projects/janus-juice/index.html",
+    "href": "projects/janus-juice/index.html",
+    "title": "JANUS Camera on the JUICE Mission",
+    "section": "",
+    "text": "JANUS (Jovis, Amorum ac Natorum Undique Scrutator) is the optical camera system on ESA’s JUICE mission to the Jupiter system. It will image Jupiter’s atmosphere, the Galilean moons — particularly Ganymede, Europa, and Callisto — and the broader Jovian environment at visible and near-infrared wavelengths.\nMy work on JANUS focuses on radiometric calibration, exposure time calculation, and signal-to-noise analysis. I developed the janus-nbexposure Python package for computing expected signal levels and optimal exposure times across JANUS observing scenarios, accounting for detector characteristics, optical throughput, and target radiance — including reflected Jupiter-shine on the icy moons.\nThis work supports observation planning and helps ensure that JANUS achieves its science objectives within the instrument’s operational constraints. Funded by the German Federal Ministry of Education and Research (BMBF) through DLR (grant 50QJ2404)."
+  },
+  {
+    "objectID": "projects/janus-juice/index.html#links",
+    "href": "projects/janus-juice/index.html#links",
+    "title": "JANUS Camera on the JUICE Mission",
     "section": "Links",
-    "text": "Links\n\nPlanet Four\nv3.1 data catalog on Zenodo\nFU Berlin planetary seminar talk (2026)\nZooniverse results\np4tools on PyPI\np4tools documentation\nGitHub organization\nIntroduction video\nPublications"
+    "text": "Links\n\njanus-nbexposure — Exposure calculation package\nJUICE mission (ESA)"
   },
   {
-    "objectID": "projects/planetary-data-reader/index.html",
-    "href": "projects/planetary-data-reader/index.html",
-    "title": "Planetary Data Reader",
+    "objectID": "projects/koregistration/index.html",
+    "href": "projects/koregistration/index.html",
+    "title": "Image Co-registration",
     "section": "",
-    "text": "I am a Collaborator (Co-I until I left the US) in this exciting project, led by Chase Million of Million Concepts."
+    "text": "When combining orbital images of Mars taken at different times, precise alignment — co-registration — is essential. Small misalignments between images propagate into every downstream product: mosaics, digital terrain models, and change detection maps all suffer.\nTraditional co-registration workflows for CTX (Context Camera) images from Mars Reconnaissance Orbiter rely on manual tie-point generation — a tedious, time-consuming process that doesn’t scale. This project develops an automatic co-registration pipeline using modern image processing techniques that eliminates the need for manual tie-points entirely, producing well-aligned image stacks ready for downstream analysis.\nThis is a collaborative project with Sebastian Walter as the lead at Freie Universität Berlin, funded by the German Federal Ministry of Education and Research (BMBF) through DLR (grant 50 OO 2204)."
   },
   {
-    "objectID": "projects/planetary-data-reader/index.html#goals-and-objectives",
-    "href": "projects/planetary-data-reader/index.html#goals-and-objectives",
-    "title": "Planetary Data Reader",
-    "section": "Goals and objectives",
-    "text": "Goals and objectives\nThis project will create an open source, Python-based tool capable of reading the vast majority of data (including tables and images) and metadata formats currently archived by the PDS, as well as some formats common in planetary science research workflows but not typically archived in PDS (e.g. ISIS cube, JP2, GeoTiff). It will offer users a consistent, easily-understandable interface that works the same way for all data formats. For instance, a simple command like read(filename) will return a Python object that can immediately be used in research workflows or easily converted to other formats using pre-existing tools.\nThis tool solves a well-known pain point for planetary data users: simply figuring out how to access data, especially data archived under PDS3, which often have inconsistent or bespoke formats. PDS is in the process of migrating archives to the stricter PDS4 standard, but the timeline for this migration is uncertain, and it is unlikely to be completed before 2025. The tool developed under this project provides a stopgap solution and also supplements the migration effort in two important ways. First, reading PDS3 data formats is one limit on a swift and efficient data migration, so this tool will streamline that effort. Second, because this tool will treat PDS3 and PDS4 data identically from the end-user perspective, it will future-proof research workflows from the migration."
+    "objectID": "projects/koregistration/index.html#outputs",
+    "href": "projects/koregistration/index.html#outputs",
+    "title": "Image Co-registration",
+    "section": "Outputs",
+    "text": "Outputs\n\nEGU 2023 poster\nLPSC 54 (2023) abstract\nWalter et al. (2024), “Mars Reconnaissance Orbiter Context Camera Updated In-Flight Calibration,” Earth and Space Science 11(2). DOI: 10.1029/2023EA003491"
   },
   {
-    "objectID": "projects/planetary-data-reader/index.html#approach-and-methodology",
-    "href": "projects/planetary-data-reader/index.html#approach-and-methodology",
-    "title": "Planetary Data Reader",
-    "section": "Approach and methodology",
-    "text": "Approach and methodology\nThis effort will build on proof-of-concept work already undertaken by this team. The majority of data archived under PDS3 (including .DAT and .IMG files) use a bitwise structured format sometimes referred to as the “PDS3 format.” It is not dissimilar from the FITS file format, but suffers from a much looser definition, leading to difficulties reading these files. The major issues in PDS3 that we have identified are (1) inconsistent mapping between specified data types and byte-size / order, (2) complex files containing multiple or mixed data types, and (3) file format definitions that are not stored in standard locations. We have prototyped solutions to these three issues, and the work plan will involve fully developing and testing those solutions. Other issues arise less frequently (e.g. one-off “bad” files, unique formats) and will be dealt with case-by-case.\nSeveral Python tools exist for reading subsets of planetary data. They include pds4_tools, PVL, Plio, Python wrappers for GDAL and fitsio, Pysis, and SpiceyPy, astropy. These will be reused when appropriate, with input and output syntax / behavior wrapped to provide consistent experience across data types.\nA thorough testing suite will also be developed which, in addition to more targeted approaches, will scrape PDS data holdings in a systematic way to verify expected behavior and identify issues requiring additional development. The resulting tool will be released under a permissive license and made publicly available on the PI’s institutional webspace and the NASA PSD Github. It will be made available for easy installation through pip and conda and also submitted as an affiliate package to the PlanetaryPy project."
-  },
-  {
-    "objectID": "projects/planetary-data-reader/index.html#scope-and-relevance",
-    "href": "projects/planetary-data-reader/index.html#scope-and-relevance",
-    "title": "Planetary Data Reader",
-    "section": "Scope and relevance",
-    "text": "Scope and relevance\nThe proposed work will “develop and disseminate software tools that facilitate the use of existing datasets or that would enable or enhance future science investigations of interest to the Planetary Science Division” and is therefore a Software Tool Development and Validation task per section 1.7 of the solicitation. The proposed work does not include a “science investigation” or application of t hese tools except as necessary to validate their performance. It is therefore within scope of and appropriate for PDART.\nLink to project\nPDF link\nListing picture source"
-  },
-  {
-    "objectID": "projects/saturn-rings/index.html",
-    "href": "projects/saturn-rings/index.html",
-    "title": "Mesoscale Structures in Saturn’s Rings: Clues to Origin and Evolution",
+    "objectID": "projects/planetarypy/index.html",
+    "href": "projects/planetarypy/index.html",
+    "title": "PlanetaryPy",
     "section": "",
-    "text": "I was a funded Co-I on this project led by Joshua Colwell (UCF) until I left the US in 2022.\nMy task was to analyze Cassini ISS images of the Saturn rings like shown above, project them into the ring-cylindrical coordinate system so that one can do statistics along the ring azimuth. After subtracting the dominant background density wave signal one can produce statistical statements about potential clumping changes over the Saturn ring radius, using robust median absolute deviation statistics."
+    "text": "The PlanetaryPy Project is a community effort to develop a core package for planetary science in Python and foster interoperability between Python planetary science packages. The PlanetaryPy Technical Committee (TC) is the governing body for the PlanetaryPy Project. All of their work is done in the open via the TC GitHub repo.\nTo learn more about what the TC is, how it operates, or to get involved, you can read its Charter. The PlanetaryPy TC has regular meetings to which all are welcome to attend. The meeting agendas for upcoming meetings, and notes from previous meetings can be found in the TC’s GitHub repo.\nProject link\nLink to Github repo\nLink to slides\nVideo link"
   },
   {
-    "objectID": "projects/saturn-rings/index.html#project-summary",
-    "href": "projects/saturn-rings/index.html#project-summary",
-    "title": "Mesoscale Structures in Saturn’s Rings: Clues to Origin and Evolution",
-    "section": "Project summary",
-    "text": "Project summary\nWe propose to apply a variety of image processing techniques to observations of Saturn’s rings made by the Cassini Imaging Science Subsystem (ISS) and the Ultraviolet Imaging Spectrograph (UVIS) to investigate a previously unexpected aspect of Saturn’s rings: non-axisymmetric mesoscale structures that are larger than individual particles or self-gravitating clumps of particles and smaller than regular structures such as ringlets, density waves, and bending waves.\nISS images of the C ring reveal unexpected texture indicating structures spanning about 1 km in ring radius and several tens of km in the azimuthal direction. The nature and amount of this texture in the images varies across the C ring. Similar texture is seen in the outer portion of the B ring as well as within density waves in the A ring. UVIS observed a series of special stellar occultations that had very low velocities in the local ring particle frame (“particle tracking occultations”). These provide uniquely high resolution for non-axisymmetric structures.\nUVIS also observed many occultations of binary stars where the two stars’ separation distances projected in the ring plane span 10’s of m to a few km. These occultations are ideally suited for studying mesoscale structures. By analyzing changes in the auto-correlation of the occultation light curve we can measure changes in ring optical depth at a given ring plane radius since the two stellar components cross that radial position at different longitudes. The combination of multiple UVIS occultations at different viewing geometries, both in ring elevation and azimuth, make it possible to study not only the sizes and distribution of mesoscale structures but also their three-dimensional shapes.\nWe will incorporate analysis of the higher order moments of the UVIS stellar occultations as well as carry out N-body simulations of the rings using a well-tested collisional and self-gravitating model developed by Co-I Lewis. We will forward model the rings and reproduce the textured structure seen in ISS images as well as occultation signals of non-axisymmetric structures. We will test the effects of particle density, particle size distribution, and local embedded perturbers (giant boulders or miniature moonlets) to understand the conditions required for formation of these structures that likely include both large-scale aggregates or density enhancements as well as azimuthally-limited gaps or holes in the rings.\nWe will compare these results with observations made across the ring system including “straw” in density waves in the A ring and various streaky texture identified in images across the main rings. We will compare the simulations with particle-tracking occultations throughout the main rings to better understand the differences in ring particle properties across the system. Comparisons of both occultation data and high-resolution imaging data with simulations will show the effects of particle properties, distance from Saturn, local ring surface mass density, and effects of gravitational perturbations from external satellites and embedded moonlets.\nWe will search for evidence of secular changes in these structures to better understand the evolution of the system. Results from our analysis will constrain long-term evolutionary models of the viscous spreading of the rings as well as ring erosion and pollution models. The results of this research will thus help us address fundamental questions about the origin of the rings, such as whether the different main ring regions have a common or separate origin."
-  },
-  {
-    "objectID": "projects/uvis-pdart/index.html",
-    "href": "projects/uvis-pdart/index.html",
-    "title": "Cassini UVIS Data Product Enhancement",
+    "objectID": "talks.html",
+    "href": "talks.html",
+    "title": "Talks",
     "section": "",
-    "text": "This NASA PDART project upgrades the existing Cassini UVIS data products into a modern, science-ready format. The PI is Matt Tiscareno at the SETI Institute; I serve as external consultant and continue to lead most project activities from FU Berlin."
-  },
-  {
-    "objectID": "projects/uvis-pdart/index.html#objectives",
-    "href": "projects/uvis-pdart/index.html#objectives",
-    "title": "Cassini UVIS Data Product Enhancement",
-    "section": "Objectives",
-    "text": "Objectives\nThe limited content and inconvenient format of published Cassini Ultraviolet Imaging Spectrograph (UVIS) data products puts a high burden on end users before scientific investigation can begin. This project produces upgraded data products in a modern format, adds all required metadata to remove the need for time-consuming geometry calculations, and performs default calibrations for the majority of data products. This benefits all aspects of UVIS science:\n\nstellar and solar occultations of Saturn,\nemissions from the Titan atmosphere,\nsatellite reflectance,\nring spectroscopy, and more."
-  },
-  {
-    "objectID": "projects/uvis-pdart/index.html#approach",
-    "href": "projects/uvis-pdart/index.html#approach",
-    "title": "Cassini UVIS Data Product Enhancement",
-    "section": "Approach",
-    "text": "Approach\nWe create enhanced UVIS data products by pre-calculating an expanded set of geometry parameters for each detector readout and applying a default calibration that varies with the observational scenario. The additional metadata is included with the original instrument data in PDS4-compatible FITS files. Python and IDL tools are provided for data access, analysis, and plotting."
-  },
-  {
-    "objectID": "projects/uvis-pdart/index.html#current-status",
-    "href": "projects/uvis-pdart/index.html#current-status",
-    "title": "Cassini UVIS Data Product Enhancement",
-    "section": "Current status",
-    "text": "Current status\nThe project is in its third year. Current work focuses on:\n\nFITS metadata definition and automation\nThe UVIS User Guide — comprehensive documentation for working with the enhanced data products\nCalibration pipeline refinement and validation"
-  },
-  {
-    "objectID": "worldcup.html",
-    "href": "worldcup.html",
-    "title": "Group phase",
-    "section": "",
-    "text": "FIFA World Cup 2026 · Full time\n\n\nAll matches played.\nNo fixtures scheduled."
-  },
-  {
-    "objectID": "worldcup.html#tournament-complete",
-    "href": "worldcup.html#tournament-complete",
-    "title": "Group phase",
-    "section": "",
-    "text": "All matches played."
-  },
-  {
-    "objectID": "worldcup.html#knockout-phase",
-    "href": "worldcup.html#knockout-phase",
-    "title": "Group phase",
-    "section": "Knockout phase",
-    "text": "Knockout phase\nTop two from each group advance, plus the eight best third-placed teams. Slots fill in with real teams as the groups finish."
+    "text": "Citizen Science on Mars — and the Surface Coverage of Dark Regolith on the Seasonal South Polar Ice Cap\n\n\n\n\n\n\npresentation\n\nplanet-four\n\n\n\nPlanetary seminar at FU Berlin. Citizen science on Mars with Planet Four, the surface coverage of dark CO₂-jet deposits on the seasonal south-polar cap, and a cautionary tale on heterogeneous datasets — how an apparent inter-annual trend turned out to be a sampling artefact, and what a properly matched-ROI analysis reveals instead.\n\n\n\n\n\n2026-06-04\n\n\nK.-Michael Aye, Tom Ihro, Tim Michaels, Ganna Portyankina, Candice J. Hansen, Megan E. Schwamb\n\n\n\n\n\n\n\n\n\n\n\n\nPlanet Four: Inter- and Intra-annual Variability of Dark Regolith on Ice Coverage at the Martian South Polar Region\n\n\n\n\n\n\nonline-presentation\n\n\n\nA short overview of the Planetary Research done via Citizen Science, followed by an in-depth review of the Planet Four Citizen Science projects.\n\n\n\n\n\n2026-03-17\n\n\nMichael Aye\n\n\n\n\n\n\n\n\n\n\n\n\nIs it easy enough to get to planetary data?\n\n\nAn imager (and user’s) perspective\n\n\n\nonline-presentation\n\n\n\nA review on how to access planetary image data, with a focus on what is easy and what is hard.\n\n\n\n\n\n2024-09-16\n\n\nMichael Aye\n\n\n\n\n\n\n\n\n\n\n\n\nOpenPlanetary Data Cafe and Friends\n\n\n\n\n\n\nonline-presentation\n\n\n\nA short overview of the OpenPlanetary organization, followed by a brief review of the planetary science software stack.\n\n\n\n\n\n2024-09-13\n\n\nMichael Aye\n\n\n\n\n\n\n\n\n\n\n\n\nPlanetary Research with Citizen Science\n\n\nIntroduction to Citizen Science and the Planet Four project\n\n\n\nmars\n\npolar science\n\ncitizen science\n\n\n\nPresentation given at Planetary Seminar of Freie Uni Berlin\n\n\n\n\n\n2022-10-27\n\n\nMichael Aye\n\n\n\n\n\n\n\n\n\n\n\n\nThe PlanetaryPy Project\n\n\n5th Planetary Data Workshop\n\n\n\nplanetarypy\n\npython\n\n\n\n\n\n\n\n\n\n2021-07-01\n\n\n\n\n\n\n\n\n\n\n\n\nHow to create and maintain a scientific Python environment using conda\n\n\nInternational Conference for Young Professionals in Physics and Technology (ICYPPT)\n\n\n\ninvited talk\n\nconda\n\nsoftware management\n\n\n\n\n\n\n\n\n\n2021-04-28\n\n\n\n\n\n\n\n\n\n\n\n\nCalibration of the LRO Diviner Lunar Radiometer Experiment\n\n\nInternational Conference for Young Professionals in Physics and Technology\n\n\n\ninvited talk\n\nLRO\n\nDiviner\n\ncalibration\n\n\n\n\n\n\n\n\n\n2021-04-27\n\n\n\n\n\n\n\n\n\n\n\n\nHow to live peacefully with Ana/Mini/Conda\n\n\nOpenPlanetary Virtual Conference\n\n\n\nconda\n\npython\n\n\n\nI will explain the basic principles of the conda-based toolset, recommend best practices for using conda environments and channels, and demonstrate techniques on how to efficiently delete and reinstall everything in under 5 minutes. I also will discuss Python software package discovery and installation strategies in relation to these conda environments and how to efficiently develop your own libraries while being part of a conda environment.\n\n\n\n\n\n2020-06-23\n\n\nMichael Aye\n\n\n\n\n\n\n\n\n\n\n\n\nBest practices for conda-based Python science analysis environments\n\n\nOpenPlanetary Lunch Talk\n\n\n\nconda\n\npython\n\n\n\n\n\n\n\n\n\n2020-03-31\n\n\nMichael Aye\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "posts.html",
