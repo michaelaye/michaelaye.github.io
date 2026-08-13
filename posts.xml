@@ -24,9 +24,9 @@
 <p>Every fan and blotch in the <a href="https://www.zooniverse.org/projects/mschwamb/planet-four">Planet Four</a> catalog is a <em>cluster</em>: many volunteers mark the same feature, DBSCAN decides which of their clicks belong together, and the pipeline then averages each cluster’s members into one object with a position, an angle, a size. Once the membership is fixed, those same members give you more than the mean — taking the <strong>standard deviation</strong> over each cluster, for each marking parameter, tells you how much the volunteers <strong>disagreed</strong> about that feature’s position, angle, and size.</p>
 <p>Those spread numbers are genuinely useful: they are a per-marking, data-driven uncertainty. And they were being computed on every run, sitting in every intermediate pipeline product… and then getting <strong>silently dropped at the very last step</strong>, so that the catalog everyone actually downloads never carried them.</p>
 <p>This post is about noticing that, getting the numbers into the published catalog, and the little quality API they unlocked.</p>
-<section id="the-bug-that-wasnt-a-bug" class="level2">
-<h2 class="anchored" data-anchor-id="the-bug-that-wasnt-a-bug">The bug that wasn’t a bug</h2>
-<p>Nothing was broken, exactly. The cluster-averaging step wrote <code>x_std</code>, <code>y_std</code>, <code>angle_std</code>, plus <code>distance_std</code>/<code>spread_std</code> for fans and <code>radius1_std</code>/<code>radius2_std</code> for blotches, all the way through the L1A → L1B → L1C levels. The loss happened in one place: the final “publish” step selects an explicit <strong>allowlist</strong> of columns before writing the CSVs that go to Zenodo —</p>
+<section id="data-existed-but-wasnt-written-out" class="level2">
+<h2 class="anchored" data-anchor-id="data-existed-but-wasnt-written-out">Data existed but wasn’t written out</h2>
+<p>The numbers were never missing from the pipeline. The cluster-averaging step wrote <code>x_std</code>, <code>y_std</code>, <code>angle_std</code>, plus <code>distance_std</code>/<code>spread_std</code> for fans and <code>radius1_std</code>/<code>radius2_std</code> for blotches, and those columns survived all the way through the L1A → L1B → L1C levels. They were lost at a single point: the final “publish” step selects an explicit <strong>allowlist</strong> of columns before writing the CSVs that go to Zenodo —</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1">fans[<span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">self</span>.FAN_COLUMNS_AS_PUBLISHED].to_csv(<span class="va" style="color: #111111;
@@ -36,7 +36,7 @@ background-color: null;
 font-style: inherit;">=</span><span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">False</span>)</span></code></pre></div></div>
-<p>— and the seven <code>*_std</code> columns simply weren’t on that list. Present in every frame right up to the slice; gone the moment it was written. So the fix, in principle, is one line: add the columns to the allowlist. Done for every <em>future</em> catalog.</p>
+<p>— and the seven <code>*_std</code> columns were not on that list. They were present in the data frame right up to that selection, and absent from everything written after it. The fix is therefore a one-line change: add the columns to the allowlist, which covers every <em>future</em> catalog.</p>
 <p>For the catalog that already exists, the seven columns were recovered and folded back in, and the result re-published on Zenodo as a new <strong>v3.1.1</strong> release. That is deliberately a <em>point</em> release: none of the science changed — same clustering, same objects, same values, byte-for-byte — the only difference is the previously dropped std columns being added. So it stays a 3.1.x catalog, and within <code>p4tools</code> it is still simply <strong>v3.1</strong>: <code>get_fan_catalog("v3.1")</code> transparently gains the new columns and no existing code breaks. The <code>v3.1.1</code> label lives on the Zenodo data release (a fresh DOI), not in the software’s catalog version.</p>
 </section>
 <section id="the-quality-api-keep-support-and-scatter-apart" class="level2">
