@@ -1,0 +1,120 @@
+---
+title: "Planet Four's catalog now ships its own uncertainty"
+subtitle: "Every marking in the Planet Four catalog is an average of many citizen-science clicks --- and the pipeline always measured how much those clicks disagreed. Those numbers just never made it into the published files. `p4tools` 0.23 fixes that, and adds a per-tile quality API built on top."
+date: 2026-08-13
+authors:
+  - name: "Michael Aye"
+    url: https://michaelaye.github.io
+    orcid: 0000-0002-4088-1928
+categories: [planet-four, p4tools, python, citizen-science, mars, uncertainty, zenodo, nbdev]
+---
+
+Every fan and blotch in the [Planet Four](https://www.zooniverse.org/projects/mschwamb/planet-four) catalog is
+a *cluster*: many volunteers mark the same feature, DBSCAN decides which of their
+clicks belong together, and the pipeline then averages each cluster's members
+into one object with a position, an angle, a size. Once the membership is fixed,
+those same members give you more than the mean --- taking the **standard
+deviation** over each cluster, for each marking parameter, tells you how much the
+volunteers **disagreed** about that feature's position, angle, and size.
+
+Those spread numbers are genuinely useful: they are a per-marking, data-driven
+uncertainty. And they were being computed on every run, sitting in every
+intermediate pipeline product... and then getting **silently dropped at the very
+last step**, so that the catalog everyone actually downloads never carried them.
+
+This post is about noticing that, getting the numbers into the published
+catalog, and the little quality API they unlocked.
+
+## The bug that wasn't a bug
+
+Nothing was broken, exactly. The cluster-averaging step wrote `x_std`, `y_std`,
+`angle_std`, plus `distance_std`/`spread_std` for fans and
+`radius1_std`/`radius2_std` for blotches, all the way through the
+L1A → L1B → L1C levels. The loss happened in
+one place: the final "publish" step selects an explicit **allowlist** of columns
+before writing the CSVs that go to Zenodo —
+
+```python
+fans[self.FAN_COLUMNS_AS_PUBLISHED].to_csv(self.fan_merged, index=False)
+```
+
+— and the seven `*_std` columns simply weren't on that list. Present in every
+frame right up to the slice; gone the moment it was written. So the fix, in
+principle, is one line: add the columns to the allowlist. Done for every *future*
+catalog.
+
+For the catalog that already exists, the seven columns were recovered and folded
+back in, and the result re-published on Zenodo as a new **v3.1.1** release. That
+is deliberately a *point* release: none of the science changed --- same
+clustering, same objects, same values, byte-for-byte --- the only difference is
+the previously dropped std columns being added. So it stays a 3.1.x catalog, and
+within `p4tools` it is still simply **v3.1**: `get_fan_catalog("v3.1")`
+transparently gains the new columns and no existing code breaks. The `v3.1.1`
+label lives on the Zenodo data release (a fresh DOI), not in the software's
+catalog version.
+
+## The quality API: keep *support* and *scatter* apart
+
+A raw standard deviation is a trap, because it conflates two very different
+reasons a marking might be unreliable:
+
+- **weak support** — only a few people marked it, so *any* statistic is shaky;
+- **genuine disagreement** — lots of people marked it, and they *scattered*.
+
+If you collapse those into one "uncertainty" score, the most scientifically
+interesting tiles — the ones with strong turnout **and** real disagreement —
+look identical to tiles nobody looked at. So the new API in `p4tools.stats`
+keeps them on two axes that are never mixed. In particular it deliberately
+avoids any *standard error of the mean* (SEM = std ÷ √n): dividing scatter by the
+vote count would quietly fold support back into the scatter axis, exactly the
+confusion we're trying to avoid.
+
+It comes in three layers:
+
+1. **`add_uncertainty_columns`** — per marking: combine `x_std`/`y_std` into a
+   positional `pos_std`, express size spread as a *relative* coefficient of
+   variation, flag near-circular blotches whose angle is meaningless, and gate on
+   a minimum vote count.
+2. **`tile_quality`** — per tile: a **support** group (vote counts) and a
+   **scatter** group (disagreement), where scatter is computed *only* from
+   markings that clear the vote gate — so few votes can never masquerade as
+   disagreement. Optional cap-wide percentile ranks make the incommensurate units
+   (degrees, pixels, dimensionless) comparable.
+3. **`classify_tile_quality`** — an opt-in labelling from the two rank axes.
+
+```python
+from p4tools import io, stats
+
+tq = stats.tile_quality("both", version="v3.1")   # one row per tile
+tq = stats.classify_tile_quality(tq)
+tq.quality_class.value_counts()
+```
+
+## Four kinds of tile
+
+Splitting the two axes at their medians gives four honest categories:
+
+| `quality_class` | support | scatter | reading |
+|---|---|---|---|
+| `consistent` | high | low | reliable — the best QC tier |
+| `contested` | high | high | many votes, **genuine disagreement** — scientifically interesting; exactly the class a single conflated score would hide |
+| `sparse` | low | low | few votes, but they agree |
+| `noisy` | low | high | least reliable |
+
+Across the 64,494 tiles of v3.1 the split is remarkably even —
+~17 k consistent, ~15 k contested, ~12 k noisy, ~12 k sparse — with ~8 k tiles
+left explicitly unclassified because *no* marking cleared the vote gate, so no
+scatter estimate exists. Guessing there would have been worse than admitting it.
+
+## Try it
+
+```bash
+pip install -U p4tools     # or: conda install -c michaelaye p4tools
+```
+
+- **Full, runnable tutorial** (live examples on the real catalog):
+  [`p4tools` → Per-Tile Quality](https://michaelaye.github.io/p4tools/tile_quality.html)
+- **Data**: [Planet Four catalog v3.1.1 on Zenodo](https://doi.org/10.5281/zenodo.21917907)
+  (DOI `10.5281/zenodo.21917907`)
+- **Release**: [p4tools 0.23.0](https://github.com/michaelaye/p4tools/releases/tag/v0.23.0)
+  · [PyPI](https://pypi.org/project/p4tools/0.23.0/)
