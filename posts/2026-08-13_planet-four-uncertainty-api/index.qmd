@@ -25,23 +25,23 @@ last step**, so that the catalog everyone actually downloads never carried them.
 This post is about noticing that, getting the numbers into the published
 catalog, and the little quality API they unlocked.
 
-## The bug that wasn't a bug
+## Data existed but wasn't written out
 
-Nothing was broken, exactly. The cluster-averaging step wrote `x_std`, `y_std`,
-`angle_std`, plus `distance_std`/`spread_std` for fans and
-`radius1_std`/`radius2_std` for blotches, all the way through the
-L1A → L1B → L1C levels. The loss happened in
-one place: the final "publish" step selects an explicit **allowlist** of columns
-before writing the CSVs that go to Zenodo —
+The numbers were never missing from the pipeline. The cluster-averaging step
+wrote `x_std`, `y_std`, `angle_std`, plus `distance_std`/`spread_std` for fans
+and `radius1_std`/`radius2_std` for blotches, and those columns survived all the
+way through the L1A → L1B → L1C levels. They were lost at a single point: the
+final "publish" step selects an explicit **allowlist** of columns before writing
+the CSVs that go to Zenodo —
 
 ```python
 fans[self.FAN_COLUMNS_AS_PUBLISHED].to_csv(self.fan_merged, index=False)
 ```
 
-— and the seven `*_std` columns simply weren't on that list. Present in every
-frame right up to the slice; gone the moment it was written. So the fix, in
-principle, is one line: add the columns to the allowlist. Done for every *future*
-catalog.
+— and the seven `*_std` columns were not on that list. They were present in the
+data frame right up to that selection, and absent from everything written after
+it. The fix is therefore a one-line change: add the columns to the allowlist,
+which covers every *future* catalog.
 
 For the catalog that already exists, the seven columns were recovered and folded
 back in, and the result re-published on Zenodo as a new **v3.1.1** release. That
