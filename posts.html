@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.38">
+<meta name="generator" content="quarto-1.10.18">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -12,10 +12,13 @@
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
 */
-code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -41,14 +44,14 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-6d40f8af7092f34acea1908532066003.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-cac0433bb97fa58dc0fc6599c25c149a.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-6d40f8af7092f34acea1908532066003.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-eec68b17241c1efd3eae2de50d816e3e.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-25dec783d6e1d11f8e0bba9e4fbb47f4.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-eec68b17241c1efd3eae2de50d816e3e.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-2d60786d7e8e8dd5aeda3ac851644299.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-4dd8413d80a7337c8aeafee184148603.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-2d60786d7e8e8dd5aeda3ac851644299.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-37fe5dbc17cdd4b8cfccf1d179bf45d8.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-ccd65696554e6251821c0bce618238e1.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-37fe5dbc17cdd4b8cfccf1d179bf45d8.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <link href="site_libs/quarto-contrib/fontawesome6-6.7.2/all.min.css" rel="stylesheet">
 <link href="site_libs/quarto-contrib/fontawesome6-6.7.2/latex-fontsize.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
@@ -109,7 +112,7 @@ ul.task-list li input[type="checkbox"] {
   </script>
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
 
 <script type="text/javascript">
 const typesetMath = (el) => {
@@ -397,7 +400,7 @@ window.Quarto = {
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(16)</span></div><div class="category" data-category="YWNhZGVtaWM=">academic <span class="quarto-category-count">(4)</span></div><div class="category" data-category="YXJjaGl2ZQ==">archive <span class="quarto-category-count">(1)</span></div><div class="category" data-category="YmlibGlvZ3JhcGh5">bibliography <span class="quarto-category-count">(4)</span></div><div class="category" data-category="Y29uZGE=">conda <span class="quarto-category-count">(2)</span></div><div class="category" data-category="Y29yZWdpc3RyYXRpb24=">coregistration <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Y3R4">ctx <span class="quarto-category-count">(1)</span></div><div class="category" data-category="ZGF0YQ==">data <span class="quarto-category-count">(1)</span></div><div class="category" data-category="ZGVidWdnaW5n">debugging <span class="quarto-category-count">(1)</span></div><div class="category" data-category="ZHVja2Ri">duckdb <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Zm9saXVt">folium <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Z2Vvc3BhdGlhbA==">geospatial <span class="quarto-category-count">(2)</span></div><div class="category" data-category="Z2l0aHViLWFjdGlvbnM=">github-actions <span class="quarto-category-count">(1)</span></div><div class="category" data-category="aGFja2luZw==">hacking <span class="quarto-category-count">(1)</span></div><div class="category" data-category="aG9tZWFzc2lzdGFudA==">homeassistant <span class="quarto-category-count">(1)</span></div><div class="category" data-category="aXNpcw==">isis <span class="quarto-category-count">(1)</span></div><div class="category" data-category="bWFtYmE=">mamba <span class="quarto-category-count">(2)</span></div><div class="category" data-category="bWFycw==">mars <span class="quarto-category-count">(1)</span></div><div class="category" data-category="bWF0cGxvdGxpYg==">matplotlib <span class="quarto-category-count">(1)</span></div><div class="category" data-category="bmFzYS1hZHM=">nasa-ads <span class="quarto-category-count">(1)</span></div><div class="category" data-category="bnNzZGM=">nssdc <span class="quarto-category-count">(1)</span></div><div class="category" data-category="b3Blbi1zb3VyY2U=">open-source <span class="quarto-category-count">(4)</span></div><div class="category" data-category="b3BlbnJvdXRlc2VydmljZQ==">openrouteservice <span class="quarto-category-count">(1)</span></div><div class="category" data-category="b3BlbnN0cmVldG1hcA==">openstreetmap <span class="quarto-category-count">(1)</span></div><div class="category" data-category="cGhvdG9ncmFtbWV0cnk=">photogrammetry <span class="quarto-category-count">(1)</span></div><div class="category" data-category="cGxhbmV0JTIwZm91cg==">planet four <span class="quarto-category-count">(1)</span></div><div class="category" data-category="cGxhbmV0YXJ5">planetary <span class="quarto-category-count">(2)</span></div><div class="category" data-category="cGxhbmV0YXJ5cHk=">planetarypy <span class="quarto-category-count">(1)</span></div><div class="category" data-category="cGxvdHRpbmc=">plotting <span class="quarto-category-count">(1)</span></div><div class="category" data-category="cHl0aG9u">python <span class="quarto-category-count">(9)</span></div><div class="category" data-category="cXVhcnRv">quarto <span class="quarto-category-count">(4)</span></div><div class="category" data-category="cmVwcm9kdWNpYmlsaXR5">reproducibility <span class="quarto-category-count">(1)</span></div><div class="category" data-category="cmlveGFycmF5">rioxarray <span class="quarto-category-count">(1)</span></div><div class="category" data-category="c2VjdXJpdHk=">security <span class="quarto-category-count">(1)</span></div><div class="category" data-category="c2hpbnlsaXZl">shinylive <span class="quarto-category-count">(1)</span></div><div class="category" data-category="c29mdHdhcmUlMjBtYW5hZ2VtZW50">software management <span class="quarto-category-count">(2)</span></div><div class="category" data-category="c3BpY2U=">spice <span class="quarto-category-count">(1)</span></div><div class="category" data-category="dGhlcm1vc3RhdHM=">thermostats <span class="quarto-category-count">(1)</span></div><div class="category" data-category="dHV5YQ==">tuya <span class="quarto-category-count">(1)</span></div><div class="category" data-category="d2Vi">web <span class="quarto-category-count">(1)</span></div><div class="category" data-category="eGFycmF5">xarray <span class="quarto-category-count">(1)</span></div><div class="category" data-category="emVub2Rv">zenodo <span class="quarto-category-count">(1)</span></div></div></div>
+    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(17)</span></div><div class="category" data-category="YWNhZGVtaWM=">academic <span class="quarto-category-count">(4)</span></div><div class="category" data-category="YXJjaGl2ZQ==">archive <span class="quarto-category-count">(1)</span></div><div class="category" data-category="YmlibGlvZ3JhcGh5">bibliography <span class="quarto-category-count">(4)</span></div><div class="category" data-category="Y2l0aXplbi1zY2llbmNl">citizen-science <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Y29uZGE=">conda <span class="quarto-category-count">(2)</span></div><div class="category" data-category="Y29yZWdpc3RyYXRpb24=">coregistration <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Y3R4">ctx <span class="quarto-category-count">(1)</span></div><div class="category" data-category="ZGF0YQ==">data <span class="quarto-category-count">(1)</span></div><div class="category" data-category="ZGVidWdnaW5n">debugging <span class="quarto-category-count">(1)</span></div><div class="category" data-category="ZHVja2Ri">duckdb <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Zm9saXVt">folium <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Z2Vvc3BhdGlhbA==">geospatial <span class="quarto-category-count">(2)</span></div><div class="category" data-category="Z2l0aHViLWFjdGlvbnM=">github-actions <span class="quarto-category-count">(1)</span></div><div class="category" data-category="aGFja2luZw==">hacking <span class="quarto-category-count">(1)</span></div><div class="category" data-category="aG9tZWFzc2lzdGFudA==">homeassistant <span class="quarto-category-count">(1)</span></div><div class="category" data-category="aXNpcw==">isis <span class="quarto-category-count">(1)</span></div><div class="category" data-category="bWFtYmE=">mamba <span class="quarto-category-count">(2)</span></div><div class="category" data-category="bWFycw==">mars <span class="quarto-category-count">(2)</span></div><div class="category" data-category="bWF0cGxvdGxpYg==">matplotlib <span class="quarto-category-count">(1)</span></div><div class="category" data-category="bmFzYS1hZHM=">nasa-ads <span class="quarto-category-count">(1)</span></div><div class="category" data-category="bmJkZXY=">nbdev <span class="quarto-category-count">(1)</span></div><div class="category" data-category="bnNzZGM=">nssdc <span class="quarto-category-count">(1)</span></div><div class="category" data-category="b3Blbi1zb3VyY2U=">open-source <span class="quarto-category-count">(4)</span></div><div class="category" data-category="b3BlbnJvdXRlc2VydmljZQ==">openrouteservice <span class="quarto-category-count">(1)</span></div><div class="category" data-category="b3BlbnN0cmVldG1hcA==">openstreetmap <span class="quarto-category-count">(1)</span></div><div class="category" data-category="cDR0b29scw==">p4tools <span class="quarto-category-count">(1)</span></div><div class="category" data-category="cGhvdG9ncmFtbWV0cnk=">photogrammetry <span class="quarto-category-count">(1)</span></div><div class="category" data-category="cGxhbmV0JTIwZm91cg==">planet four <span class="quarto-category-count">(1)</span></div><div class="category" data-category="cGxhbmV0LWZvdXI=">planet-four <span class="quarto-category-count">(1)</span></div><div class="category" data-category="cGxhbmV0YXJ5">planetary <span class="quarto-category-count">(2)</span></div><div class="category" data-category="cGxhbmV0YXJ5cHk=">planetarypy <span class="quarto-category-count">(1)</span></div><div class="category" data-category="cGxvdHRpbmc=">plotting <span class="quarto-category-count">(1)</span></div><div class="category" data-category="cHl0aG9u">python <span class="quarto-category-count">(10)</span></div><div class="category" data-category="cXVhcnRv">quarto <span class="quarto-category-count">(4)</span></div><div class="category" data-category="cmVwcm9kdWNpYmlsaXR5">reproducibility <span class="quarto-category-count">(1)</span></div><div class="category" data-category="cmlveGFycmF5">rioxarray <span class="quarto-category-count">(1)</span></div><div class="category" data-category="c2VjdXJpdHk=">security <span class="quarto-category-count">(1)</span></div><div class="category" data-category="c2hpbnlsaXZl">shinylive <span class="quarto-category-count">(1)</span></div><div class="category" data-category="c29mdHdhcmUlMjBtYW5hZ2VtZW50">software management <span class="quarto-category-count">(2)</span></div><div class="category" data-category="c3BpY2U=">spice <span class="quarto-category-count">(1)</span></div><div class="category" data-category="dGhlcm1vc3RhdHM=">thermostats <span class="quarto-category-count">(1)</span></div><div class="category" data-category="dHV5YQ==">tuya <span class="quarto-category-count">(1)</span></div><div class="category" data-category="dW5jZXJ0YWludHk=">uncertainty <span class="quarto-category-count">(1)</span></div><div class="category" data-category="d2Vi">web <span class="quarto-category-count">(1)</span></div><div class="category" data-category="eGFycmF5">xarray <span class="quarto-category-count">(1)</span></div><div class="category" data-category="emVub2Rv">zenodo <span class="quarto-category-count">(2)</span></div></div></div>
 <!-- main -->
 <main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
 
@@ -412,7 +415,51 @@ window.Quarto = {
 
 <div class="quarto-listing quarto-listing-container-default" id="listing-listing">
 <div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="cHl0aG9uJTJDcGxhbmV0YXJ5JTJDcGxhbmV0YXJ5cHklMkNuc3NkYyUyQ3plbm9kbyUyQ2FyY2hpdmUlMkNyZXByb2R1Y2liaWxpdHk=" data-listing-date-sort="1778716800000" data-listing-file-modified-sort="1784823025858" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="9" data-listing-word-count-sort="1614">
+<div class="quarto-post image-right" data-index="0" data-categories="cGxhbmV0LWZvdXIlMkNwNHRvb2xzJTJDcHl0aG9uJTJDY2l0aXplbi1zY2llbmNlJTJDbWFycyUyQ3VuY2VydGFpbnR5JTJDemVub2RvJTJDbmJkZXY=" data-listing-date-sort="1786579200000" data-listing-file-modified-sort="1786627604981" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="744">
+<div class="thumbnail"><a href="./posts/2026-08-13_planet-four-uncertainty-api/index.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./posts/2026-08-13_planet-four-uncertainty-api/index.html" class="no-external">Planet Four’s catalog now ships its own uncertainty</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./posts/2026-08-13_planet-four-uncertainty-api/index.html" class="no-external">Every marking in the Planet Four catalog is an average of many citizen-science clicks — and the pipeline always measured how much those clicks disagreed. Those numbers just never made it into the published files. <code>p4tools</code> 0.23 fixes that, and adds a per-tile quality API built on top.</a>
+</div>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('cGxhbmV0LWZvdXI='); return false;">planet-four</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('cDR0b29scw=='); return false;">p4tools</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('cHl0aG9u'); return false;">python</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('Y2l0aXplbi1zY2llbmNl'); return false;">citizen-science</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('bWFycw=='); return false;">mars</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('dW5jZXJ0YWludHk='); return false;">uncertainty</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('emVub2Rv'); return false;">zenodo</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('bmJkZXY='); return false;">nbdev</div>
+
+</div>
+<div class="delink listing-description"><a href="./posts/2026-08-13_planet-four-uncertainty-api/index.html" class="no-external">
+Every fan and blotch in the Planet Four catalog is a <em>cluster</em>: many volunteers mark the same feature, DBSCAN decides which of their clicks belong together, and the pipeline…<strong></strong><strong></strong>
+</a></div>
+</div>
+<div class="metadata">
+<a href="./posts/2026-08-13_planet-four-uncertainty-api/index.html" class="no-external">
+<div class="listing-date">
+2026-08-13
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="1" data-categories="cHl0aG9uJTJDcGxhbmV0YXJ5JTJDcGxhbmV0YXJ5cHklMkNuc3NkYyUyQ3plbm9kbyUyQ2FyY2hpdmUlMkNyZXByb2R1Y2liaWxpdHk=" data-listing-date-sort="1778716800000" data-listing-file-modified-sort="1786627604980" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="9" data-listing-word-count-sort="1614">
 <div class="thumbnail"><a href="./posts/2026-05-14_nssdc-factsheets-archive/index.html" class="no-external">
 
 <div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
@@ -454,7 +501,7 @@ NASA’s NSSDC planetary fact sheets are the textbook reference many planetary s
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="1" data-categories="cHl0aG9uJTJDc3BpY2UlMkNwbGFuZXRhcnklMkNzZWN1cml0eSUyQ2R1Y2tkYg==" data-listing-date-sort="1778544000000" data-listing-file-modified-sort="1784823025858" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="892">
+<div class="quarto-post image-right" data-index="2" data-categories="cHl0aG9uJTJDc3BpY2UlMkNwbGFuZXRhcnklMkNzZWN1cml0eSUyQ2R1Y2tkYg==" data-listing-date-sort="1778544000000" data-listing-file-modified-sort="1786627604980" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="892">
 <div class="thumbnail"><a href="./posts/2026-05-12_spice-kernel-db-redteam/index.html" class="no-external">
 
 <div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
@@ -492,7 +539,7 @@ NASA’s NSSDC planetary fact sheets are the textbook reference many planetary s
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="2" data-categories="cHl0aG9uJTJDZ2Vvc3BhdGlhbCUyQ29wZW5yb3V0ZXNlcnZpY2UlMkNvcGVuc3RyZWV0bWFwJTJDZm9saXVt" data-listing-date-sort="1775952000000" data-listing-file-modified-sort="1784823025858" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="489">
+<div class="quarto-post image-right" data-index="3" data-categories="cHl0aG9uJTJDZ2Vvc3BhdGlhbCUyQ29wZW5yb3V0ZXNlcnZpY2UlMkNvcGVuc3RyZWV0bWFwJTJDZm9saXVt" data-listing-date-sort="1775952000000" data-listing-file-modified-sort="1786627604980" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="489">
 <div class="thumbnail"><a href="./posts/2026-04-12_equal-commute/index.html" class="no-external">
 
 <img loading="lazy" src="./posts/2026-04-12_equal-commute/images/map.png" class="thumbnail-image">
@@ -530,7 +577,7 @@ When two people in a household work in different parts of a city, picking where 
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="3" data-categories="bWFycyUyQ2N0eCUyQ2lzaXMlMkNwaG90b2dyYW1tZXRyeSUyQ2NvcmVnaXN0cmF0aW9u" data-listing-date-sort="1773100800000" data-listing-file-modified-sort="1784823025856" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1476">
+<div class="quarto-post image-right" data-index="4" data-categories="bWFycyUyQ2N0eCUyQ2lzaXMlMkNwaG90b2dyYW1tZXRyeSUyQ2NvcmVnaXN0cmF0aW9u" data-listing-date-sort="1773100800000" data-listing-file-modified-sort="1786627604978" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1476">
 <div class="thumbnail"><a href="./posts/2026-03-10_isis-two-image-matching/index.html" class="no-external">
 
 <img loading="lazy" src="./posts/2026-03-10_isis-two-image-matching/images/beforeafter.png" class="thumbnail-image">
@@ -568,7 +615,7 @@ When you need to align two overlapping satellite images of Mars to sub-pixel acc
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="4" data-categories="cHl0aG9uJTJDd2ViJTJDZGF0YSUyQ3NoaW55bGl2ZQ==" data-listing-date-sort="1772668800000" data-listing-file-modified-sort="1784823025860" data-listing-date-modified-sort="1772755200000" data-listing-reading-time-sort="5" data-listing-word-count-sort="872">
+<div class="quarto-post image-right" data-index="5" data-categories="cHl0aG9uJTJDd2ViJTJDZGF0YSUyQ3NoaW55bGl2ZQ==" data-listing-date-sort="1772668800000" data-listing-file-modified-sort="1786627604983" data-listing-date-modified-sort="1772755200000" data-listing-reading-time-sort="5" data-listing-word-count-sort="872">
 <div class="thumbnail"><a href="./posts/github-releases-as-data-cdn/index.html" class="no-external">
 
 <div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
@@ -604,7 +651,7 @@ You’ve built an interactive data exploration app that runs entirely in the bro
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="5" data-categories="cXVhcnRvJTJDYWNhZGVtaWMlMkNvcGVuLXNvdXJjZSUyQ2dpdGh1Yi1hY3Rpb25zJTJDYmlibGlvZ3JhcGh5" data-listing-date-sort="1772582400000" data-listing-file-modified-sort="1784823025860" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6" data-listing-word-count-sort="1051">
+<div class="quarto-post image-right" data-index="6" data-categories="cXVhcnRvJTJDYWNhZGVtaWMlMkNvcGVuLXNvdXJjZSUyQ2dpdGh1Yi1hY3Rpb25zJTJDYmlibGlvZ3JhcGh5" data-listing-date-sort="1772582400000" data-listing-file-modified-sort="1786627604983" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6" data-listing-word-count-sort="1051">
 <div class="thumbnail"><a href="./posts/homepage-setup/index.html" class="no-external">
 
 <div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
@@ -642,7 +689,7 @@ Most academic homepages are either a bare-bones departmental page that hasn’t 
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="6" data-categories="cHl0aG9uJTJDcXVhcnRvJTJDYWNhZGVtaWMlMkNiaWJsaW9ncmFwaHklMkNvcGVuLXNvdXJjZSUyQ25hc2EtYWRz" data-listing-date-sort="1772496000000" data-listing-file-modified-sort="1784823025858" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="624">
+<div class="quarto-post image-right" data-index="7" data-categories="cHl0aG9uJTJDcXVhcnRvJTJDYWNhZGVtaWMlMkNiaWJsaW9ncmFwaHklMkNvcGVuLXNvdXJjZSUyQ25hc2EtYWRz" data-listing-date-sort="1772496000000" data-listing-file-modified-sort="1786627604981" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="624">
 <div class="thumbnail"><a href="./posts/ads-bib-tools/index.html" class="no-external">
 
 <div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
@@ -682,7 +729,7 @@ Existing ADS bibliography tools like adstex, filltex, and bibslurp are all desig
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="7" data-categories="cHl0aG9uJTJDZ2Vvc3BhdGlhbCUyQ3hhcnJheSUyQ3Jpb3hhcnJheSUyQ2RlYnVnZ2luZw==" data-listing-date-sort="1772409600000" data-listing-file-modified-sort="1784823025861" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="427">
+<div class="quarto-post image-right" data-index="8" data-categories="cHl0aG9uJTJDZ2Vvc3BhdGlhbCUyQ3hhcnJheSUyQ3Jpb3hhcnJheSUyQ2RlYnVnZ2luZw==" data-listing-date-sort="1772409600000" data-listing-file-modified-sort="1786627604984" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="427">
 <div class="thumbnail"><a href="./posts/rioxarray-xarray-version-pin/index.html" class="no-external">
 
 <div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
@@ -720,7 +767,7 @@ If you’ve recently tried to install <code>rioxarray</code> alongside a current
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="8" data-categories="cXVhcnRvJTJDYWNhZGVtaWMlMkNiaWJsaW9ncmFwaHklMkNvcGVuLXNvdXJjZQ==" data-listing-date-sort="1772409600000" data-listing-file-modified-sort="1784823025859" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="344">
+<div class="quarto-post image-right" data-index="9" data-categories="cXVhcnRvJTJDYWNhZGVtaWMlMkNiaWJsaW9ncmFwaHklMkNvcGVuLXNvdXJjZQ==" data-listing-date-sort="1772409600000" data-listing-file-modified-sort="1786627604981" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="344">
 <div class="thumbnail"><a href="./posts/chronobib-quarto-extension/index.html" class="no-external">
 
 <div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
@@ -756,7 +803,7 @@ After publishing highlight-author earlier today, I extracted the other half of m
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="9" data-categories="cXVhcnRvJTJDYWNhZGVtaWMlMkNiaWJsaW9ncmFwaHklMkNvcGVuLXNvdXJjZQ==" data-listing-date-sort="1772409600000" data-listing-file-modified-sort="1784823025860" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="436">
+<div class="quarto-post image-right" data-index="10" data-categories="cXVhcnRvJTJDYWNhZGVtaWMlMkNiaWJsaW9ncmFwaHklMkNvcGVuLXNvdXJjZQ==" data-listing-date-sort="1772409600000" data-listing-file-modified-sort="1786627604983" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="436">
 <div class="thumbnail"><a href="./posts/highlight-author-quarto-extension/index.html" class="no-external">
 
 <div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
@@ -792,7 +839,7 @@ If you’ve ever built an academic homepage, a CV, or a grant proposal in Quarto
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="10" data-categories="aG9tZWFzc2lzdGFudCUyQ3R1eWElMkN0aGVybW9zdGF0cyUyQ3B5dGhvbg==" data-listing-date-sort="1678060800000" data-listing-file-modified-sort="1784823025854" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="535">
+<div class="quarto-post image-right" data-index="11" data-categories="aG9tZWFzc2lzdGFudCUyQ3R1eWElMkN0aGVybW9zdGF0cyUyQ3B5dGhvbg==" data-listing-date-sort="1678060800000" data-listing-file-modified-sort="1786627604977" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="535">
 <div class="thumbnail"><a href="./posts/2023-03-06_Tuya_thermostats/index.html" class="no-external">
 
 <p class="card-img-top"><img loading='lazy' src="posts/2023-03-06_Tuya_thermostats/zigbee_info.png" alt="Manufacturer string shown after “by”"  class="thumbnail-image card-img"/></p>
@@ -828,7 +875,7 @@ Let me start by saying that my only work in this knowledge gathering was the com
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="11" data-categories="cHl0aG9uJTJDY29uZGElMkNtYW1iYSUyQ3NvZnR3YXJlJTIwbWFuYWdlbWVudA==" data-listing-date-sort="1634322970000" data-listing-file-modified-sort="1784823025861" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6" data-listing-word-count-sort="1008">
+<div class="quarto-post image-right" data-index="12" data-categories="cHl0aG9uJTJDY29uZGElMkNtYW1iYSUyQ3NvZnR3YXJlJTIwbWFuYWdlbWVudA==" data-listing-date-sort="1634322970000" data-listing-file-modified-sort="1786627604984" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6" data-listing-word-count-sort="1008">
 <div class="thumbnail"><a href="./posts/minimal-conda-setup-instructions/index.html" class="no-external">
 
 <div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
@@ -864,7 +911,7 @@ There’s an increasing amount of folks complaining that they need to watch a vi
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="12" data-categories="aGFja2luZyUyQ3B5dGhvbg==" data-listing-date-sort="1632279845000" data-listing-file-modified-sort="1784823025859" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="438">
+<div class="quarto-post image-right" data-index="13" data-categories="aGFja2luZyUyQ3B5dGhvbg==" data-listing-date-sort="1632279845000" data-listing-file-modified-sort="1786627604981" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="438">
 <div class="thumbnail"><a href="./posts/execute-speedtest-regularly/index.html" class="no-external">
 
 <div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
@@ -896,7 +943,7 @@ This post is making use of the <code>speedtest</code> command line version of Oo
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="13" data-categories="Y29uZGElMkNtYW1iYSUyQ3NvZnR3YXJlJTIwbWFuYWdlbWVudA==" data-listing-date-sort="1631301310000" data-listing-file-modified-sort="1784823025861" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="186">
+<div class="quarto-post image-right" data-index="14" data-categories="Y29uZGElMkNtYW1iYSUyQ3NvZnR3YXJlJTIwbWFuYWdlbWVudA==" data-listing-date-sort="1631301310000" data-listing-file-modified-sort="1786627604984" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="186">
 <div class="thumbnail"><a href="./posts/mamba-is-the-new-conda/index.html" class="no-external">
 
 <div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
@@ -930,7 +977,7 @@ Mamba is a CLI tool to manage conda environments and a drop-in replacement for t
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="14" data-categories="cGxhbmV0JTIwZm91cg==" data-listing-date-sort="1407196800000" data-listing-file-modified-sort="1784823025860" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="981">
+<div class="quarto-post image-right" data-index="15" data-categories="cGxhbmV0JTIwZm91cg==" data-listing-date-sort="1407196800000" data-listing-file-modified-sort="1786627604983" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="981">
 <div class="thumbnail"><a href="./posts/fan-creation/index.html" class="no-external">
 
 <p class="card-img-top"><img loading='lazy' src="posts/fan-creation/20140805_fan_creation_25_1.png" alt="png"  class="thumbnail-image card-img"/></p>
@@ -960,7 +1007,7 @@ I wrote this blog post 2 weeks ago, but I wanted to show the IPython notebook in
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="15" data-categories="cGxvdHRpbmclMkNtYXRwbG90bGli" data-listing-date-sort="1378166400000" data-listing-file-modified-sort="1784823025861" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="323">
+<div class="quarto-post image-right" data-index="16" data-categories="cGxvdHRpbmclMkNtYXRwbG90bGli" data-listing-date-sort="1378166400000" data-listing-file-modified-sort="1786627604984" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="323">
 <div class="thumbnail"><a href="./posts/matplotlib-ticklabel-formats/index.html" class="no-external">
 
 <div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>

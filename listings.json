@@ -12,23 +12,9 @@
     ]
   },
   {
-    "listing": "/talks.html",
-    "items": [
-      "/talks/2026-fub-seminar/index.html",
-      "/talks/2026-dgp-planet-four/index.html",
-      "/talks/2024-ipda-data-talk/index.html",
-      "/talks/2024-epsc-op-data-cafe/index.html",
-      "/talks/2022-fub-seminar/index.html",
-      "/talks/2021-pdw-planetarypy/index.html",
-      "/talks/2021-conda-workshop-kharkiv/index.html",
-      "/talks/2021-diviner-kharkiv-talk/index.html",
-      "/talks/conda-workshop/index.html",
-      "/talks/conda-lunchtalk/index.html"
-    ]
-  },
-  {
     "listing": "/posts.html",
     "items": [
+      "/posts/2026-08-13_planet-four-uncertainty-api/index.html",
       "/posts/2026-05-14_nssdc-factsheets-archive/index.html",
       "/posts/2026-05-12_spice-kernel-db-redteam/index.html",
       "/posts/2026-04-12_equal-commute/index.html",
@@ -45,6 +31,21 @@
       "/posts/mamba-is-the-new-conda/index.html",
       "/posts/fan-creation/index.html",
       "/posts/matplotlib-ticklabel-formats/index.html"
+    ]
+  },
+  {
+    "listing": "/talks.html",
+    "items": [
+      "/talks/2026-fub-seminar/index.html",
+      "/talks/2026-dgp-planet-four/index.html",
+      "/talks/2024-ipda-data-talk/index.html",
+      "/talks/2024-epsc-op-data-cafe/index.html",
+      "/talks/2022-fub-seminar/index.html",
+      "/talks/2021-pdw-planetarypy/index.html",
+      "/talks/2021-conda-workshop-kharkiv/index.html",
+      "/talks/2021-diviner-kharkiv-talk/index.html",
+      "/talks/conda-workshop/index.html",
+      "/talks/conda-lunchtalk/index.html"
     ]
   },
   {

@@ -9,8 +9,149 @@
 <link>https://michaelaye.github.io/posts.html</link>
 <atom:link href="https://michaelaye.github.io/posts.xml" rel="self" type="application/rss+xml"/>
 <description></description>
-<generator>quarto-1.9.38</generator>
-<lastBuildDate>Thu, 14 May 2026 00:00:00 GMT</lastBuildDate>
+<generator>quarto-1.10.18</generator>
+<lastBuildDate>Thu, 13 Aug 2026 00:00:00 GMT</lastBuildDate>
+<item>
+  <title>Planet Four’s catalog now ships its own uncertainty</title>
+  <link>https://michaelaye.github.io/posts/2026-08-13_planet-four-uncertainty-api/</link>
+  <description><![CDATA[ 
+
+
+
+
+
+
+<p>Every fan and blotch in the <a href="https://www.zooniverse.org/projects/mschwamb/planet-four">Planet Four</a> catalog is a <em>cluster</em>: many volunteers mark the same feature, DBSCAN decides which of their clicks belong together, and the pipeline then averages each cluster’s members into one object with a position, an angle, a size. Once the membership is fixed, those same members give you more than the mean — taking the <strong>standard deviation</strong> over each cluster, for each marking parameter, tells you how much the volunteers <strong>disagreed</strong> about that feature’s position, angle, and size.</p>
+<p>Those spread numbers are genuinely useful: they are a per-marking, data-driven uncertainty. And they were being computed on every run, sitting in every intermediate pipeline product… and then getting <strong>silently dropped at the very last step</strong>, so that the catalog everyone actually downloads never carried them.</p>
+<p>This post is about noticing that, getting the numbers into the published catalog, and the little quality API they unlocked.</p>
+<section id="the-bug-that-wasnt-a-bug" class="level2">
+<h2 class="anchored" data-anchor-id="the-bug-that-wasnt-a-bug">The bug that wasn’t a bug</h2>
+<p>Nothing was broken, exactly. The cluster-averaging step wrote <code>x_std</code>, <code>y_std</code>, <code>angle_std</code>, plus <code>distance_std</code>/<code>spread_std</code> for fans and <code>radius1_std</code>/<code>radius2_std</code> for blotches, all the way through the L1A → L1B → L1C levels. The loss happened in one place: the final “publish” step selects an explicit <strong>allowlist</strong> of columns before writing the CSVs that go to Zenodo —</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1">fans[<span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>.FAN_COLUMNS_AS_PUBLISHED].to_csv(<span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>.fan_merged, index<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">False</span>)</span></code></pre></div></div>
+<p>— and the seven <code>*_std</code> columns simply weren’t on that list. Present in every frame right up to the slice; gone the moment it was written. So the fix, in principle, is one line: add the columns to the allowlist. Done for every <em>future</em> catalog.</p>
+<p>For the catalog that already exists, the seven columns were recovered and folded back in, and the result re-published on Zenodo as a new <strong>v3.1.1</strong> release. That is deliberately a <em>point</em> release: none of the science changed — same clustering, same objects, same values, byte-for-byte — the only difference is the previously dropped std columns being added. So it stays a 3.1.x catalog, and within <code>p4tools</code> it is still simply <strong>v3.1</strong>: <code>get_fan_catalog("v3.1")</code> transparently gains the new columns and no existing code breaks. The <code>v3.1.1</code> label lives on the Zenodo data release (a fresh DOI), not in the software’s catalog version.</p>
+</section>
+<section id="the-quality-api-keep-support-and-scatter-apart" class="level2">
+<h2 class="anchored" data-anchor-id="the-quality-api-keep-support-and-scatter-apart">The quality API: keep <em>support</em> and <em>scatter</em> apart</h2>
+<p>A raw standard deviation is a trap, because it conflates two very different reasons a marking might be unreliable:</p>
+<ul>
+<li><strong>weak support</strong> — only a few people marked it, so <em>any</em> statistic is shaky;</li>
+<li><strong>genuine disagreement</strong> — lots of people marked it, and they <em>scattered</em>.</li>
+</ul>
+<p>If you collapse those into one “uncertainty” score, the most scientifically interesting tiles — the ones with strong turnout <strong>and</strong> real disagreement — look identical to tiles nobody looked at. So the new API in <code>p4tools.stats</code> keeps them on two axes that are never mixed. In particular it deliberately avoids any <em>standard error of the mean</em> (SEM = std ÷ √n): dividing scatter by the vote count would quietly fold support back into the scatter axis, exactly the confusion we’re trying to avoid.</p>
+<p>It comes in three layers:</p>
+<ol type="1">
+<li><strong><code>add_uncertainty_columns</code></strong> — per marking: combine <code>x_std</code>/<code>y_std</code> into a positional <code>pos_std</code>, express size spread as a <em>relative</em> coefficient of variation, flag near-circular blotches whose angle is meaningless, and gate on a minimum vote count.</li>
+<li><strong><code>tile_quality</code></strong> — per tile: a <strong>support</strong> group (vote counts) and a <strong>scatter</strong> group (disagreement), where scatter is computed <em>only</em> from markings that clear the vote gate — so few votes can never masquerade as disagreement. Optional cap-wide percentile ranks make the incommensurate units (degrees, pixels, dimensionless) comparable.</li>
+<li><strong><code>classify_tile_quality</code></strong> — an opt-in labelling from the two rank axes.</li>
+</ol>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> p4tools <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> io, stats</span>
+<span id="cb2-2"></span>
+<span id="cb2-3">tq <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> stats.tile_quality(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"both"</span>, version<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"v3.1"</span>)   <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># one row per tile</span></span>
+<span id="cb2-4">tq <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> stats.classify_tile_quality(tq)</span>
+<span id="cb2-5">tq.quality_class.value_counts()</span></code></pre></div></div>
+</section>
+<section id="four-kinds-of-tile" class="level2">
+<h2 class="anchored" data-anchor-id="four-kinds-of-tile">Four kinds of tile</h2>
+<p>Splitting the two axes at their medians gives four honest categories:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><code>quality_class</code></th>
+<th>support</th>
+<th>scatter</th>
+<th>reading</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>consistent</code></td>
+<td>high</td>
+<td>low</td>
+<td>reliable — the best QC tier</td>
+</tr>
+<tr class="even">
+<td><code>contested</code></td>
+<td>high</td>
+<td>high</td>
+<td>many votes, <strong>genuine disagreement</strong> — scientifically interesting; exactly the class a single conflated score would hide</td>
+</tr>
+<tr class="odd">
+<td><code>sparse</code></td>
+<td>low</td>
+<td>low</td>
+<td>few votes, but they agree</td>
+</tr>
+<tr class="even">
+<td><code>noisy</code></td>
+<td>low</td>
+<td>high</td>
+<td>least reliable</td>
+</tr>
+</tbody>
+</table>
+<p>Across the 64,494 tiles of v3.1 the split is remarkably even — ~17 k consistent, ~15 k contested, ~12 k noisy, ~12 k sparse — with ~8 k tiles left explicitly unclassified because <em>no</em> marking cleared the vote gate, so no scatter estimate exists. Guessing there would have been worse than admitting it.</p>
+</section>
+<section id="try-it" class="level2">
+<h2 class="anchored" data-anchor-id="try-it">Try it</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">pip</span> install <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-U</span> p4tools     <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># or: conda install -c michaelaye p4tools</span></span></code></pre></div></div>
+<ul>
+<li><strong>Full, runnable tutorial</strong> (live examples on the real catalog): <a href="https://michaelaye.github.io/p4tools/tile_quality.html"><code>p4tools</code> → Per-Tile Quality</a></li>
+<li><strong>Data</strong>: <a href="https://doi.org/10.5281/zenodo.21917907">Planet Four catalog v3.1.1 on Zenodo</a> (DOI <code>10.5281/zenodo.21917907</code>)</li>
+<li><strong>Release</strong>: <a href="https://github.com/michaelaye/p4tools/releases/tag/v0.23.0">p4tools 0.23.0</a> · <a href="https://pypi.org/project/p4tools/0.23.0/">PyPI</a></li>
+</ul>
+
+
+</section>
+
+ ]]></description>
+  <category>planet-four</category>
+  <category>p4tools</category>
+  <category>python</category>
+  <category>citizen-science</category>
+  <category>mars</category>
+  <category>uncertainty</category>
+  <category>zenodo</category>
+  <category>nbdev</category>
+  <guid>https://michaelaye.github.io/posts/2026-08-13_planet-four-uncertainty-api/</guid>
+  <pubDate>Thu, 13 Aug 2026 00:00:00 GMT</pubDate>
+</item>
 <item>
   <title>A longitudinal archive of the NSSDC planetary fact sheets, 1996–2025</title>
   <link>https://michaelaye.github.io/posts/2026-05-14_nssdc-factsheets-archive/</link>

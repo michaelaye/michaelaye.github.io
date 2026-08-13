@@ -6,8 +6,8 @@
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-0a6b7249c26820e032cb0bd839ff02b1.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.9.38">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-b85bc7c33db8c58e0ec93c3465666fed.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.10.18">
 
   <meta name="author" content="K.-Michael Aye">
   <meta name="author" content="Tom Ihro">
@@ -26,10 +26,13 @@
     /* Default styles provided by pandoc.
     ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
     */
-    code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
     ul.task-list li input[type="checkbox"] {
@@ -235,7 +238,7 @@
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
 <div class="quarto-title-author-name">
-K.-Michael Aye 
+K.-Michael Aye
 </div>
         <p class="quarto-title-affiliation">
             Freie Universität Berlin
@@ -246,7 +249,7 @@ K.-Michael Aye
     </div>
 <div class="quarto-title-author">
 <div class="quarto-title-author-name">
-Tom Ihro 
+Tom Ihro
 </div>
         <p class="quarto-title-affiliation">
             Freie Universität Berlin
@@ -254,7 +257,7 @@ Tom Ihro
     </div>
 <div class="quarto-title-author">
 <div class="quarto-title-author-name">
-Tim Michaels 
+Tim Michaels
 </div>
         <p class="quarto-title-affiliation">
             University of Wisconsin–Madison
@@ -262,7 +265,7 @@ Tim Michaels
     </div>
 <div class="quarto-title-author">
 <div class="quarto-title-author-name">
-Ganna Portyankina 
+Ganna Portyankina
 </div>
         <p class="quarto-title-affiliation">
             Deutsches Zentrum für Luft- und Raumfahrt (DLR)
@@ -270,7 +273,7 @@ Ganna Portyankina
     </div>
 <div class="quarto-title-author">
 <div class="quarto-title-author-name">
-Candice J. Hansen 
+Candice J. Hansen
 </div>
         <p class="quarto-title-affiliation">
             Planetary Science Institute
@@ -278,7 +281,7 @@ Candice J. Hansen
     </div>
 <div class="quarto-title-author">
 <div class="quarto-title-author-name">
-Megan E. Schwamb 
+Megan E. Schwamb
 </div>
         <p class="quarto-title-affiliation">
             Queen’s University Belfast
@@ -631,8 +634,8 @@ Megan E. Schwamb
 <li>Open release on <strong>Zenodo</strong> as part of the <em>Planet Four Data Catalog</em></li>
 </ul>
 <h3 id="two-lines-of-python-via-p4tools">Two lines of Python via <code>p4tools</code></h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a></a><span class="im">from</span> p4tools <span class="im">import</span> io</span>
-<span id="cb1-2"><a></a>fans <span class="op">=</span> io.get_fan_catalog(version<span class="op">=</span><span class="st">"v3.1"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a aria-label="1"></a><span class="im">from</span> p4tools <span class="im">import</span> io</span>
+<span id="cb1-2"><a aria-label="2"></a>fans <span class="op">=</span> io.get_fan_catalog(version<span class="op">=</span><span class="st">"v3.1"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <aside class="notes">
 <p>~75 s. The deliverable: a citable, openly redistributable catalog plus a pip-installable access library. This is what makes the coverage analysis in the second half reproducible by anyone in the room. Transition slide into Part III.</p>
 <style type="text/css">
