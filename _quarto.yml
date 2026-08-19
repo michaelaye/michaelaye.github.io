@@ -37,6 +37,7 @@ format:
       # Dark (best inline code contrast): darkly, superhero, solar, cyborg
       dark: superhero
     css: styles.css
+    include-in-header: _includes/rel-me.html
     toc: true
     lightbox: true
     highlight-style: atom-one
