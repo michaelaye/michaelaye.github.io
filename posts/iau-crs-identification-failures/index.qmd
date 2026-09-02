@@ -1,0 +1,286 @@
+---
+title: "Four ways your GIS stack loses a planetary CRS"
+subtitle: "IAU_2015 is a versioned authority, and most readers drop the version"
+summary: "PROJ ships planetary CRS under the versioned authority IAU_2015. Write one to a GeoTIFF or GeoPackage and read it back, and most of the stack can no longer tell you what it is. Minimal reproducers for each failure, and where the information actually goes."
+tags: [planetary, gis, gdal, proj, rasterio, crs]
+categories: []
+date: 2026-09-02
+lastmod: 2026-09-02
+featured: false
+draft: true
+---
+
+If you work with Earth data, a CRS round-trip is boring: you write `EPSG:32618`, you read
+it back, `to_authority()` returns `('EPSG', '32618')`, and you never think about it again.
+
+Planetary data is not boring. PROJ ships the IAU coordinate reference systems under the
+authority name **`IAU_2015`** — a name that carries an edition year, because the IAU
+revises body parameters. Mars alone has
+
+```
+IAU_2015:49900   Mars (2015) - Sphere / Ocentric     a = b = 3396190, f = 0
+IAU_2015:49901   Mars (2015) / Ographic              a = 3396190, b = 3376200
+IAU_2015:49910   ... / Equirectangular, clon = 0
+```
+
+That versioned authority is the problem. Below are four round-trips through common
+formats. One of them works.
+
+All output is from a single script (given at the end) on:
+
+```
+rasterio 1.5.1 | GDAL 3.13.2 | PROJ 9.8.1 | pyproj 3.7.2 | geopandas 1.1.4
+```
+
+## The starting point: nothing is wrong yet
+
+```python
+from pyproj import CRS
+crs = CRS.from_user_input("IAU_2015:49910")
+```
+
+```
+PROJJSON id    : {"authority": "IAU", "code": 49910, "version": 2015}
+to_authority() : ('IAU_2015', '49910')
+```
+
+PROJJSON has three slots — `authority`, `code`, **`version`** — and all three are filled.
+Note the authority is stored as `IAU` with a separate `version: 2015`; the string
+`IAU_2015` is a rendering of that pair, not what is stored.
+
+Keep that structure in mind. Every failure below is a format or a reader with nowhere to
+put the third slot.
+
+## 1. GeoTIFF through GDAL: depends which accessor you use
+
+```python
+ds = gdal.Open("x.tif")
+w1 = ds.GetProjection()                                       # WKT1
+w2 = ds.GetSpatialRef().ExportToWkt(["FORMAT=WKT2_2019"])     # WKT2
+```
+
+```
+GetProjection() tail        : NORTH],AUTHORITY["IAU","49910"]]
+-> to_authority()           : None
+GetSpatialRef() WKT2 tail   : tre",1]],ID["IAU",49910,2015]]
+-> to_authority()           : ('IAU_2015', '49910')
+GetAuthorityName/Code       : IAU_2015 49910
+```
+
+The file is fine. WKT2 carries `ID["IAU",49910,2015]` — authority, code, **and version** —
+and `GetAuthorityName()` returns the full `IAU_2015`.
+
+WKT1 cannot. Its `AUTHORITY["name","code"]` node has exactly two slots and no third one
+to put the edition in, so `AUTHORITY["IAU","49910"]` is the most it can say. Nothing
+downstream can recover `2015` from that string, because it was never in it.
+
+This is not a GDAL bug. It is a WKT1 format limitation, and GDAL documents
+`GetProjectionRef()` as *"a compatibility layer around GetSpatialRef()"* since GDAL 3.0.
+[RFC 73](https://gdal.org/development/rfc/rfc73_proj6_wkt2_srsbarn.html) exists precisely
+to move callers off representation-dependent strings:
+
+> using "a SRS that is not dependent of the representation (WKT 1 or WKT 2), hence using a
+> `OGRSpatialReference` object instead of a `const char*` string"
+
+## 2. The same GeoTIFF through rasterio: lost
+
+```python
+rc = rasterio.open("x.tif").crs
+```
+
+```
+crs.to_authority()          : None
+crs.to_wkt() tail           : NORTH],AUTHORITY["IAU","49910"]]
+to_wkt(version='WKT2_2019') : T["metre",1]],ID["IAU",49910]]
+-> to_authority()           : None
+```
+
+Two things worth separating here.
+
+**rasterio reads the CRS through the WKT1 accessor.** In `rasterio/_base.pyx`:
+
+```python
+def read_crs(self):
+    cdef const char *wkt = GDALGetProjectionRef(self.handle())   # WKT1
+    return self._handle_crswkt(wkt)
+```
+
+So the version is destroyed before rasterio's `CRS` object exists. `GDALGetSpatialRef` —
+the RFC 73 replacement — is not bound in `rasterio/gdal.pxi` at all, which suggests this
+is a GDAL-2-era carry-over rather than a decision.
+
+**Asking for WKT2 does not help**, and that is the more surprising part. `to_wkt(version=
+"WKT2_2019")` emits `ID["IAU",49910]` — WKT2 *without* the version field — because the
+CRS object it is exporting never had one. You cannot re-serialise information that was
+discarded at read time.
+
+(Careful with the call: `to_wkt`'s first positional parameter is `morph_to_esri_dialect`,
+not the version. `to_wkt("WKT2_2019")` silently warns and returns WKT1.)
+
+rasterio's `CRS` class is perfectly capable — `CRS.from_wkt(w2)` on GDAL's WKT2 string
+gives `('IAU_2015', '49910')`, and so does `CRS.from_user_input("IAU_2015:49910")`. Only
+the *file reading* path loses it.
+
+## 3. GeoPackage: the information is in the file, and the reader ignores it
+
+This is the interesting case, because the format does better than the reader.
+
+A GeoPackage is a SQLite database with a spec-mandated table `gpkg_spatial_ref_sys`, and
+each layer, each geometry column, and each geometry BLOB header points into it by an
+integer `srs_id`. The row has **dedicated authority columns**:
+
+```
+stored organization         : 'IAU'
+stored coordsys id          : 49910
+definition (WKT1) tail      : NORTH],AUTHORITY["IAU","49910"]]
+CRS.from_authority(org,code): ('IAU_2015', '49910')      <-- resolves!
+geopandas read-back         : None                       <-- but this is what you get
+```
+
+`organization` + `organization_coordsys_id` is a complete, resolvable identification
+sitting in the file. Feed it to `CRS.from_authority` and you get the CRS back. The reader
+does not use it — it reconstructs from the WKT `definition`, which is WKT1, which cannot
+carry the version.
+
+GeoPackage 1.2 added a `gpkg_crs_wkt` extension with a `definition_12_063` column for
+WKT2. Enabling it does not help either:
+
+```python
+g.to_file("x2.gpkg", driver="GPKG", CRS_WKT_EXTENSION="YES")
+```
+
+```
+with CRS_WKT_EXTENSION=YES  : "metre",1]],ID["IAU",49910]]
+-> to_authority()           : None
+```
+
+The WKT2 written into the extension column is **missing the version**, even though GDAL's
+GeoTIFF path writes `ID["IAU",49910,2015]` from the same CRS. So this one is a writer
+defect, not a format limitation.
+
+## 4. GeoParquet: works
+
+```
+PROJJSON id          : {"authority": "IAU", "code": 49910, "version": 2015}
+geopandas read-back  : ('IAU_2015', '49910')
+```
+
+GeoParquet stores the CRS as **PROJJSON** in the file metadata, and PROJJSON has a
+first-class `version` field. Nothing has to be squeezed into a two-slot node or inferred
+from a string. It round-trips losslessly, and it is the only one of the four that does.
+
+The lineage survives too: the base geographic CRS carries its own
+`{"authority": "IAU", "code": 49900, "version": 2015}`.
+
+## It is not the authority *name*
+
+A reasonable guess is that `IAU` versus `IAU_2015` is the mismatch — the files say `IAU`,
+PROJ's authority is called `IAU_2015`, so lookups fail. That guess is wrong:
+
+```
+CRS.from_authority('IAU', 49910)      -> ('IAU_2015', '49910')
+CRS.from_authority('IAU_2015', 49910) -> ('IAU_2015', '49910')
+```
+
+PROJ accepts either. The short name is not the problem. **The problem is exclusively that
+readers reconstruct the CRS from a WKT string when a lossless authority reference is
+available**, either in the file's own schema (GeoPackage) or through a non-string API
+(GDAL's `GetSpatialRef`).
+
+## Summary
+
+| path | carries the version? | `to_authority()` |
+|---|---|---|
+| in memory (pyproj) | yes, PROJJSON | `('IAU_2015', '49910')` |
+| GeoTIFF → GDAL `GetSpatialRef()` WKT2 | yes | `('IAU_2015', '49910')` |
+| GeoTIFF → GDAL `GetProjection()` WKT1 | no — format limit | `None` |
+| GeoTIFF → rasterio | no — reader uses WKT1 | `None` |
+| GeoPackage → geopandas/GDAL | in the schema, not used | `None` |
+| GeoParquet → geopandas | yes, PROJJSON | `('IAU_2015', '49910')` |
+
+Three distinct causes, worth keeping apart:
+
+1. **A format limitation.** WKT1 has no version slot. Nothing to fix; just do not
+   round-trip through it.
+2. **A reader choosing the lossy path.** rasterio reads WKT1 when `GetSpatialRef` exists;
+   the GeoPackage reader parses WKT when authority columns are right there.
+3. **A writer dropping a field it has.** GDAL's GeoPackage WKT2 omits the version its
+   GeoTIFF WKT2 includes.
+
+Only (1) is inherent.
+
+## What to do meanwhile
+
+- **Verify with GDAL's authority accessors, not `to_authority()`**:
+  `gdal.Open(f).GetSpatialRef().GetAuthorityName(None)`. On correctly-labelled files,
+  `rasterio ... .crs.to_authority()` returning `None` means nothing about the data.
+- **Prefer GeoParquet** for tabular vector data that must carry a planetary CRS
+  faithfully; keep GeoPackage as the QGIS-facing export.
+- **For GeoPackage, read the authority columns directly**:
+
+```python
+org, code = con.execute("""
+    select s.organization, s.organization_coordsys_id
+    from gpkg_geometry_columns g
+    join gpkg_spatial_ref_sys s using (srs_id)
+    where g.table_name = ?""", (layer,)).fetchone()
+crs = CRS.from_authority(org, code)
+```
+
+- **Do not conclude a file has a broken CRS** because a reader says `None`. Every file in
+  this post was written correctly.
+
+This matters beyond tidiness. Mars has both a sphere (`49900`) and an ellipsoid (`49901`)
+in the same authority, differing by 20 km in polar radius, and planetary products are
+routinely unlabelled or ESRI-flavoured. When identification silently degrades to `None`,
+the usual next step is someone guessing — and a guess between 49900 and 49901 is a real
+geometric error, not a metadata nit.
+
+## The reproducer
+
+```python
+import json, sqlite3, tempfile, warnings
+warnings.filterwarnings("ignore")
+
+import geopandas as gpd
+import numpy as np
+import pyarrow.parquet as pq
+import rasterio
+from osgeo import gdal
+from pyproj import CRS
+from rasterio.transform import from_origin
+from shapely.geometry import box
+
+gdal.UseExceptions()
+crs = CRS.from_user_input("IAU_2015:49910")
+d = tempfile.mkdtemp()
+tif, gpkg, pqt = f"{d}/x.tif", f"{d}/x.gpkg", f"{d}/x.parquet"
+
+with rasterio.open(tif, "w", driver="GTiff", height=8, width=8, count=1,
+                   dtype="uint8", crs=crs,
+                   transform=from_origin(1e5, 1e5, 10, 10)) as dst:
+    dst.write(np.zeros((8, 8), "uint8"), 1)
+
+g = gpd.GeoDataFrame({"a": [1]}, geometry=[box(0, 0, 1e4, 1e4)], crs=crs)
+g.to_file(gpkg, driver="GPKG", layer="t")
+g.to_parquet(pqt)
+
+ds = gdal.Open(tif)
+w1, w2 = ds.GetProjection(), ds.GetSpatialRef().ExportToWkt(["FORMAT=WKT2_2019"])
+print("GDAL WKT1 :", CRS.from_wkt(w1).to_authority())
+print("GDAL WKT2 :", CRS.from_wkt(w2).to_authority())
+print("rasterio  :", rasterio.open(tif).crs.to_authority())
+print("rio WKT2  :", CRS.from_wkt(
+    rasterio.open(tif).crs.to_wkt(version="WKT2_2019")).to_authority())
+
+con = sqlite3.connect(gpkg)
+org, code = next(con.execute(
+    "select organization, organization_coordsys_id from gpkg_spatial_ref_sys "
+    "where organization not in ('NONE','EPSG')"))
+print("GPKG cols :", CRS.from_authority(org, code).to_authority())
+print("GPKG read :", gpd.read_file(gpkg).crs.to_authority())
+
+geo = json.loads(pq.read_schema(pqt).metadata[b"geo"])
+print("GeoParquet:", geo["columns"][geo["primary_column"]]["crs"]["id"])
+print("GPQ read  :", gpd.read_parquet(pqt).crs.to_authority())
+```
