@@ -2,8 +2,7 @@
 title: "Four ways your GIS stack loses a planetary CRS"
 subtitle: "IAU_2015 is a versioned authority, and most readers drop the version"
 summary: "PROJ ships planetary CRS under the versioned authority IAU_2015. Write one to a GeoTIFF or GeoPackage and read it back, and most of the stack can no longer tell you what it is. Minimal reproducers for each failure, and where the information actually goes."
-tags: [planetary, gis, gdal, proj, rasterio, crs]
-categories: []
+categories: [python, planetary, geospatial, gdal, proj, rasterio, crs]
 date: 2026-09-02
 lastmod: 2026-09-02
 featured: false
