@@ -15,6 +15,28 @@ quarto render           # Build full site to _site/
 
 Deployment is automatic: pushing to `main` triggers the GitHub Actions workflow (`.github/workflows/publish.yml`) which renders and publishes to the `gh-pages` branch.
 
+## Publishing a Post
+
+Nothing is announced automatically. There is deliberately no crosspost workflow — social
+posts are written by hand, per post, or not at all.
+
+When publishing a post (taking it out of `draft`, or adding a new one), follow these steps:
+
+1. Confirm `draft: false` and that `categories` is populated — the listing pages and any
+   announcement text both read `categories`, not `tags`.
+2. `quarto render posts/<slug>/index.qmd` and check it builds clean.
+3. Commit **only** the post's own files. The working tree usually carries unrelated
+   untracked material; never sweep it in.
+4. Push to `main` and wait for the `Quarto Publish` run to succeed, then verify the live
+   URL returns 200 and actually serves the new content.
+5. **Ask Michael whether he wants to announce it on social media.** Do not assume either
+   way, and never post anything to any network directly.
+6. If yes, draft the announcement text for him to review, copy, and post himself:
+   - **Bluesky** — 300 characters including the URL.
+   - **Mastodon** — 500 characters, hashtags derived from the post's `categories`.
+   Base both on the post's `title` and `summary`; strip markdown, since neither network
+   renders it. Present the drafts in chat with their character counts. He posts them.
+
 ## Architecture
 
 **Static site generator:** Quarto with `project: type: website` configuration in `_quarto.yml`.
