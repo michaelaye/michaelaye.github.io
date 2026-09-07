@@ -7,7 +7,7 @@ categories: []
 date: 2026-09-02
 lastmod: 2026-09-02
 featured: false
-draft: true
+draft: false
 ---
 
 If you work with Earth data, a CRS round-trip is boring: you write `EPSG:32618`, you read
@@ -25,6 +25,14 @@ IAU_2015:49910   ... / Equirectangular, clon = 0
 
 That versioned authority is the problem. Below are four round-trips through common
 formats. One of them works.
+
+One thing to say up front, because it frames everything below. The IAU's own work here is
+long-settled; what is new is the *plumbing* — PROJ only gained the IAU authority in
+version 8.2, and GeoParquet's CRS metadata is younger still. Every library in this
+post is implementing a young standard, and most of them are getting most of it right. So
+read this as a status check, not a complaint: a snapshot of where planetary CRS
+identification can be relied on today, and where it cannot. I would expect several of
+these rows to change, and I would be glad if they did.
 
 All output is from a single script (given at the end) on:
 
@@ -51,12 +59,40 @@ Note the authority is stored as `IAU` with a separate `version: 2015`; the strin
 Keep that structure in mind. Every failure below is a format or a reader with nowhere to
 put the third slot.
 
+## The test files
+
+The four round-trips below all start from that same `crs` object and write it into three
+files — a raster, and one shared `GeoDataFrame` through two vector drivers, GeoPackage 
+(`.gpkg`) and GeoParquet (`.parquet`):
+
+```python
+import geopandas as gpd
+import numpy as np
+import rasterio
+from rasterio.transform import from_origin
+from shapely.geometry import box
+
+with rasterio.open("x.tif", "w", driver="GTiff", height=8, width=8, count=1,
+                   dtype="uint8", crs=crs,
+                   transform=from_origin(1e5, 1e5, 10, 10)) as dst:
+    dst.write(np.zeros((8, 8), "uint8"), 1)
+
+gdf = gpd.GeoDataFrame({"a": [1]}, geometry=[box(0, 0, 1e4, 1e4)], crs=crs)
+gdf.to_file("x.gpkg", driver="GPKG", layer="t")
+gdf.to_parquet("x.parquet")
+```
+
+Eight-by-eight zeros and a single square. Nothing about the pixels or the geometry matters
+— the files exist only to carry the CRS from a writer to a reader. `x.gpkg` and
+`x.parquet` get theirs from the same `gdf`, which is what makes sections 3 and 4 a fair
+comparison: same CRS, same object, different driver.
+
 ## 1. GeoTIFF through GDAL: depends which accessor you use
 
 ```python
-ds = gdal.Open("x.tif")
-w1 = ds.GetProjection()                                       # WKT1
-w2 = ds.GetSpatialRef().ExportToWkt(["FORMAT=WKT2_2019"])     # WKT2
+dataset = gdal.Open("x.tif")
+wkt1 = dataset.GetProjection()                                     # WKT1
+wkt2 = dataset.GetSpatialRef().ExportToWkt(["FORMAT=WKT2_2019"])   # WKT2
 ```
 
 ```
@@ -85,7 +121,7 @@ to move callers off representation-dependent strings:
 ## 2. The same GeoTIFF through rasterio: lost
 
 ```python
-rc = rasterio.open("x.tif").crs
+rio_crs = rasterio.open("x.tif").crs
 ```
 
 ```
@@ -109,19 +145,20 @@ So the version is destroyed before rasterio's `CRS` object exists. `GDALGetSpati
 the RFC 73 replacement — is not bound in `rasterio/gdal.pxi` at all, which suggests this
 is a GDAL-2-era carry-over rather than a decision.
 
-**Asking for WKT2 does not help**, and that is the more surprising part. `to_wkt(version=
-"WKT2_2019")` emits `ID["IAU",49910]` — WKT2 *without* the version field — because the
-CRS object it is exporting never had one. You cannot re-serialise information that was
-discarded at read time.
+**Asking for WKT2 does not help**, and by the paragraph above it cannot. `to_wkt(version=
+"WKT2_2019")` emits `ID["IAU",49910]` — WKT2 *without* the version field — because the CRS
+object it is exporting never had one. The loss already happened at read time; no choice of
+output format undoes it. It is worth showing only because requesting WKT2 is the obvious
+thing to reach for, and it hands back a well-formed WKT2 string that looks like it worked.
 
 (Careful with the call: `to_wkt`'s first positional parameter is `morph_to_esri_dialect`,
 not the version. `to_wkt("WKT2_2019")` silently warns and returns WKT1.)
 
-rasterio's `CRS` class is perfectly capable — `CRS.from_wkt(w2)` on GDAL's WKT2 string
+rasterio's `CRS` class is perfectly capable — `CRS.from_wkt(wkt2)` on GDAL's WKT2 string
 gives `('IAU_2015', '49910')`, and so does `CRS.from_user_input("IAU_2015:49910")`. Only
 the *file reading* path loses it.
 
-## 3. GeoPackage: the information is in the file, and the reader ignores it
+## 3. GeoPackage: the identifier survives, the version does not
 
 This is the interesting case, because the format does better than the reader.
 
@@ -129,24 +166,59 @@ A GeoPackage is a SQLite database with a spec-mandated table `gpkg_spatial_ref_s
 each layer, each geometry column, and each geometry BLOB header points into it by an
 integer `srs_id`. The row has **dedicated authority columns**:
 
-```
-stored organization         : 'IAU'
-stored coordsys id          : 49910
-definition (WKT1) tail      : NORTH],AUTHORITY["IAU","49910"]]
-CRS.from_authority(org,code): ('IAU_2015', '49910')      <-- resolves!
-geopandas read-back         : None                       <-- but this is what you get
+```python
+import sqlite3
+
+con = sqlite3.connect("x.gpkg")
+org, code, wkt = next(con.execute(
+    "select organization, organization_coordsys_id, definition "
+    "from gpkg_spatial_ref_sys where organization not in ('NONE','EPSG')"))
 ```
 
-`organization` + `organization_coordsys_id` is a complete, resolvable identification
-sitting in the file. Feed it to `CRS.from_authority` and you get the CRS back. The reader
-does not use it — it reconstructs from the WKT `definition`, which is WKT1, which cannot
-carry the version.
+The filter skips the three rows the spec mandates in every GeoPackage — two `NONE`
+placeholders and `EPSG:4326` — leaving the layer's actual CRS:
+
+```
+org                         : 'IAU'
+code                        : 49910
+wkt tail                    : NORTH],AUTHORITY["IAU","49910"]]
+CRS.from_authority(org, code)
+-> to_authority()           : ('IAU_2015', '49910')   <-- resolves!
+gpd.read_file("x.gpkg").crs
+-> to_authority()           : None                    <-- but this is what you get
+```
+
+`organization` + `organization_coordsys_id` resolves — but it is worth being precise about
+why, because the reason is not that the file kept enough.
+
+There is no authority called `IAU` in PROJ. `proj.db`'s `authority_list` holds `EPSG`,
+`ESRI`, `IAU_2015`, `IGNF`, `NKG`, `NRCAN`, `OGC`, `PROJ`, and every IAU system sits under
+`IAU_2015`. The bare name resolves through a dedicated mapping table, which today holds
+exactly one row:
+
+```
+-- versioned_auth_name_mapping
+versioned_auth_name   auth_name   version   priority
+'IAU_2015'            'IAU'       '2015'    1
+```
+
+So `CRS.from_authority('IAU', 49910)` does not recover `2015` from the GeoPackage. It
+supplies it locally, from a lookup table with one candidate in it. What the file actually
+says is `IAU:49910` — ambiguous in principle, unambiguous today only because there is
+nothing yet to be ambiguous with. PROJ plainly expects that to change: `priority`, and the
+`UNIQUE (auth_name, priority)` constraint alongside it, exist to rank editions of the same
+authority. Ship an `IAU_2025` and a bare `IAU` reference is settled by PROJ's ranking
+rather than by what the file meant.
+
+The reader does not consult those columns regardless — it reconstructs from the WKT
+`definition`, which is WKT1, which cannot carry the version. So the GeoPackage row is
+better than what the reader does with it, but it is not the lossless record it looks like.
 
 GeoPackage 1.2 added a `gpkg_crs_wkt` extension with a `definition_12_063` column for
 WKT2. Enabling it does not help either:
 
 ```python
-g.to_file("x2.gpkg", driver="GPKG", CRS_WKT_EXTENSION="YES")
+gdf.to_file("x2.gpkg", driver="GPKG", CRS_WKT_EXTENSION="YES")
 ```
 
 ```
@@ -160,17 +232,39 @@ defect, not a format limitation.
 
 ## 4. GeoParquet: works
 
-```
-PROJJSON id          : {"authority": "IAU", "code": 49910, "version": 2015}
-geopandas read-back  : ('IAU_2015', '49910')
+No special reader needed — just open it and ask the CRS what it is:
+
+```python
+crs_back = gpd.read_parquet("x.parquet").crs
+projjson = crs_back.to_json_dict()
 ```
 
-GeoParquet stores the CRS as **PROJJSON** in the file metadata, and PROJJSON has a
-first-class `version` field. Nothing has to be squeezed into a two-slot node or inferred
-from a string. It round-trips losslessly, and it is the only one of the four that does.
+```
+crs_back.to_authority()      : ('IAU_2015', '49910')
+projjson["id"]               : {"authority": "IAU", "code": 49910, "version": 2015}
+projjson["base_crs"]["id"]   : {"authority": "IAU", "code": 49900, "version": 2015}
+```
 
-The lineage survives too: the base geographic CRS carries its own
-`{"authority": "IAU", "code": 49900, "version": 2015}`.
+GeoParquet stores the CRS as **PROJJSON**, and PROJJSON has a first-class `version` field.
+Nothing has to be squeezed into a two-slot node or inferred from a string. It round-trips
+losslessly, and it is the only one of the four that does. The lineage survives too — the
+base geographic CRS carries its own versioned identifier, so the sphere the projection is
+built on is named as explicitly as the projection itself.
+
+`to_json_dict()` is worth keeping in your pocket, because it is also the sharpest way to
+see what the other formats lost. The same two lines against the GeoPackage:
+
+```python
+gpd.read_file("x.gpkg").crs.to_json_dict()["id"]
+```
+
+```
+{"authority": "IAU", "code": 49910}
+```
+
+Same authority, same code, no `version` key at all. That is the whole difference between
+sections 3 and 4 in one line: not a different identifier, just a missing third slot — and
+with it gone, `to_authority()` has nothing to return but `None`.
 
 ## It is not the authority *name*
 
@@ -182,10 +276,11 @@ CRS.from_authority('IAU', 49910)      -> ('IAU_2015', '49910')
 CRS.from_authority('IAU_2015', 49910) -> ('IAU_2015', '49910')
 ```
 
-PROJ accepts either. The short name is not the problem. **The problem is exclusively that
-readers reconstruct the CRS from a WKT string when a lossless authority reference is
-available**, either in the file's own schema (GeoPackage) or through a non-string API
-(GDAL's `GetSpatialRef`).
+PROJ accepts either — the mapping table in section 3 is what makes the short name work. So
+the name is not the problem. **The problem is exclusively that readers reconstruct the CRS
+from a WKT string when a better reference is at hand**: losslessly through a non-string API
+(GDAL's `GetSpatialRef`), or, in GeoPackage, through authority columns that at least
+outlive the WKT1 the reader chooses to parse.
 
 ## Summary
 
@@ -195,7 +290,7 @@ available**, either in the file's own schema (GeoPackage) or through a non-strin
 | GeoTIFF → GDAL `GetSpatialRef()` WKT2 | yes | `('IAU_2015', '49910')` |
 | GeoTIFF → GDAL `GetProjection()` WKT1 | no — format limit | `None` |
 | GeoTIFF → rasterio | no — reader uses WKT1 | `None` |
-| GeoPackage → geopandas/GDAL | in the schema, not used | `None` |
+| GeoPackage → geopandas/GDAL | no — authority columns only, unused | `None` |
 | GeoParquet → geopandas | yes, PROJJSON | `('IAU_2015', '49910')` |
 
 Three distinct causes, worth keeping apart:
@@ -220,12 +315,15 @@ Only (1) is inherent.
 
 ```python
 org, code = con.execute("""
-    select s.organization, s.organization_coordsys_id
-    from gpkg_geometry_columns g
-    join gpkg_spatial_ref_sys s using (srs_id)
-    where g.table_name = ?""", (layer,)).fetchone()
+    select srs.organization, srs.organization_coordsys_id
+    from gpkg_geometry_columns geom
+    join gpkg_spatial_ref_sys srs using (srs_id)
+    where geom.table_name = ?""", (layer,)).fetchone()
 crs = CRS.from_authority(org, code)
 ```
+
+  This leans on PROJ resolving a bare `IAU` to its one installed edition. It is the best
+  the format gives you, but record the edition yourself if you need it to stay pinned.
 
 - **Do not conclude a file has a broken CRS** because a reader says `None`. Every file in
   this post was written correctly.
@@ -239,12 +337,11 @@ geometric error, not a metadata nit.
 ## The reproducer
 
 ```python
-import json, sqlite3, tempfile, warnings
+import sqlite3, tempfile, warnings
 warnings.filterwarnings("ignore")
 
 import geopandas as gpd
 import numpy as np
-import pyarrow.parquet as pq
 import rasterio
 from osgeo import gdal
 from pyproj import CRS
@@ -253,22 +350,23 @@ from shapely.geometry import box
 
 gdal.UseExceptions()
 crs = CRS.from_user_input("IAU_2015:49910")
-d = tempfile.mkdtemp()
-tif, gpkg, pqt = f"{d}/x.tif", f"{d}/x.gpkg", f"{d}/x.parquet"
+tmpdir = tempfile.mkdtemp()
+tif, gpkg, pqt = f"{tmpdir}/x.tif", f"{tmpdir}/x.gpkg", f"{tmpdir}/x.parquet"
 
 with rasterio.open(tif, "w", driver="GTiff", height=8, width=8, count=1,
                    dtype="uint8", crs=crs,
                    transform=from_origin(1e5, 1e5, 10, 10)) as dst:
     dst.write(np.zeros((8, 8), "uint8"), 1)
 
-g = gpd.GeoDataFrame({"a": [1]}, geometry=[box(0, 0, 1e4, 1e4)], crs=crs)
-g.to_file(gpkg, driver="GPKG", layer="t")
-g.to_parquet(pqt)
+gdf = gpd.GeoDataFrame({"a": [1]}, geometry=[box(0, 0, 1e4, 1e4)], crs=crs)
+gdf.to_file(gpkg, driver="GPKG", layer="t")
+gdf.to_parquet(pqt)
 
-ds = gdal.Open(tif)
-w1, w2 = ds.GetProjection(), ds.GetSpatialRef().ExportToWkt(["FORMAT=WKT2_2019"])
-print("GDAL WKT1 :", CRS.from_wkt(w1).to_authority())
-print("GDAL WKT2 :", CRS.from_wkt(w2).to_authority())
+dataset = gdal.Open(tif)
+wkt1 = dataset.GetProjection()
+wkt2 = dataset.GetSpatialRef().ExportToWkt(["FORMAT=WKT2_2019"])
+print("GDAL WKT1 :", CRS.from_wkt(wkt1).to_authority())
+print("GDAL WKT2 :", CRS.from_wkt(wkt2).to_authority())
 print("rasterio  :", rasterio.open(tif).crs.to_authority())
 print("rio WKT2  :", CRS.from_wkt(
     rasterio.open(tif).crs.to_wkt(version="WKT2_2019")).to_authority())
@@ -280,7 +378,7 @@ org, code = next(con.execute(
 print("GPKG cols :", CRS.from_authority(org, code).to_authority())
 print("GPKG read :", gpd.read_file(gpkg).crs.to_authority())
 
-geo = json.loads(pq.read_schema(pqt).metadata[b"geo"])
-print("GeoParquet:", geo["columns"][geo["primary_column"]]["crs"]["id"])
-print("GPQ read  :", gpd.read_parquet(pqt).crs.to_authority())
+gpq_crs = gpd.read_parquet(pqt).crs
+print("GeoParquet:", gpq_crs.to_json_dict()["id"])
+print("GPQ read  :", gpq_crs.to_authority())
 ```
