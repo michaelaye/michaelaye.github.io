@@ -10,7 +10,665 @@
 <atom:link href="https://michaelaye.github.io/posts.xml" rel="self" type="application/rss+xml"/>
 <description></description>
 <generator>quarto-1.10.18</generator>
-<lastBuildDate>Thu, 13 Aug 2026 00:00:00 GMT</lastBuildDate>
+<lastBuildDate>Wed, 02 Sep 2026 00:00:00 GMT</lastBuildDate>
+<item>
+  <title>Four ways your GIS stack loses a planetary CRS</title>
+  <link>https://michaelaye.github.io/posts/iau-crs-identification-failures/</link>
+  <description><![CDATA[ 
+
+
+
+
+
+
+<p>If you work with Earth data, a CRS round-trip is boring: you write <code>EPSG:32618</code>, you read it back, <code>to_authority()</code> returns <code>('EPSG', '32618')</code>, and you never think about it again.</p>
+<p>Planetary data is not boring. PROJ ships the IAU coordinate reference systems under the authority name <strong><code>IAU_2015</code></strong> — a name that carries an edition year, because the IAU revises body parameters. Mars alone has</p>
+<pre><code>IAU_2015:49900   Mars (2015) - Sphere / Ocentric     a = b = 3396190, f = 0
+IAU_2015:49901   Mars (2015) / Ographic              a = 3396190, b = 3376200
+IAU_2015:49910   ... / Equirectangular, clon = 0</code></pre>
+<p>That versioned authority is the problem. Below are four round-trips through common formats. One of them works.</p>
+<p>One thing to say up front, because it frames everything below. The IAU’s own work here is long-settled; what is new is the <em>plumbing</em> — PROJ only gained the IAU authority in version 8.2, and GeoParquet’s CRS metadata is younger still. Every library in this post is implementing a young standard, and most of them are getting most of it right. So read this as a status check, not a complaint: a snapshot of where planetary CRS identification can be relied on today, and where it cannot. I would expect several of these rows to change, and I would be glad if they did.</p>
+<p>All output is from a single script (given at the end) on:</p>
+<pre><code>rasterio 1.5.1 | GDAL 3.13.2 | PROJ 9.8.1 | pyproj 3.7.2 | geopandas 1.1.4</code></pre>
+<section id="the-starting-point-nothing-is-wrong-yet" class="level2">
+<h2 class="anchored" data-anchor-id="the-starting-point-nothing-is-wrong-yet">The starting point: nothing is wrong yet</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> pyproj <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> CRS</span>
+<span id="cb3-2">crs <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> CRS.from_user_input(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"IAU_2015:49910"</span>)</span></code></pre></div></div>
+<pre><code>PROJJSON id    : {"authority": "IAU", "code": 49910, "version": 2015}
+to_authority() : ('IAU_2015', '49910')</code></pre>
+<p>PROJJSON has three slots — <code>authority</code>, <code>code</code>, <strong><code>version</code></strong> — and all three are filled. Note the authority is stored as <code>IAU</code> with a separate <code>version: 2015</code>; the string <code>IAU_2015</code> is a rendering of that pair, not what is stored.</p>
+<p>Keep that structure in mind. Every failure below is a format or a reader with nowhere to put the third slot.</p>
+</section>
+<section id="the-test-files" class="level2">
+<h2 class="anchored" data-anchor-id="the-test-files">The test files</h2>
+<p>The four round-trips below all start from that same <code>crs</code> object and write it into three files — a raster, and one shared <code>GeoDataFrame</code> through two vector drivers, GeoPackage (<code>.gpkg</code>) and GeoParquet (<code>.parquet</code>):</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> geopandas <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">as</span> gpd</span>
+<span id="cb5-2"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> numpy <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">as</span> np</span>
+<span id="cb5-3"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> rasterio</span>
+<span id="cb5-4"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> rasterio.transform <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> from_origin</span>
+<span id="cb5-5"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> shapely.geometry <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> box</span>
+<span id="cb5-6"></span>
+<span id="cb5-7"><span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">with</span> rasterio.<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">open</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"x.tif"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"w"</span>, driver<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"GTiff"</span>, height<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">8</span>, width<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">8</span>, count<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>,</span>
+<span id="cb5-8">                   dtype<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"uint8"</span>, crs<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>crs,</span>
+<span id="cb5-9">                   transform<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>from_origin(<span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1e5</span>, <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1e5</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">10</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">10</span>)) <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">as</span> dst:</span>
+<span id="cb5-10">    dst.write(np.zeros((<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">8</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">8</span>), <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"uint8"</span>), <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>)</span>
+<span id="cb5-11"></span>
+<span id="cb5-12">gdf <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> gpd.GeoDataFrame({<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"a"</span>: [<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>]}, geometry<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>[box(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>, <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1e4</span>, <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1e4</span>)], crs<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>crs)</span>
+<span id="cb5-13">gdf.to_file(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"x.gpkg"</span>, driver<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"GPKG"</span>, layer<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"t"</span>)</span>
+<span id="cb5-14">gdf.to_parquet(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"x.parquet"</span>)</span></code></pre></div></div>
+<p>Eight-by-eight zeros and a single square. Nothing about the pixels or the geometry matters — the files exist only to carry the CRS from a writer to a reader. <code>x.gpkg</code> and <code>x.parquet</code> get theirs from the same <code>gdf</code>, which is what makes sections 3 and 4 a fair comparison: same CRS, same object, different driver.</p>
+</section>
+<section id="geotiff-through-gdal-depends-which-accessor-you-use" class="level2">
+<h2 class="anchored" data-anchor-id="geotiff-through-gdal-depends-which-accessor-you-use">1. GeoTIFF through GDAL: depends which accessor you use</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1">dataset <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> gdal.Open(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"x.tif"</span>)</span>
+<span id="cb6-2">wkt1 <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> dataset.GetProjection()                                     <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># WKT1</span></span>
+<span id="cb6-3">wkt2 <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> dataset.GetSpatialRef().ExportToWkt([<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"FORMAT=WKT2_2019"</span>])   <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># WKT2</span></span></code></pre></div></div>
+<pre><code>GetProjection() tail        : NORTH],AUTHORITY["IAU","49910"]]
+-&gt; to_authority()           : None
+GetSpatialRef() WKT2 tail   : tre",1]],ID["IAU",49910,2015]]
+-&gt; to_authority()           : ('IAU_2015', '49910')
+GetAuthorityName/Code       : IAU_2015 49910</code></pre>
+<p>The file is fine. WKT2 carries <code>ID["IAU",49910,2015]</code> — authority, code, <strong>and version</strong> — and <code>GetAuthorityName()</code> returns the full <code>IAU_2015</code>.</p>
+<p>WKT1 cannot. Its <code>AUTHORITY["name","code"]</code> node has exactly two slots and no third one to put the edition in, so <code>AUTHORITY["IAU","49910"]</code> is the most it can say. Nothing downstream can recover <code>2015</code> from that string, because it was never in it.</p>
+<p>This is not a GDAL bug. It is a WKT1 format limitation, and GDAL documents <code>GetProjectionRef()</code> as <em>“a compatibility layer around GetSpatialRef()”</em> since GDAL 3.0. <a href="https://gdal.org/development/rfc/rfc73_proj6_wkt2_srsbarn.html">RFC 73</a> exists precisely to move callers off representation-dependent strings:</p>
+<blockquote class="blockquote">
+<p>using “a SRS that is not dependent of the representation (WKT 1 or WKT 2), hence using a <code>OGRSpatialReference</code> object instead of a <code>const char*</code> string”</p>
+</blockquote>
+</section>
+<section id="the-same-geotiff-through-rasterio-lost" class="level2">
+<h2 class="anchored" data-anchor-id="the-same-geotiff-through-rasterio-lost">2. The same GeoTIFF through rasterio: lost</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1">rio_crs <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> rasterio.<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">open</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"x.tif"</span>).crs</span></code></pre></div></div>
+<pre><code>crs.to_authority()          : None
+crs.to_wkt() tail           : NORTH],AUTHORITY["IAU","49910"]]
+to_wkt(version='WKT2_2019') : T["metre",1]],ID["IAU",49910]]
+-&gt; to_authority()           : None</code></pre>
+<p>Two things worth separating here.</p>
+<p><strong>rasterio reads the CRS through the WKT1 accessor.</strong> In <code>rasterio/_base.pyx</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">def</span> read_crs(<span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>):</span>
+<span id="cb10-2">    cdef const char <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span>wkt <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> GDALGetProjectionRef(<span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>.handle())   <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># WKT1</span></span>
+<span id="cb10-3">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">return</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>._handle_crswkt(wkt)</span></code></pre></div></div>
+<p>So the version is destroyed before rasterio’s <code>CRS</code> object exists. <code>GDALGetSpatialRef</code> — the RFC 73 replacement — is not bound in <code>rasterio/gdal.pxi</code> at all, which suggests this is a GDAL-2-era carry-over rather than a decision.</p>
+<p><strong>Asking for WKT2 does not help</strong>, and by the paragraph above it cannot. <code>to_wkt(version= "WKT2_2019")</code> emits <code>ID["IAU",49910]</code> — WKT2 <em>without</em> the version field — because the CRS object it is exporting never had one. The loss already happened at read time; no choice of output format undoes it. It is worth showing only because requesting WKT2 is the obvious thing to reach for, and it hands back a well-formed WKT2 string that looks like it worked.</p>
+<p>(Careful with the call: <code>to_wkt</code>’s first positional parameter is <code>morph_to_esri_dialect</code>, not the version. <code>to_wkt("WKT2_2019")</code> silently warns and returns WKT1.)</p>
+<p>rasterio’s <code>CRS</code> class is perfectly capable — <code>CRS.from_wkt(wkt2)</code> on GDAL’s WKT2 string gives <code>('IAU_2015', '49910')</code>, and so does <code>CRS.from_user_input("IAU_2015:49910")</code>. Only the <em>file reading</em> path loses it.</p>
+</section>
+<section id="geopackage-the-identifier-survives-the-version-does-not" class="level2">
+<h2 class="anchored" data-anchor-id="geopackage-the-identifier-survives-the-version-does-not">3. GeoPackage: the identifier survives, the version does not</h2>
+<p>This is the interesting case, because the format does better than the reader.</p>
+<p>A GeoPackage is a SQLite database with a spec-mandated table <code>gpkg_spatial_ref_sys</code>, and each layer, each geometry column, and each geometry BLOB header points into it by an integer <code>srs_id</code>. The row has <strong>dedicated authority columns</strong>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> sqlite3</span>
+<span id="cb11-2"></span>
+<span id="cb11-3">con <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> sqlite3.<span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">connect</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"x.gpkg"</span>)</span>
+<span id="cb11-4">org, code, wkt <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">next</span>(con.execute(</span>
+<span id="cb11-5">    <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"select organization, organization_coordsys_id, definition "</span></span>
+<span id="cb11-6">    <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"from gpkg_spatial_ref_sys where organization not in ('NONE','EPSG')"</span>))</span></code></pre></div></div>
+<p>The filter skips the three rows the spec mandates in every GeoPackage — two <code>NONE</code> placeholders and <code>EPSG:4326</code> — leaving the layer’s actual CRS:</p>
+<pre><code>org                         : 'IAU'
+code                        : 49910
+wkt tail                    : NORTH],AUTHORITY["IAU","49910"]]
+CRS.from_authority(org, code)
+-&gt; to_authority()           : ('IAU_2015', '49910')   &lt;-- resolves!
+gpd.read_file("x.gpkg").crs
+-&gt; to_authority()           : None                    &lt;-- but this is what you get</code></pre>
+<p><code>organization</code> + <code>organization_coordsys_id</code> resolves — but it is worth being precise about why, because the reason is not that the file kept enough.</p>
+<p>There is no authority called <code>IAU</code> in PROJ. <code>proj.db</code>’s <code>authority_list</code> holds <code>EPSG</code>, <code>ESRI</code>, <code>IAU_2015</code>, <code>IGNF</code>, <code>NKG</code>, <code>NRCAN</code>, <code>OGC</code>, <code>PROJ</code>, and every IAU system sits under <code>IAU_2015</code>. The bare name resolves through a dedicated mapping table, which today holds exactly one row:</p>
+<pre><code>-- versioned_auth_name_mapping
+versioned_auth_name   auth_name   version   priority
+'IAU_2015'            'IAU'       '2015'    1</code></pre>
+<p>So <code>CRS.from_authority('IAU', 49910)</code> does not recover <code>2015</code> from the GeoPackage. It supplies it locally, from a lookup table with one candidate in it. What the file actually says is <code>IAU:49910</code> — ambiguous in principle, unambiguous today only because there is nothing yet to be ambiguous with. PROJ plainly expects that to change: <code>priority</code>, and the <code>UNIQUE (auth_name, priority)</code> constraint alongside it, exist to rank editions of the same authority. Ship an <code>IAU_2025</code> and a bare <code>IAU</code> reference is settled by PROJ’s ranking rather than by what the file meant.</p>
+<p>The reader does not consult those columns regardless — it reconstructs from the WKT <code>definition</code>, which is WKT1, which cannot carry the version. So the GeoPackage row is better than what the reader does with it, but it is not the lossless record it looks like.</p>
+<p>GeoPackage 1.2 added a <code>gpkg_crs_wkt</code> extension with a <code>definition_12_063</code> column for WKT2. Enabling it does not help either:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1">gdf.to_file(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"x2.gpkg"</span>, driver<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"GPKG"</span>, CRS_WKT_EXTENSION<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"YES"</span>)</span></code></pre></div></div>
+<pre><code>with CRS_WKT_EXTENSION=YES  : "metre",1]],ID["IAU",49910]]
+-&gt; to_authority()           : None</code></pre>
+<p>The WKT2 written into the extension column is <strong>missing the version</strong>, even though GDAL’s GeoTIFF path writes <code>ID["IAU",49910,2015]</code> from the same CRS. So this one is a writer defect, not a format limitation.</p>
+</section>
+<section id="geoparquet-works" class="level2">
+<h2 class="anchored" data-anchor-id="geoparquet-works">4. GeoParquet: works</h2>
+<p>No special reader needed — just open it and ask the CRS what it is:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1">crs_back <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> gpd.read_parquet(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"x.parquet"</span>).crs</span>
+<span id="cb16-2">projjson <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> crs_back.to_json_dict()</span></code></pre></div></div>
+<pre><code>crs_back.to_authority()      : ('IAU_2015', '49910')
+projjson["id"]               : {"authority": "IAU", "code": 49910, "version": 2015}
+projjson["base_crs"]["id"]   : {"authority": "IAU", "code": 49900, "version": 2015}</code></pre>
+<p>GeoParquet stores the CRS as <strong>PROJJSON</strong>, and PROJJSON has a first-class <code>version</code> field. Nothing has to be squeezed into a two-slot node or inferred from a string. It round-trips losslessly, and it is the only one of the four that does. The lineage survives too — the base geographic CRS carries its own versioned identifier, so the sphere the projection is built on is named as explicitly as the projection itself.</p>
+<p><code>to_json_dict()</code> is worth keeping in your pocket, because it is also the sharpest way to see what the other formats lost. The same two lines against the GeoPackage:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1">gpd.read_file(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"x.gpkg"</span>).crs.to_json_dict()[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"id"</span>]</span></code></pre></div></div>
+<pre><code>{"authority": "IAU", "code": 49910}</code></pre>
+<p>Same authority, same code, no <code>version</code> key at all. That is the whole difference between sections 3 and 4 in one line: not a different identifier, just a missing third slot — and with it gone, <code>to_authority()</code> has nothing to return but <code>None</code>.</p>
+</section>
+<section id="it-is-not-the-authority-name" class="level2">
+<h2 class="anchored" data-anchor-id="it-is-not-the-authority-name">It is not the authority <em>name</em></h2>
+<p>A reasonable guess is that <code>IAU</code> versus <code>IAU_2015</code> is the mismatch — the files say <code>IAU</code>, PROJ’s authority is called <code>IAU_2015</code>, so lookups fail. That guess is wrong:</p>
+<pre><code>CRS.from_authority('IAU', 49910)      -&gt; ('IAU_2015', '49910')
+CRS.from_authority('IAU_2015', 49910) -&gt; ('IAU_2015', '49910')</code></pre>
+<p>PROJ accepts either — the mapping table in section 3 is what makes the short name work. So the name is not the problem. <strong>The problem is exclusively that readers reconstruct the CRS from a WKT string when a better reference is at hand</strong>: losslessly through a non-string API (GDAL’s <code>GetSpatialRef</code>), or, in GeoPackage, through authority columns that at least outlive the WKT1 the reader chooses to parse.</p>
+</section>
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">Summary</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>path</th>
+<th>carries the version?</th>
+<th><code>to_authority()</code></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>in memory (pyproj)</td>
+<td>yes, PROJJSON</td>
+<td><code>('IAU_2015', '49910')</code></td>
+</tr>
+<tr class="even">
+<td>GeoTIFF → GDAL <code>GetSpatialRef()</code> WKT2</td>
+<td>yes</td>
+<td><code>('IAU_2015', '49910')</code></td>
+</tr>
+<tr class="odd">
+<td>GeoTIFF → GDAL <code>GetProjection()</code> WKT1</td>
+<td>no — format limit</td>
+<td><code>None</code></td>
+</tr>
+<tr class="even">
+<td>GeoTIFF → rasterio</td>
+<td>no — reader uses WKT1</td>
+<td><code>None</code></td>
+</tr>
+<tr class="odd">
+<td>GeoPackage → geopandas/GDAL</td>
+<td>no — authority columns only, unused</td>
+<td><code>None</code></td>
+</tr>
+<tr class="even">
+<td>GeoParquet → geopandas</td>
+<td>yes, PROJJSON</td>
+<td><code>('IAU_2015', '49910')</code></td>
+</tr>
+</tbody>
+</table>
+<p>Three distinct causes, worth keeping apart:</p>
+<ol type="1">
+<li><strong>A format limitation.</strong> WKT1 has no version slot. Nothing to fix; just do not round-trip through it.</li>
+<li><strong>A reader choosing the lossy path.</strong> rasterio reads WKT1 when <code>GetSpatialRef</code> exists; the GeoPackage reader parses WKT when authority columns are right there.</li>
+<li><strong>A writer dropping a field it has.</strong> GDAL’s GeoPackage WKT2 omits the version its GeoTIFF WKT2 includes.</li>
+</ol>
+<p>Only (1) is inherent.</p>
+</section>
+<section id="what-to-do-meanwhile" class="level2">
+<h2 class="anchored" data-anchor-id="what-to-do-meanwhile">What to do meanwhile</h2>
+<ul>
+<li><strong>Verify with GDAL’s authority accessors, not <code>to_authority()</code></strong>: <code>gdal.Open(f).GetSpatialRef().GetAuthorityName(None)</code>. On correctly-labelled files, <code>rasterio ... .crs.to_authority()</code> returning <code>None</code> means nothing about the data.</li>
+<li><strong>Prefer GeoParquet</strong> for tabular vector data that must carry a planetary CRS faithfully; keep GeoPackage as the QGIS-facing export.</li>
+<li><strong>For GeoPackage, read the authority columns directly</strong>:</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1">org, code <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> con.execute(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"""</span></span>
+<span id="cb21-2"><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">    select srs.organization, srs.organization_coordsys_id</span></span>
+<span id="cb21-3"><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">    from gpkg_geometry_columns geom</span></span>
+<span id="cb21-4"><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">    join gpkg_spatial_ref_sys srs using (srs_id)</span></span>
+<span id="cb21-5"><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">    where geom.table_name = ?"""</span>, (layer,)).fetchone()</span>
+<span id="cb21-6">crs <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> CRS.from_authority(org, code)</span></code></pre></div></div>
+<p>This leans on PROJ resolving a bare <code>IAU</code> to its one installed edition. It is the best the format gives you, but record the edition yourself if you need it to stay pinned.</p>
+<ul>
+<li><strong>Do not conclude a file has a broken CRS</strong> because a reader says <code>None</code>. Every file in this post was written correctly.</li>
+</ul>
+<p>This matters beyond tidiness. Mars has both a sphere (<code>49900</code>) and an ellipsoid (<code>49901</code>) in the same authority, differing by 20 km in polar radius, and planetary products are routinely unlabelled or ESRI-flavoured. When identification silently degrades to <code>None</code>, the usual next step is someone guessing — and a guess between 49900 and 49901 is a real geometric error, not a metadata nit.</p>
+</section>
+<section id="the-reproducer" class="level2">
+<h2 class="anchored" data-anchor-id="the-reproducer">The reproducer</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> sqlite3, tempfile, warnings</span>
+<span id="cb22-2">warnings.filterwarnings(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"ignore"</span>)</span>
+<span id="cb22-3"></span>
+<span id="cb22-4"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> geopandas <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">as</span> gpd</span>
+<span id="cb22-5"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> numpy <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">as</span> np</span>
+<span id="cb22-6"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> rasterio</span>
+<span id="cb22-7"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> osgeo <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> gdal</span>
+<span id="cb22-8"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> pyproj <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> CRS</span>
+<span id="cb22-9"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> rasterio.transform <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> from_origin</span>
+<span id="cb22-10"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> shapely.geometry <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> box</span>
+<span id="cb22-11"></span>
+<span id="cb22-12">gdal.UseExceptions()</span>
+<span id="cb22-13">crs <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> CRS.from_user_input(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"IAU_2015:49910"</span>)</span>
+<span id="cb22-14">tmpdir <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> tempfile.mkdtemp()</span>
+<span id="cb22-15">tif, gpkg, pqt <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">f"</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span>tmpdir<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">/x.tif"</span>, <span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">f"</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span>tmpdir<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">/x.gpkg"</span>, <span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">f"</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span>tmpdir<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">/x.parquet"</span></span>
+<span id="cb22-16"></span>
+<span id="cb22-17"><span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">with</span> rasterio.<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">open</span>(tif, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"w"</span>, driver<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"GTiff"</span>, height<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">8</span>, width<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">8</span>, count<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>,</span>
+<span id="cb22-18">                   dtype<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"uint8"</span>, crs<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>crs,</span>
+<span id="cb22-19">                   transform<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>from_origin(<span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1e5</span>, <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1e5</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">10</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">10</span>)) <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">as</span> dst:</span>
+<span id="cb22-20">    dst.write(np.zeros((<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">8</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">8</span>), <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"uint8"</span>), <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>)</span>
+<span id="cb22-21"></span>
+<span id="cb22-22">gdf <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> gpd.GeoDataFrame({<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"a"</span>: [<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>]}, geometry<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>[box(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>, <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1e4</span>, <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1e4</span>)], crs<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>crs)</span>
+<span id="cb22-23">gdf.to_file(gpkg, driver<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"GPKG"</span>, layer<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"t"</span>)</span>
+<span id="cb22-24">gdf.to_parquet(pqt)</span>
+<span id="cb22-25"></span>
+<span id="cb22-26">dataset <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> gdal.Open(tif)</span>
+<span id="cb22-27">wkt1 <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> dataset.GetProjection()</span>
+<span id="cb22-28">wkt2 <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> dataset.GetSpatialRef().ExportToWkt([<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"FORMAT=WKT2_2019"</span>])</span>
+<span id="cb22-29"><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">print</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"GDAL WKT1 :"</span>, CRS.from_wkt(wkt1).to_authority())</span>
+<span id="cb22-30"><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">print</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"GDAL WKT2 :"</span>, CRS.from_wkt(wkt2).to_authority())</span>
+<span id="cb22-31"><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">print</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"rasterio  :"</span>, rasterio.<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">open</span>(tif).crs.to_authority())</span>
+<span id="cb22-32"><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">print</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"rio WKT2  :"</span>, CRS.from_wkt(</span>
+<span id="cb22-33">    rasterio.<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">open</span>(tif).crs.to_wkt(version<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"WKT2_2019"</span>)).to_authority())</span>
+<span id="cb22-34"></span>
+<span id="cb22-35">con <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> sqlite3.<span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">connect</span>(gpkg)</span>
+<span id="cb22-36">org, code <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">next</span>(con.execute(</span>
+<span id="cb22-37">    <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"select organization, organization_coordsys_id from gpkg_spatial_ref_sys "</span></span>
+<span id="cb22-38">    <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"where organization not in ('NONE','EPSG')"</span>))</span>
+<span id="cb22-39"><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">print</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"GPKG cols :"</span>, CRS.from_authority(org, code).to_authority())</span>
+<span id="cb22-40"><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">print</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"GPKG read :"</span>, gpd.read_file(gpkg).crs.to_authority())</span>
+<span id="cb22-41"></span>
+<span id="cb22-42">gpq_crs <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> gpd.read_parquet(pqt).crs</span>
+<span id="cb22-43"><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">print</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"GeoParquet:"</span>, gpq_crs.to_json_dict()[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"id"</span>])</span>
+<span id="cb22-44"><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">print</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"GPQ read  :"</span>, gpq_crs.to_authority())</span></code></pre></div></div>
+
+
+</section>
+
+ ]]></description>
+  <guid>https://michaelaye.github.io/posts/iau-crs-identification-failures/</guid>
+  <pubDate>Wed, 02 Sep 2026 00:00:00 GMT</pubDate>
+</item>
 <item>
   <title>Planet Four’s catalog now ships its own uncertainty</title>
   <link>https://michaelaye.github.io/posts/2026-08-13_planet-four-uncertainty-api/</link>
@@ -2091,6 +2749,129 @@ font-style: inherit;">"Aye"</span></span></code></pre></div></div>
   <pubDate>Mon, 02 Mar 2026 00:00:00 GMT</pubDate>
 </item>
 <item>
+  <title>Why rioxarray 0.21 Won’t Install with xarray 2026</title>
+  <dc:creator>Michael Aye</dc:creator>
+  <link>https://michaelaye.github.io/posts/rioxarray-xarray-version-pin/</link>
+  <description><![CDATA[ 
+
+
+
+
+
+
+<p>If you’ve recently tried to install <code>rioxarray</code> alongside a current <code>xarray</code>, you’ve likely hit something like this:</p>
+<pre><code>ERROR: Cannot install rioxarray==0.21.0 because these package versions have conflicting dependencies.
+    rioxarray 0.21.0 depends on xarray&lt;2025.12,&gt;=2024.7.0</code></pre>
+<p>Your perfectly fine <code>xarray 2026.1</code> is being rejected. What happened?</p>
+<section id="the-dependency-change" class="level2">
+<h2 class="anchored" data-anchor-id="the-dependency-change">The dependency change</h2>
+<p>Comparing the two releases on PyPI:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th></th>
+<th>rioxarray 0.20.0 (Oct 2025)</th>
+<th>rioxarray 0.21.0 (Jan 2026)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>xarray constraint</td>
+<td><code>&gt;=2024.7.0</code></td>
+<td><code>&gt;=2024.7.0,&lt;2025.12</code></td>
+</tr>
+</tbody>
+</table>
+<p>That <code>&lt;2025.12</code> upper bound is new, and it’s what blocks all of xarray 2026.x.</p>
+</section>
+<section id="the-root-cause-xarray-2025.12.0" class="level2">
+<h2 class="anchored" data-anchor-id="the-root-cause-xarray-2025.12.0">The root cause: xarray 2025.12.0</h2>
+<p>xarray 2025.12.0 shipped <a href="https://github.com/pydata/xarray/pull/10948">PR #10948</a>, which changed how <code>LazilyIndexedArray</code> handles slice normalization. The intent was to fix <a href="https://github.com/pydata/xarray/issues/10941">#10941</a>, but it introduced a regression with negative-step slices (<a href="https://github.com/pydata/xarray/issues/11000">#11000</a>):</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> xarray.core.indexing <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> normalize_indexer, _decompose_slice</span>
+<span id="cb2-2"></span>
+<span id="cb2-3"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># This now breaks:</span></span>
+<span id="cb2-4">_decompose_slice(normalize_indexer(<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">slice</span>(<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>, <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">None</span>, <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>), <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">8</span>), <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">8</span>)</span>
+<span id="cb2-5"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># IndexError: range object index out of range</span></span></code></pre></div></div>
+<p>The problem: <code>slice.indices(8)</code> on a reverse slice returns <code>(7, -1, -1)</code> — a negative stop — which gets misinterpreted as a relative-from-end index rather than an absolute bound.</p>
+<p>rioxarray hits this code path in raster operations that involve axis flipping (e.g., north-to-south for certain CRS transforms), so this broke real workflows.</p>
+</section>
+<section id="the-pin" class="level2">
+<h2 class="anchored" data-anchor-id="the-pin">The pin</h2>
+<p>The rioxarray maintainer added the pin in <a href="https://github.com/corteva/rioxarray/pull/881">PR #881</a> (December 2025) to protect users from the broken xarray release. Reasonable decision at the time — but the constraint <code>&lt;2025.12</code> is too broad. It blocks xarray 2026.1+, which contains the fix (<a href="https://github.com/pydata/xarray/pull/11044">PR #11044</a>).</p>
+<p>The resulting user pain is tracked in <a href="https://github.com/corteva/rioxarray/issues/902">rioxarray #902</a>.</p>
+</section>
+<section id="workarounds-right-now" class="level2">
+<h2 class="anchored" data-anchor-id="workarounds-right-now">Workarounds (right now)</h2>
+<p><strong>Option 1: Pin xarray to the last pre-regression version</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">pip</span> install <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"rioxarray==0.21.0"</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"xarray&gt;=2024.7.0,&lt;2025.12"</span></span></code></pre></div></div>
+<p>The last compatible version is xarray 2025.11.x. This is the safe, stable path.</p>
+<p><strong>Option 2: Install rioxarray from the dev branch</strong></p>
+<p><a href="https://github.com/corteva/rioxarray/pull/907">PR #907</a> relaxes the pin to <code>xarray&gt;=2026.2</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">pip</span> install git+https://github.com/corteva/rioxarray.git</span></code></pre></div></div>
+<p>Only do this if you’re comfortable running unreleased code.</p>
+<p><strong>Option 3: Wait for rioxarray 0.22.0</strong></p>
+<p>The fix is merged and will ship in the next release.</p>
+</section>
+<section id="timeline" class="level2">
+<h2 class="anchored" data-anchor-id="timeline">Timeline</h2>
+<pre><code>2025-11    xarray PR#10948 — fix lazy slice normalization
+2025-11    xarray 2025.12.0 released with the "fix"
+2025-12    xarray #11000 — regression discovered
+2025-12    rioxarray PR#881 — pin xarray&lt;2025.12
+2026-01    xarray PR#11044 — actual fix merged
+2026-01    rioxarray 0.21.0 released (with the pin)
+2026-02    rioxarray #902 — users report 2026.x conflict
+2026-??    rioxarray 0.22.0 — pin relaxed to &gt;=2026.2</code></pre>
+</section>
+<section id="takeaway" class="level2">
+<h2 class="anchored" data-anchor-id="takeaway">Takeaway</h2>
+<p>This is a textbook example of how a well-intentioned upper-bound version pin can outlive its usefulness. The pin was correct when xarray 2025.12 was the only version with the bug, but it wasn’t updated when xarray shipped the fix. If you maintain a library, consider pinning to specific broken versions (<code>!=2025.12.0</code>) rather than open-ended upper bounds (<code>&lt;2025.12</code>) — it’s more surgical and won’t block future fixes.</p>
+
+
+</section>
+
+ ]]></description>
+  <category>python</category>
+  <category>geospatial</category>
+  <category>xarray</category>
+  <category>rioxarray</category>
+  <category>debugging</category>
+  <guid>https://michaelaye.github.io/posts/rioxarray-xarray-version-pin/</guid>
+  <pubDate>Mon, 02 Mar 2026 00:00:00 GMT</pubDate>
+</item>
+<item>
   <title>highlight-author: A Quarto Extension to Highlight Your Name in Bibliographies</title>
   <dc:creator>Michael Aye</dc:creator>
   <link>https://michaelaye.github.io/posts/highlight-author-quarto-extension/</link>
@@ -2327,129 +3108,6 @@ font-style: inherit;">;</span></span>
   <category>bibliography</category>
   <category>open-source</category>
   <guid>https://michaelaye.github.io/posts/highlight-author-quarto-extension/</guid>
-  <pubDate>Mon, 02 Mar 2026 00:00:00 GMT</pubDate>
-</item>
-<item>
-  <title>Why rioxarray 0.21 Won’t Install with xarray 2026</title>
-  <dc:creator>Michael Aye</dc:creator>
-  <link>https://michaelaye.github.io/posts/rioxarray-xarray-version-pin/</link>
-  <description><![CDATA[ 
-
-
-
-
-
-
-<p>If you’ve recently tried to install <code>rioxarray</code> alongside a current <code>xarray</code>, you’ve likely hit something like this:</p>
-<pre><code>ERROR: Cannot install rioxarray==0.21.0 because these package versions have conflicting dependencies.
-    rioxarray 0.21.0 depends on xarray&lt;2025.12,&gt;=2024.7.0</code></pre>
-<p>Your perfectly fine <code>xarray 2026.1</code> is being rejected. What happened?</p>
-<section id="the-dependency-change" class="level2">
-<h2 class="anchored" data-anchor-id="the-dependency-change">The dependency change</h2>
-<p>Comparing the two releases on PyPI:</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th></th>
-<th>rioxarray 0.20.0 (Oct 2025)</th>
-<th>rioxarray 0.21.0 (Jan 2026)</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>xarray constraint</td>
-<td><code>&gt;=2024.7.0</code></td>
-<td><code>&gt;=2024.7.0,&lt;2025.12</code></td>
-</tr>
-</tbody>
-</table>
-<p>That <code>&lt;2025.12</code> upper bound is new, and it’s what blocks all of xarray 2026.x.</p>
-</section>
-<section id="the-root-cause-xarray-2025.12.0" class="level2">
-<h2 class="anchored" data-anchor-id="the-root-cause-xarray-2025.12.0">The root cause: xarray 2025.12.0</h2>
-<p>xarray 2025.12.0 shipped <a href="https://github.com/pydata/xarray/pull/10948">PR #10948</a>, which changed how <code>LazilyIndexedArray</code> handles slice normalization. The intent was to fix <a href="https://github.com/pydata/xarray/issues/10941">#10941</a>, but it introduced a regression with negative-step slices (<a href="https://github.com/pydata/xarray/issues/11000">#11000</a>):</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="im" style="color: #00769E;
-background-color: null;
-font-style: inherit;">from</span> xarray.core.indexing <span class="im" style="color: #00769E;
-background-color: null;
-font-style: inherit;">import</span> normalize_indexer, _decompose_slice</span>
-<span id="cb2-2"></span>
-<span id="cb2-3"><span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;"># This now breaks:</span></span>
-<span id="cb2-4">_decompose_slice(normalize_indexer(<span class="bu" style="color: null;
-background-color: null;
-font-style: inherit;">slice</span>(<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">-</span><span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">1</span>, <span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">None</span>, <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">-</span><span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">1</span>), <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">8</span>), <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">8</span>)</span>
-<span id="cb2-5"><span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;"># IndexError: range object index out of range</span></span></code></pre></div></div>
-<p>The problem: <code>slice.indices(8)</code> on a reverse slice returns <code>(7, -1, -1)</code> — a negative stop — which gets misinterpreted as a relative-from-end index rather than an absolute bound.</p>
-<p>rioxarray hits this code path in raster operations that involve axis flipping (e.g., north-to-south for certain CRS transforms), so this broke real workflows.</p>
-</section>
-<section id="the-pin" class="level2">
-<h2 class="anchored" data-anchor-id="the-pin">The pin</h2>
-<p>The rioxarray maintainer added the pin in <a href="https://github.com/corteva/rioxarray/pull/881">PR #881</a> (December 2025) to protect users from the broken xarray release. Reasonable decision at the time — but the constraint <code>&lt;2025.12</code> is too broad. It blocks xarray 2026.1+, which contains the fix (<a href="https://github.com/pydata/xarray/pull/11044">PR #11044</a>).</p>
-<p>The resulting user pain is tracked in <a href="https://github.com/corteva/rioxarray/issues/902">rioxarray #902</a>.</p>
-</section>
-<section id="workarounds-right-now" class="level2">
-<h2 class="anchored" data-anchor-id="workarounds-right-now">Workarounds (right now)</h2>
-<p><strong>Option 1: Pin xarray to the last pre-regression version</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><span class="ex" style="color: null;
-background-color: null;
-font-style: inherit;">pip</span> install <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"rioxarray==0.21.0"</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"xarray&gt;=2024.7.0,&lt;2025.12"</span></span></code></pre></div></div>
-<p>The last compatible version is xarray 2025.11.x. This is the safe, stable path.</p>
-<p><strong>Option 2: Install rioxarray from the dev branch</strong></p>
-<p><a href="https://github.com/corteva/rioxarray/pull/907">PR #907</a> relaxes the pin to <code>xarray&gt;=2026.2</code>:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><span class="ex" style="color: null;
-background-color: null;
-font-style: inherit;">pip</span> install git+https://github.com/corteva/rioxarray.git</span></code></pre></div></div>
-<p>Only do this if you’re comfortable running unreleased code.</p>
-<p><strong>Option 3: Wait for rioxarray 0.22.0</strong></p>
-<p>The fix is merged and will ship in the next release.</p>
-</section>
-<section id="timeline" class="level2">
-<h2 class="anchored" data-anchor-id="timeline">Timeline</h2>
-<pre><code>2025-11    xarray PR#10948 — fix lazy slice normalization
-2025-11    xarray 2025.12.0 released with the "fix"
-2025-12    xarray #11000 — regression discovered
-2025-12    rioxarray PR#881 — pin xarray&lt;2025.12
-2026-01    xarray PR#11044 — actual fix merged
-2026-01    rioxarray 0.21.0 released (with the pin)
-2026-02    rioxarray #902 — users report 2026.x conflict
-2026-??    rioxarray 0.22.0 — pin relaxed to &gt;=2026.2</code></pre>
-</section>
-<section id="takeaway" class="level2">
-<h2 class="anchored" data-anchor-id="takeaway">Takeaway</h2>
-<p>This is a textbook example of how a well-intentioned upper-bound version pin can outlive its usefulness. The pin was correct when xarray 2025.12 was the only version with the bug, but it wasn’t updated when xarray shipped the fix. If you maintain a library, consider pinning to specific broken versions (<code>!=2025.12.0</code>) rather than open-ended upper bounds (<code>&lt;2025.12</code>) — it’s more surgical and won’t block future fixes.</p>
-
-
-</section>
-
- ]]></description>
-  <category>python</category>
-  <category>geospatial</category>
-  <category>xarray</category>
-  <category>rioxarray</category>
-  <category>debugging</category>
-  <guid>https://michaelaye.github.io/posts/rioxarray-xarray-version-pin/</guid>
   <pubDate>Mon, 02 Mar 2026 00:00:00 GMT</pubDate>
 </item>
 <item>
