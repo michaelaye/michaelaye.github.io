@@ -329,7 +329,6 @@ ul.task-list li input[type="checkbox"] {
                                 <div class="quarto-categories">
                 <div class="quarto-category">python</div>
                 <div class="quarto-category">conda</div>
-                <div class="quarto-category">mamba</div>
                 <div class="quarto-category">software management</div>
               </div>
                   </div>
@@ -382,6 +381,9 @@ ul.task-list li input[type="checkbox"] {
 
 
 
+<blockquote class="blockquote">
+<p><strong>Update 2026:</strong> This post originally told you to install <code>mamba</code> alongside <code>conda</code>. That advice is obsolete. Since conda 23.10 the fast <code>libmamba</code> solver is conda’s <em>default</em>, so plain <code>conda</code> is now as fast as <code>mamba</code> ever was. <code>Mambaforge</code> was deprecated in July 2024 and retired in January 2025; use <code>Miniforge3</code> instead. All commands below are plain <code>conda</code>.</p>
+</blockquote>
 <p>There’s an increasing amount of folks complaining that they need to watch a video for all their setting up tools etc.</p>
 <p>In this vein, let me summarize what I consider a minimal list of facts and terminal commands to get up and running with a conda-based scientific Python environment.</p>
 <section id="some-basic-facts-to-understand" class="level2">
@@ -394,24 +396,17 @@ ul.task-list li input[type="checkbox"] {
 <li>A path manager enabling easy switching between different Python environments.</li>
 </ul></li>
 <li>The command <code>conda activate</code> used below simply creates a temporary PATH variable pointing the system’s search for executables into your currently <code>activated</code> conda environment.</li>
-<li>The <code>conda</code> command line tool is increasingly being replaced by the faster <code>mamba</code> tool.
+<li><code>conda</code> used to be painfully slow at working out dependencies, which is why a separate tool called <code>mamba</code> existed. That’s over: the fast solver was donated to conda itself and has been the default since conda 23.10, so you do not need any extra tool anymore.
 <ul>
-<li><code>mamba</code> is a <code>drop-in</code> replacement for <code>conda</code>, so for all commands you just replace <code>conda</code> with <code>mamba</code>.</li>
-<li>However, <code>mamba</code> is still using <code>conda</code> underneath, so don’t uninstall it, you need both!</li>
-<li>Only install <code>mamba</code> into your <code>base</code> environment.
-<ul>
-<li>That’s for people who read this and want to add <code>mamba</code> to their system.</li>
-<li>New starters should use below’s installer that exactly does that.</li>
+<li>If you still have <code>mamba</code> installed from the old days, it keeps working, but nothing here requires it.</li>
 </ul></li>
-<li>Also, there’s a few remaining commands that still run smoother using <code>conda</code>, so if <code>mamba</code> is giving you a hard time, just try the same command parameters using <code>conda</code> instead of <code>mamba</code></li>
-</ul></li>
-<li>conda/mamba environments are <em>ALWAYS</em> going into user space, never ever should you require root/superuser access.
+<li>conda environments are <em>ALWAYS</em> going into user space, never ever should you require root/superuser access.
 <ul>
 <li>Unless you are an admin that installs a systemwide environment for many users.</li>
 </ul></li>
 <li>conda gets its packages from so called <code>channels</code>, and there’s a community channel called <code>conda-forge</code> that most of us are using successfully for years.
 <ul>
-<li>The installer linked below will configure to use the <code>conda-forge</code> channel all the time (hence the name <code>mambaforge</code>), but you can always change that later, and, winningly, configure this to be different per environment!</li>
+<li>The installer linked below will configure to use the <code>conda-forge</code> channel all the time (hence the name <code>miniforge</code>), but you can always change that later, and, winningly, configure this to be different per environment!</li>
 <li>It is recommended to not install packages from different channels into the same environment</li>
 </ul></li>
 <li>Creating new environments is fast and cheap (hard-links between downloaded packages when used in more than one environment.)
@@ -429,15 +424,14 @@ ul.task-list li input[type="checkbox"] {
 <li>Download the script-based installer for your operating system here:</li>
 </ol>
 <p>For a Unix-like platform like macOS and Linux, execute these commands, they will first downlad the right installer and then run in:</p>
-<pre><code>wget https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-$(uname)-$(uname -m).sh
-bash Mambaforge-$(uname)-$(uname -m).sh</code></pre>
+<pre><code>wget https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-$(uname)-$(uname -m).sh
+bash Miniforge3-$(uname)-$(uname -m).sh</code></pre>
 <ol start="2" type="1">
 <li><p>Restart the shell (exit -&gt; open new one)</p></li>
-<li><p>Check that you have the <code>conda</code> and <code>mamba</code> command available:</p></li>
+<li><p>Check that you have the <code>conda</code> command available:</p></li>
 </ol>
-<pre><code>which conda
-which mamba</code></pre>
-<p>They should both point to your chosen install folder + <code>/condabin</code>.</p>
+<pre><code>which conda</code></pre>
+<p>It should point to your chosen install folder + <code>/condabin</code>.</p>
 </section>
 <section id="installing-your-main-work-environment" class="level3">
 <h3 class="anchored" data-anchor-id="installing-your-main-work-environment">Installing your main work environment</h3>
@@ -448,23 +442,64 @@ which mamba</code></pre>
 <blockquote class="blockquote">
 <p>I DO NOT recommend to work in the <code>base</code> environment, because that’s used for managing all envs, so if you mess up in there, you loose all other envs as well (potentially). This is actually very similar to the old advice on the Mac to not work with the system Python, because the OS was using it for management tasks.</p>
 </blockquote>
-<p>So, let’s say you want to create a Python 3.8 environment as your standard &gt; 3.9 is also fully supported for science analysis I’d say, just some dev tools don’t like it yet.</p>
+<p>So, let’s say you want to create a Python 3.14 environment as your standard.</p>
+<blockquote class="blockquote">
+<p><strong>Which Python version? (checked September 2026)</strong></p>
+<p><strong>Use 3.14.</strong> The full geospatial stack is built for it and installs cleanly: <code>gdal</code>, <code>geopandas</code>, <code>rasterio</code>, <code>shapely</code>, <code>cartopy</code>, <code>pyproj</code>, <code>rioxarray</code>, <code>dask-geopandas</code>. That’s what my own daily driver runs on.</p>
+<p><strong>Don’t use 3.15 yet.</strong> It isn’t released (3.15.0rc2 as I write this, final due 1 October 2026), and conda-forge has only rebuilt a small share of packages against it. I tested this rather than guessed: I took the 111 packages I had explicitly asked for in my 3.14 environment and tried to solve each one against 3.15.0rc2. <strong>46 of them have no 3.15 build at all</strong>, including <code>scipy</code>, <code>astropy</code>, <code>xarray</code>, <code>dask</code>, <code>h5py</code>, <code>scikit-learn</code>, <code>scikit-image</code>, <code>numba</code>, <code>pyarrow</code>, <code>jupyterlab</code> and the entire geospatial core. <code>numpy</code> is already there, but numpy on its own is not a science environment. Revisit 3.15 a few months after it ships.</p>
+<p><strong>Rule of thumb: watch <code>numba</code>.</strong> It is reliably the last major piece to be ported to a new Python, because it pins hard to both CPython’s internals and a specific LLVM build. Here is when conda-forge’s first <code>osx-arm64</code> builds for Python 3.14 actually landed:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>package</th>
+<th>first 3.14 build</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>numpy</td>
+<td>22 Aug 2025</td>
+</tr>
+<tr class="even">
+<td>scipy, shapely</td>
+<td>30 Aug 2025</td>
+</tr>
+<tr class="odd">
+<td>gdal</td>
+<td>1 Sep 2025</td>
+</tr>
+<tr class="even">
+<td>rasterio</td>
+<td>17 Sep 2025</td>
+</tr>
+<tr class="odd">
+<td>pyarrow, pytables</td>
+<td>2 Oct 2025</td>
+</tr>
+<tr class="even">
+<td><strong>numba</strong></td>
+<td><strong>28 Oct 2025</strong></td>
+</tr>
+</tbody>
+</table>
+<p><code>numba</code> arrived three weeks <em>after</em> Python 3.14.0 itself was released, and 67 days after <code>numpy</code>. So the shortcut is: <strong>if <code>numba</code> installs on the new Python, the rest of your stack almost certainly does too.</strong> Use it as your green light.</p>
+<p>This isn’t academic if you plot large rasters. <code>datashader</code> depends on <code>numba</code>, and <code>datashader</code> is what powers <code>rasterize=True</code> in HoloViews and hvplot. Without it you lose the dynamic re-rasterization that redraws an image at the resolution of your current zoom window, which is the whole reason you can pan around a huge scene interactively.</p>
+</blockquote>
 <p>I usually call my main envs by the python version that’s installed in there, so in this case:</p>
-<pre><code>conda create -n py38 python=3.8</code></pre>
+<pre><code>conda create -n py314 python=3.14</code></pre>
 <p>After that’s executed successfully you need to activate it:</p>
-<pre><code>conda activate py38</code></pre>
-<p>and <em>NOW</em> we change to use <code>mamba</code> because the packages we like to install need to be checked for each other’s dependency requirements which is the time consuming task at which <code>mamba</code> excels so much.</p>
+<pre><code>conda activate py314</code></pre>
 <p>Let’s say we want to install some important basic science packages:</p>
-<pre><code>mamba install pandas scipy astropy jupyterlab nb_conda_kernels</code></pre>
+<pre><code>conda install pandas scipy astropy jupyterlab nb_conda_kernels</code></pre>
 <blockquote class="blockquote">
 <p><code>nb_conda_kernels</code> is an extremely useful package that helps you to easily switch between conda envs inside jupyter notebooks</p>
 </blockquote>
 <p>This install command will now churn and come back with a <em>HUGE</em> list of packages to install because those packages are what your wanted ones are based of.</p>
-<p>You should confirm the choices by typing return (or <code>y</code>) and then <code>mamba</code> will download quite fast in parallel the required packages and make them available to your current env.</p>
+<p>You should confirm the choices by typing return (or <code>y</code>) and then <code>conda</code> will download quite fast in parallel the required packages and make them available to your current env.</p>
 </section>
 <section id="pip-installs" class="level3">
 <h3 class="anchored" data-anchor-id="pip-installs">PIP installs</h3>
-<p>What if the package of your choice isn’t available on <code>conda-forge</code>? (<code>mamba search &lt;pkg_name&gt;</code>)</p>
+<p>What if the package of your choice isn’t available on <code>conda-forge</code>? (<code>conda search &lt;pkg_name&gt;</code>)</p>
 <p>Then you could install it from pypi.org using <code>pip</code>.</p>
 <blockquote class="blockquote">
 <p>Unfortunately, pip installs still in 2021 can mess up your conda envs. :(</p>
@@ -474,7 +509,7 @@ which mamba</code></pre>
 <p>NOTE: Activate the conda env where you need the pip things BEFORE you start installing with <code>pip</code>! It’s one of the most frequent problems for Python beginners to have not done that and then have <code>pip</code> installed new packages somewhere where you didn’t expect it to be.</p>
 </blockquote>
 <ul>
-<li>Find out what other packages the pip package depends on and install as many of them as possible via <code>mamba/conda</code>.</li>
+<li>Find out what other packages the pip package depends on and install as many of them as possible via <code>conda</code>.</li>
 <li>As the last step, if possible, only install your required package via pip, like <code>pip install nbverbose</code> for example.</li>
 <li>Don’t worry if there’s other packages coming in, that part works just like in conda.</li>
 </ul>
